@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name:  {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    giantswarm.io/service-type: "{{ .Values.serviceType }}"
+    app: {{ .Values.name }}
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+  selector:
+    app: {{ .Values.name }}
+  type: ClusterIP

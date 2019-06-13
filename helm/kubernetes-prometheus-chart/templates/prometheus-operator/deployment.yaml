@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    giantswarm.io/service-type: "{{ .Values.serviceType }}"
+    app: {{ .Values.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      giantswarm.io/service-type: "{{ .Values.serviceType }}"
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        giantswarm.io/service-type: "{{ .Values.serviceType }}"
+        app: {{ .Values.name }}
+    spec:
+      containers:
+        - name: {{ .Values.name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          args:
+            - --log-level=all
+            - --logtostderr=true
+            - --crd-apigroup={{ .Values.crdApiGroup }}
+            - --localhost=127.0.0.1
+            - --prometheus-config-reloader={{ .Values.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusConfigReloaderImage.tag }}
+            - --config-reloader-image={{ .Values.configmapReloadImage.repository }}:{{ .Values.configmapReloadImage.tag }}
+          ports:
+            - containerPort: 8080
+              name: http
+          resources:
+            limits:
+              cpu: 200m
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+      securityContext:
+        runAsUser: {{ .Values.userID }}
+        runAsGroup: {{ .Values.groupID }}
+      serviceAccountName: {{ .Values.name }}
