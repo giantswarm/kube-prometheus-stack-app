@@ -1,5 +1,5 @@
 name: prometheus-operator
-namespace: kube-system
+namespace: giantswarm
 serviceType: managed
 crdApiGroup: monitoring.coreos.com
 
