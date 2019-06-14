@@ -22,10 +22,8 @@ spec:
         - name: {{ .Values.name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           args:
-            - --log-level=all
             - --logtostderr=true
             - --crd-apigroup={{ .Values.crdApiGroup }}
-            - --localhost=127.0.0.1
             - --prometheus-config-reloader={{ .Values.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusConfigReloaderImage.tag }}
             - --config-reloader-image={{ .Values.configmapReloadImage.repository }}:{{ .Values.configmapReloadImage.tag }}
           ports:
