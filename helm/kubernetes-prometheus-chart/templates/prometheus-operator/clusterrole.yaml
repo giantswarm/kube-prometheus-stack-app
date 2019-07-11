@@ -1,10 +1,11 @@
+{{- if and .Values.prometheusOperator.enabled .Values.global.rbac.create }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ .Values.name }}
+  name: {{ template "prometheus-operator.fullname" . }}-operator
   labels:
-    giantswarm.io/service-type: "{{ .Values.serviceType }}"
-    app: {{ .Values.name }}
+    app: {{ template "prometheus-operator.name" . }}-operator
+{{ include "prometheus-operator.labels" . | indent 4 }}
 rules:
 - apiGroups:
   - apiextensions.k8s.io
@@ -13,13 +14,14 @@ rules:
   verbs:
   - '*'
 - apiGroups:
-  - {{ .Values.crdApiGroup }}
+  - {{ .Values.prometheusOperator.crdApiGroup | default "monitoring.coreos.com" }}
   resources:
   - alertmanagers
   - prometheuses
   - prometheuses/finalizers
   - alertmanagers/finalizers
   - servicemonitors
+  - podmonitors
   - prometheusrules
   verbs:
   - '*'
@@ -69,4 +71,4 @@ rules:
   - get
   - list
   - watch
-  
+{{- end }}
