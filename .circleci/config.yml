@@ -9,7 +9,7 @@ workflows:
           name: "package and push kubernetes-prometheus-chart"
           app_catalog: "giantswarm-incubator-catalog"
           app_catalog_test: "giantswarm-incubator-test-catalog"
-          chart: "kubernetes-prometheus-chart"
+          chart: "prometheus-operator-app-chart"
           # Trigger job on git tag.
           filters:
             tags:
