@@ -10,7 +10,7 @@ spec:
   jobLabel: {{ .Values.nodeExporter.jobLabel }}
   selector:
     matchLabels:
-      app: prometheus-node-exporter
+      app: "{{ .Values.nodeExporter.serviceMonitor.appLabel }}"
       {{- if .Values.nodeExporter.deployed }}
       release: "{{ .Release.Name }}"
       {{- end }}

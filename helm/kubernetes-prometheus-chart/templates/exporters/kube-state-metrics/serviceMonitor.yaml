@@ -14,7 +14,7 @@ spec:
       - "{{ .Values.kubeStateMetrics.serviceMonitor.namespaceSelector }}"
   {{- end }}
   endpoints:
-  - port: http
+  - port: "{{ .Values.kubeStateMetrics.serviceMonitor.portName }}"
     {{- if .Values.kubeStateMetrics.serviceMonitor.interval }}
     interval: {{ .Values.kubeStateMetrics.serviceMonitor.interval }}
     {{- end }}
