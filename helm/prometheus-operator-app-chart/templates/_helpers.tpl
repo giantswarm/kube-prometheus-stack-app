@@ -41,14 +41,14 @@ The longest name that gets created adds and extra 37 characters, so truncation s
 
 {{/* Create chart name and version as used by the chart label. */}}
 {{- define "prometheus-operator.chartref" -}}
-{{- replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name -}}
+{{- replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name | trunc 63 -}}
 {{- end }}
 
 {{/* Generate basic labels */}}
 {{- define "prometheus-operator.labels" }}
 chart: {{ template "prometheus-operator.chartref" . }}
-release: {{ .Release.Name | quote }}
-heritage: {{ .Release.Service | quote }}
+release: {{ .Release.Name | trunc 63 | quote }}
+heritage: {{ .Release.Service | trunc 63 | quote }}
 {{- if .Values.commonLabels}}
 {{ toYaml .Values.commonLabels }}
 {{- end }}
