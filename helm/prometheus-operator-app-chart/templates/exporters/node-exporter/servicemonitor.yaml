@@ -10,15 +10,8 @@ spec:
   jobLabel: {{ .Values.nodeExporter.jobLabel }}
   selector:
     matchLabels:
-      app: "{{ .Values.nodeExporter.serviceMonitor.appLabel }}"
-      {{- if .Values.nodeExporter.deployed }}
-      release: "{{ .Release.Name }}"
-      {{- end }}
-  {{- if not (eq .Values.nodeExporter.serviceMonitor.namespaceSelector "") }}
-  namespaceSelector:
-    matchNames:
-      - "{{ .Values.nodeExporter.serviceMonitor.namespaceSelector }}"
-  {{- end }}
+      app: prometheus-node-exporter
+      release: {{ .Release.Name }}
   endpoints:
   - port: metrics
     {{- if .Values.nodeExporter.serviceMonitor.interval }}
@@ -26,7 +19,7 @@ spec:
     {{- end }}
 {{- if .Values.nodeExporter.serviceMonitor.metricRelabelings }}
     metricRelabelings:
-{{ tpl (toYaml .Values.nodeExporter.serviceMonitor.metricRelabelings | indent 4) . }}
+{{ toYaml .Values.nodeExporter.serviceMonitor.metricRelabelings | indent 4 }}
 {{- end }}
 {{- if .Values.nodeExporter.serviceMonitor.relabelings }}
     relabelings:
