@@ -364,7 +364,6 @@ alertmanager:
 ##
 grafana:
   enabled: true
-  deployed: true
 
   ## Deploy default dashboards.
   ##
@@ -792,7 +791,6 @@ kubeScheduler:
 ##
 kubeStateMetrics:
   enabled: true
-  deployed: false
   serviceMonitor:
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
     ##
@@ -804,14 +802,6 @@ kubeStateMetrics:
     # - action: keep
     #   regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
     #   sourceLabels: [__name__]
-
-    ## Namespace selector. In case kube-state-metrics run in a different namespace.
-    ##
-    namespaceSelector: "kube-system"
-
-    ## Port Name. In case kube-state-metrics uses a different port name.
-    ##
-    portName: "metrics"
 
     # 	relabel configs to apply to samples before ingestion.
     ##
@@ -835,7 +825,6 @@ kube-state-metrics:
 ##
 nodeExporter:
   enabled: true
-  deployed: false
 
   ## Use the value configured in prometheus-node-exporter.podLabels
   ##
@@ -858,10 +847,6 @@ nodeExporter:
     #   regex: ^node_mountstats_nfs_(event|operations|transport)_.+
     #   replacement: $1
     #   action: drop
-
-    ## Namespace selector. In case node operator run in a different namespace.
-    ##
-    namespaceSelector: "kube-system"
 
     ## 	relabel configs to apply to samples before ingestion.
     ##

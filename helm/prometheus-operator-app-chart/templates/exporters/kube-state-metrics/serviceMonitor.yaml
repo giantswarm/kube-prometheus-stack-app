@@ -8,20 +8,15 @@ metadata:
 {{ include "prometheus-operator.labels" . | indent 4 }}
 spec:
   jobLabel: app
-  {{- if not (eq .Values.kubeStateMetrics.serviceMonitor.namespaceSelector "") }}
-  namespaceSelector:
-    matchNames:
-      - "{{ .Values.kubeStateMetrics.serviceMonitor.namespaceSelector }}"
-  {{- end }}
   endpoints:
-  - port: "{{ .Values.kubeStateMetrics.serviceMonitor.portName }}"
+  - port: http
     {{- if .Values.kubeStateMetrics.serviceMonitor.interval }}
     interval: {{ .Values.kubeStateMetrics.serviceMonitor.interval }}
     {{- end }}
     honorLabels: true
 {{- if .Values.kubeStateMetrics.serviceMonitor.metricRelabelings }}
     metricRelabelings:
-{{ tpl (toYaml .Values.kubeStateMetrics.serviceMonitor.metricRelabelings | indent 4) . }}
+{{ toYaml .Values.kubeStateMetrics.serviceMonitor.metricRelabelings | indent 4 }}
 {{- end }}
 {{- if .Values.kubeStateMetrics.serviceMonitor.relabelings }}
     relabelings:
@@ -30,7 +25,5 @@ spec:
   selector:
     matchLabels:
       app: kube-state-metrics
-      {{- if .Values.kubeStateMetrics.deployed }}
       release: "{{ .Release.Name }}"
-      {{- end }}
 {{- end }}

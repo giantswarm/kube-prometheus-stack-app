@@ -10,18 +10,10 @@ spec:
   selector:
     matchLabels:
       app: grafana
-      {{- if .Values.grafana.deployed }}
-      release: "{{ .Release.Name }}"
-      {{- end }}
-  {{- if not (eq .Values.grafana.serviceMonitor.namespaceSelector "") }}
-  namespaceSelector:
-    matchNames:
-      - "{{ .Values.grafana.serviceMonitor.namespaceSelector }}"
-  {{- else }}
+      release: {{ .Release.Name | quote }}
   namespaceSelector:
     matchNames:
       - {{ .Release.Namespace | quote }}
-  {{- end }}
   endpoints:
   - port: service
     {{- if .Values.grafana.serviceMonitor.interval }}
@@ -30,7 +22,7 @@ spec:
     path: "/metrics"
 {{- if .Values.grafana.serviceMonitor.metricRelabelings }}
     metricRelabelings:
-{{ tpl (toYaml .Values.grafana.serviceMonitor.metricRelabelings | indent 6) . }}
+{{ toYaml .Values.grafana.serviceMonitor.metricRelabelings | indent 6 }}
 {{- end }}
 {{- if .Values.grafana.serviceMonitor.relabelings }}
     relabelings:
