@@ -916,7 +916,7 @@ prometheusOperator:
 
   ## Deploy CRDs used by Prometheus Operator.
   ##
-  createCustomResource: true
+  createCustomResource: false
 
   ## Customize CRDs API Group
   crdApiGroup: monitoring.coreos.com
