@@ -790,7 +790,7 @@ kubeScheduler:
 ## Component scraping kube state metrics
 ##
 kubeStateMetrics:
-  enabled: true
+  enabled: false
   serviceMonitor:
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
     ##
@@ -824,7 +824,7 @@ kube-state-metrics:
 ## Deploy node exporter as a daemonset to all nodes
 ##
 nodeExporter:
-  enabled: true
+  enabled: false
 
   ## Use the value configured in prometheus-node-exporter.podLabels
   ##
@@ -1488,87 +1488,25 @@ prometheus:
     ##
     additionalScrapeConfigsExternal: false
 
-  additionalServiceMonitors: []
-  ## Name of the ServiceMonitor to create
-  ##
-  # - name: ""
+  additionalServiceMonitors:
 
-    ## Additional labels to set used for the ServiceMonitorSelector. Together with standard labels from
-    ## the chart
-    ##
-    # additionalLabels: {}
+  - name: "gs-node-exporter"
+    jobLabel: "app"
+    selector:
+      app: node-exporter
+    namespaceSelector:
+      matchNames:
+      - "kube-system"
+    endpoints:
+      - port: "metrics"
 
-    ## Service label for use in assembling a job name of the form <label value>-<port>
-    ## If no label is specified, the service name is used.
-    ##
-    # jobLabel: ""
-
-    ## labels to transfer from the kubernetes service to the target
-    ##
-    # targetLabels: ""
-
-    ## Label selector for services to which this ServiceMonitor applies
-    ##
-    # selector: {}
-
-    ## Namespaces from which services are selected
-    ##
-    # namespaceSelector:
-      ## Match any namespace
-      ##
-      # any: false
-
-      ## Explicit list of namespace names to select
-      ##
-      # matchNames: []
-
-    ## Endpoints of the selected service to be monitored
-    ##
-    # endpoints: []
-      ## Name of the endpoint's service port
-      ## Mutually exclusive with targetPort
-      # - port: ""
-
-      ## Name or number of the endpoint's target port
-      ## Mutually exclusive with port
-      # - targetPort: ""
-
-      ## File containing bearer token to be used when scraping targets
-      ##
-      #   bearerTokenFile: ""
-
-      ## Interval at which metrics should be scraped
-      ##
-      #   interval: 30s
-
-      ## HTTP path to scrape for metrics
-      ##
-      #   path: /metrics
-
-      ## HTTP scheme to use for scraping
-      ##
-      #   scheme: http
-
-      ## TLS configuration to use when scraping the endpoint
-      ##
-      #   tlsConfig:
-
-          ## Path to the CA file
-          ##
-          # caFile: ""
-
-          ## Path to client certificate file
-          ##
-          # certFile: ""
-
-          ## Skip certificate verification
-          ##
-          # insecureSkipVerify: false
-
-          ## Path to client key file
-          ##
-          # keyFile: ""
-
-          ## Server name used to verify host name
-          ##
-          # serverName: ""
+  - name: "gs-kube-state-metrics"
+    jobLabel: "app"
+    selector:
+      app: kube-state-metrics
+    namespaceSelector:
+      matchNames:
+      - "kube-system"
+    endpoints:
+      - port: "metrics"
+        honorLabels: true
