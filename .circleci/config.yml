@@ -10,7 +10,7 @@ workflows:
           app_catalog: "giantswarm-incubator-catalog"
           app_catalog_test: "giantswarm-incubator-test-catalog"
           chart: "prometheus-operator-app-chart"
-          # Trigger job on git tag.
+          # Needed to trigger job also on git tag.
           filters:
             tags:
               only: /^v.*/
