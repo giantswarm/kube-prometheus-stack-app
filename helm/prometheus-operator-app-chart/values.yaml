@@ -1510,3 +1510,14 @@ prometheus:
     endpoints:
       - port: "metrics"
         honorLabels: true
+
+  - name: "gs-nginx-ingress-controller"
+    jobLabel: "app"
+    selector:
+      k8s-app: nginx-ingress-controller
+    namespaceSelector:
+      matchNames:
+      - "kube-system"
+    endpoints:
+      - port: "metrics"
+        honorLabels: true
