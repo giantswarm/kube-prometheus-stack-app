@@ -371,6 +371,11 @@ grafana:
 
   adminPassword: prom-operator
 
+  ## App Armor is not available in CoreOS
+  rbac:
+    pspUseAppArmor: false
+
+
   ingress:
     ## If true, Grafana Ingress will be created
     ##
@@ -385,7 +390,7 @@ grafana:
     ## Labels to be added to the Ingress
     ##
     labels: {}
-
+    
     ## Hostnames.
     ## Must be provided if Ingress is enable.
     ##
