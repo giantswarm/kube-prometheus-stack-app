@@ -6,4 +6,12 @@ Giant Swarm offers a Prometheus Operator Managed App which can be installed in
 tenant clusters. Here we define the Prometheus chart with its templates and
 default configuration.
 
-The Custom Resource Definitions are taken from [the official repo](https://github.com/coreos/prometheus-operator).
+Be aware by default the CRDs are not installed in the cluster to avoid collisions with existing deployments of the chart. So in case it is the first time you install the chart add those manually like it is describe below or passing in the values the parameter `prometheusOperator.createCustomResource` equal to `true`.
+
+```
+kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/master/example/prometheus-operator-crd/alertmanager.crd.yaml
+kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/master/example/prometheus-operator-crd/prometheus.crd.yaml
+kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/master/example/prometheus-operator-crd/prometheusrule.crd.yaml
+kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/master/example/prometheus-operator-crd/servicemonitor.crd.yaml
+kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/master/example/prometheus-operator-crd/podmonitor.crd.yaml
+```
