@@ -226,7 +226,7 @@ alertmanager:
     ##
     image:
       repository: quay.io/prometheus/alertmanager
-      tag: v0.17.0
+      tag: v0.19.0
 
     ## If true then the user will be responsible to provide a secret with alertmanager configuration
     ## So when true the config part will be ignored (including templateFiles) and the one in the secret will be used
@@ -1029,7 +1029,7 @@ prometheusOperator:
   ##
   image:
     repository: quay.io/coreos/prometheus-operator
-    tag: v0.31.1
+    tag: v0.35.0
     pullPolicy: IfNotPresent
 
   ## Configmap-reload image to use for reloading configmaps
@@ -1042,7 +1042,7 @@ prometheusOperator:
   ##
   prometheusConfigReloaderImage:
     repository: quay.io/coreos/prometheus-config-reloader
-    tag: v0.31.1
+    tag: v0.35.0
 
   ## Set the prometheus config reloader side-car CPU limit. If unset, uses the prometheus-operator project default
   ##
@@ -1056,7 +1056,7 @@ prometheusOperator:
   ##
   hyperkubeImage:
     repository: k8s.gcr.io/hyperkube
-    tag: v1.12.1
+    tag: v1.16.3
     pullPolicy: IfNotPresent
 
 ## Deploy a Prometheus instance
@@ -1188,7 +1188,7 @@ prometheus:
     ##
     image:
       repository: quay.io/prometheus/prometheus
-      tag: v2.10.0
+      tag: v2.15.2
 
     ## Tolerations for use with node taints
     ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -1498,7 +1498,8 @@ prometheus:
   - name: "gs-node-exporter"
     jobLabel: "app"
     selector:
-      app: node-exporter
+      matchLabels:
+        app: node-exporter
     namespaceSelector:
       matchNames:
       - "kube-system"
@@ -1508,7 +1509,8 @@ prometheus:
   - name: "gs-kube-state-metrics"
     jobLabel: "app"
     selector:
-      app: kube-state-metrics
+      matchLabels:
+        app: kube-state-metrics
     namespaceSelector:
       matchNames:
       - "kube-system"
@@ -1519,7 +1521,8 @@ prometheus:
   - name: "gs-nginx-ingress-controller"
     jobLabel: "app"
     selector:
-      k8s-app: nginx-ingress-controller
+      matchLabels:
+        k8s-app: nginx-ingress-controller
     namespaceSelector:
       matchNames:
       - "kube-system"
