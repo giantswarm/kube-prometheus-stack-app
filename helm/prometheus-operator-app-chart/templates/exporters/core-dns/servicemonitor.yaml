@@ -3,6 +3,7 @@ apiVersion: {{ printf "%s/v1" (.Values.prometheusOperator.crdApiGroup | default 
 kind: ServiceMonitor
 metadata:
   name: {{ template "prometheus-operator.fullname" . }}-coredns
+  namespace: {{ $.Release.Namespace }}
   labels:
     app: {{ template "prometheus-operator.name" . }}-coredns
 {{ include "prometheus-operator.labels" . | indent 4 }}
@@ -11,7 +12,7 @@ spec:
   selector:
     matchLabels:
       app: {{ template "prometheus-operator.name" . }}-coredns
-      release: {{ .Release.Name | quote }}
+      release: {{ $.Release.Name | quote }}
   namespaceSelector:
     matchNames:
       - "kube-system"
@@ -30,3 +31,4 @@ spec:
 {{ toYaml .Values.coreDns.serviceMonitor.relabelings | indent 4 }}
 {{- end }}
 {{- end }}
+
