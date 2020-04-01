@@ -1,14 +1,14 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@0.4.2
+  architect: giantswarm/architect@0.8.5
 
 workflows:
   package-and-push-chart-on-tag:
     jobs:
       - architect/push-to-app-catalog:
           name: "package and push kubernetes-prometheus-app chart"
-          app_catalog: "giantswarm-incubator-catalog"
-          app_catalog_test: "giantswarm-incubator-test-catalog"
+          app_catalog: "giantswarm-catalog"
+          app_catalog_test: "giantswarm-test-catalog"
           chart: "prometheus-operator-app-chart"
           # Needed to trigger job also on git tag.
           filters:
