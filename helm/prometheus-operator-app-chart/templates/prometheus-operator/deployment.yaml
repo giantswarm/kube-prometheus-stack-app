@@ -34,7 +34,7 @@ spec:
           imagePullPolicy: "{{ .Values.prometheusOperator.image.pullPolicy }}"
           args:
           {{- if .Values.prometheusOperator.kubeletService.enabled }}
-            - --kubelet-service={{ .Values.prometheusOperator.kubeletService.namespace }}/{{ template "prometheus-operator.fullname" . }}-kubelet
+            - --kubelet-service={{ .Values.prometheusOperator.kubeletService.namespace }}/kubelet
           {{- end }}
           {{- if .Values.prometheusOperator.logFormat }}
             - --log-format={{ .Values.prometheusOperator.logFormat }}
