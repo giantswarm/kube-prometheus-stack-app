@@ -8,8 +8,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ## [v0.2.1] Unreleased
 
 ### Changed
-
-- Fix kubelet name argument in prometheus operator deployment 
+- Fix kubelet service name in the Prometheus Operator deployment 
 - Update Prometheus Operator to 0.39.0
 - Update Prometheus to 2.17.2
 - Update Alert manager to 0.20.0

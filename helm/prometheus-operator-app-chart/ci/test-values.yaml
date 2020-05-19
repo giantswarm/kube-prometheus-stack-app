@@ -933,9 +933,6 @@ prometheusOperator:
   ##
   createCustomResource: true
 
-  ## Customize CRDs API Group
-  crdApiGroup: monitoring.coreos.com
-
   # Remove CRDs before instaling, created for use on CI environment.
   cleanupCustomResourceBeforeInstall: true
 

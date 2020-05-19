@@ -3,7 +3,8 @@ appVersion: v0.39.0
 description: Provides easy monitoring definitions for Kubernetes services, and deployment and management of Prometheus instances.
 home: https://github.com/giantswarm/prometheus-operator-app
 icon: https://raw.githubusercontent.com/prometheus/prometheus.github.io/master/assets/prometheus_logo-cb55bb5c346.png
-name: prometheus-operator-app
+name: prometheus-operator-app-chart
+namespace: monitoring
 version: [[ .Version ]]
 sources:
 - https://raw.githubusercontent.com/giantswarm/prometheus-operator-app/v[[ .Version ]]/README.md

@@ -1,4 +1,4 @@
-# https://raw.githubusercontent.com/helm/charts/master/stable/prometheus-operator/crds/crd-thanosrulers.yaml
+# https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
@@ -6,9 +6,9 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.2.4
     helm.sh/hook: crd-install
   creationTimestamp: null
-  name: {{ printf "thanosrulers.%s" (.Values.prometheusOperator.crdApiGroup | default "monitoring.coreos.com") }}
+  name: thanosrulers.monitoring.coreos.com
 spec:
-  group: {{ .Values.prometheusOperator.crdApiGroup | default "monitoring.coreos.com" }}
+  group: monitoring.coreos.com
   names:
     kind: ThanosRuler
     listKind: ThanosRulerList

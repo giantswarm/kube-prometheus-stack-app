@@ -322,7 +322,7 @@ alertmanager:
     ## Image of Alertmanager
     ##
     image:
-      repository: quay.io/prometheus/alertmanager
+      repository: quay.io/giantswarm/alertmanager
       tag: v0.20.0
 
     ## If true then the user will be responsible to provide a secret with alertmanager configuration
@@ -1076,7 +1076,7 @@ prometheusOperator:
   tlsProxy:
     enabled: true
     image:
-      repository: squareup/ghostunnel
+      repository: quay.io/giantswarm/ghostunnel
       tag: v1.5.2
       pullPolicy: IfNotPresent
     resources: {}
@@ -1093,7 +1093,7 @@ prometheusOperator:
     patch:
       enabled: true
       image:
-        repository: jettech/kube-webhook-certgen
+        repository: quay.io/giantswarm/kube-webhook-certgen
         tag: v1.2.0
         pullPolicy: IfNotPresent
       resources: {}
@@ -1161,10 +1161,7 @@ prometheusOperator:
 
   ## Deploy CRDs used by Prometheus Operator.
   ##
-  createCustomResource: false
-
-  ## Customize CRDs API Group
-  crdApiGroup: monitoring.coreos.com
+  createCustomResource: true
 
   ## Attempt to clean up CRDs created by Prometheus Operator.
   ##
@@ -1265,20 +1262,20 @@ prometheusOperator:
   ## Prometheus-operator image
   ##
   image:
-    repository: quay.io/coreos/prometheus-operator
+    repository: quay.io/giantswarm/prometheus-operator
     tag: v0.39.0
     pullPolicy: IfNotPresent
 
   ## Configmap-reload image to use for reloading configmaps
   ##
   configmapReloadImage:
-    repository: quay.io/coreos/configmap-reload
+    repository: quay.io/giantswarm/configmap-reload
     tag: v0.0.1
 
   ## Prometheus-config-reloader image to use for config and rule reloading
   ##
   prometheusConfigReloaderImage:
-    repository: quay.io/coreos/prometheus-config-reloader
+    repository: quay.io/giantswarm/prometheus-config-reloader
     tag: v0.39.0
 
   ## Set the prometheus config reloader side-car CPU limit
@@ -1292,8 +1289,8 @@ prometheusOperator:
   ## Hyperkube image to use when cleaning up
   ##
   hyperkubeImage:
-    repository: k8s.gcr.io/hyperkube
-    tag: v1.12.1
+    repository: quay.io/giantswarm/hyperkube
+    tag: v1.17.5
     pullPolicy: IfNotPresent
 
 ## Deploy a Prometheus instance
@@ -1512,7 +1509,7 @@ prometheus:
     ## Image of Prometheus.
     ##
     image:
-      repository: quay.io/prometheus/prometheus
+      repository: quay.io/giantswarm/prometheus
       tag: v2.17.2
 
     ## Tolerations for use with node taints

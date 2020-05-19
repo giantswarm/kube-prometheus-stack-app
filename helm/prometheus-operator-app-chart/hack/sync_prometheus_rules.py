@@ -102,7 +102,7 @@ replacement_map = {
         'init': '{{- $alertmanagerJob := printf "%s-%s" (include "prometheus-operator.fullname" .) "alertmanager" }}'},
     'namespace="monitoring"': {
         'replacement': 'namespace="{{ $namespace }}"',
-        'init': '{{- $namespace := .Release.Namespace }}'},
+        'init': '{{- $namespace := $.Release.Namespace }}'},
     'alertmanager-$1': {
         'replacement': '$1',
         'init': ''},
@@ -127,11 +127,11 @@ https://github.com/helm/charts/tree/master/stable/prometheus-operator/hack
 */ -}}
 {{- $kubeTargetVersion := default .Capabilities.KubeVersion.GitVersion .Values.kubeTargetVersionOverride }}
 {{- if and (semverCompare ">=%(min_kubernetes)s" $kubeTargetVersion) (semverCompare "<%(max_kubernetes)s" $kubeTargetVersion) .Values.defaultRules.create%(condition)s }}%(init_line)s
-apiVersion: {{ printf "%s/v1" (.Values.prometheusOperator.crdApiGroup | default "monitoring.coreos.com") }}
+apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: {{ printf "%%s-%%s" (include "prometheus-operator.fullname" .) "%(name)s" | trunc 63 | trimSuffix "-" }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     app: {{ template "prometheus-operator.name" . }}
 {{ include "prometheus-operator.labels" . | indent 4 }}
