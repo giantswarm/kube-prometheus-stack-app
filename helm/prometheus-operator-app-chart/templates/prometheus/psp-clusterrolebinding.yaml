@@ -15,4 +15,3 @@ subjects:
     name: {{ template "prometheus-operator.prometheus.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
 {{- end }}
-

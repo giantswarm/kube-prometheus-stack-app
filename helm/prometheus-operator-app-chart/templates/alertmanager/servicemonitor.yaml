@@ -3,6 +3,7 @@ apiVersion: {{ printf "%s/v1" (.Values.prometheusOperator.crdApiGroup | default 
 kind: ServiceMonitor
 metadata:
   name: {{ template "prometheus-operator.fullname" . }}-alertmanager
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "prometheus-operator.name" . }}-alertmanager
 {{ include "prometheus-operator.labels" . | indent 4 }}
@@ -11,11 +12,12 @@ spec:
     matchLabels:
       app: {{ template "prometheus-operator.name" . }}-alertmanager
       release: {{ .Release.Name | quote }}
+      self-monitor: "true"
   namespaceSelector:
     matchNames:
       - {{ .Release.Namespace | quote }}
   endpoints:
-  - port: web
+  - port: {{ .Values.alertmanager.alertmanagerSpec.portName }}
     {{- if .Values.alertmanager.serviceMonitor.interval }}
     interval: {{ .Values.alertmanager.serviceMonitor.interval }}
     {{- end }}
