@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project's packages adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [v0.2.1] Unreleased
+## Unreleased
+
+### Changed
+
+## [v0.3.0]
 
 ### Changed
 - Fix kubelet service name in the Prometheus Operator deployment 
@@ -15,6 +19,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Update Grafana chart to 5.0.25
 - Update kube-state-metrics chart to 2.8.5
 - Update prometheus-node-exporter chart to 1.9.1
+- Rename to prometheus-operator-app
 
 ## [v0.2.0]
 
@@ -42,3 +47,4 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 [0.1.0]: https://github.com/giantswarm/prometheus-operator-app/pull/2
 [0.1.1]: https://github.com/giantswarm/prometheus-operator-app/pull/10
 [0.2.0]: https://github.com/giantswarm/prometheus-operator-app/pull/19
+[0.3.0]: https://github.com/giantswarm/prometheus-operator-app/pull/23
