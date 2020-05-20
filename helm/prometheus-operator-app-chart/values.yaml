@@ -1263,7 +1263,7 @@ prometheusOperator:
   ##
   image:
     repository: quay.io/giantswarm/prometheus-operator
-    tag: v0.39.0
+    tag: v0.38.1
     pullPolicy: IfNotPresent
 
   ## Configmap-reload image to use for reloading configmaps
@@ -1276,7 +1276,7 @@ prometheusOperator:
   ##
   prometheusConfigReloaderImage:
     repository: quay.io/giantswarm/prometheus-config-reloader
-    tag: v0.39.0
+    tag: v0.38.1
 
   ## Set the prometheus config reloader side-car CPU limit
   ##
