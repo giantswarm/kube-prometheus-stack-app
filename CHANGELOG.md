@@ -5,11 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project's packages adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [v0.2.1] Unrealeased
+## [v0.2.1] Unreleased
 
 ### Changed
-
-- Fix kubelet name argument in prometheus operator deployment 
+- Fix kubelet service name in the Prometheus Operator deployment 
+- Update Prometheus Operator to 0.38.1
+- Update Prometheus to 2.17.2
+- Update Alert manager to 0.20.0
+- Update Grafana chart to 5.0.25
+- Update kube-state-metrics chart to 2.8.5
+- Update prometheus-node-exporter chart to 1.9.1
 
 ## [v0.2.0]
 
@@ -22,12 +27,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Update kube-state-metrics chart to 2.4.1
 - Update prometheus-node-exporter chart to 1.8.1
 
-
 ## [v0.1.1]
 
 ### Changed
 
-- Disable App Armor in grafana as it does not work on CoreOS.
+- Disable App Armor in grafana as it does not work on CoreOS and Flatcar.
 
 ## [v0.1.0]
 

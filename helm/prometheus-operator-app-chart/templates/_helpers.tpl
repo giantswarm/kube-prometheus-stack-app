@@ -16,10 +16,10 @@ The longest name that gets created adds and extra 37 characters, so truncation s
 {{- .Values.fullnameOverride | trunc 26 | trimSuffix "-" -}}
 {{- else -}}
 {{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- if contains $name .Release.Name -}}
-{{- .Release.Name | trunc 26 | trimSuffix "-" -}}
+{{- if contains $name $.Release.Name -}}
+{{- $.Release.Name | trunc 26 | trimSuffix "-" -}}
 {{- else -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 26 | trimSuffix "-" -}}
+{{- printf "%s-%s" $.Release.Name $name | trunc 26 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
@@ -47,8 +47,8 @@ The longest name that gets created adds and extra 37 characters, so truncation s
 {{/* Generate basic labels */}}
 {{- define "prometheus-operator.labels" }}
 chart: {{ template "prometheus-operator.chartref" . }}
-release: {{ .Release.Name | trunc 63 | quote }}
-heritage: {{ .Release.Service | trunc 63 | quote }}
+release: {{ $.Release.Name | trunc 63 | quote }}
+heritage: {{ $.Release.Service | trunc 63 | quote }}
 {{- if .Values.commonLabels}}
 {{ toYaml .Values.commonLabels }}
 {{- end }}
@@ -80,12 +80,3 @@ heritage: {{ .Release.Service | trunc 63 | quote }}
     {{ default "default" .Values.alertmanager.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
-
-{{/* Workaround for https://github.com/helm/helm/issues/3117 */}}
-{{- define "prometheus-operator.rangeskipempty" -}}
-{{- range $key, $value := . }}
-{{- if $value }}
-{{ $key }}: {{ $value }}
-{{- end }}
-{{- end }}
-{{- end }}
