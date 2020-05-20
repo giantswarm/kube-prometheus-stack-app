@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 - Fix kubelet service name in the Prometheus Operator deployment 
-- Update Prometheus Operator to 0.39.0
+- Update Prometheus Operator to 0.38.1
 - Update Prometheus to 2.17.2
 - Update Alert manager to 0.20.0
 - Update Grafana chart to 5.0.25
