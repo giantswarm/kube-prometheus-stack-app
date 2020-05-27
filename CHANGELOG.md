@@ -13,7 +13,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 - Fix CRD installation to support both helm2 and helm3
-
+- Add support for installations in China
 
 ## [v0.3.1]
 
