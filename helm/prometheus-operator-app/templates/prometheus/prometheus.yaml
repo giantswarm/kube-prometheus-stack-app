@@ -33,9 +33,9 @@ spec:
 {{- end }}
 {{- if .Values.prometheus.prometheusSpec.image }}
 {{- if (.Values.Installation) }}
-  baseImage: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheus.prometheusSpec.image.repository }}"
+  baseImage: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheus.prometheusSpec.image.name }}"
 {{ else }}
-  baseImage: "{{ .Values.image.registry }}/{{ .Values.prometheus.prometheusSpec.image.repository }}"
+  baseImage: "{{ .Values.image.registry }}/{{ .Values.prometheus.prometheusSpec.image.name }}"
 {{ end }}
   version: {{ .Values.prometheus.prometheusSpec.image.tag }}
 {{- end }}
