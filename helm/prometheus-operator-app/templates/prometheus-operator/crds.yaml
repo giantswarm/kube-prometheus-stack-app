@@ -1,4 +1,4 @@
-{{- if and .Values.prometheusOperator.enabled .Values.prometheusOperator.createCustomResource -}}
+{{- if and .Values.prometheusOperator.enabled .Values.prometheusOperator.createCustomResource (eq .Release.Service "Tiller") -}}
 {{- range $path, $bytes := .Files.Glob "crds/*.yaml" }}
 {{ $.Files.Get $path }}
 ---
