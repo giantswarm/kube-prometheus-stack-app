@@ -16,6 +16,9 @@ commonLabels: {}
 # scmhash: abc123
 # myLabel: aakkmd
 
+image:
+  registry: quay.io
+
 ## Create default rules for monitoring the cluster
 ##
 defaultRules:
@@ -225,7 +228,7 @@ alertmanager:
     ## Image of Alertmanager
     ##
     image:
-      repository: quay.io/prometheus/alertmanager
+      name: giantswarm/alertmanager
       tag: v0.17.0
 
     ## If true then the user will be responsible to provide a secret with alertmanager configuration
@@ -1035,20 +1038,20 @@ prometheusOperator:
   ## Prometheus-operator image
   ##
   image:
-    repository: quay.io/coreos/prometheus-operator
+    name: giantswarm/prometheus-operator
     tag: v0.31.1
     pullPolicy: IfNotPresent
 
   ## Configmap-reload image to use for reloading configmaps
   ##
   configmapReloadImage:
-    repository: quay.io/coreos/configmap-reload
+    name: giantswarm/configmap-reload
     tag: v0.0.1
 
   ## Prometheus-config-reloader image to use for config and rule reloading
   ##
   prometheusConfigReloaderImage:
-    repository: quay.io/coreos/prometheus-config-reloader
+    name: giantswarm/prometheus-config-reloader
     tag: v0.31.1
 
   ## Set the prometheus config reloader side-car CPU limit. If unset, uses the prometheus-operator project default
@@ -1062,7 +1065,7 @@ prometheusOperator:
   ## Hyperkube image to use when cleaning up
   ##
   hyperkubeImage:
-    repository: k8s.gcr.io/hyperkube
+    name: giantswarm/hyperkube
     tag: v1.12.1
     pullPolicy: IfNotPresent
 
@@ -1194,7 +1197,7 @@ prometheus:
     ## Image of Prometheus.
     ##
     image:
-      repository: quay.io/prometheus/prometheus
+      name: giantswarm/prometheus
       tag: v2.10.0
 
     ## Tolerations for use with node taints

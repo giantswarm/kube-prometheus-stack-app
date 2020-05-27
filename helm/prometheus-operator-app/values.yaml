@@ -326,7 +326,7 @@ alertmanager:
     ## Image of Alertmanager
     ##
     image:
-      repository: giantswarm/alertmanager
+      name: giantswarm/alertmanager
       tag: v0.20.0
 
     ## If true then the user will be responsible to provide a secret with alertmanager configuration
@@ -1080,7 +1080,7 @@ prometheusOperator:
   tlsProxy:
     enabled: true
     image:
-      repository: giantswarm/ghostunnel
+      name: giantswarm/ghostunnel
       tag: v1.5.2
       pullPolicy: IfNotPresent
     resources: {}
@@ -1097,7 +1097,7 @@ prometheusOperator:
     patch:
       enabled: true
       image:
-        repository: giantswarm/kube-webhook-certgen
+        name: giantswarm/kube-webhook-certgen
         tag: v1.2.0
         pullPolicy: IfNotPresent
       resources: {}
@@ -1266,20 +1266,20 @@ prometheusOperator:
   ## Prometheus-operator image
   ##
   image:
-    repository: giantswarm/prometheus-operator
+    name: giantswarm/prometheus-operator
     tag: v0.38.1
     pullPolicy: IfNotPresent
 
   ## Configmap-reload image to use for reloading configmaps
   ##
   configmapReloadImage:
-    repository: giantswarm/configmap-reload
+    name: giantswarm/configmap-reload
     tag: v0.0.1
 
   ## Prometheus-config-reloader image to use for config and rule reloading
   ##
   prometheusConfigReloaderImage:
-    repository: giantswarm/prometheus-config-reloader
+    name: giantswarm/prometheus-config-reloader
     tag: v0.38.1
 
   ## Set the prometheus config reloader side-car CPU limit
@@ -1293,7 +1293,7 @@ prometheusOperator:
   ## Hyperkube image to use when cleaning up
   ##
   hyperkubeImage:
-    repository: giantswarm/hyperkube
+    name: giantswarm/hyperkube
     tag: v1.17.5
     pullPolicy: IfNotPresent
 
@@ -1513,7 +1513,7 @@ prometheus:
     ## Image of Prometheus.
     ##
     image:
-      repository: quay.io/giantswarm/prometheus
+      name: quay.io/giantswarm/prometheus
       tag: v2.17.2
 
     ## Tolerations for use with node taints

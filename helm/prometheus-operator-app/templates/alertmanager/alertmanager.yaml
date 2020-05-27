@@ -10,9 +10,9 @@ metadata:
 spec:
 {{- if .Values.alertmanager.alertmanagerSpec.image }}
 {{- if (.Values.Installation) }}
-  baseImage: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.alertmanager.alertmanagerSpec.image.repository }}"
+  baseImage: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.alertmanager.alertmanagerSpec.image.name }}"
 {{ else }}
-  baseImage: "{{ .Values.image.registry }}/{{ .Values.alertmanager.alertmanagerSpec.image.repository }}"
+  baseImage: "{{ .Values.image.registry }}/{{ .Values.alertmanager.alertmanagerSpec.image.name }}"
 {{ end }}
   version: {{ .Values.alertmanager.alertmanagerSpec.image.tag }}
 {{- end }}
