@@ -3,7 +3,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
   name: {{ template "prometheus-operator.fullname" . }}-prometheus
-  namespace: {{ $.Release.Namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "prometheus-operator.name" . }}-prometheus
 {{ include "prometheus-operator.labels" . | indent 4 }}
@@ -17,7 +17,7 @@ spec:
 {{- if .Values.prometheus.prometheusSpec.alertingEndpoints }}
 {{ toYaml .Values.prometheus.prometheusSpec.alertingEndpoints | indent 6 }}
 {{- else if .Values.alertmanager.enabled }}
-      - namespace: {{ $.Release.Namespace }}
+      - namespace: {{ .Release.Namespace }}
         name: {{ template "prometheus-operator.fullname" . }}-alertmanager
         port: {{ .Values.alertmanager.alertmanagerSpec.portName }}
         {{- if .Values.alertmanager.alertmanagerSpec.routePrefix }}
@@ -50,11 +50,11 @@ spec:
   replicaExternalLabelName: "{{ .Values.prometheus.prometheusSpec.replicaExternalLabelName }}"
 {{- end }}
 {{- if .Values.prometheus.prometheusSpec.externalUrl }}
-  externalUrl: "{{ .Values.prometheus.prometheusSpec.externalUrl }}"
+  externalUrl: "{{ tpl .Values.prometheus.prometheusSpec.externalUrl . }}"
 {{- else if and .Values.prometheus.ingress.enabled .Values.prometheus.ingress.hosts }}
-  externalUrl: "http://{{ index .Values.prometheus.ingress.hosts 0 }}{{ .Values.prometheus.prometheusSpec.routePrefix }}"
+  externalUrl: "http://{{ tpl (index .Values.prometheus.ingress.hosts 0) . }}{{ .Values.prometheus.prometheusSpec.routePrefix }}"
 {{- else }}
-  externalUrl: http://{{ template "prometheus-operator.fullname" . }}-prometheus.{{ $.Release.Namespace }}:{{ .Values.prometheus.service.port }}
+  externalUrl: http://{{ template "prometheus-operator.fullname" . }}-prometheus.{{ .Release.Namespace }}:{{ .Values.prometheus.service.port }}
 {{- end }}
 {{- if .Values.prometheus.prometheusSpec.nodeSelector }}
   nodeSelector:
@@ -101,7 +101,7 @@ spec:
 {{ else if .Values.prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues  }}
   serviceMonitorSelector:
     matchLabels:
-      release: {{ $.Release.Name | quote }}
+      release: {{ .Release.Name | quote }}
 {{ else }}
   serviceMonitorSelector: {}
 {{- end }}
@@ -117,7 +117,7 @@ spec:
 {{ else if .Values.prometheus.prometheusSpec.podMonitorSelectorNilUsesHelmValues  }}
   podMonitorSelector:
     matchLabels:
-      release: {{ $.Release.Name | quote }}
+      release: {{ .Release.Name | quote }}
 {{ else }}
   podMonitorSelector: {}
 {{- end }}
@@ -152,7 +152,7 @@ spec:
   ruleSelector:
     matchLabels:
       app: {{ template "prometheus-operator.name" . }}
-      release: {{ $.Release.Name | quote }}
+      release: {{ .Release.Name | quote }}
 {{ else }}
   ruleSelector: {}
 {{- end }}
@@ -238,4 +238,12 @@ spec:
 {{- end }}
 {{- if .Values.prometheus.prometheusSpec.enforcedNamespaceLabel }}
   enforcedNamespaceLabel: {{ .Values.prometheus.prometheusSpec.enforcedNamespaceLabel }}
+{{- end }}
+{{- if .Values.prometheus.prometheusSpec.volumes }}
+  volumes:
+{{ toYaml .Values.prometheus.prometheusSpec.volumes | indent 4 }}
+{{- end }}
+{{- if .Values.prometheus.prometheusSpec.volumeMounts }}
+  volumeMounts:
+{{ toYaml .Values.prometheus.prometheusSpec.volumeMounts | indent 4 }}
 {{- end }}

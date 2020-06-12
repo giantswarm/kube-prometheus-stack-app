@@ -371,7 +371,10 @@ grafana:
   defaultDashboardsEnabled: true
 
   adminPassword: prom-operator
-
+  
+  rbac:	
+    pspUseAppArmor: false
+  
   ingress:
     ## If true, Grafana Ingress will be created
     ##

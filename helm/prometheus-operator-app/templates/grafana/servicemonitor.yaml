@@ -3,7 +3,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ template "prometheus-operator.fullname" . }}-grafana
-  namespace: {{ $.Release.Namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "prometheus-operator.name" . }}-grafana
 {{ include "prometheus-operator.labels" . | indent 4 }}
@@ -11,10 +11,10 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: grafana
-      app.kubernetes.io/instance: {{ $.Release.Name | quote }}
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
   namespaceSelector:
     matchNames:
-      - {{ $.Release.Namespace | quote }}
+      - {{ .Release.Namespace | quote }}
   endpoints:
   - port: {{ .Values.grafana.service.portName }}
     {{- if .Values.grafana.serviceMonitor.interval }}
