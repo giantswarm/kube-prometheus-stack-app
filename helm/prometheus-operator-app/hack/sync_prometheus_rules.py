@@ -55,6 +55,7 @@ condition_map = {
     'k8s.rules': ' .Values.defaultRules.rules.k8s',
     'kube-apiserver.rules': ' .Values.kubeApiServer.enabled .Values.defaultRules.rules.kubeApiserver',
     'kube-apiserver-error': ' .Values.kubeApiServer.enabled .Values.defaultRules.rules.kubeApiserverError',
+    'kube-apiserver-slos': ' .Values.kubeApiServer.enabled .Values.defaultRules.rules.kubeApiserverSlos',
     'kube-prometheus-node-alerting.rules': ' .Values.defaultRules.rules.kubePrometheusNodeAlerting',
     'kube-prometheus-node-recording.rules': ' .Values.defaultRules.rules.kubePrometheusNodeRecording',
     'kube-scheduler.rules': ' .Values.kubeScheduler.enabled .Values.defaultRules.rules.kubeScheduler',
@@ -102,7 +103,7 @@ replacement_map = {
         'init': '{{- $alertmanagerJob := printf "%s-%s" (include "prometheus-operator.fullname" .) "alertmanager" }}'},
     'namespace="monitoring"': {
         'replacement': 'namespace="{{ $namespace }}"',
-        'init': '{{- $namespace := $.Release.Namespace }}'},
+        'init': '{{- $namespace := .Release.Namespace }}'},
     'alertmanager-$1': {
         'replacement': '$1',
         'init': ''},
@@ -131,7 +132,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: {{ printf "%%s-%%s" (include "prometheus-operator.fullname" .) "%(name)s" | trunc 63 | trimSuffix "-" }}
-  namespace: {{ $.Release.Namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "prometheus-operator.name" . }}
 {{ include "prometheus-operator.labels" . | indent 4 }}

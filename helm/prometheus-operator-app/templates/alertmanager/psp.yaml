@@ -6,11 +6,11 @@ metadata:
   namespace: {{ $.Release.Namespace }}
   labels:
     app: {{ template "prometheus-operator.name" . }}-alertmanager
-{{ include "prometheus-operator.labels" . | indent 4 }}
-{{- if .Values.global.rbac.pspAnnotations }}	
-  annotations:	
-{{ toYaml .Values.global.rbac.pspAnnotations | indent 4 }}	
+{{- if .Values.global.rbac.pspAnnotations }}
+  annotations:
+{{ toYaml .Values.global.rbac.pspAnnotations | indent 4 }}
 {{- end }}
+{{ include "prometheus-operator.labels" . | indent 4 }}
 spec:
   privileged: false
   # Required to prevent escalations to root.

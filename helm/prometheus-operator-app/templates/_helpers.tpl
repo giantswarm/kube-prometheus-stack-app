@@ -16,10 +16,10 @@ The longest name that gets created adds and extra 37 characters, so truncation s
 {{- .Values.fullnameOverride | trunc 26 | trimSuffix "-" -}}
 {{- else -}}
 {{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- if contains $name $.Release.Name -}}
-{{- $.Release.Name | trunc 26 | trimSuffix "-" -}}
+{{- if contains $name .Release.Name -}}
+{{- .Release.Name | trunc 26 | trimSuffix "-" -}}
 {{- else -}}
-{{- printf "%s-%s" $.Release.Name $name | trunc 26 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Name $name | trunc 26 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
@@ -41,14 +41,14 @@ The longest name that gets created adds and extra 37 characters, so truncation s
 
 {{/* Create chart name and version as used by the chart label. */}}
 {{- define "prometheus-operator.chartref" -}}
-{{- replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name | trunc 63 -}}
+{{- replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name -}}
 {{- end }}
 
 {{/* Generate basic labels */}}
 {{- define "prometheus-operator.labels" }}
 chart: {{ template "prometheus-operator.chartref" . }}
-release: {{ $.Release.Name | trunc 63 | quote }}
-heritage: {{ $.Release.Service | trunc 63 | quote }}
+release: {{ $.Release.Name | quote }}
+heritage: {{ $.Release.Service | quote }}
 {{- if .Values.commonLabels}}
 {{ toYaml .Values.commonLabels }}
 {{- end }}
