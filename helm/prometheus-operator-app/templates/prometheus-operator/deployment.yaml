@@ -38,9 +38,11 @@ spec:
           {{ end }}
           imagePullPolicy: "{{ .Values.prometheusOperator.image.pullPolicy }}"
           args:
-            - --manage-crds={{ $.Values.prometheusOperator.manageCrds }}
+          {{- if semverCompare "< v0.39.0" .Values.prometheusOperator.image.tag }}
+            - --manage-crds={{ .Values.prometheusOperator.manageCrds }}
+          {{- end }}
           {{- if .Values.prometheusOperator.kubeletService.enabled }}
-            - --kubelet-service={{ .Values.prometheusOperator.kubeletService.namespace }}/kubelet
+            - --kubelet-service={{ .Values.prometheusOperator.kubeletService.namespace }}/{{ template "prometheus-operator.fullname" . }}-kubelet
           {{- end }}
           {{- if .Values.prometheusOperator.logFormat }}
             - --log-format={{ .Values.prometheusOperator.logFormat }}
@@ -60,16 +62,13 @@ spec:
           {{- end }}
             - --logtostderr=true
             - --localhost=127.0.0.1
-            {{- if (.Values.Installation) }}
+          {{- if (.Values.Installation) }}
             - --prometheus-config-reloader={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
-            {{ else }}
-            - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
-            {{ end }}
-            {{- if (.Values.Installation) }}
             - --config-reloader-image={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.configmapReloadImage.name }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
-            {{ else }}
+          {{ else }}
+            - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
             - --config-reloader-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.configmapReloadImage.name }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
-            {{ end }}
+          {{ end }}
             - --config-reloader-cpu={{ .Values.prometheusOperator.configReloaderCpu }}
             - --config-reloader-memory={{ .Values.prometheusOperator.configReloaderMemory }}
           ports:

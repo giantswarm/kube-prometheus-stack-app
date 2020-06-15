@@ -40,9 +40,7 @@ spec:
               kubectl delete servicemonitor --all;
               kubectl delete podmonitors    --all;
               kubectl delete thanosrulers   --all;
-
               sleep 10;
-              
               kubectl delete crd alertmanagers.monitoring.coreos.com;
               kubectl delete crd prometheuses.monitoring.coreos.com;
               kubectl delete crd prometheusrules.monitoring.coreos.com;
