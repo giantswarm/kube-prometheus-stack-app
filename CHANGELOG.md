@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project's packages adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v0.3.4]
+
+### Changed
+
+- Introduce `crd-install` hook for helm2 compatibility. 
+
 ## [v0.3.3]
 
 ### Changed
@@ -59,11 +65,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/nginx-ingress-controller-app/compare/v0.3.3...master
-[v0.3.3]: https://github.com/giantswarm/prometheus-operator-app/releases/tag/v0.3.3
-[v0.3.2]: https://github.com/giantswarm/prometheus-operator-app/releases/tag/v0.3.2
-[v0.3.1]: https://github.com/giantswarm/prometheus-operator-app/releases/tag/v0.3.1
-[v0.3.0]: https://github.com/giantswarm/prometheus-operator-app/releases/tag/v0.3.0
-[v0.2.0]: https://github.com/giantswarm/prometheus-operator-app/releases/tag/v0.2.0
-[v0.1.1]: https://github.com/giantswarm/prometheus-operator-app/releases/tag/v0.1.1
+[Unreleased]: https://github.com/giantswarm/nginx-ingress-controller-app/compare/v0.3.4...master
+[v0.3.4]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.3..v0.3.4
+[v0.3.3]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.2..v0.3.3
+[v0.3.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.1..v0.3.2
+[v0.3.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.0..v0.3.1
+[v0.3.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.2.0..v0.3.0
+[v0.2.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.1.1..v0.2.0
+[v0.1.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.1.0..v0.1.1
+
 [v0.1.0]: https://github.com/giantswarm/prometheus-operator-app/releases/tag/v0.1.0
