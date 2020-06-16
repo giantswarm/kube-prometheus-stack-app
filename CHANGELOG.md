@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Introduce `crd-install` hook for helm2 compatibility. 
+- Introduce `crd-install` hook for helm 2 compatibility. 
 - Update Prometheus to 2.18.1
 - Update Grafana chart to 5.1.4
 - Update prometheus-node-exporter chart to 1.10.0
