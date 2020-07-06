@@ -1,0 +1,3 @@
+---
+chart-repos:
+- kubernetes-charts=https://kubernetes-charts.storage.googleapis.com/

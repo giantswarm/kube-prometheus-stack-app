@@ -5,11 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project's packages adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Update architect-orb to 0.10.0
+
 ## [v0.3.3]
 
 ### Changed
 
-- Introduce `crd-install` hook for helm 2 compatibility. 
+- Introduce `crd-install` hook for helm 2 compatibility.
 - Update Prometheus to 2.18.1
 - Update Grafana chart to 5.1.4
 - Update prometheus-node-exporter chart to 1.10.0
