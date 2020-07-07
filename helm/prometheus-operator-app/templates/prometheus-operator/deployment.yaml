@@ -63,7 +63,7 @@ spec:
           {{- end }}
             - --logtostderr=true
             - --localhost=127.0.0.1
-            {{- if (.Values.Installation) }}
+          {{- if (.Values.Installation) }}
             - --prometheus-config-reloader={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
             - --config-reloader-image={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.configmapReloadImage.name }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
           {{ else }}
