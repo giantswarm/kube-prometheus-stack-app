@@ -1254,7 +1254,7 @@ prometheusOperator:
 
   ## Resource limits & requests
   ##
-  resources: {}
+  resources:
     limits:
       cpu: 200m
       memory: 200Mi
