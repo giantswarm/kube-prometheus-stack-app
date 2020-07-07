@@ -28,7 +28,7 @@ spec:
           image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.hyperkubeImage.name }}:{{ .Values.prometheusOperator.hyperkubeImage.tag }}"
           {{ else }}
           image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.hyperkubeImage.name }}:{{ .Values.prometheusOperator.hyperkubeImage.tag }}"
-          {{ end }}          
+          {{ end }}
           imagePullPolicy: "{{ .Values.prometheusOperator.hyperkubeImage.pullPolicy }}"
           command:
           - /bin/sh
