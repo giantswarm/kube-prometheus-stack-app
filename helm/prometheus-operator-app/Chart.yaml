@@ -5,10 +5,10 @@ engine: gotpl
 name: prometheus-operator-app
 namespace: monitoring
 +maintainers:
-+  - name: vsliouniaev
-+  - name: bismarck
-+  - name: gianrubio
-+    email: gianrubio@gmail.com
+  - name: vsliouniaev
+  - name: bismarck
+  - name: gianrubio
+    email: gianrubio@gmail.com
 sources:
   - https://raw.githubusercontent.com/giantswarm/prometheus-operator-app/v[[ .Version ]]/README.md
   - https://github.com/coreos/kube-prometheus
