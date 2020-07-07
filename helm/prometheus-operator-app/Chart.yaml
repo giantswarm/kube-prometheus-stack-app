@@ -7,15 +7,21 @@ maintainers:
   - name: bismarck
   - name: gianrubio
     email: gianrubio@gmail.com
-name: prometheus-operator
+  - name: yasn77
+    email: yasser@giantswarm.io
+  - name: ced0ps
+    email: cedric@giantswarm.io
+name: prometheus-operator-app
+namespace: monitoring
 sources:
+  - https://raw.githubusercontent.com/giantswarm/prometheus-operator-app/v[[ .Version ]]/README.md
   - https://github.com/coreos/kube-prometheus
   - https://github.com/coreos/prometheus-operator
   - https://coreos.com/operators/prometheus
-version: 8.15.11
+version: [[ .Version ]]
 appVersion: 0.38.1
 tillerVersion: ">=2.12.0"
-home: https://github.com/coreos/prometheus-operator
+home: https://github.com/giantswarm/prometheus-operator-app
 keywords:
 - operator
 - prometheus
