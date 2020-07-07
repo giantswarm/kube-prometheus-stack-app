@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Set request/limits in deployment (cpu: 100m, memory: 100Mi)
+
 ### Changed
 
 - Update architect-orb to 0.10.0
