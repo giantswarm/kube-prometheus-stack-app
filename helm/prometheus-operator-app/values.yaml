@@ -73,6 +73,11 @@ additionalPrometheusRules: []
 #        - record: my_record
 #          expr: 100 * my_record
 
+
+## Define defaulte image registry so it's interchangeable.
+image:
+  registry: quay.io
+
 ##
 global:
   rbac:
@@ -333,7 +338,7 @@ alertmanager:
     ## Image of Alertmanager
     ##
     image:
-      repository: quay.io/giantswarm/alertmanager
+      name: giantswarm/alertmanager
       tag: v0.20.0
 
     ## If true then the user will be responsible to provide a secret with alertmanager configuration
@@ -1135,7 +1140,7 @@ prometheusOperator:
   tlsProxy:
     enabled: true
     image:
-      repository: quay.io/giantswarm/ghostunnel
+      name: giantswarm/ghostunnel
       tag: v1.5.2
       pullPolicy: IfNotPresent
     resources: {}
@@ -1152,7 +1157,7 @@ prometheusOperator:
     patch:
       enabled: true
       image:
-        repository: quay.io/giantswarm/kube-webhook-certgen
+        name: giantswarm/kube-webhook-certgen
         tag: v1.2.1
         pullPolicy: IfNotPresent
       resources: {}
@@ -1328,20 +1333,20 @@ prometheusOperator:
   ## Prometheus-operator image
   ##
   image:
-    repository: quay.io/giantswarm/prometheus-operator
+    name: giantswarm/prometheus-operator
     tag: v0.38.1
     pullPolicy: IfNotPresent
 
   ## Configmap-reload image to use for reloading configmaps
   ##
   configmapReloadImage:
-    repository: quay.io/giantswarm/configmap-reload
+    name: giantswarm/configmap-reload
     tag: v0.3.0
 
   ## Prometheus-config-reloader image to use for config and rule reloading
   ##
   prometheusConfigReloaderImage:
-    repository: quay.io/giantswarm/prometheus-config-reloader
+    name: giantswarm/prometheus-config-reloader
     tag: v0.38.1
 
   ## Set the prometheus config reloader side-car CPU limit
@@ -1355,7 +1360,7 @@ prometheusOperator:
   ## Hyperkube image to use when cleaning up
   ##
   hyperkubeImage:
-    repository: quay.io/giantswarm/hyperkube
+    name: giantswarm/hyperkube
     tag: v1.16.12
     pullPolicy: IfNotPresent
 
@@ -1575,7 +1580,7 @@ prometheus:
     ## Image of Prometheus.
     ##
     image:
-      repository: quay.io/giantswarm/prometheus
+      name: giantswarm/prometheus
       tag: v2.18.1
 
     ## Tolerations for use with node taints

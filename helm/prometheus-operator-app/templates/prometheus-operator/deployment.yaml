@@ -32,7 +32,11 @@ spec:
     {{- end }}
       containers:
         - name: {{ template "prometheus-operator.name" . }}
-          image: "{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}"
+          {{- if (.Values.Installation) }}
+          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}"
+          {{ else }}
+          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}"
+          {{ end }}
           imagePullPolicy: "{{ .Values.prometheusOperator.image.pullPolicy }}"
           args:
           {{- if semverCompare "< v0.39.0" .Values.prometheusOperator.image.tag }}

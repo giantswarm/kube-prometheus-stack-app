@@ -24,7 +24,11 @@ spec:
     {{- end }}
       containers:
         - name: kubectl
-          image: "{{ .Values.prometheusOperator.hyperkubeImage.repository }}:{{ .Values.prometheusOperator.hyperkubeImage.tag }}"
+          {{- if (.Values.Installation) }}
+          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.hyperkubeImage.name }}:{{ .Values.prometheusOperator.hyperkubeImage.tag }}"
+          {{ else }}
+          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.hyperkubeImage.name }}:{{ .Values.prometheusOperator.hyperkubeImage.tag }}"
+          {{ end }}          
           imagePullPolicy: "{{ .Values.prometheusOperator.hyperkubeImage.pullPolicy }}"
           command:
           - /bin/sh
