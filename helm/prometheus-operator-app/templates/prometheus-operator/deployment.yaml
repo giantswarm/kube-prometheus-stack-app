@@ -32,7 +32,11 @@ spec:
     {{- end }}
       containers:
         - name: {{ template "prometheus-operator.name" . }}
-          image: "{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}"
+          {{- if (.Values.Installation) }}
+          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}"
+          {{ else }}
+          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}"
+          {{ end }}
           imagePullPolicy: "{{ .Values.prometheusOperator.image.pullPolicy }}"
           args:
           {{- if semverCompare "< v0.39.0" .Values.prometheusOperator.image.tag }}
@@ -59,8 +63,13 @@ spec:
           {{- end }}
             - --logtostderr=true
             - --localhost=127.0.0.1
-            - --prometheus-config-reloader={{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
-            - --config-reloader-image={{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
+            {{- if (.Values.Installation) }}
+            - --prometheus-config-reloader={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
+            - --config-reloader-image={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.configmapReloadImage.name }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
+          {{ else }}
+            - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
+            - --config-reloader-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.configmapReloadImage.name }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
+          {{ end }}
             - --config-reloader-cpu={{ .Values.prometheusOperator.configReloaderCpu }}
             - --config-reloader-memory={{ .Values.prometheusOperator.configReloaderMemory }}
           ports:
@@ -73,7 +82,11 @@ spec:
             readOnlyRootFilesystem: true
         {{- if .Values.prometheusOperator.tlsProxy.enabled }}
         - name: tls-proxy
-          image: {{ .Values.prometheusOperator.tlsProxy.image.repository }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}
+          {{- if (.Values.Installation) }}
+          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.tlsProxy.image.name }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}"
+          {{ else }}
+          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.tlsProxy.image.name }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}"
+          {{ end }}
           imagePullPolicy: {{ .Values.prometheusOperator.tlsProxy.image.pullPolicy }}
           args:
             - server

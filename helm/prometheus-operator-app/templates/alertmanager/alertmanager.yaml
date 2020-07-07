@@ -9,7 +9,11 @@ metadata:
 {{ include "prometheus-operator.labels" . | indent 4 }}
 spec:
 {{- if .Values.alertmanager.alertmanagerSpec.image }}
-  baseImage: {{ .Values.alertmanager.alertmanagerSpec.image.repository }}
+{{- if (.Values.Installation) }}
+  baseImage: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.alertmanager.alertmanagerSpec.image.name }}"
+{{ else }}
+  baseImage: "{{ .Values.image.registry }}/{{ .Values.alertmanager.alertmanagerSpec.image.name }}"
+{{ end }}
   version: {{ .Values.alertmanager.alertmanagerSpec.image.tag }}
 {{- end }}
   replicas: {{ .Values.alertmanager.alertmanagerSpec.replicas }}
