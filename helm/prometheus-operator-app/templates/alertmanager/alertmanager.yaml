@@ -3,17 +3,13 @@ apiVersion: monitoring.coreos.com/v1
 kind: Alertmanager
 metadata:
   name: {{ template "prometheus-operator.fullname" . }}-alertmanager
-  namespace: {{ $.Release.Namespace }}
+  namespace: {{ template "prometheus-operator.namespace" . }}
   labels:
     app: {{ template "prometheus-operator.name" . }}-alertmanager
 {{ include "prometheus-operator.labels" . | indent 4 }}
 spec:
 {{- if .Values.alertmanager.alertmanagerSpec.image }}
-{{- if (.Values.Installation) }}
-  baseImage: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.alertmanager.alertmanagerSpec.image.name }}"
-{{ else }}
-  baseImage: "{{ .Values.image.registry }}/{{ .Values.alertmanager.alertmanagerSpec.image.name }}"
-{{ end }}
+  baseImage: {{ .Values.alertmanager.alertmanagerSpec.image.repository }}
   version: {{ .Values.alertmanager.alertmanagerSpec.image.tag }}
 {{- end }}
   replicas: {{ .Values.alertmanager.alertmanagerSpec.replicas }}
@@ -24,7 +20,7 @@ spec:
 {{- else if and .Values.alertmanager.ingress.enabled .Values.alertmanager.ingress.hosts }}
   externalUrl: "http://{{ index .Values.alertmanager.ingress.hosts 0 }}{{ .Values.alertmanager.alertmanagerSpec.routePrefix }}"
 {{- else }}
-  externalUrl: http://{{ template "prometheus-operator.fullname" . }}-alertmanager.{{ $.Release.Namespace }}:{{ .Values.alertmanager.service.port }}
+  externalUrl: http://{{ template "prometheus-operator.fullname" . }}-alertmanager.{{ template "prometheus-operator.namespace" . }}:{{ .Values.alertmanager.service.port }}
 {{- end }}
 {{- if .Values.alertmanager.alertmanagerSpec.nodeSelector }}
   nodeSelector:

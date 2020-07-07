@@ -3,7 +3,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name:  {{ template "prometheus-operator.fullname" . }}-admission-patch
-  namespace: {{ $.Release.Namespace }}
+  namespace: {{ template "prometheus-operator.namespace" . }}
   annotations:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
@@ -31,16 +31,12 @@ spec:
       {{- end }}
       containers:
         - name: patch
-          {{- if (.Values.Installation) }}
-          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}"
-          {{ else }}
-          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}"
-          {{ end }}
+          image: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
           imagePullPolicy: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.pullPolicy }}
           args:
             - patch
             - --webhook-name={{ template "prometheus-operator.fullname" . }}-admission
-            - --namespace={{ $.Release.Namespace }}
+            - --namespace={{ template "prometheus-operator.namespace" . }}
             - --secret-name={{ template "prometheus-operator.fullname" . }}-admission
             - --patch-failure-policy={{ .Values.prometheusOperator.admissionWebhooks.failurePolicy }}
           resources:
