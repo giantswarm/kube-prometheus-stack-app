@@ -10,6 +10,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Update architect-orb to 0.10.0
+- Sync with upstream
+    - Bug fixes
+    - Add namespace overwrite
+    - appVersion not updated
 
 ## [v0.3.3]
 
