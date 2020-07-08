@@ -3,7 +3,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ template "prometheus-operator.fullname" . }}-operator-cleanup
-  namespace: {{ $.Release.Namespace }}
+  namespace: {{ template "prometheus-operator.namespace" . }}
   annotations:
     "helm.sh/hook": pre-delete
     "helm.sh/hook-weight": "3"
@@ -38,8 +38,6 @@ spec:
               kubectl delete prometheus     --all;
               kubectl delete prometheusrule --all;
               kubectl delete servicemonitor --all;
-              kubectl delete podmonitors    --all;
-              kubectl delete thanosrulers   --all;
               sleep 10;
               kubectl delete crd alertmanagers.monitoring.coreos.com;
               kubectl delete crd prometheuses.monitoring.coreos.com;
