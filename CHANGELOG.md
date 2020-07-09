@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Added
 
 - Set request/limits in deployment (cpu: 100m, memory: 100Mi)
+- Set request/limits for non-prometheus container (cpu: 25m)
 
 ### Changed
 
