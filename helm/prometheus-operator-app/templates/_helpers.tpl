@@ -46,7 +46,7 @@ The longest name that gets created adds and extra 37 characters, so truncation s
 
 {{/* Generate basic labels */}}
 {{- define "prometheus-operator.labels" }}
-chart: {{ template "prometheus-operator.chartref" . }}
+chart: {{ (include "prometheus-operator.chartref" .) | trunc 63 }}
 release: {{ $.Release.Name | quote }}
 heritage: {{ $.Release.Service | quote }}
 {{- if .Values.commonLabels}}
