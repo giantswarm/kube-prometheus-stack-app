@@ -74,7 +74,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/nginx-ingress-controller-app/compare/v0.3.3...master
+[Unreleased]: https://github.com/giantswarm/nginx-ingress-controller-app/compare/v0.3.3...HEAD
 [v0.3.3]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.2..v0.3.3
 [v0.3.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.1..v0.3.2
 [v0.3.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.0..v0.3.1
