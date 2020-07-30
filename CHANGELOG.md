@@ -21,7 +21,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Updated
 
-- Update architect-orb to 0.10.0
+- Update architect-orb to `0.10.0`
 - kube-state-metrics chart `2.8.8` -> `2.8.11`
 - grafana chart `5.1.4` -> `5.3.0`
 - grafana chart requirement `5.1.*` -> `5.3.*`
