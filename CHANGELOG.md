@@ -11,15 +11,23 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
-- Set request/limits in deployment (cpu: 100m, memory: 100Mi)
+- Set default request/limits in deployment (cpu: 100m, memory: 100Mi) per best practice
 
 ### Changed
 
-- Update architect-orb to 0.10.0
 - Sync with upstream
     - Bug fixes
     - Add namespace overwrite
-    - appVersion not updated
+
+### Updated
+
+- Update architect-orb to 0.10.0
+- kube-state-metrics chart `2.8.8` -> `2.8.11`
+- grafana chart `5.1.4` -> `5.3.0`
+- grafana chart requirement `5.1.*` -> `5.3.*`
+- configmapReloadImage `0.0.1` -> `0.3.0`
+- hyperkubeImage `1.12.1` -> `1.16.12`
+
 
 ## [v0.3.3]
 
