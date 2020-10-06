@@ -1,24 +1,24 @@
-{{- $namespace := printf "%s" (include "prometheus-operator.namespace" .) }}
+{{- $namespace := printf "%s" (include "kube-prometheus-stack.namespace" .) }}
 {{- if .Values.prometheusOperator.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "prometheus-operator.fullname" . }}-operator
-  namespace: {{ template "prometheus-operator.namespace" . }}
+  name: {{ template "kube-prometheus-stack.fullname" . }}-operator
+  namespace: {{ template "kube-prometheus-stack.namespace" . }}
   labels:
-    app: {{ template "prometheus-operator.name" . }}-operator
-{{ include "prometheus-operator.labels" . | indent 4 }}
+    app: {{ template "kube-prometheus-stack.name" . }}-operator
+{{ include "kube-prometheus-stack.labels" . | indent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ template "prometheus-operator.name" . }}-operator
+      app: {{ template "kube-prometheus-stack.name" . }}-operator
       release: {{ $.Release.Name | quote }}
   template:
     metadata:
       labels:
-        app: {{ template "prometheus-operator.name" . }}-operator
-{{ include "prometheus-operator.labels" . | indent 8 }}
+        app: {{ template "kube-prometheus-stack.name" . }}-operator
+{{ include "kube-prometheus-stack.labels" . | indent 8 }}
 {{- if .Values.prometheusOperator.podLabels }}
 {{ toYaml .Values.prometheusOperator.podLabels | indent 8 }}
 {{- end }}
@@ -31,19 +31,19 @@ spec:
       priorityClassName: {{ .Values.prometheusOperator.priorityClassName }}
     {{- end }}
       containers:
-        - name: {{ template "prometheus-operator.name" . }}
-          {{- if (.Values.Installation) }}
-          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}"
-          {{ else }}
-          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}"
-          {{ end }}
+        - name: {{ template "kube-prometheus-stack.name" . }}
+          {{- if .Values.prometheusOperator.image.sha }}
+          image: "{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}@sha256:{{ .Values.prometheusOperator.image.sha }}"
+          {{- else }}
+          image: "{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}"
+          {{- end }}
           imagePullPolicy: "{{ .Values.prometheusOperator.image.pullPolicy }}"
           args:
           {{- if semverCompare "< v0.39.0" .Values.prometheusOperator.image.tag }}
             - --manage-crds={{ .Values.prometheusOperator.manageCrds }}
           {{- end }}
           {{- if .Values.prometheusOperator.kubeletService.enabled }}
-            - --kubelet-service={{ .Values.prometheusOperator.kubeletService.namespace }}/{{ template "prometheus-operator.fullname" . }}-kubelet
+            - --kubelet-service={{ .Values.prometheusOperator.kubeletService.namespace }}/{{ template "kube-prometheus-stack.fullname" . }}-kubelet
           {{- end }}
           {{- if .Values.prometheusOperator.logFormat }}
             - --log-format={{ .Values.prometheusOperator.logFormat }}
@@ -63,15 +63,21 @@ spec:
           {{- end }}
             - --logtostderr=true
             - --localhost=127.0.0.1
-          {{- if (.Values.Installation) }}
-            - --prometheus-config-reloader={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
-            - --config-reloader-image={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.configmapReloadImage.name }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
-          {{ else }}
-            - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
-            - --config-reloader-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.configmapReloadImage.name }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
-          {{ end }}
+            {{- if .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
+            - --prometheus-config-reloader={{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}@sha256:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
+            {{- else }}
+            - --prometheus-config-reloader={{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
+            {{- end }}
+            {{- if .Values.prometheusOperator.configmapReloadImage.sha }}
+            - --config-reloader-image={{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}@sha256:{{ .Values.prometheusOperator.configmapReloadImage.sha }}
+            {{- else }}
+            - --config-reloader-image={{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
+            {{- end }}
             - --config-reloader-cpu={{ .Values.prometheusOperator.configReloaderCpu }}
             - --config-reloader-memory={{ .Values.prometheusOperator.configReloaderMemory }}
+            {{- if .Values.prometheusOperator.secretFieldSelector }}
+            - --secret-field-selector={{ .Values.prometheusOperator.secretFieldSelector }}
+            {{- end }}
           ports:
             - containerPort: 8080
               name: http
@@ -82,11 +88,11 @@ spec:
             readOnlyRootFilesystem: true
         {{- if .Values.prometheusOperator.tlsProxy.enabled }}
         - name: tls-proxy
-          {{- if (.Values.Installation) }}
-          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.tlsProxy.image.name }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}"
-          {{ else }}
-          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.tlsProxy.image.name }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}"
-          {{ end }}
+          {{- if .Values.prometheusOperator.tlsProxy.image.sha }}
+          image: {{ .Values.prometheusOperator.tlsProxy.image.repository }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}@sha256:{{ .Values.prometheusOperator.tlsProxy.image.sha }}
+          {{- else }}
+          image: {{ .Values.prometheusOperator.tlsProxy.image.repository }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}
+          {{- end }}
           imagePullPolicy: {{ .Values.prometheusOperator.tlsProxy.image.pullPolicy }}
           args:
             - server
@@ -113,13 +119,13 @@ spec:
         - name: tls-proxy-secret
           secret:
             defaultMode: 420
-            secretName: {{ template "prometheus-operator.fullname" . }}-admission
+            secretName: {{ template "kube-prometheus-stack.fullname" . }}-admission
 {{- end }}
 {{- if .Values.prometheusOperator.securityContext }}
       securityContext:
 {{ toYaml .Values.prometheusOperator.securityContext | indent 8 }}
 {{- end }}
-      serviceAccountName: {{ template "prometheus-operator.operator.serviceAccountName" . }}
+      serviceAccountName: {{ template "kube-prometheus-stack.operator.serviceAccountName" . }}
 {{- if .Values.prometheusOperator.hostNetwork }}
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
