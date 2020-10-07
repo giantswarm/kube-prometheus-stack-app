@@ -31,10 +31,14 @@ spec:
       {{- end }}
       containers:
         - name: patch
-          {{- if .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
-          image: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}@sha256:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
+          {{- if (.Values.Installation) }}
+          image: {{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
           {{- else }}
-          image: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
+          {{- if .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
+          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}@sha256:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
+          {{- else }}
+          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
+          {{- end }}
           {{- end }}
           imagePullPolicy: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.pullPolicy }}
           args:
