@@ -101,7 +101,7 @@ spec:
         {{- if .Values.prometheusOperator.tlsProxy.enabled }}
         - name: tls-proxy
           {{- if (.Values.Installation) }}
-          {{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.tlsProxy.image.name }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}
+          image: {{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.tlsProxy.image.name }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}
           {{- else }}
           {{- if .Values.prometheusOperator.tlsProxy.image.sha }}
           image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.tlsProxy.image.name }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}@sha256:{{ .Values.prometheusOperator.tlsProxy.image.sha }}
