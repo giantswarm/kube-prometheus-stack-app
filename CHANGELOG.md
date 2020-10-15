@@ -7,6 +7,27 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- SHA variable for images
+
+### Changed
+
+- Upstream project location an references throughout the chart  
+- Change upstream-sync script to new upstream project location and structure
+- Replace hyperkube image with kubectl image
+- Replace name "prometheus-operator" with "kube-prometheus-stack" in templates
+
+### Updated
+
+- Sync with upstream chart version 10.1.0
+- prometheus-operator v0.38.1 -> v0.42.1
+- alertmanager v0.20.0 -> v0.21.0
+- configmap-reload v0.3.0 -> v0.4.0
+- prometheus-config-reloader v0.38.1 -> v0.42.1
+- prometheus v2.18.1 -> v2.21.0
+- new structure and format to all prometheus rules
+
 ## [0.3.4] - 2020-07-22
 
 ### Added
