@@ -64,6 +64,9 @@ defaultRules:
   ## Annotations for default rules
   annotations: {}
 
+  ## Additional labels for PrometheusRule alerts
+  additionalRuleLabels: {}
+
 ## Deprecated way to provide custom recording or alerting rules to be deployed into the cluster.
 ##
 # additionalPrometheusRules: []
@@ -83,10 +86,6 @@ additionalPrometheusRulesMap: {}
 #      rules:
 #      - record: my_record
 #        expr: 100 * my_record
-
-## Required for interchangability of image registry used for China
-image:
-  registry: quay.io
 
 ##
 global:
@@ -357,7 +356,7 @@ alertmanager:
     ## Image of Alertmanager
     ##
     image:
-      name: giantswarm/alertmanager
+      repository: quay.io/prometheus/alertmanager
       tag: v0.21.0
       sha: ""
 
@@ -519,9 +518,6 @@ grafana:
   defaultDashboardsEnabled: true
 
   adminPassword: prom-operator
-
-  rbac:
-    pspUseAppArmor: false
 
   ingress:
     ## If true, Grafana Ingress will be created
@@ -1161,18 +1157,9 @@ prometheus-node-exporter:
 prometheusOperator:
   enabled: true
 
-  # If true prometheus operator will create and update its CRDs on startup
-  # Only for prometheusOperator.image.tag < v0.39.0
-  manageCrds: true
-
-  tlsProxy:
+  # Prometheus-Operator v0.39.0 and later support TLS natively.
+  tls:
     enabled: true
-    image:
-      name: giantswarm/ghostunnel
-      tag: v1.5.2
-      sha: ""
-      pullPolicy: IfNotPresent
-    resources: {}
 
   ## Admission webhook support for PrometheusRules resources added in Prometheus Operator 0.30 can be enabled to prevent incorrectly formatted
   ## rules from making their way into prometheus and potentially preventing the container from starting
@@ -1186,8 +1173,8 @@ prometheusOperator:
     patch:
       enabled: true
       image:
-        name: giantswarm/kube-webhook-certgen
-        tag: v1.2.1
+        repository: jettech/kube-webhook-certgen
+        tag: v1.5.0
         sha: ""
         pullPolicy: IfNotPresent
       resources: {}
@@ -1259,14 +1246,6 @@ prometheusOperator:
     ##
     externalIPs: []
 
-  ## Deploy CRDs used by Prometheus Operator.
-  ##
-  createCustomResource: true
-
-  ## Attempt to clean up CRDs created by Prometheus Operator.
-  ##
-  cleanupCustomResource: false
-
   ## Labels to add to the operator pod
   ##
   podLabels: {}
@@ -1321,13 +1300,7 @@ prometheusOperator:
 
   ## Resource limits & requests
   ##
-  resources:
-    limits:
-      cpu: 200m
-      memory: 200Mi
-    requests:
-      cpu: 100m
-      memory: 100Mi
+  resources: {}
   # limits:
   #   cpu: 200m
   #   memory: 200Mi
@@ -1377,23 +1350,23 @@ prometheusOperator:
   ## Prometheus-operator image
   ##
   image:
-    name: giantswarm/prometheus-operator
-    tag: v0.42.1
+    repository: quay.io/prometheus-operator/prometheus-operator
+    tag: v0.43.0
     sha: ""
     pullPolicy: IfNotPresent
 
   ## Configmap-reload image to use for reloading configmaps
   ##
   configmapReloadImage:
-    name: giantswarm/configmap-reload
+    repository: docker.io/jimmidyson/configmap-reload
     tag: v0.4.0
     sha: ""
 
   ## Prometheus-config-reloader image to use for config and rule reloading
   ##
   prometheusConfigReloaderImage:
-    name: giantswarm/prometheus-config-reloader
-    tag: v0.42.1
+    repository: quay.io/prometheus-operator/prometheus-config-reloader
+    tag: v0.43.0
     sha: ""
 
   ## Set the prometheus config reloader side-car CPU limit
@@ -1411,7 +1384,7 @@ prometheusOperator:
   ## kubectl image to use when cleaning up
   ##
   kubectlImage:
-    name: giantswarm/kubectl
+    repository: docker.io/bitnami/kubectl
     tag: 1.16.15
     sha: ""
     pullPolicy: IfNotPresent
@@ -1656,8 +1629,8 @@ prometheus:
     ## Image of Prometheus.
     ##
     image:
-      name: giantswarm/prometheus
-      tag: v2.21.0
+      repository: quay.io/prometheus/prometheus
+      tag: v2.22.0
       sha: ""
 
     ## Tolerations for use with node taints
@@ -1800,6 +1773,26 @@ prometheus:
     ## See https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#namespaceselector for usage
     ##
     podMonitorNamespaceSelector: {}
+
+    ## If true, a nil or {} value for prometheus.prometheusSpec.probeSelector will cause the
+    ## prometheus resource to be created with selectors based on values in the helm deployment,
+    ## which will also match the probes created
+    ##
+    probeSelectorNilUsesHelmValues: true
+
+    ## Probes to be selected for target discovery.
+    ## If {}, select all Probes
+    ##
+    probeSelector: {}
+    ## Example which selects Probes with label "prometheus" set to "somelabel"
+    # probeSelector:
+    #   matchLabels:
+    #     prometheus: somelabel
+
+    ## Namespaces to be selected for Probe discovery.
+    ## See https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#namespaceselector for usage
+    ##
+    probeNamespaceSelector: {}
 
     ## How long to retain metrics
     ##

@@ -13,16 +13,15 @@ maintainers:
     email: scott@r6by.com
   - name: Xtigyro
     email: miroslav.hadzhiev@gmail.com
-name: prometheus-operator-app
+name: kube-prometheus-stack
 sources:
-  - https://raw.githubusercontent.com/giantswarm/prometheus-operator-app/v[[ .Version ]]/README.md
   - https://github.com/prometheus-community/helm-charts
   - https://github.com/prometheus-operator/kube-prometheus
-version: [[ .Version ]]
-appVersion: 0.38.1
+version: 11.0.0
+appVersion: 0.43.0
 tillerVersion: ">=2.12.0"
 kubeVersion: ">=1.16.0-0"
-home: https://github.com/giantswarm/prometheus-operator-app
+home: https://github.com/prometheus-operator/kube-prometheus
 keywords:
 - operator
 - prometheus
