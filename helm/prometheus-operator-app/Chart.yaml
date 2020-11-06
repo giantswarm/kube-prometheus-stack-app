@@ -34,3 +34,4 @@ annotations:
       url: https://github.com/prometheus-community/helm-charts
     - name: Upstream Project
       url: https://github.com/prometheus-operator/kube-prometheus
+  application.giantswarm.io/values-schema: https://raw.githubusercontent.com/giantswarm/prometheus-operator-app/v[[ .Version ]]/helm/prometheus-operator-app/values.schema.json
