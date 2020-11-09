@@ -32,11 +32,7 @@ spec:
 {{ toYaml .Values.prometheus.prometheusSpec.apiserverConfig | indent 4}}
 {{- end }}
 {{- if .Values.prometheus.prometheusSpec.image }}
-{{- if (.Values.Installation) }}
-  baseImage: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheus.prometheusSpec.image.name }}"
-{{ else }}
-  baseImage: "{{ .Values.image.registry }}/{{ .Values.prometheus.prometheusSpec.image.name }}"
-{{ end }}
+  baseImage: {{ .Values.prometheus.prometheusSpec.image.repository }}
   version: {{ .Values.prometheus.prometheusSpec.image.tag }}
   {{- if .Values.prometheus.prometheusSpec.image.sha }}
   sha: {{ .Values.prometheus.prometheusSpec.image.sha }}

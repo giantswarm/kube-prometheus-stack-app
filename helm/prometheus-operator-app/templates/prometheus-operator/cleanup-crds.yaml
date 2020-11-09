@@ -24,15 +24,11 @@ spec:
     {{- end }}
       containers:
         - name: kubectl
-          {{- if (.Values.Installation) }}
-          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.kubectlImage.name }}:{{ .Values.prometheusOperator.kubectlImage.tag }}"
-          {{ else }}
           {{- if .Values.prometheusOperator.kubectlImage.sha }}
-          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.kubectlImage.name }}:{{ .Values.prometheusOperator.kubectlImage.tag }}@sha256:{{ .Values.prometheusOperator.kubectlImage.sha }}"
-          {{ else }}
-          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.kubectlImage.name }}:{{ .Values.prometheusOperator.kubectlImage.tag }}"
-          {{ end }}
-          {{ end }}
+          image: "{{ .Values.prometheusOperator.kubectlImage.repository }}:{{ .Values.prometheusOperator.kubectlImage.tag }}@sha256:{{ .Values.prometheusOperator.kubectlImage.sha }}"
+          {{- else }}
+          image: "{{ .Values.prometheusOperator.kubectlImage.repository }}:{{ .Values.prometheusOperator.kubectlImage.tag }}"
+          {{- end }}
           imagePullPolicy: "{{ .Values.prometheusOperator.kubectlImage.pullPolicy }}"
           command:
           - /bin/sh

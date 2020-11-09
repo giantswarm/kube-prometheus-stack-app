@@ -84,10 +84,6 @@ additionalPrometheusRulesMap: {}
 #      - record: my_record
 #        expr: 100 * my_record
 
-## Required for interchangability of image registry used for China
-image:
-  registry: quay.io
-
 ##
 global:
   rbac:
@@ -357,7 +353,7 @@ alertmanager:
     ## Image of Alertmanager
     ##
     image:
-      name: giantswarm/alertmanager
+      repository: quay.io/prometheus/alertmanager
       tag: v0.21.0
       sha: ""
 
@@ -519,9 +515,6 @@ grafana:
   defaultDashboardsEnabled: true
 
   adminPassword: prom-operator
-
-  rbac:
-    pspUseAppArmor: false
 
   ingress:
     ## If true, Grafana Ingress will be created
@@ -1168,7 +1161,7 @@ prometheusOperator:
   tlsProxy:
     enabled: true
     image:
-      name: giantswarm/ghostunnel
+      repository: squareup/ghostunnel
       tag: v1.5.2
       sha: ""
       pullPolicy: IfNotPresent
@@ -1186,7 +1179,7 @@ prometheusOperator:
     patch:
       enabled: true
       image:
-        name: giantswarm/kube-webhook-certgen
+        repository: jettech/kube-webhook-certgen
         tag: v1.2.1
         sha: ""
         pullPolicy: IfNotPresent
@@ -1321,13 +1314,7 @@ prometheusOperator:
 
   ## Resource limits & requests
   ##
-  resources:
-    limits:
-      cpu: 200m
-      memory: 200Mi
-    requests:
-      cpu: 100m
-      memory: 100Mi
+  resources: {}
   # limits:
   #   cpu: 200m
   #   memory: 200Mi
@@ -1377,7 +1364,7 @@ prometheusOperator:
   ## Prometheus-operator image
   ##
   image:
-    name: giantswarm/prometheus-operator
+    repository: quay.io/prometheus-operator/prometheus-operator
     tag: v0.42.1
     sha: ""
     pullPolicy: IfNotPresent
@@ -1385,14 +1372,14 @@ prometheusOperator:
   ## Configmap-reload image to use for reloading configmaps
   ##
   configmapReloadImage:
-    name: giantswarm/configmap-reload
+    repository: docker.io/jimmidyson/configmap-reload
     tag: v0.4.0
     sha: ""
 
   ## Prometheus-config-reloader image to use for config and rule reloading
   ##
   prometheusConfigReloaderImage:
-    name: giantswarm/prometheus-config-reloader
+    repository: quay.io/prometheus-operator/prometheus-config-reloader
     tag: v0.42.1
     sha: ""
 
@@ -1411,7 +1398,7 @@ prometheusOperator:
   ## kubectl image to use when cleaning up
   ##
   kubectlImage:
-    name: giantswarm/kubectl
+    repository: docker.io/bitnami/kubectl
     tag: 1.16.15
     sha: ""
     pullPolicy: IfNotPresent
@@ -1656,7 +1643,7 @@ prometheus:
     ## Image of Prometheus.
     ##
     image:
-      name: giantswarm/prometheus
+      repository: quay.io/prometheus/prometheus
       tag: v2.21.0
       sha: ""
 
