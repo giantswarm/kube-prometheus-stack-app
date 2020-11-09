@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# This script generate the gatekeeper helm chart
+# This script generate the prometheus-operator helm chart
 # It does so by pulling the upstream chart and apply patches on top
 
-# Gatekeeper upstream git repository url
+# prometheus-operator upstream git repository url
 upstream_repo_url="https://github.com/prometheus-community/helm-charts.git"
 
-# Path to helm chart in the gatekeeper upstream repository
+# Path to helm chart in the prometheus-operator upstream repository
 upstream_chart_path="charts/kube-prometheus-stack/"
 
 # Path to helm chart in this repository, relative to this script
