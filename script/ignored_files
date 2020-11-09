@@ -1,0 +1,3 @@
+Chart.yaml
+.helmignore
+*.sh

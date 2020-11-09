@@ -1,0 +1,2233 @@
+diff --git a/templates/_helpers.tpl b/templates/_helpers.tpl
+index 8a3d1b7..d814d73 100644
+--- a/templates/_helpers.tpl
++++ b/templates/_helpers.tpl
+@@ -41,7 +41,7 @@ The longest name that gets created adds and extra 37 characters, so truncation s
+ 
+ {{/* Create chart name and version as used by the chart label. */}}
+ {{- define "kube-prometheus-stack.chartref" -}}
+-{{- replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name -}}
++{{- (replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name) | trunc 63 -}}
+ {{- end }}
+ 
+ {{/* Generate basic labels */}}
+diff --git a/templates/alertmanager/alertmanager.yaml b/templates/alertmanager/alertmanager.yaml
+index 167866b..72eac49 100644
+--- a/templates/alertmanager/alertmanager.yaml
++++ b/templates/alertmanager/alertmanager.yaml
+@@ -9,7 +9,11 @@ metadata:
+ {{ include "kube-prometheus-stack.labels" . | indent 4 }}
+ spec:
+ {{- if .Values.alertmanager.alertmanagerSpec.image }}
+-  baseImage: {{ .Values.alertmanager.alertmanagerSpec.image.repository }}
++{{- if (.Values.Installation) }}
++  baseImage: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.alertmanager.alertmanagerSpec.image.name }}"
++{{ else }}
++  baseImage: "{{ .Values.image.registry }}/{{ .Values.alertmanager.alertmanagerSpec.image.name }}"
++{{ end }}
+   version: {{ .Values.alertmanager.alertmanagerSpec.image.tag }}
+   {{- if .Values.alertmanager.alertmanagerSpec.image.sha }}
+   sha: {{ .Values.alertmanager.alertmanagerSpec.image.sha }}
+diff --git a/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml b/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
+index 37a19a5..0e577da 100644
+--- a/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
++++ b/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
+@@ -31,10 +31,14 @@ spec:
+       {{- end }}
+       containers:
+         - name: create
++          {{- if (.Values.Installation) }}
++          image: {{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
++          {{- else }}
+           {{- if .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
+-          image: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}@sha256:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
++          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}@sha256:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
+           {{- else }}
+-          image: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
++          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
++          {{- end }}
+           {{- end }}
+           imagePullPolicy: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.pullPolicy }}
+           args:
+diff --git a/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml b/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
+index b74c618..2f21ed4 100644
+--- a/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
++++ b/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
+@@ -31,10 +31,14 @@ spec:
+       {{- end }}
+       containers:
+         - name: patch
++          {{- if (.Values.Installation) }}
++          image: {{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
++          {{- else }}
+           {{- if .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
+-          image: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}@sha256:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
++          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}@sha256:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
+           {{- else }}
+-          image: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
++          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
++          {{- end }}
+           {{- end }}
+           imagePullPolicy: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.pullPolicy }}
+           args:
+diff --git a/templates/prometheus-operator/cleanup-crds.yaml b/templates/prometheus-operator/cleanup-crds.yaml
+index e56fbae..a224980 100644
+--- a/templates/prometheus-operator/cleanup-crds.yaml
++++ b/templates/prometheus-operator/cleanup-crds.yaml
+@@ -24,11 +24,15 @@ spec:
+     {{- end }}
+       containers:
+         - name: kubectl
++          {{- if (.Values.Installation) }}
++          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.kubectlImage.name }}:{{ .Values.prometheusOperator.kubectlImage.tag }}"
++          {{ else }}
+           {{- if .Values.prometheusOperator.kubectlImage.sha }}
+-          image: "{{ .Values.prometheusOperator.kubectlImage.repository }}:{{ .Values.prometheusOperator.kubectlImage.tag }}@sha256:{{ .Values.prometheusOperator.kubectlImage.sha }}"
+-          {{- else }}
+-          image: "{{ .Values.prometheusOperator.kubectlImage.repository }}:{{ .Values.prometheusOperator.kubectlImage.tag }}"
+-          {{- end }}
++          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.kubectlImage.name }}:{{ .Values.prometheusOperator.kubectlImage.tag }}@sha256:{{ .Values.prometheusOperator.kubectlImage.sha }}"
++          {{ else }}
++          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.kubectlImage.name }}:{{ .Values.prometheusOperator.kubectlImage.tag }}"
++          {{ end }}
++          {{ end }}
+           imagePullPolicy: "{{ .Values.prometheusOperator.kubectlImage.pullPolicy }}"
+           command:
+           - /bin/sh
+diff --git a/templates/prometheus-operator/crds.yaml b/templates/prometheus-operator/crds.yaml
+index d6bca7e..e7eeda3 100644
+--- a/templates/prometheus-operator/crds.yaml
++++ b/templates/prometheus-operator/crds.yaml
+@@ -1,4 +1,4 @@
+-{{- if and .Values.prometheusOperator.enabled .Values.prometheusOperator.createCustomResource -}}
++{{- if and (eq .Release.Service "Tiller") .Values.prometheusOperator.enabled .Values.prometheusOperator.createCustomResource -}}
+ {{- range $path, $bytes := .Files.Glob "crds/*.yaml" }}
+ {{ $.Files.Get $path }}
+ ---
+diff --git a/templates/prometheus-operator/deployment.yaml b/templates/prometheus-operator/deployment.yaml
+index 8e7e2c9..8a9cc81 100644
+--- a/templates/prometheus-operator/deployment.yaml
++++ b/templates/prometheus-operator/deployment.yaml
+@@ -32,10 +32,14 @@ spec:
+     {{- end }}
+       containers:
+         - name: {{ template "kube-prometheus-stack.name" . }}
++          {{- if (.Values.Installation) }}
++          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}"
++          {{ else }}
+           {{- if .Values.prometheusOperator.image.sha }}
+-          image: "{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}@sha256:{{ .Values.prometheusOperator.image.sha }}"
++          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}@sha256:{{ .Values.prometheusOperator.image.sha }}"
+           {{- else }}
+-          image: "{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}"
++          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}"
++          {{- end }}
+           {{- end }}
+           imagePullPolicy: "{{ .Values.prometheusOperator.image.pullPolicy }}"
+           args:
+@@ -63,15 +67,23 @@ spec:
+             {{- end }}
+             - --logtostderr=true
+             - --localhost=127.0.0.1
++                        {{- if (.Values.Installation) }}
++            - --prometheus-config-reloader={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
++            {{- else }}  
+             {{- if .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
+-            - --prometheus-config-reloader={{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}@sha256:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
++            - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}@sha256:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
+             {{- else }}
+-            - --prometheus-config-reloader={{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
++            - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
++            {{- end }}
+             {{- end }}
++            {{- if (.Values.Installation) }}
++            - --config-reloader-image={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.configmapReloadImage.name }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
++            {{- else }}
+             {{- if .Values.prometheusOperator.configmapReloadImage.sha }}
+-            - --config-reloader-image={{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}@sha256:{{ .Values.prometheusOperator.configmapReloadImage.sha }}
++            - --config-reloader-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.configmapReloadImage.name }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}@sha256:{{ .Values.prometheusOperator.configmapReloadImage.sha }}
+             {{- else }}
+-            - --config-reloader-image={{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
++            - --config-reloader-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.configmapReloadImage.name }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
++            {{- end }}
+             {{- end }}
+             - --config-reloader-cpu={{ .Values.prometheusOperator.configReloaderCpu }}
+             - --config-reloader-memory={{ .Values.prometheusOperator.configReloaderMemory }}
+@@ -97,10 +109,14 @@ spec:
+             readOnlyRootFilesystem: true
+         {{- if .Values.prometheusOperator.tlsProxy.enabled }}
+         - name: tls-proxy
++          {{- if (.Values.Installation) }}
++          image: {{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.tlsProxy.image.name }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}
++          {{- else }}
+           {{- if .Values.prometheusOperator.tlsProxy.image.sha }}
+-          image: {{ .Values.prometheusOperator.tlsProxy.image.repository }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}@sha256:{{ .Values.prometheusOperator.tlsProxy.image.sha }}
++          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.tlsProxy.image.name }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}@sha256:{{ .Values.prometheusOperator.tlsProxy.image.sha }}
+           {{- else }}
+-          image: {{ .Values.prometheusOperator.tlsProxy.image.repository }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}
++          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.tlsProxy.image.name }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}
++          {{- end }}
+           {{- end }}
+           imagePullPolicy: {{ .Values.prometheusOperator.tlsProxy.image.pullPolicy }}
+           args:
+diff --git a/templates/prometheus/prometheus.yaml b/templates/prometheus/prometheus.yaml
+index f73b6a6..f8495d4 100644
+--- a/templates/prometheus/prometheus.yaml
++++ b/templates/prometheus/prometheus.yaml
+@@ -32,7 +32,11 @@ spec:
+ {{ toYaml .Values.prometheus.prometheusSpec.apiserverConfig | indent 4}}
+ {{- end }}
+ {{- if .Values.prometheus.prometheusSpec.image }}
+-  baseImage: {{ .Values.prometheus.prometheusSpec.image.repository }}
++{{- if (.Values.Installation) }}
++  baseImage: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheus.prometheusSpec.image.name }}"
++{{ else }}
++  baseImage: "{{ .Values.image.registry }}/{{ .Values.prometheus.prometheusSpec.image.name }}"
++{{ end }}
+   version: {{ .Values.prometheus.prometheusSpec.image.tag }}
+   {{- if .Values.prometheus.prometheusSpec.image.sha }}
+   sha: {{ .Values.prometheus.prometheusSpec.image.sha }}
+diff --git a/values.schema.json b/values.schema.json
+new file mode 100644
+index 0000000..d1e3fb5
+--- /dev/null
++++ b/values.schema.json
+@@ -0,0 +1,1927 @@
++{
++    "$schema": "http://json-schema.org/schema#",
++    "type": "object",
++    "properties": {
++        "additionalPrometheusRulesMap": {
++            "type": "object"
++        },
++        "alertmanager": {
++            "type": "object",
++            "properties": {
++                "alertmanagerSpec": {
++                    "type": "object",
++                    "properties": {
++                        "additionalPeers": {
++                            "type": "array"
++                        },
++                        "affinity": {
++                            "type": "object"
++                        },
++                        "clusterAdvertiseAddress": {
++                            "type": "boolean"
++                        },
++                        "configMaps": {
++                            "type": "array"
++                        },
++                        "containers": {
++                            "type": "array"
++                        },
++                        "externalUrl": {
++                            "type": "null"
++                        },
++                        "image": {
++                            "type": "object",
++                            "properties": {
++                                "name": {
++                                    "type": "string"
++                                },
++                                "sha": {
++                                    "type": "string"
++                                },
++                                "tag": {
++                                    "type": "string"
++                                }
++                            }
++                        },
++                        "listenLocal": {
++                            "type": "boolean"
++                        },
++                        "logFormat": {
++                            "type": "string"
++                        },
++                        "logLevel": {
++                            "type": "string"
++                        },
++                        "nodeSelector": {
++                            "type": "object"
++                        },
++                        "paused": {
++                            "type": "boolean"
++                        },
++                        "podAntiAffinity": {
++                            "type": "string"
++                        },
++                        "podAntiAffinityTopologyKey": {
++                            "type": "string"
++                        },
++                        "podMetadata": {
++                            "type": "object"
++                        },
++                        "portName": {
++                            "type": "string"
++                        },
++                        "priorityClassName": {
++                            "type": "string"
++                        },
++                        "replicas": {
++                            "type": "integer"
++                        },
++                        "resources": {
++                            "type": "object"
++                        },
++                        "retention": {
++                            "type": "string"
++                        },
++                        "routePrefix": {
++                            "type": "string"
++                        },
++                        "secrets": {
++                            "type": "array"
++                        },
++                        "securityContext": {
++                            "type": "object",
++                            "properties": {
++                                "fsGroup": {
++                                    "type": "integer"
++                                },
++                                "runAsGroup": {
++                                    "type": "integer"
++                                },
++                                "runAsNonRoot": {
++                                    "type": "boolean"
++                                },
++                                "runAsUser": {
++                                    "type": "integer"
++                                }
++                            }
++                        },
++                        "storage": {
++                            "type": "object"
++                        },
++                        "tolerations": {
++                            "type": "array"
++                        },
++                        "useExistingSecret": {
++                            "type": "boolean"
++                        }
++                    }
++                },
++                "apiVersion": {
++                    "type": "string"
++                },
++                "config": {
++                    "type": "object",
++                    "properties": {
++                        "global": {
++                            "type": "object",
++                            "properties": {
++                                "resolve_timeout": {
++                                    "type": "string"
++                                }
++                            }
++                        },
++                        "receivers": {
++                            "type": "array",
++                            "items": {
++                                "type": "object",
++                                "properties": {
++                                    "name": {
++                                        "type": "string"
++                                    }
++                                }
++                            }
++                        },
++                        "route": {
++                            "type": "object",
++                            "properties": {
++                                "group_by": {
++                                    "type": "array",
++                                    "items": {
++                                        "type": "string"
++                                    }
++                                },
++                                "group_interval": {
++                                    "type": "string"
++                                },
++                                "group_wait": {
++                                    "type": "string"
++                                },
++                                "receiver": {
++                                    "type": "string"
++                                },
++                                "repeat_interval": {
++                                    "type": "string"
++                                },
++                                "routes": {
++                                    "type": "array",
++                                    "items": {
++                                        "type": "object",
++                                        "properties": {
++                                            "match": {
++                                                "type": "object",
++                                                "properties": {
++                                                    "alertname": {
++                                                        "type": "string"
++                                                    }
++                                                }
++                                            },
++                                            "receiver": {
++                                                "type": "string"
++                                            }
++                                        }
++                                    }
++                                }
++                            }
++                        }
++                    }
++                },
++                "enabled": {
++                    "type": "boolean"
++                },
++                "ingress": {
++                    "type": "object",
++                    "properties": {
++                        "annotations": {
++                            "type": "object"
++                        },
++                        "enabled": {
++                            "type": "boolean"
++                        },
++                        "hosts": {
++                            "type": "array"
++                        },
++                        "labels": {
++                            "type": "object"
++                        },
++                        "paths": {
++                            "type": "array"
++                        },
++                        "tls": {
++                            "type": "array"
++                        }
++                    }
++                },
++                "ingressPerReplica": {
++                    "type": "object",
++                    "properties": {
++                        "annotations": {
++                            "type": "object"
++                        },
++                        "enabled": {
++                            "type": "boolean"
++                        },
++                        "hostDomain": {
++                            "type": "string"
++                        },
++                        "hostPrefix": {
++                            "type": "string"
++                        },
++                        "labels": {
++                            "type": "object"
++                        },
++                        "paths": {
++                            "type": "array"
++                        },
++                        "tlsSecretName": {
++                            "type": "string"
++                        },
++                        "tlsSecretPerReplica": {
++                            "type": "object",
++                            "properties": {
++                                "enabled": {
++                                    "type": "boolean"
++                                },
++                                "prefix": {
++                                    "type": "string"
++                                }
++                            }
++                        }
++                    }
++                },
++                "podDisruptionBudget": {
++                    "type": "object",
++                    "properties": {
++                        "enabled": {
++                            "type": "boolean"
++                        },
++                        "maxUnavailable": {
++                            "type": "string"
++                        },
++                        "minAvailable": {
++                            "type": "integer"
++                        }
++                    }
++                },
++                "secret": {
++                    "type": "object",
++                    "properties": {
++                        "annotations": {
++                            "type": "object"
++                        }
++                    }
++                },
++                "service": {
++                    "type": "object",
++                    "properties": {
++                        "annotations": {
++                            "type": "object"
++                        },
++                        "clusterIP": {
++                            "type": "string"
++                        },
++                        "externalIPs": {
++                            "type": "array"
++                        },
++                        "labels": {
++                            "type": "object"
++                        },
++                        "loadBalancerIP": {
++                            "type": "string"
++                        },
++                        "loadBalancerSourceRanges": {
++                            "type": "array"
++                        },
++                        "nodePort": {
++                            "type": "integer"
++                        },
++                        "port": {
++                            "type": "integer"
++                        },
++                        "targetPort": {
++                            "type": "integer"
++                        },
++                        "type": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "serviceAccount": {
++                    "type": "object",
++                    "properties": {
++                        "annotations": {
++                            "type": "object"
++                        },
++                        "create": {
++                            "type": "boolean"
++                        },
++                        "name": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "bearerTokenFile": {
++                            "type": "null"
++                        },
++                        "interval": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "relabelings": {
++                            "type": "array"
++                        },
++                        "scheme": {
++                            "type": "string"
++                        },
++                        "selfMonitor": {
++                            "type": "boolean"
++                        },
++                        "tlsConfig": {
++                            "type": "object"
++                        }
++                    }
++                },
++                "servicePerReplica": {
++                    "type": "object",
++                    "properties": {
++                        "annotations": {
++                            "type": "object"
++                        },
++                        "enabled": {
++                            "type": "boolean"
++                        },
++                        "loadBalancerSourceRanges": {
++                            "type": "array"
++                        },
++                        "nodePort": {
++                            "type": "integer"
++                        },
++                        "port": {
++                            "type": "integer"
++                        },
++                        "targetPort": {
++                            "type": "integer"
++                        },
++                        "type": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "templateFiles": {
++                    "type": "object"
++                },
++                "tplConfig": {
++                    "type": "boolean"
++                }
++            }
++        },
++        "commonLabels": {
++            "type": "object"
++        },
++        "coreDns": {
++            "type": "object",
++            "properties": {
++                "enabled": {
++                    "type": "boolean"
++                },
++                "service": {
++                    "type": "object",
++                    "properties": {
++                        "port": {
++                            "type": "integer"
++                        },
++                        "targetPort": {
++                            "type": "integer"
++                        }
++                    }
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "interval": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "relabelings": {
++                            "type": "array"
++                        }
++                    }
++                }
++            }
++        },
++        "defaultRules": {
++            "type": "object",
++            "properties": {
++                "annotations": {
++                    "type": "object"
++                },
++                "appNamespacesTarget": {
++                    "type": "string"
++                },
++                "create": {
++                    "type": "boolean"
++                },
++                "labels": {
++                    "type": "object"
++                },
++                "rules": {
++                    "type": "object",
++                    "properties": {
++                        "alertmanager": {
++                            "type": "boolean"
++                        },
++                        "etcd": {
++                            "type": "boolean"
++                        },
++                        "general": {
++                            "type": "boolean"
++                        },
++                        "k8s": {
++                            "type": "boolean"
++                        },
++                        "kubeApiserver": {
++                            "type": "boolean"
++                        },
++                        "kubeApiserverAvailability": {
++                            "type": "boolean"
++                        },
++                        "kubeApiserverError": {
++                            "type": "boolean"
++                        },
++                        "kubeApiserverSlos": {
++                            "type": "boolean"
++                        },
++                        "kubePrometheusGeneral": {
++                            "type": "boolean"
++                        },
++                        "kubePrometheusNodeAlerting": {
++                            "type": "boolean"
++                        },
++                        "kubePrometheusNodeRecording": {
++                            "type": "boolean"
++                        },
++                        "kubeScheduler": {
++                            "type": "boolean"
++                        },
++                        "kubeStateMetrics": {
++                            "type": "boolean"
++                        },
++                        "kubelet": {
++                            "type": "boolean"
++                        },
++                        "kubernetesAbsent": {
++                            "type": "boolean"
++                        },
++                        "kubernetesApps": {
++                            "type": "boolean"
++                        },
++                        "kubernetesResources": {
++                            "type": "boolean"
++                        },
++                        "kubernetesStorage": {
++                            "type": "boolean"
++                        },
++                        "kubernetesSystem": {
++                            "type": "boolean"
++                        },
++                        "network": {
++                            "type": "boolean"
++                        },
++                        "node": {
++                            "type": "boolean"
++                        },
++                        "prometheus": {
++                            "type": "boolean"
++                        },
++                        "prometheusOperator": {
++                            "type": "boolean"
++                        },
++                        "time": {
++                            "type": "boolean"
++                        }
++                    }
++                },
++                "runbookUrl": {
++                    "type": "string"
++                }
++            }
++        },
++        "fullnameOverride": {
++            "type": "string"
++        },
++        "global": {
++            "type": "object",
++            "properties": {
++                "imagePullSecrets": {
++                    "type": "array"
++                },
++                "rbac": {
++                    "type": "object",
++                    "properties": {
++                        "create": {
++                            "type": "boolean"
++                        },
++                        "pspAnnotations": {
++                            "type": "object"
++                        },
++                        "pspEnabled": {
++                            "type": "boolean"
++                        }
++                    }
++                }
++            }
++        },
++        "grafana": {
++            "type": "object",
++            "properties": {
++                "additionalDataSources": {
++                    "type": "array"
++                },
++                "adminPassword": {
++                    "type": "string"
++                },
++                "defaultDashboardsEnabled": {
++                    "type": "boolean"
++                },
++                "enabled": {
++                    "type": "boolean"
++                },
++                "extraConfigmapMounts": {
++                    "type": "array"
++                },
++                "ingress": {
++                    "type": "object",
++                    "properties": {
++                        "annotations": {
++                            "type": "object"
++                        },
++                        "enabled": {
++                            "type": "boolean"
++                        },
++                        "hosts": {
++                            "type": "array"
++                        },
++                        "labels": {
++                            "type": "object"
++                        },
++                        "path": {
++                            "type": "string"
++                        },
++                        "tls": {
++                            "type": "array"
++                        }
++                    }
++                },
++                "namespaceOverride": {
++                    "type": "string"
++                },
++                "rbac": {
++                    "type": "object",
++                    "properties": {
++                        "pspUseAppArmor": {
++                            "type": "boolean"
++                        }
++                    }
++                },
++                "service": {
++                    "type": "object",
++                    "properties": {
++                        "portName": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "interval": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "relabelings": {
++                            "type": "array"
++                        },
++                        "selfMonitor": {
++                            "type": "boolean"
++                        }
++                    }
++                },
++                "sidecar": {
++                    "type": "object",
++                    "properties": {
++                        "dashboards": {
++                            "type": "object",
++                            "properties": {
++                                "annotations": {
++                                    "type": "object"
++                                },
++                                "enabled": {
++                                    "type": "boolean"
++                                },
++                                "label": {
++                                    "type": "string"
++                                }
++                            }
++                        },
++                        "datasources": {
++                            "type": "object",
++                            "properties": {
++                                "annotations": {
++                                    "type": "object"
++                                },
++                                "createPrometheusReplicasDatasources": {
++                                    "type": "boolean"
++                                },
++                                "defaultDatasourceEnabled": {
++                                    "type": "boolean"
++                                },
++                                "enabled": {
++                                    "type": "boolean"
++                                },
++                                "label": {
++                                    "type": "string"
++                                }
++                            }
++                        }
++                    }
++                }
++            }
++        },
++        "image": {
++            "type": "object",
++            "properties": {
++                "registry": {
++                    "type": "string"
++                }
++            }
++        },
++        "kube-state-metrics": {
++            "type": "object",
++            "properties": {
++                "namespaceOverride": {
++                    "type": "string"
++                },
++                "podSecurityPolicy": {
++                    "type": "object",
++                    "properties": {
++                        "enabled": {
++                            "type": "boolean"
++                        }
++                    }
++                },
++                "rbac": {
++                    "type": "object",
++                    "properties": {
++                        "create": {
++                            "type": "boolean"
++                        }
++                    }
++                }
++            }
++        },
++        "kubeApiServer": {
++            "type": "object",
++            "properties": {
++                "enabled": {
++                    "type": "boolean"
++                },
++                "relabelings": {
++                    "type": "array"
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "interval": {
++                            "type": "string"
++                        },
++                        "jobLabel": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "selector": {
++                            "type": "object",
++                            "properties": {
++                                "matchLabels": {
++                                    "type": "object",
++                                    "properties": {
++                                        "component": {
++                                            "type": "string"
++                                        },
++                                        "provider": {
++                                            "type": "string"
++                                        }
++                                    }
++                                }
++                            }
++                        }
++                    }
++                },
++                "tlsConfig": {
++                    "type": "object",
++                    "properties": {
++                        "insecureSkipVerify": {
++                            "type": "boolean"
++                        },
++                        "serverName": {
++                            "type": "string"
++                        }
++                    }
++                }
++            }
++        },
++        "kubeControllerManager": {
++            "type": "object",
++            "properties": {
++                "enabled": {
++                    "type": "boolean"
++                },
++                "endpoints": {
++                    "type": "array"
++                },
++                "service": {
++                    "type": "object",
++                    "properties": {
++                        "port": {
++                            "type": "integer"
++                        },
++                        "targetPort": {
++                            "type": "integer"
++                        }
++                    }
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "https": {
++                            "type": "boolean"
++                        },
++                        "insecureSkipVerify": {
++                            "type": "null"
++                        },
++                        "interval": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "relabelings": {
++                            "type": "array"
++                        },
++                        "serverName": {
++                            "type": "null"
++                        }
++                    }
++                }
++            }
++        },
++        "kubeDns": {
++            "type": "object",
++            "properties": {
++                "enabled": {
++                    "type": "boolean"
++                },
++                "service": {
++                    "type": "object",
++                    "properties": {
++                        "dnsmasq": {
++                            "type": "object",
++                            "properties": {
++                                "port": {
++                                    "type": "integer"
++                                },
++                                "targetPort": {
++                                    "type": "integer"
++                                }
++                            }
++                        },
++                        "skydns": {
++                            "type": "object",
++                            "properties": {
++                                "port": {
++                                    "type": "integer"
++                                },
++                                "targetPort": {
++                                    "type": "integer"
++                                }
++                            }
++                        }
++                    }
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "dnsmasqMetricRelabelings": {
++                            "type": "array"
++                        },
++                        "dnsmasqRelabelings": {
++                            "type": "array"
++                        },
++                        "interval": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "relabelings": {
++                            "type": "array"
++                        }
++                    }
++                }
++            }
++        },
++        "kubeEtcd": {
++            "type": "object",
++            "properties": {
++                "enabled": {
++                    "type": "boolean"
++                },
++                "endpoints": {
++                    "type": "array"
++                },
++                "service": {
++                    "type": "object",
++                    "properties": {
++                        "port": {
++                            "type": "integer"
++                        },
++                        "targetPort": {
++                            "type": "integer"
++                        }
++                    }
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "caFile": {
++                            "type": "string"
++                        },
++                        "certFile": {
++                            "type": "string"
++                        },
++                        "insecureSkipVerify": {
++                            "type": "boolean"
++                        },
++                        "interval": {
++                            "type": "string"
++                        },
++                        "keyFile": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "relabelings": {
++                            "type": "array"
++                        },
++                        "scheme": {
++                            "type": "string"
++                        },
++                        "serverName": {
++                            "type": "string"
++                        }
++                    }
++                }
++            }
++        },
++        "kubeProxy": {
++            "type": "object",
++            "properties": {
++                "enabled": {
++                    "type": "boolean"
++                },
++                "endpoints": {
++                    "type": "array"
++                },
++                "service": {
++                    "type": "object",
++                    "properties": {
++                        "port": {
++                            "type": "integer"
++                        },
++                        "targetPort": {
++                            "type": "integer"
++                        }
++                    }
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "https": {
++                            "type": "boolean"
++                        },
++                        "interval": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "relabelings": {
++                            "type": "array"
++                        }
++                    }
++                }
++            }
++        },
++        "kubeScheduler": {
++            "type": "object",
++            "properties": {
++                "enabled": {
++                    "type": "boolean"
++                },
++                "endpoints": {
++                    "type": "array"
++                },
++                "service": {
++                    "type": "object",
++                    "properties": {
++                        "port": {
++                            "type": "integer"
++                        },
++                        "targetPort": {
++                            "type": "integer"
++                        }
++                    }
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "https": {
++                            "type": "boolean"
++                        },
++                        "insecureSkipVerify": {
++                            "type": "null"
++                        },
++                        "interval": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "relabelings": {
++                            "type": "array"
++                        },
++                        "serverName": {
++                            "type": "null"
++                        }
++                    }
++                }
++            }
++        },
++        "kubeStateMetrics": {
++            "type": "object",
++            "properties": {
++                "enabled": {
++                    "type": "boolean"
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "interval": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "relabelings": {
++                            "type": "array"
++                        }
++                    }
++                }
++            }
++        },
++        "kubeTargetVersionOverride": {
++            "type": "string"
++        },
++        "kubelet": {
++            "type": "object",
++            "properties": {
++                "enabled": {
++                    "type": "boolean"
++                },
++                "namespace": {
++                    "type": "string"
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "cAdvisor": {
++                            "type": "boolean"
++                        },
++                        "cAdvisorMetricRelabelings": {
++                            "type": "array"
++                        },
++                        "cAdvisorRelabelings": {
++                            "type": "array",
++                            "items": {
++                                "type": "object",
++                                "properties": {
++                                    "sourceLabels": {
++                                        "type": "array",
++                                        "items": {
++                                            "type": "string"
++                                        }
++                                    },
++                                    "targetLabel": {
++                                        "type": "string"
++                                    }
++                                }
++                            }
++                        },
++                        "https": {
++                            "type": "boolean"
++                        },
++                        "interval": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "probes": {
++                            "type": "boolean"
++                        },
++                        "probesMetricRelabelings": {
++                            "type": "array"
++                        },
++                        "probesRelabelings": {
++                            "type": "array",
++                            "items": {
++                                "type": "object",
++                                "properties": {
++                                    "sourceLabels": {
++                                        "type": "array",
++                                        "items": {
++                                            "type": "string"
++                                        }
++                                    },
++                                    "targetLabel": {
++                                        "type": "string"
++                                    }
++                                }
++                            }
++                        },
++                        "relabelings": {
++                            "type": "array",
++                            "items": {
++                                "type": "object",
++                                "properties": {
++                                    "sourceLabels": {
++                                        "type": "array",
++                                        "items": {
++                                            "type": "string"
++                                        }
++                                    },
++                                    "targetLabel": {
++                                        "type": "string"
++                                    }
++                                }
++                            }
++                        },
++                        "resource": {
++                            "type": "boolean"
++                        },
++                        "resourcePath": {
++                            "type": "string"
++                        },
++                        "resourceRelabelings": {
++                            "type": "array",
++                            "items": {
++                                "type": "object",
++                                "properties": {
++                                    "sourceLabels": {
++                                        "type": "array",
++                                        "items": {
++                                            "type": "string"
++                                        }
++                                    },
++                                    "targetLabel": {
++                                        "type": "string"
++                                    }
++                                }
++                            }
++                        }
++                    }
++                }
++            }
++        },
++        "nameOverride": {
++            "type": "string"
++        },
++        "namespaceOverride": {
++            "type": "string"
++        },
++        "nodeExporter": {
++            "type": "object",
++            "properties": {
++                "enabled": {
++                    "type": "boolean"
++                },
++                "jobLabel": {
++                    "type": "string"
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "interval": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "relabelings": {
++                            "type": "array"
++                        },
++                        "scrapeTimeout": {
++                            "type": "string"
++                        }
++                    }
++                }
++            }
++        },
++        "prometheus": {
++            "type": "object",
++            "properties": {
++                "additionalPodMonitors": {
++                    "type": "array"
++                },
++                "additionalServiceMonitors": {
++                    "type": "array"
++                },
++                "annotations": {
++                    "type": "object"
++                },
++                "enabled": {
++                    "type": "boolean"
++                },
++                "ingress": {
++                    "type": "object",
++                    "properties": {
++                        "annotations": {
++                            "type": "object"
++                        },
++                        "enabled": {
++                            "type": "boolean"
++                        },
++                        "hosts": {
++                            "type": "array"
++                        },
++                        "labels": {
++                            "type": "object"
++                        },
++                        "paths": {
++                            "type": "array"
++                        },
++                        "tls": {
++                            "type": "array"
++                        }
++                    }
++                },
++                "ingressPerReplica": {
++                    "type": "object",
++                    "properties": {
++                        "annotations": {
++                            "type": "object"
++                        },
++                        "enabled": {
++                            "type": "boolean"
++                        },
++                        "hostDomain": {
++                            "type": "string"
++                        },
++                        "hostPrefix": {
++                            "type": "string"
++                        },
++                        "labels": {
++                            "type": "object"
++                        },
++                        "paths": {
++                            "type": "array"
++                        },
++                        "tlsSecretName": {
++                            "type": "string"
++                        },
++                        "tlsSecretPerReplica": {
++                            "type": "object",
++                            "properties": {
++                                "enabled": {
++                                    "type": "boolean"
++                                },
++                                "prefix": {
++                                    "type": "string"
++                                }
++                            }
++                        }
++                    }
++                },
++                "podDisruptionBudget": {
++                    "type": "object",
++                    "properties": {
++                        "enabled": {
++                            "type": "boolean"
++                        },
++                        "maxUnavailable": {
++                            "type": "string"
++                        },
++                        "minAvailable": {
++                            "type": "integer"
++                        }
++                    }
++                },
++                "podSecurityPolicy": {
++                    "type": "object",
++                    "properties": {
++                        "allowedCapabilities": {
++                            "type": "array"
++                        }
++                    }
++                },
++                "prometheusSpec": {
++                    "type": "object",
++                    "properties": {
++                        "additionalAlertManagerConfigs": {
++                            "type": "array"
++                        },
++                        "additionalAlertRelabelConfigs": {
++                            "type": "array"
++                        },
++                        "additionalPrometheusSecretsAnnotations": {
++                            "type": "object"
++                        },
++                        "additionalScrapeConfigs": {
++                            "type": "array"
++                        },
++                        "additionalScrapeConfigsSecret": {
++                            "type": "object"
++                        },
++                        "affinity": {
++                            "type": "object"
++                        },
++                        "alertingEndpoints": {
++                            "type": "array"
++                        },
++                        "apiserverConfig": {
++                            "type": "object"
++                        },
++                        "configMaps": {
++                            "type": "array"
++                        },
++                        "containers": {
++                            "type": "array"
++                        },
++                        "disableCompaction": {
++                            "type": "boolean"
++                        },
++                        "enableAdminAPI": {
++                            "type": "boolean"
++                        },
++                        "evaluationInterval": {
++                            "type": "string"
++                        },
++                        "externalLabels": {
++                            "type": "object"
++                        },
++                        "externalUrl": {
++                            "type": "string"
++                        },
++                        "image": {
++                            "type": "object",
++                            "properties": {
++                                "name": {
++                                    "type": "string"
++                                },
++                                "sha": {
++                                    "type": "string"
++                                },
++                                "tag": {
++                                    "type": "string"
++                                }
++                            }
++                        },
++                        "initContainers": {
++                            "type": "array"
++                        },
++                        "listenLocal": {
++                            "type": "boolean"
++                        },
++                        "logFormat": {
++                            "type": "string"
++                        },
++                        "logLevel": {
++                            "type": "string"
++                        },
++                        "nodeSelector": {
++                            "type": "object"
++                        },
++                        "paused": {
++                            "type": "boolean"
++                        },
++                        "podAntiAffinity": {
++                            "type": "string"
++                        },
++                        "podAntiAffinityTopologyKey": {
++                            "type": "string"
++                        },
++                        "podMetadata": {
++                            "type": "object"
++                        },
++                        "podMonitorNamespaceSelector": {
++                            "type": "object"
++                        },
++                        "podMonitorSelector": {
++                            "type": "object"
++                        },
++                        "podMonitorSelectorNilUsesHelmValues": {
++                            "type": "boolean"
++                        },
++                        "portName": {
++                            "type": "string"
++                        },
++                        "priorityClassName": {
++                            "type": "string"
++                        },
++                        "prometheusExternalLabelName": {
++                            "type": "string"
++                        },
++                        "prometheusExternalLabelNameClear": {
++                            "type": "boolean"
++                        },
++                        "query": {
++                            "type": "object"
++                        },
++                        "remoteRead": {
++                            "type": "array"
++                        },
++                        "remoteWrite": {
++                            "type": "array"
++                        },
++                        "remoteWriteDashboards": {
++                            "type": "boolean"
++                        },
++                        "replicaExternalLabelName": {
++                            "type": "string"
++                        },
++                        "replicaExternalLabelNameClear": {
++                            "type": "boolean"
++                        },
++                        "replicas": {
++                            "type": "integer"
++                        },
++                        "resources": {
++                            "type": "object"
++                        },
++                        "retention": {
++                            "type": "string"
++                        },
++                        "retentionSize": {
++                            "type": "string"
++                        },
++                        "routePrefix": {
++                            "type": "string"
++                        },
++                        "ruleNamespaceSelector": {
++                            "type": "object"
++                        },
++                        "ruleSelector": {
++                            "type": "object"
++                        },
++                        "ruleSelectorNilUsesHelmValues": {
++                            "type": "boolean"
++                        },
++                        "scrapeInterval": {
++                            "type": "string"
++                        },
++                        "secrets": {
++                            "type": "array"
++                        },
++                        "securityContext": {
++                            "type": "object",
++                            "properties": {
++                                "fsGroup": {
++                                    "type": "integer"
++                                },
++                                "runAsGroup": {
++                                    "type": "integer"
++                                },
++                                "runAsNonRoot": {
++                                    "type": "boolean"
++                                },
++                                "runAsUser": {
++                                    "type": "integer"
++                                }
++                            }
++                        },
++                        "serviceMonitorNamespaceSelector": {
++                            "type": "object"
++                        },
++                        "serviceMonitorSelector": {
++                            "type": "object"
++                        },
++                        "serviceMonitorSelectorNilUsesHelmValues": {
++                            "type": "boolean"
++                        },
++                        "storageSpec": {
++                            "type": "object"
++                        },
++                        "thanos": {
++                            "type": "object"
++                        },
++                        "tolerations": {
++                            "type": "array"
++                        },
++                        "volumeMounts": {
++                            "type": "array"
++                        },
++                        "volumes": {
++                            "type": "array"
++                        },
++                        "walCompression": {
++                            "type": "boolean"
++                        }
++                    }
++                },
++                "service": {
++                    "type": "object",
++                    "properties": {
++                        "annotations": {
++                            "type": "object"
++                        },
++                        "clusterIP": {
++                            "type": "string"
++                        },
++                        "externalIPs": {
++                            "type": "array"
++                        },
++                        "labels": {
++                            "type": "object"
++                        },
++                        "loadBalancerIP": {
++                            "type": "string"
++                        },
++                        "loadBalancerSourceRanges": {
++                            "type": "array"
++                        },
++                        "nodePort": {
++                            "type": "integer"
++                        },
++                        "port": {
++                            "type": "integer"
++                        },
++                        "sessionAffinity": {
++                            "type": "string"
++                        },
++                        "targetPort": {
++                            "type": "integer"
++                        },
++                        "type": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "serviceAccount": {
++                    "type": "object",
++                    "properties": {
++                        "create": {
++                            "type": "boolean"
++                        },
++                        "name": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "bearerTokenFile": {
++                            "type": "null"
++                        },
++                        "interval": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "relabelings": {
++                            "type": "array"
++                        },
++                        "scheme": {
++                            "type": "string"
++                        },
++                        "selfMonitor": {
++                            "type": "boolean"
++                        },
++                        "tlsConfig": {
++                            "type": "object"
++                        }
++                    }
++                },
++                "servicePerReplica": {
++                    "type": "object",
++                    "properties": {
++                        "annotations": {
++                            "type": "object"
++                        },
++                        "enabled": {
++                            "type": "boolean"
++                        },
++                        "loadBalancerSourceRanges": {
++                            "type": "array"
++                        },
++                        "nodePort": {
++                            "type": "integer"
++                        },
++                        "port": {
++                            "type": "integer"
++                        },
++                        "targetPort": {
++                            "type": "integer"
++                        },
++                        "type": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "thanosIngress": {
++                    "type": "object",
++                    "properties": {
++                        "annotations": {
++                            "type": "object"
++                        },
++                        "enabled": {
++                            "type": "boolean"
++                        },
++                        "hosts": {
++                            "type": "array"
++                        },
++                        "labels": {
++                            "type": "object"
++                        },
++                        "paths": {
++                            "type": "array"
++                        },
++                        "servicePort": {
++                            "type": "integer"
++                        },
++                        "tls": {
++                            "type": "array"
++                        }
++                    }
++                }
++            }
++        },
++        "prometheus-node-exporter": {
++            "type": "object",
++            "properties": {
++                "extraArgs": {
++                    "type": "array",
++                    "items": {
++                        "type": "string"
++                    }
++                },
++                "namespaceOverride": {
++                    "type": "string"
++                },
++                "podLabels": {
++                    "type": "object",
++                    "properties": {
++                        "jobLabel": {
++                            "type": "string"
++                        }
++                    }
++                }
++            }
++        },
++        "prometheusOperator": {
++            "type": "object",
++            "properties": {
++                "admissionWebhooks": {
++                    "type": "object",
++                    "properties": {
++                        "enabled": {
++                            "type": "boolean"
++                        },
++                        "failurePolicy": {
++                            "type": "string"
++                        },
++                        "patch": {
++                            "type": "object",
++                            "properties": {
++                                "affinity": {
++                                    "type": "object"
++                                },
++                                "enabled": {
++                                    "type": "boolean"
++                                },
++                                "image": {
++                                    "type": "object",
++                                    "properties": {
++                                        "name": {
++                                            "type": "string"
++                                        },
++                                        "pullPolicy": {
++                                            "type": "string"
++                                        },
++                                        "sha": {
++                                            "type": "string"
++                                        },
++                                        "tag": {
++                                            "type": "string"
++                                        }
++                                    }
++                                },
++                                "nodeSelector": {
++                                    "type": "object"
++                                },
++                                "podAnnotations": {
++                                    "type": "object"
++                                },
++                                "priorityClassName": {
++                                    "type": "string"
++                                },
++                                "resources": {
++                                    "type": "object"
++                                },
++                                "tolerations": {
++                                    "type": "array"
++                                }
++                            }
++                        }
++                    }
++                },
++                "affinity": {
++                    "type": "object"
++                },
++                "alertmanagerInstanceNamespaces": {
++                    "type": "array"
++                },
++                "cleanupCustomResource": {
++                    "type": "boolean"
++                },
++                "configReloaderCpu": {
++                    "type": "string"
++                },
++                "configReloaderMemory": {
++                    "type": "string"
++                },
++                "configmapReloadImage": {
++                    "type": "object",
++                    "properties": {
++                        "name": {
++                            "type": "string"
++                        },
++                        "sha": {
++                            "type": "string"
++                        },
++                        "tag": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "createCustomResource": {
++                    "type": "boolean"
++                },
++                "denyNamespaces": {
++                    "type": "array"
++                },
++                "enabled": {
++                    "type": "boolean"
++                },
++                "hostNetwork": {
++                    "type": "boolean"
++                },
++                "image": {
++                    "type": "object",
++                    "properties": {
++                        "name": {
++                            "type": "string"
++                        },
++                        "pullPolicy": {
++                            "type": "string"
++                        },
++                        "sha": {
++                            "type": "string"
++                        },
++                        "tag": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "kubectlImage": {
++                    "type": "object",
++                    "properties": {
++                        "name": {
++                            "type": "string"
++                        },
++                        "pullPolicy": {
++                            "type": "string"
++                        },
++                        "sha": {
++                            "type": "string"
++                        },
++                        "tag": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "kubeletService": {
++                    "type": "object",
++                    "properties": {
++                        "enabled": {
++                            "type": "boolean"
++                        },
++                        "namespace": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "manageCrds": {
++                    "type": "boolean"
++                },
++                "namespaces": {
++                    "type": "object"
++                },
++                "nodeSelector": {
++                    "type": "object"
++                },
++                "podAnnotations": {
++                    "type": "object"
++                },
++                "podLabels": {
++                    "type": "object"
++                },
++                "prometheusConfigReloaderImage": {
++                    "type": "object",
++                    "properties": {
++                        "name": {
++                            "type": "string"
++                        },
++                        "sha": {
++                            "type": "string"
++                        },
++                        "tag": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "prometheusInstanceNamespaces": {
++                    "type": "array"
++                },
++                "resources": {
++                    "type": "object",
++                    "properties": {
++                        "limits": {
++                            "type": "object",
++                            "properties": {
++                                "cpu": {
++                                    "type": "string"
++                                },
++                                "memory": {
++                                    "type": "string"
++                                }
++                            }
++                        },
++                        "requests": {
++                            "type": "object",
++                            "properties": {
++                                "cpu": {
++                                    "type": "string"
++                                },
++                                "memory": {
++                                    "type": "string"
++                                }
++                            }
++                        }
++                    }
++                },
++                "secretFieldSelector": {
++                    "type": "string"
++                },
++                "securityContext": {
++                    "type": "object",
++                    "properties": {
++                        "fsGroup": {
++                            "type": "integer"
++                        },
++                        "runAsGroup": {
++                            "type": "integer"
++                        },
++                        "runAsNonRoot": {
++                            "type": "boolean"
++                        },
++                        "runAsUser": {
++                            "type": "integer"
++                        }
++                    }
++                },
++                "service": {
++                    "type": "object",
++                    "properties": {
++                        "additionalPorts": {
++                            "type": "array"
++                        },
++                        "annotations": {
++                            "type": "object"
++                        },
++                        "clusterIP": {
++                            "type": "string"
++                        },
++                        "externalIPs": {
++                            "type": "array"
++                        },
++                        "labels": {
++                            "type": "object"
++                        },
++                        "loadBalancerIP": {
++                            "type": "string"
++                        },
++                        "loadBalancerSourceRanges": {
++                            "type": "array"
++                        },
++                        "nodePort": {
++                            "type": "integer"
++                        },
++                        "nodePortTls": {
++                            "type": "integer"
++                        },
++                        "type": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "serviceAccount": {
++                    "type": "object",
++                    "properties": {
++                        "create": {
++                            "type": "boolean"
++                        },
++                        "name": {
++                            "type": "string"
++                        }
++                    }
++                },
++                "serviceMonitor": {
++                    "type": "object",
++                    "properties": {
++                        "interval": {
++                            "type": "string"
++                        },
++                        "metricRelabelings": {
++                            "type": "array"
++                        },
++                        "relabelings": {
++                            "type": "array"
++                        },
++                        "scrapeTimeout": {
++                            "type": "string"
++                        },
++                        "selfMonitor": {
++                            "type": "boolean"
++                        }
++                    }
++                },
++                "thanosInstanceNamespaces": {
++                    "type": "array"
++                },
++                "tlsProxy": {
++                    "type": "object",
++                    "properties": {
++                        "enabled": {
++                            "type": "boolean"
++                        },
++                        "image": {
++                            "type": "object",
++                            "properties": {
++                                "name": {
++                                    "type": "string"
++                                },
++                                "pullPolicy": {
++                                    "type": "string"
++                                },
++                                "sha": {
++                                    "type": "string"
++                                },
++                                "tag": {
++                                    "type": "string"
++                                }
++                            }
++                        },
++                        "resources": {
++                            "type": "object"
++                        }
++                    }
++                },
++                "tolerations": {
++                    "type": "array"
++                }
++            }
++        }
++    }
++}
+diff --git a/values.yaml b/values.yaml
+index c672971..93009c4 100644
+--- a/values.yaml
++++ b/values.yaml
+@@ -84,6 +84,10 @@ additionalPrometheusRulesMap: {}
+ #      - record: my_record
+ #        expr: 100 * my_record
+ 
++## Required for interchangability of image registry used for China
++image:
++  registry: quay.io
++
+ ##
+ global:
+   rbac:
+@@ -353,7 +357,7 @@ alertmanager:
+     ## Image of Alertmanager
+     ##
+     image:
+-      repository: quay.io/prometheus/alertmanager
++      name: giantswarm/alertmanager
+       tag: v0.21.0
+       sha: ""
+ 
+@@ -516,6 +520,9 @@ grafana:
+ 
+   adminPassword: prom-operator
+ 
++  rbac:
++    pspUseAppArmor: false
++
+   ingress:
+     ## If true, Grafana Ingress will be created
+     ##
+@@ -1161,7 +1168,7 @@ prometheusOperator:
+   tlsProxy:
+     enabled: true
+     image:
+-      repository: squareup/ghostunnel
++      name: giantswarm/ghostunnel
+       tag: v1.5.2
+       sha: ""
+       pullPolicy: IfNotPresent
+@@ -1179,7 +1186,7 @@ prometheusOperator:
+     patch:
+       enabled: true
+       image:
+-        repository: jettech/kube-webhook-certgen
++        name: giantswarm/kube-webhook-certgen
+         tag: v1.2.1
+         sha: ""
+         pullPolicy: IfNotPresent
+@@ -1314,7 +1321,13 @@ prometheusOperator:
+ 
+   ## Resource limits & requests
+   ##
+-  resources: {}
++  resources:
++    limits:
++      cpu: 200m
++      memory: 200Mi
++    requests:
++      cpu: 100m
++      memory: 100Mi
+   # limits:
+   #   cpu: 200m
+   #   memory: 200Mi
+@@ -1364,7 +1377,7 @@ prometheusOperator:
+   ## Prometheus-operator image
+   ##
+   image:
+-    repository: quay.io/prometheus-operator/prometheus-operator
++    name: giantswarm/prometheus-operator
+     tag: v0.42.1
+     sha: ""
+     pullPolicy: IfNotPresent
+@@ -1372,14 +1385,14 @@ prometheusOperator:
+   ## Configmap-reload image to use for reloading configmaps
+   ##
+   configmapReloadImage:
+-    repository: docker.io/jimmidyson/configmap-reload
++    name: giantswarm/configmap-reload
+     tag: v0.4.0
+     sha: ""
+ 
+   ## Prometheus-config-reloader image to use for config and rule reloading
+   ##
+   prometheusConfigReloaderImage:
+-    repository: quay.io/prometheus-operator/prometheus-config-reloader
++    name: giantswarm/prometheus-config-reloader
+     tag: v0.42.1
+     sha: ""
+ 
+@@ -1398,7 +1411,7 @@ prometheusOperator:
+   ## kubectl image to use when cleaning up
+   ##
+   kubectlImage:
+-    repository: docker.io/bitnami/kubectl
++    name: giantswarm/kubectl
+     tag: 1.16.15
+     sha: ""
+     pullPolicy: IfNotPresent
+@@ -1643,7 +1656,7 @@ prometheus:
+     ## Image of Prometheus.
+     ##
+     image:
+-      repository: quay.io/prometheus/prometheus
++      name: giantswarm/prometheus
+       tag: v2.21.0
+       sha: ""
+ 
