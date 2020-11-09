@@ -41,7 +41,7 @@ The longest name that gets created adds and extra 37 characters, so truncation s
 
 {{/* Create chart name and version as used by the chart label. */}}
 {{- define "kube-prometheus-stack.chartref" -}}
-{{- replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name -}}
+{{- (replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name) | trunc 63 -}}
 {{- end }}
 
 {{/* Generate basic labels */}}

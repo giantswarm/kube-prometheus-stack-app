@@ -19,7 +19,7 @@ sources:
   - https://github.com/prometheus-community/helm-charts
   - https://github.com/prometheus-operator/kube-prometheus
 version: [[ .Version ]]
-appVersion: 0.42.1
+appVersion: 0.38.1
 tillerVersion: ">=2.12.0"
 kubeVersion: ">=1.16.0-0"
 home: https://github.com/giantswarm/prometheus-operator-app
