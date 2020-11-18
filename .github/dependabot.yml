@@ -1,0 +1,14 @@
+# DO NOT EDIT. Generated with:
+#
+#    devctl gen dependabot
+#
+version: 2
+updates:
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "04:00"
+  target-branch: master
+  reviewers:
+  - giantswarm/app-squad-prometheus
