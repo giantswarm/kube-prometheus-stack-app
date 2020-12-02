@@ -1,7 +1,7 @@
-diff --git a/templates/_helpers.tpl b/templates/_helpers.tpl
+diff --git b/templates/_helpers.tpl a/templates/_helpers.tpl
 index 8a3d1b7..d814d73 100644
---- a/templates/_helpers.tpl
-+++ b/templates/_helpers.tpl
+--- b/templates/_helpers.tpl
++++ a/templates/_helpers.tpl
 @@ -41,7 +41,7 @@ The longest name that gets created adds and extra 37 characters, so truncation s
  
  {{/* Create chart name and version as used by the chart label. */}}
@@ -11,187 +11,139 @@ index 8a3d1b7..d814d73 100644
  {{- end }}
  
  {{/* Generate basic labels */}}
-diff --git a/templates/alertmanager/alertmanager.yaml b/templates/alertmanager/alertmanager.yaml
-index 167866b..72eac49 100644
---- a/templates/alertmanager/alertmanager.yaml
-+++ b/templates/alertmanager/alertmanager.yaml
+diff --git b/templates/alertmanager/alertmanager.yaml a/templates/alertmanager/alertmanager.yaml
+index e22c233..d8f43d4 100644
+--- b/templates/alertmanager/alertmanager.yaml
++++ a/templates/alertmanager/alertmanager.yaml
 @@ -9,7 +9,11 @@ metadata:
  {{ include "kube-prometheus-stack.labels" . | indent 4 }}
  spec:
  {{- if .Values.alertmanager.alertmanagerSpec.image }}
--  baseImage: {{ .Values.alertmanager.alertmanagerSpec.image.repository }}
+-  image: {{ .Values.alertmanager.alertmanagerSpec.image.repository }}:{{ .Values.alertmanager.alertmanagerSpec.image.tag }}
 +{{- if (.Values.Installation) }}
-+  baseImage: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.alertmanager.alertmanagerSpec.image.name }}"
++  image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.alertmanager.alertmanagerSpec.image.repository }}:{{ .Values.alertmanager.alertmanagerSpec.image.tag }}"
 +{{ else }}
-+  baseImage: "{{ .Values.image.registry }}/{{ .Values.alertmanager.alertmanagerSpec.image.name }}"
++  image: "{{ .Values.image.registry }}/{{ .Values.alertmanager.alertmanagerSpec.image.repository }}:{{ .Values.alertmanager.alertmanagerSpec.image.tag }}"
 +{{ end }}
    version: {{ .Values.alertmanager.alertmanagerSpec.image.tag }}
    {{- if .Values.alertmanager.alertmanagerSpec.image.sha }}
    sha: {{ .Values.alertmanager.alertmanagerSpec.image.sha }}
-diff --git a/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml b/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
-index 37a19a5..0e577da 100644
---- a/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
-+++ b/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
+diff --git b/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml a/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
+index 37a19a5..89f95f5 100644
+--- b/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
++++ a/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
 @@ -31,10 +31,14 @@ spec:
        {{- end }}
        containers:
          - name: create
 +          {{- if (.Values.Installation) }}
-+          image: {{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
++          image: {{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
 +          {{- else }}
            {{- if .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
 -          image: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}@sha256:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
-+          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}@sha256:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
++          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}@sha256:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
            {{- else }}
 -          image: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
-+          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
++          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
 +          {{- end }}
            {{- end }}
            imagePullPolicy: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.pullPolicy }}
            args:
-diff --git a/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml b/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
-index b74c618..2f21ed4 100644
---- a/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
-+++ b/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
+diff --git b/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml a/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
+index b74c618..0508e5d 100644
+--- b/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
++++ a/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
 @@ -31,10 +31,14 @@ spec:
        {{- end }}
        containers:
          - name: patch
 +          {{- if (.Values.Installation) }}
-+          image: {{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
++          image: {{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
 +          {{- else }}
            {{- if .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
 -          image: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}@sha256:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
-+          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}@sha256:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
++          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}@sha256:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.sha }}
            {{- else }}
 -          image: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
-+          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.name }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
++          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.admissionWebhooks.patch.image.repository }}:{{ .Values.prometheusOperator.admissionWebhooks.patch.image.tag }}
 +          {{- end }}
            {{- end }}
            imagePullPolicy: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.pullPolicy }}
            args:
-diff --git a/templates/prometheus-operator/cleanup-crds.yaml b/templates/prometheus-operator/cleanup-crds.yaml
-index e56fbae..a224980 100644
---- a/templates/prometheus-operator/cleanup-crds.yaml
-+++ b/templates/prometheus-operator/cleanup-crds.yaml
-@@ -24,11 +24,15 @@ spec:
-     {{- end }}
-       containers:
-         - name: kubectl
-+          {{- if (.Values.Installation) }}
-+          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.kubectlImage.name }}:{{ .Values.prometheusOperator.kubectlImage.tag }}"
-+          {{ else }}
-           {{- if .Values.prometheusOperator.kubectlImage.sha }}
--          image: "{{ .Values.prometheusOperator.kubectlImage.repository }}:{{ .Values.prometheusOperator.kubectlImage.tag }}@sha256:{{ .Values.prometheusOperator.kubectlImage.sha }}"
--          {{- else }}
--          image: "{{ .Values.prometheusOperator.kubectlImage.repository }}:{{ .Values.prometheusOperator.kubectlImage.tag }}"
--          {{- end }}
-+          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.kubectlImage.name }}:{{ .Values.prometheusOperator.kubectlImage.tag }}@sha256:{{ .Values.prometheusOperator.kubectlImage.sha }}"
-+          {{ else }}
-+          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.kubectlImage.name }}:{{ .Values.prometheusOperator.kubectlImage.tag }}"
-+          {{ end }}
-+          {{ end }}
-           imagePullPolicy: "{{ .Values.prometheusOperator.kubectlImage.pullPolicy }}"
-           command:
-           - /bin/sh
-diff --git a/templates/prometheus-operator/crds.yaml b/templates/prometheus-operator/crds.yaml
-index d6bca7e..e7eeda3 100644
---- a/templates/prometheus-operator/crds.yaml
-+++ b/templates/prometheus-operator/crds.yaml
-@@ -1,4 +1,4 @@
--{{- if and .Values.prometheusOperator.enabled .Values.prometheusOperator.createCustomResource -}}
-+{{- if and (eq .Release.Service "Tiller") .Values.prometheusOperator.enabled .Values.prometheusOperator.createCustomResource -}}
- {{- range $path, $bytes := .Files.Glob "crds/*.yaml" }}
- {{ $.Files.Get $path }}
- ---
-diff --git a/templates/prometheus-operator/deployment.yaml b/templates/prometheus-operator/deployment.yaml
-index 8e7e2c9..8a9cc81 100644
---- a/templates/prometheus-operator/deployment.yaml
-+++ b/templates/prometheus-operator/deployment.yaml
+diff --git b/templates/prometheus-operator/deployment.yaml a/templates/prometheus-operator/deployment.yaml
+index 29f2396..1e13200 100644
+--- b/templates/prometheus-operator/deployment.yaml
++++ a/templates/prometheus-operator/deployment.yaml
 @@ -32,10 +32,14 @@ spec:
      {{- end }}
        containers:
          - name: {{ template "kube-prometheus-stack.name" . }}
 +          {{- if (.Values.Installation) }}
-+          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}"
++          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}"
 +          {{ else }}
            {{- if .Values.prometheusOperator.image.sha }}
 -          image: "{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}@sha256:{{ .Values.prometheusOperator.image.sha }}"
-+          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}@sha256:{{ .Values.prometheusOperator.image.sha }}"
++          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}@sha256:{{ .Values.prometheusOperator.image.sha }}"
            {{- else }}
 -          image: "{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}"
-+          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}"
++          image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}"
 +          {{- end }}
            {{- end }}
            imagePullPolicy: "{{ .Values.prometheusOperator.image.pullPolicy }}"
            args:
-@@ -63,15 +67,23 @@ spec:
+@@ -60,18 +64,26 @@ spec:
              {{- end }}
              - --logtostderr=true
              - --localhost=127.0.0.1
-+                        {{- if (.Values.Installation) }}
-+            - --prometheus-config-reloader={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
-+            {{- else }}  
++            {{- if (.Values.Installation) }}
++            - --prometheus-config-reloader={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
++            {{- else }}
              {{- if .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
 -            - --prometheus-config-reloader={{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}@sha256:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
-+            - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}@sha256:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
++            - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}@sha256:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
              {{- else }}
 -            - --prometheus-config-reloader={{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
-+            - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.name }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
++            - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
 +            {{- end }}
              {{- end }}
+             # Empty if statement to catch non-semver master tags that do not need the --config-reloader-image flag
+             {{- if regexMatch "master.*" .Values.prometheusOperator.image.tag -}}
+             {{- else if (semverCompare "< v0.43.0" .Values.prometheusOperator.image.tag) -}}
 +            {{- if (.Values.Installation) }}
-+            - --config-reloader-image={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.configmapReloadImage.name }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
++            - --config-reloader-image={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
 +            {{- else }}
              {{- if .Values.prometheusOperator.configmapReloadImage.sha }}
 -            - --config-reloader-image={{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}@sha256:{{ .Values.prometheusOperator.configmapReloadImage.sha }}
-+            - --config-reloader-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.configmapReloadImage.name }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}@sha256:{{ .Values.prometheusOperator.configmapReloadImage.sha }}
++            - --config-reloader-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}@sha256:{{ .Values.prometheusOperator.configmapReloadImage.sha }}
              {{- else }}
 -            - --config-reloader-image={{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
-+            - --config-reloader-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.configmapReloadImage.name }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
++            - --config-reloader-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
 +            {{- end }}
              {{- end }}
+             {{- end }}
              - --config-reloader-cpu={{ .Values.prometheusOperator.configReloaderCpu }}
-             - --config-reloader-memory={{ .Values.prometheusOperator.configReloaderMemory }}
-@@ -97,10 +109,14 @@ spec:
-             readOnlyRootFilesystem: true
-         {{- if .Values.prometheusOperator.tlsProxy.enabled }}
-         - name: tls-proxy
-+          {{- if (.Values.Installation) }}
-+          image: {{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.tlsProxy.image.name }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}
-+          {{- else }}
-           {{- if .Values.prometheusOperator.tlsProxy.image.sha }}
--          image: {{ .Values.prometheusOperator.tlsProxy.image.repository }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}@sha256:{{ .Values.prometheusOperator.tlsProxy.image.sha }}
-+          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.tlsProxy.image.name }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}@sha256:{{ .Values.prometheusOperator.tlsProxy.image.sha }}
-           {{- else }}
--          image: {{ .Values.prometheusOperator.tlsProxy.image.repository }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}
-+          image: {{ .Values.image.registry }}/{{ .Values.prometheusOperator.tlsProxy.image.name }}:{{ .Values.prometheusOperator.tlsProxy.image.tag }}
-+          {{- end }}
-           {{- end }}
-           imagePullPolicy: {{ .Values.prometheusOperator.tlsProxy.image.pullPolicy }}
-           args:
-diff --git a/templates/prometheus/prometheus.yaml b/templates/prometheus/prometheus.yaml
-index f73b6a6..f8495d4 100644
---- a/templates/prometheus/prometheus.yaml
-+++ b/templates/prometheus/prometheus.yaml
+diff --git b/templates/prometheus/prometheus.yaml a/templates/prometheus/prometheus.yaml
+index 32d7a00..a1bf23b 100644
+--- b/templates/prometheus/prometheus.yaml
++++ a/templates/prometheus/prometheus.yaml
 @@ -32,7 +32,11 @@ spec:
  {{ toYaml .Values.prometheus.prometheusSpec.apiserverConfig | indent 4}}
  {{- end }}
  {{- if .Values.prometheus.prometheusSpec.image }}
--  baseImage: {{ .Values.prometheus.prometheusSpec.image.repository }}
+-  image: {{ .Values.prometheus.prometheusSpec.image.repository }}:{{ .Values.prometheus.prometheusSpec.image.tag }}
 +{{- if (.Values.Installation) }}
-+  baseImage: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheus.prometheusSpec.image.name }}"
++  image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheus.prometheusSpec.image.repository }}:{{ .Values.prometheus.prometheusSpec.image.tag }}"
 +{{ else }}
-+  baseImage: "{{ .Values.image.registry }}/{{ .Values.prometheus.prometheusSpec.image.name }}"
++  image: "{{ .Values.image.registry }}/{{ .Values.prometheus.prometheusSpec.image.repository }}:{{ .Values.prometheus.prometheusSpec.image.tag }}"
 +{{ end }}
    version: {{ .Values.prometheus.prometheusSpec.image.tag }}
    {{- if .Values.prometheus.prometheusSpec.image.sha }}
    sha: {{ .Values.prometheus.prometheusSpec.image.sha }}
-diff --git a/values.schema.json b/values.schema.json
+diff --git b/values.schema.json a/values.schema.json
 new file mode 100644
 index 0000000..d1e3fb5
 --- /dev/null
-+++ b/values.schema.json
++++ a/values.schema.json
 @@ -0,0 +1,1927 @@
 +{
 +    "$schema": "http://json-schema.org/schema#",
@@ -2120,11 +2072,11 @@ index 0000000..d1e3fb5
 +        }
 +    }
 +}
-diff --git a/values.yaml b/values.yaml
-index c672971..93009c4 100644
---- a/values.yaml
-+++ b/values.yaml
-@@ -84,6 +84,10 @@ additionalPrometheusRulesMap: {}
+diff --git b/values.yaml a/values.yaml
+index 8a67816..e95278f 100644
+--- b/values.yaml
++++ a/values.yaml
+@@ -87,6 +87,10 @@ additionalPrometheusRulesMap: {}
  #      - record: my_record
  #        expr: 100 * my_record
  
@@ -2135,16 +2087,16 @@ index c672971..93009c4 100644
  ##
  global:
    rbac:
-@@ -353,7 +357,7 @@ alertmanager:
+@@ -365,7 +369,7 @@ alertmanager:
      ## Image of Alertmanager
      ##
      image:
 -      repository: quay.io/prometheus/alertmanager
-+      name: giantswarm/alertmanager
++      repository: giantswarm/alertmanager
        tag: v0.21.0
        sha: ""
  
-@@ -516,6 +520,9 @@ grafana:
+@@ -564,6 +568,9 @@ grafana:
  
    adminPassword: prom-operator
  
@@ -2154,25 +2106,16 @@ index c672971..93009c4 100644
    ingress:
      ## If true, Grafana Ingress will be created
      ##
-@@ -1161,7 +1168,7 @@ prometheusOperator:
-   tlsProxy:
-     enabled: true
-     image:
--      repository: squareup/ghostunnel
-+      name: giantswarm/ghostunnel
-       tag: v1.5.2
-       sha: ""
-       pullPolicy: IfNotPresent
-@@ -1179,7 +1186,7 @@ prometheusOperator:
+@@ -1219,7 +1226,7 @@ prometheusOperator:
      patch:
        enabled: true
        image:
 -        repository: jettech/kube-webhook-certgen
-+        name: giantswarm/kube-webhook-certgen
-         tag: v1.2.1
++        repository: giantswarm/kube-webhook-certgen
+         tag: v1.5.0
          sha: ""
          pullPolicy: IfNotPresent
-@@ -1314,7 +1321,13 @@ prometheusOperator:
+@@ -1346,7 +1353,13 @@ prometheusOperator:
  
    ## Resource limits & requests
    ##
@@ -2187,21 +2130,21 @@ index c672971..93009c4 100644
    # limits:
    #   cpu: 200m
    #   memory: 200Mi
-@@ -1364,7 +1377,7 @@ prometheusOperator:
+@@ -1396,7 +1409,7 @@ prometheusOperator:
    ## Prometheus-operator image
    ##
    image:
 -    repository: quay.io/prometheus-operator/prometheus-operator
-+    name: giantswarm/prometheus-operator
-     tag: v0.42.1
++    repository: giantswarm/prometheus-operator
+     tag: v0.43.2
      sha: ""
      pullPolicy: IfNotPresent
-@@ -1372,14 +1385,14 @@ prometheusOperator:
+@@ -1404,14 +1417,14 @@ prometheusOperator:
    ## Configmap-reload image to use for reloading configmaps
    ##
    configmapReloadImage:
 -    repository: docker.io/jimmidyson/configmap-reload
-+    name: giantswarm/configmap-reload
++    repository: giantswarm/configmap-reload
      tag: v0.4.0
      sha: ""
  
@@ -2209,25 +2152,16 @@ index c672971..93009c4 100644
    ##
    prometheusConfigReloaderImage:
 -    repository: quay.io/prometheus-operator/prometheus-config-reloader
-+    name: giantswarm/prometheus-config-reloader
-     tag: v0.42.1
++    repository: giantswarm/prometheus-config-reloader
+     tag: v0.43.2
      sha: ""
  
-@@ -1398,7 +1411,7 @@ prometheusOperator:
-   ## kubectl image to use when cleaning up
-   ##
-   kubectlImage:
--    repository: docker.io/bitnami/kubectl
-+    name: giantswarm/kubectl
-     tag: 1.16.15
-     sha: ""
-     pullPolicy: IfNotPresent
-@@ -1643,7 +1656,7 @@ prometheus:
+@@ -1682,7 +1695,7 @@ prometheus:
      ## Image of Prometheus.
      ##
      image:
 -      repository: quay.io/prometheus/prometheus
-+      name: giantswarm/prometheus
-       tag: v2.21.0
++      repository: giantswarm/prometheus
+       tag: v2.22.1
        sha: ""
  

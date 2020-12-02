@@ -10,9 +10,9 @@ metadata:
 spec:
 {{- if .Values.alertmanager.alertmanagerSpec.image }}
 {{- if (.Values.Installation) }}
-  baseImage: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.alertmanager.alertmanagerSpec.image.name }}"
+  image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.alertmanager.alertmanagerSpec.image.repository }}:{{ .Values.alertmanager.alertmanagerSpec.image.tag }}"
 {{ else }}
-  baseImage: "{{ .Values.image.registry }}/{{ .Values.alertmanager.alertmanagerSpec.image.name }}"
+  image: "{{ .Values.image.registry }}/{{ .Values.alertmanager.alertmanagerSpec.image.repository }}:{{ .Values.alertmanager.alertmanagerSpec.image.tag }}"
 {{ end }}
   version: {{ .Values.alertmanager.alertmanagerSpec.image.tag }}
   {{- if .Values.alertmanager.alertmanagerSpec.image.sha }}
@@ -47,6 +47,14 @@ spec:
 {{- if .Values.alertmanager.alertmanagerSpec.configMaps }}
   configMaps:
 {{ toYaml .Values.alertmanager.alertmanagerSpec.configMaps | indent 4 }}
+{{- end }}
+{{- if .Values.alertmanager.alertmanagerSpec.alertmanagerConfigSelector }}
+  alertmanagerConfigSelector:
+{{ toYaml .Values.alertmanager.alertmanagerSpec.alertmanagerConfigSelector | indent 4}}
+{{- end }}
+{{- if .Values.alertmanager.alertmanagerSpec.alertmanagerConfigNamespaceSelector }}
+  alertmanagerConfigNamespaceSelector:
+{{ toYaml .Values.alertmanager.alertmanagerSpec.alertmanagerConfigNamespaceSelector | indent 4}}
 {{- end }}
 {{- if .Values.alertmanager.alertmanagerSpec.resources }}
   resources:
