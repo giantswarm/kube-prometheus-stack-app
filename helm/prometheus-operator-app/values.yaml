@@ -1414,6 +1414,14 @@ prometheusOperator:
     sha: ""
     pullPolicy: IfNotPresent
 
+  ## Prometheus-operator-cleanup image
+  ##
+  hyperkubeImage:
+    repository: giantswarm/hyperkube
+    tag: v1.16.12
+    sha: ""
+    pullPolicy: IfNotPresent
+
   ## Configmap-reload image to use for reloading configmaps
   ##
   configmapReloadImage:
