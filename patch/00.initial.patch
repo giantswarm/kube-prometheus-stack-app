@@ -1,7 +1,7 @@
-diff --git a/templates/_helpers.tpl b/templates/_helpers.tpl
+diff --git b/templates/_helpers.tpl a/templates/_helpers.tpl
 index 8a3d1b7..d814d73 100644
---- a/templates/_helpers.tpl
-+++ b/templates/_helpers.tpl
+--- b/templates/_helpers.tpl
++++ a/templates/_helpers.tpl
 @@ -41,7 +41,7 @@ The longest name that gets created adds and extra 37 characters, so truncation s
  
  {{/* Create chart name and version as used by the chart label. */}}
@@ -11,27 +11,27 @@ index 8a3d1b7..d814d73 100644
  {{- end }}
  
  {{/* Generate basic labels */}}
-diff --git a/templates/alertmanager/alertmanager.yaml b/templates/alertmanager/alertmanager.yaml
-index 167866b..72eac49 100644
---- a/templates/alertmanager/alertmanager.yaml
-+++ b/templates/alertmanager/alertmanager.yaml
+diff --git b/templates/alertmanager/alertmanager.yaml a/templates/alertmanager/alertmanager.yaml
+index e22c233..d8f43d4 100644
+--- b/templates/alertmanager/alertmanager.yaml
++++ a/templates/alertmanager/alertmanager.yaml
 @@ -9,7 +9,11 @@ metadata:
  {{ include "kube-prometheus-stack.labels" . | indent 4 }}
  spec:
  {{- if .Values.alertmanager.alertmanagerSpec.image }}
 -  image: {{ .Values.alertmanager.alertmanagerSpec.image.repository }}:{{ .Values.alertmanager.alertmanagerSpec.image.tag }}
 +{{- if (.Values.Installation) }}
-+  image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.alertmanager.alertmanagerSpec.image.tag }}"
++  image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.alertmanager.alertmanagerSpec.image.repository }}:{{ .Values.alertmanager.alertmanagerSpec.image.tag }}"
 +{{ else }}
-+  image: {{ .Values.alertmanager.alertmanagerSpec.image.repository }}:{{ .Values.alertmanager.alertmanagerSpec.image.tag }}
++  image: "{{ .Values.image.registry }}/{{ .Values.alertmanager.alertmanagerSpec.image.repository }}:{{ .Values.alertmanager.alertmanagerSpec.image.tag }}"
 +{{ end }}
    version: {{ .Values.alertmanager.alertmanagerSpec.image.tag }}
    {{- if .Values.alertmanager.alertmanagerSpec.image.sha }}
    sha: {{ .Values.alertmanager.alertmanagerSpec.image.sha }}
-diff --git a/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml b/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
-index 37a19a5..0e577da 100644
---- a/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
-+++ b/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
+diff --git b/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml a/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
+index 37a19a5..89f95f5 100644
+--- b/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
++++ a/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
 @@ -31,10 +31,14 @@ spec:
        {{- end }}
        containers:
@@ -49,10 +49,10 @@ index 37a19a5..0e577da 100644
            {{- end }}
            imagePullPolicy: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.pullPolicy }}
            args:
-diff --git a/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml b/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
-index b74c618..2f21ed4 100644
---- a/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
-+++ b/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
+diff --git b/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml a/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
+index b74c618..0508e5d 100644
+--- b/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
++++ a/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
 @@ -31,10 +31,14 @@ spec:
        {{- end }}
        containers:
@@ -70,10 +70,10 @@ index b74c618..2f21ed4 100644
            {{- end }}
            imagePullPolicy: {{ .Values.prometheusOperator.admissionWebhooks.patch.image.pullPolicy }}
            args:
-diff --git a/templates/prometheus-operator/deployment.yaml b/templates/prometheus-operator/deployment.yaml
-index 8e7e2c9..8a9cc81 100644
---- a/templates/prometheus-operator/deployment.yaml
-+++ b/templates/prometheus-operator/deployment.yaml
+diff --git b/templates/prometheus-operator/deployment.yaml a/templates/prometheus-operator/deployment.yaml
+index 29f2396..1e13200 100644
+--- b/templates/prometheus-operator/deployment.yaml
++++ a/templates/prometheus-operator/deployment.yaml
 @@ -32,10 +32,14 @@ spec:
      {{- end }}
        containers:
@@ -91,13 +91,13 @@ index 8e7e2c9..8a9cc81 100644
            {{- end }}
            imagePullPolicy: "{{ .Values.prometheusOperator.image.pullPolicy }}"
            args:
-@@ -63,19 +67,27 @@ spec:
+@@ -60,18 +64,26 @@ spec:
              {{- end }}
              - --logtostderr=true
              - --localhost=127.0.0.1
-+                        {{- if (.Values.Installation) }}
++            {{- if (.Values.Installation) }}
 +            - --prometheus-config-reloader={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
-+            {{- else }}  
++            {{- else }}
              {{- if .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
 -            - --prometheus-config-reloader={{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}@sha256:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
 +            - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}@sha256:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
@@ -122,29 +122,28 @@ index 8e7e2c9..8a9cc81 100644
              {{- end }}
              {{- end }}
              - --config-reloader-cpu={{ .Values.prometheusOperator.configReloaderCpu }}
-             - --config-reloader-memory={{ .Values.prometheusOperator.configReloaderMemory }}
-diff --git a/templates/prometheus/prometheus.yaml b/templates/prometheus/prometheus.yaml
-index f73b6a6..f8495d4 100644
---- a/templates/prometheus/prometheus.yaml
-+++ b/templates/prometheus/prometheus.yaml
+diff --git b/templates/prometheus/prometheus.yaml a/templates/prometheus/prometheus.yaml
+index 32d7a00..a1bf23b 100644
+--- b/templates/prometheus/prometheus.yaml
++++ a/templates/prometheus/prometheus.yaml
 @@ -32,7 +32,11 @@ spec:
  {{ toYaml .Values.prometheus.prometheusSpec.apiserverConfig | indent 4}}
  {{- end }}
  {{- if .Values.prometheus.prometheusSpec.image }}
 -  image: {{ .Values.prometheus.prometheusSpec.image.repository }}:{{ .Values.prometheus.prometheusSpec.image.tag }}
 +{{- if (.Values.Installation) }}
-+  image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheus.prometheusSpec.image.repository }}"
++  image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheus.prometheusSpec.image.repository }}:{{ .Values.prometheus.prometheusSpec.image.tag }}"
 +{{ else }}
-+  image: {{ .Values.prometheus.prometheusSpec.image.repository }}:{{ .Values.prometheus.prometheusSpec.image.tag }}
++  image: "{{ .Values.image.registry }}/{{ .Values.prometheus.prometheusSpec.image.repository }}:{{ .Values.prometheus.prometheusSpec.image.tag }}"
 +{{ end }}
    version: {{ .Values.prometheus.prometheusSpec.image.tag }}
    {{- if .Values.prometheus.prometheusSpec.image.sha }}
    sha: {{ .Values.prometheus.prometheusSpec.image.sha }}
-diff --git a/values.schema.json b/values.schema.json
+diff --git b/values.schema.json a/values.schema.json
 new file mode 100644
 index 0000000..d1e3fb5
 --- /dev/null
-+++ b/values.schema.json
++++ a/values.schema.json
 @@ -0,0 +1,1927 @@
 +{
 +    "$schema": "http://json-schema.org/schema#",
@@ -2073,11 +2072,11 @@ index 0000000..d1e3fb5
 +        }
 +    }
 +}
-diff --git a/values.yaml b/values.yaml
-index c672971..93009c4 100644
---- a/values.yaml
-+++ b/values.yaml
-@@ -84,6 +84,10 @@ additionalPrometheusRulesMap: {}
+diff --git b/values.yaml a/values.yaml
+index 8a67816..e95278f 100644
+--- b/values.yaml
++++ a/values.yaml
+@@ -87,6 +87,10 @@ additionalPrometheusRulesMap: {}
  #      - record: my_record
  #        expr: 100 * my_record
  
@@ -2088,7 +2087,7 @@ index c672971..93009c4 100644
  ##
  global:
    rbac:
-@@ -353,7 +357,7 @@ alertmanager:
+@@ -365,7 +369,7 @@ alertmanager:
      ## Image of Alertmanager
      ##
      image:
@@ -2097,7 +2096,7 @@ index c672971..93009c4 100644
        tag: v0.21.0
        sha: ""
  
-@@ -516,6 +520,9 @@ grafana:
+@@ -564,6 +568,9 @@ grafana:
  
    adminPassword: prom-operator
  
@@ -2116,7 +2115,7 @@ index c672971..93009c4 100644
          tag: v1.5.0
          sha: ""
          pullPolicy: IfNotPresent
-@@ -1314,7 +1321,13 @@ prometheusOperator:
+@@ -1346,7 +1353,13 @@ prometheusOperator:
  
    ## Resource limits & requests
    ##
