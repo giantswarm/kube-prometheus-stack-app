@@ -1,14 +1,14 @@
 # DO NOT EDIT. Generated with:
 #
-#    devctl gen dependabot
+#    devctl@4.0.0
 #
 version: 2
 updates:
-- package-ecosystem: github-actions
-  directory: "/"
-  schedule:
-    interval: weekly
-    time: "04:00"
-  target-branch: master
-  reviewers:
-  - giantswarm/app-squad-prometheus
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      time: "04:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - giantswarm/app-squad-prometheus
