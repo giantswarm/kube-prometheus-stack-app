@@ -1,6 +1,6 @@
 # DO NOT EDIT. Generated with:
 #
-#    devctl@4.0.0
+#    devctl@4.0.1
 #
 version: 2
 updates:
@@ -12,3 +12,5 @@ updates:
     open-pull-requests-limit: 10
     reviewers:
       - giantswarm/app-squad-prometheus
+    ignore:
+      - dependency-name: zricethezav/gitleaks-action
