@@ -34,12 +34,10 @@ spec:
         - name: {{ template "kube-prometheus-stack.name" . }}
           {{- if (.Values.Installation) }}
           image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}"
-          {{ else }}
-          {{- if .Values.prometheusOperator.image.sha }}
+          {{ else if .Values.prometheusOperator.image.sha }}
           image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}@sha256:{{ .Values.prometheusOperator.image.sha }}"
           {{- else }}
           image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}"
-          {{- end }}
           {{- end }}
           imagePullPolicy: "{{ .Values.prometheusOperator.image.pullPolicy }}"
           args:
@@ -62,28 +60,26 @@ spec:
             {{- end }}
             - --namespaces={{ $ns | join "," }}
             {{- end }}
+            {{- if (semverCompare "< v0.44.0" .Values.prometheusOperator.image.tag) -}}
             - --logtostderr=true
+            {{- end }}
             - --localhost=127.0.0.1
             {{- if (.Values.Installation) }}
             - --prometheus-config-reloader={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
-            {{- else }}
-            {{- if .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
+            {{- else if .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
             - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}@sha256:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
             {{- else }}
             - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
-            {{- end }}
             {{- end }}
             # Empty if statement to catch non-semver master tags that do not need the --config-reloader-image flag
             {{- if regexMatch "master.*" .Values.prometheusOperator.image.tag -}}
             {{- else if (semverCompare "< v0.43.0" .Values.prometheusOperator.image.tag) -}}
             {{- if (.Values.Installation) }}
             - --config-reloader-image={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
-            {{- else }}
-            {{- if .Values.prometheusOperator.configmapReloadImage.sha }}
+            {{- else if .Values.prometheusOperator.configmapReloadImage.sha }}
             - --config-reloader-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}@sha256:{{ .Values.prometheusOperator.configmapReloadImage.sha }}
             {{- else }}
             - --config-reloader-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
-            {{- end }}
             {{- end }}
             {{- end }}
             - --config-reloader-cpu={{ .Values.prometheusOperator.configReloaderCpu }}
@@ -94,8 +90,8 @@ spec:
             {{- if .Values.prometheusOperator.prometheusInstanceNamespaces }}
             - --prometheus-instance-namespaces={{ .Values.prometheusOperator.prometheusInstanceNamespaces | join "," }}
             {{- end }}
-            {{- if .Values.prometheusOperator.thanosInstanceNamespaces }}
-            - --thanos-instance-namespaces={{ .Values.prometheusOperator.thanosInstanceNamespaces | join "," }}
+            {{- if .Values.prometheusOperator.thanosRulerInstanceNamespaces }}
+            - --thanos-ruler-instance-namespaces={{ .Values.prometheusOperator.thanosRulerInstanceNamespaces | join "," }}
             {{- end }}
             {{- if .Values.prometheusOperator.secretFieldSelector }}
             - --secret-field-selector={{ .Values.prometheusOperator.secretFieldSelector }}
@@ -105,6 +101,7 @@ spec:
             - --web.cert-file=cert/cert
             - --web.key-file=cert/key
             - --web.listen-address=:8443
+            - --web.tls-min-version={{ .Values.prometheusOperator.tls.tlsMinVersion }}
           ports:
             - containerPort: 8443
               name: https

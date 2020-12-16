@@ -8,7 +8,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ## [Unreleased]
 
 ### Added
+
 - Added values schema for validating default values
+
+### Changed
+
+- Update prometheus operator to 0.44.0
 
 ## [0.4.0] - 2020-10-15
 
