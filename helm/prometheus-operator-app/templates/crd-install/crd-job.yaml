@@ -40,19 +40,19 @@ spec:
 
           kubectl apply -f /data/ 2>&1
         volumeMounts:
-{{- range $path, $_ := $.Files.Glob "files/**" }}
+{{- range $path, $_ := .Files.Glob "files/**" }}
         - name: {{ $path | base }}
           mountPath: /data/{{ $path | base }}
-          subPath: crd.yaml
+          subPath: content
 {{- end }}
         resources: {{- toYaml .Values.crds.resources | nindent 10 }}
       volumes:
-{{- range $path, $_ := $.Files.Glob "files/**" }}
+{{- range $path, $_ := .Files.Glob "files/**" }}
       - name: {{ $path | base }}
         configMap:
-          name: {{ $path | base }}
+          name: {{ $path | base | trimSuffix ".yaml" }}
           items:
-          - key: crd.yaml
+          - key: content
             path: {{ $path | base }}
 {{- end }}
       restartPolicy: Never

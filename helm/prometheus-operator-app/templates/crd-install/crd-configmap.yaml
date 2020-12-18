@@ -2,12 +2,14 @@
 We have to create individual configmaps for each CRD - they exceed the total
 allowed length for a configmap if they are combined.
 */}}
+{{ $currentScope := . }}
 {{- if .Values.crds.install }}
-{{- range $path, $bytes := $.Files.Glob "files/**" }}
+  {{- range $path, $_ := .Files.Glob "files/**" }}
+    {{- with $currentScope }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "kube-prometheus-stack.crdInstall" . }}-{{ $path | base }}
+  name: {{ include "kube-prometheus-stack.crdInstall" . }}-{{ $path | base | trimSuffix ".yaml" }}
   namespace: {{ .Release.Namespace | quote }}
   annotations:
     # create hook dependencies in the right order
@@ -18,7 +20,8 @@ metadata:
     {{- include "kube-prometheus-stack.selectorLabels" . | nindent 4 }}
     role: {{ include "kube-prometheus-stack.CRDInstallSelector" . | quote }}
 data:
-  crd.yaml: |
-{{ $bytes | indent 4 }}
-{{- end }}
+  content: |
+{{ .Files.Get $path | indent 4 }}
+    {{- end }}
+  {{- end }}
 {{- end }}
