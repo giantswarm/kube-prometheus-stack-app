@@ -6,6 +6,7 @@ allowed length for a configmap if they are combined.
 {{- if .Values.crds.install }}
   {{- range $path, $_ := .Files.Glob "files/**" }}
     {{- with $currentScope }}
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
