@@ -41,16 +41,16 @@ spec:
           kubectl apply -f /data/ 2>&1
         volumeMounts:
 {{- range $path, $_ := .Files.Glob "files/**" }}
-        - name: {{ $path | base }}
+        - name: {{ $path | base | trimSuffix ".yaml" }}
           mountPath: /data/{{ $path | base }}
           subPath: content
 {{- end }}
         resources: {{- toYaml .Values.crds.resources | nindent 10 }}
       volumes:
 {{- range $path, $_ := .Files.Glob "files/**" }}
-      - name: {{ $path | base }}
+      - name: {{ $path | base | trimSuffix ".yaml" }}
         configMap:
-          name: {{ $path | base | trimSuffix ".yaml" }}
+          name: {{ $path | base }}
           items:
           - key: content
             path: {{ $path | base }}
