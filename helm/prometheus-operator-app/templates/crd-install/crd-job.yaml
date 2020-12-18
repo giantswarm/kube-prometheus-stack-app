@@ -47,13 +47,16 @@ spec:
 {{- end }}
         resources: {{- toYaml .Values.crds.resources | nindent 10 }}
       volumes:
+{{ $currentScope := . }}
 {{- range $path, $_ := .Files.Glob "files/**" }}
+    {{- with $currentScope }}
       - name: {{ $path | base | trimSuffix ".yaml" }}
         configMap:
-          name: {{ $path | base }}
+          name: {{ include "kube-prometheus-stack.crdInstall" . }}-{{ $path | base | trimSuffix ".yaml" }}
           items:
           - key: content
             path: {{ $path | base }}
+{{- end }}
 {{- end }}
       restartPolicy: Never
   backoffLimit: 4
