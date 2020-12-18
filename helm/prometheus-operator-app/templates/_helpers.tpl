@@ -91,3 +91,22 @@ Allow the release namespace to be overridden for multi-namespace deployments in 
     {{- .Release.Namespace -}}
   {{- end -}}
 {{- end -}}
+
+{{- define "kube-prometheus-stack.crdInstall" -}}
+{{- printf "%s-%s" ( include "kube-prometheus-stack.name" . ) "crd-install" | replace "+" "_" | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "kube-prometheus-stack.CRDInstallAnnotations" -}}
+"helm.sh/hook": "pre-install,pre-upgrade"
+"helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded,hook-failed"
+{{- end -}}
+
+{{- define "kube-prometheus-stack.selectorLabels" -}}
+app.kubernetes.io/name: "{{ template "kube-prometheus-stack.name" . }}"
+app.kubernetes.io/instance: "{{ template "kube-prometheus-stack.name" . }}"
+{{- end -}}
+
+{{/* Create a label which can be used to select any orphaned crd-install hook resources */}}
+{{- define "kube-prometheus-stack.CRDInstallSelector" -}}
+{{- printf "%s" "crd-install-hook" -}}
+{{- end -}}

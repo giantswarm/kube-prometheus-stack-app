@@ -1119,6 +1119,14 @@
         "namespaceOverride": {
             "type": "string"
         },
+        "crds": {
+            "type": "object",
+            "properties": {
+                "install": {
+                    "type": "boolean"
+                }
+            }
+        },
         "nodeExporter": {
             "type": "object",
             "properties": {
