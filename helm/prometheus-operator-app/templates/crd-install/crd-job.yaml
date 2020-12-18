@@ -43,7 +43,7 @@ spec:
 {{- range $path, $_ := .Files.Glob "files/**" }}
         - name: {{ $path | base | trimSuffix ".yaml" }}
           mountPath: /data/{{ $path | base }}
-          subPath: content
+          subPath: {{ $path | base }}
 {{- end }}
         resources: {{- toYaml .Values.crds.resources | nindent 10 }}
       volumes:
