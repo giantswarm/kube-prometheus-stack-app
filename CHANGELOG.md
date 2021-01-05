@@ -8,7 +8,20 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ## [Unreleased]
 
 ### Added
+
 - Added values schema for validating default values
+
+### Updated
+
+- sync with upstream chart version kube-prometheus-stack-11.1.7
+- prometheus-operator v0.42.1 -> v0.43.2
+- prometheus-config-reloader v0.42.1 -> v0.43.2
+- prometheus v2.21.0 -> v2.22.1
+- updated scripts (changed sync_chart, added generate_patch)
+
+### Fixed
+
+- Fixed helm CRDs issue by adding crd-install job, to ensure CRDs are up to date
 
 ## [0.4.0] - 2020-10-15
 
