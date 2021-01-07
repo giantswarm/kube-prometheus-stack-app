@@ -7,6 +7,15 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Updated
+
+- sync with upstream chart version kube-prometheus-stack-12.10.6
+- prometheus-operator v0.43.2 -> v0.44.0
+- prometheus-config-reloader v0.43.2 -> v0.44.0
+- kube-state-metrics v2.8.11 -> v2.9.4
+- node-exporter v1.10.0 -> v1.12.0
+- grafana v5.3.0 -> v6.1.16
+
 ## [0.5.0] - 2021-01-05
 
 ### Added

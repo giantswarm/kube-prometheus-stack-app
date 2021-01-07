@@ -1,3 +1,5 @@
 ---
 chart-repos:
 - kubernetes-charts=https://charts.helm.sh/stable
+- prometheus-community=https://prometheus-community.github.io/helm-charts
+- grafana=https://grafana.github.io/helm-charts
