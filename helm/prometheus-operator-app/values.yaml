@@ -1438,7 +1438,7 @@ prometheusOperator:
 
   ## Set a Field Selector to filter watched secrets
   ##
-  secretFieldSelector: ""
+  secretFieldSelector: "type!=helm.sh/release.v1"
 
 ## Deploy a Prometheus instance
 ##
