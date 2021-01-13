@@ -33,7 +33,7 @@
                             "type": "array"
                         },
                         "externalUrl": {
-                            "type": "null"
+                            "type": ["null", "string"]
                         },
                         "image": {
                             "type": "object",
@@ -329,7 +329,7 @@
                     "type": "object",
                     "properties": {
                         "bearerTokenFile": {
-                            "type": "null"
+                            "type": ["null", "string"]
                         },
                         "interval": {
                             "type": "string"
@@ -783,7 +783,7 @@
                             "type": "boolean"
                         },
                         "insecureSkipVerify": {
-                            "type": "null"
+                            "type": ["null", "boolean"]
                         },
                         "interval": {
                             "type": "string"
@@ -795,7 +795,7 @@
                             "type": "array"
                         },
                         "serverName": {
-                            "type": "null"
+                            "type": ["null", "string"]
                         }
                     }
                 }
@@ -976,7 +976,7 @@
                             "type": "boolean"
                         },
                         "insecureSkipVerify": {
-                            "type": "null"
+                            "type": ["null", "boolean"]
                         },
                         "interval": {
                             "type": "string"
@@ -988,7 +988,7 @@
                             "type": "array"
                         },
                         "serverName": {
-                            "type": "null"
+                            "type": ["null", "string"]
                         }
                     }
                 }
@@ -1527,7 +1527,7 @@
                     "type": "object",
                     "properties": {
                         "bearerTokenFile": {
-                            "type": "null"
+                            "type": ["null", "string"]
                         },
                         "interval": {
                             "type": "string"
