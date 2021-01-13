@@ -17,6 +17,12 @@
                         "affinity": {
                             "type": "object"
                         },
+                        "alertmanagerConfigNamespaceSelector": {
+                            "type": "object"
+                        },
+                        "alertmanagerConfigSelector": {
+                            "type": "object"
+                        },
                         "clusterAdvertiseAddress": {
                             "type": "boolean"
                         },
@@ -27,12 +33,12 @@
                             "type": "array"
                         },
                         "externalUrl": {
-                            "type": "null"
+                            "type": ["null", "string"]
                         },
                         "image": {
                             "type": "object",
                             "properties": {
-                                "name": {
+                                "repository": {
                                     "type": "string"
                                 },
                                 "sha": {
@@ -323,7 +329,7 @@
                     "type": "object",
                     "properties": {
                         "bearerTokenFile": {
-                            "type": "null"
+                            "type": ["null", "string"]
                         },
                         "interval": {
                             "type": "string"
@@ -415,9 +421,20 @@
                 }
             }
         },
+        "crds": {
+            "type": "object",
+            "properties": {
+                "install": {
+                    "type": "boolean"
+                }
+            }
+        },
         "defaultRules": {
             "type": "object",
             "properties": {
+                "additionalRuleLabels": {
+                    "type": "object"
+                },
                 "annotations": {
                     "type": "object"
                 },
@@ -766,7 +783,7 @@
                             "type": "boolean"
                         },
                         "insecureSkipVerify": {
-                            "type": "null"
+                            "type": ["null", "boolean"]
                         },
                         "interval": {
                             "type": "string"
@@ -778,7 +795,7 @@
                             "type": "array"
                         },
                         "serverName": {
-                            "type": "null"
+                            "type": ["null", "string"]
                         }
                     }
                 }
@@ -959,7 +976,7 @@
                             "type": "boolean"
                         },
                         "insecureSkipVerify": {
-                            "type": "null"
+                            "type": ["null", "boolean"]
                         },
                         "interval": {
                             "type": "string"
@@ -971,7 +988,7 @@
                             "type": "array"
                         },
                         "serverName": {
-                            "type": "null"
+                            "type": ["null", "string"]
                         }
                     }
                 }
@@ -1118,14 +1135,6 @@
         },
         "namespaceOverride": {
             "type": "string"
-        },
-        "crds": {
-            "type": "object",
-            "properties": {
-                "install": {
-                    "type": "boolean"
-                }
-            }
         },
         "nodeExporter": {
             "type": "object",
@@ -1303,7 +1312,7 @@
                         "image": {
                             "type": "object",
                             "properties": {
-                                "name": {
+                                "repository": {
                                     "type": "string"
                                 },
                                 "sha": {
@@ -1355,6 +1364,15 @@
                         },
                         "priorityClassName": {
                             "type": "string"
+                        },
+                        "probeNamespaceSelector": {
+                            "type": "object"
+                        },
+                        "probeSelector": {
+                            "type": "object"
+                        },
+                        "probeSelectorNilUsesHelmValues": {
+                            "type": "boolean"
                         },
                         "prometheusExternalLabelName": {
                             "type": "string"
@@ -1509,7 +1527,7 @@
                     "type": "object",
                     "properties": {
                         "bearerTokenFile": {
-                            "type": "null"
+                            "type": ["null", "string"]
                         },
                         "interval": {
                             "type": "string"
@@ -1631,10 +1649,10 @@
                                 "image": {
                                     "type": "object",
                                     "properties": {
-                                        "name": {
+                                        "pullPolicy": {
                                             "type": "string"
                                         },
-                                        "pullPolicy": {
+                                        "repository": {
                                             "type": "string"
                                         },
                                         "sha": {
@@ -1670,9 +1688,6 @@
                 "alertmanagerInstanceNamespaces": {
                     "type": "array"
                 },
-                "cleanupCustomResource": {
-                    "type": "boolean"
-                },
                 "configReloaderCpu": {
                     "type": "string"
                 },
@@ -1682,7 +1697,7 @@
                 "configmapReloadImage": {
                     "type": "object",
                     "properties": {
-                        "name": {
+                        "repository": {
                             "type": "string"
                         },
                         "sha": {
@@ -1692,9 +1707,6 @@
                             "type": "string"
                         }
                     }
-                },
-                "createCustomResource": {
-                    "type": "boolean"
                 },
                 "denyNamespaces": {
                     "type": "array"
@@ -1708,27 +1720,10 @@
                 "image": {
                     "type": "object",
                     "properties": {
-                        "name": {
-                            "type": "string"
-                        },
                         "pullPolicy": {
                             "type": "string"
                         },
-                        "sha": {
-                            "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "kubectlImage": {
-                    "type": "object",
-                    "properties": {
-                        "name": {
-                            "type": "string"
-                        },
-                        "pullPolicy": {
+                        "repository": {
                             "type": "string"
                         },
                         "sha": {
@@ -1750,9 +1745,6 @@
                         }
                     }
                 },
-                "manageCrds": {
-                    "type": "boolean"
-                },
                 "namespaces": {
                     "type": "object"
                 },
@@ -1768,7 +1760,7 @@
                 "prometheusConfigReloaderImage": {
                     "type": "object",
                     "properties": {
-                        "name": {
+                        "repository": {
                             "type": "string"
                         },
                         "sha": {
@@ -1898,31 +1890,11 @@
                 "thanosInstanceNamespaces": {
                     "type": "array"
                 },
-                "tlsProxy": {
+                "tls": {
                     "type": "object",
                     "properties": {
                         "enabled": {
                             "type": "boolean"
-                        },
-                        "image": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string"
-                                },
-                                "pullPolicy": {
-                                    "type": "string"
-                                },
-                                "sha": {
-                                    "type": "string"
-                                },
-                                "tag": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "resources": {
-                            "type": "object"
                         }
                     }
                 },
