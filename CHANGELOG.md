@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [0.5.2] - 2021-01-20
+
 ### Fixed
 
 - CRDs are now created correctly on the first install of the App.
@@ -135,7 +137,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.1...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.2...HEAD
+[0.5.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.4...v0.4.0
