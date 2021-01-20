@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- CRDs are now created correctly on the first install of the App.
+
 ## [0.5.1] - 2021-01-13
 
 ### Fixed
