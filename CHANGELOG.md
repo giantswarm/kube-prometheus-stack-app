@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Ignore secrets of type `helm.sh/release.v1` by default to prevent OOM on starting.
+
 ## [0.5.2] - 2021-01-20
 
 ### Fixed
