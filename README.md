@@ -17,3 +17,12 @@ kubectl create -f https://raw.githubusercontent.com/helm/charts/master/stable/pr
 kubectl create -f https://raw.githubusercontent.com/helm/charts/master/stable/prometheus-operator/crds/crd-servicemonitor.yaml
 kubectl create -f https://raw.githubusercontent.com/helm/charts/master/stable/prometheus-operator/crds/crd-thanosrulers.yaml
 ```
+
+## Good to know
+
+The default configuration of this chart ignores secrets of type `helm.sh/release.v1`. This can be changed by changing the value of `prometheusOperator.secretFieldSelector` in your values.yaml. Example:
+
+```
+prometheusOperator:
+  secretFieldSelector: ""
+```
