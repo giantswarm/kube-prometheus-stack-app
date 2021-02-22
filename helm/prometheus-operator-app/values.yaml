@@ -1405,7 +1405,13 @@ prometheusOperator:
 
   ## Resource limits & requests
   ##
-  resources: {}
+  resources:
+    limits:
+      cpu: 200m
+      memory: 200Mi
+    requests:
+      cpu: 100m
+      memory: 100Mi
   # limits:
   #   cpu: 200m
   #   memory: 200Mi
@@ -1471,11 +1477,11 @@ prometheusOperator:
 
   ## Prometheus image to use for prometheuses managed by the operator
   ##
-  # prometheusDefaultBaseImage: quay.io/prometheus/prometheus
+  # prometheusDefaultBaseImage: giantswarm/prometheus
 
   ## Alertmanager image to use for alertmanagers managed by the operator
   ##
-  # alertmanagerDefaultBaseImage: quay.io/prometheus/alertmanager
+  # alertmanagerDefaultBaseImage: giantswarm/alertmanager
 
   ## Prometheus-config-reloader image to use for config and rule reloading
   ##
