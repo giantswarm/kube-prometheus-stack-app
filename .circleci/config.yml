@@ -46,7 +46,6 @@ workflows:
 
       - architect/push-to-app-collection:
           context: architect
-          executor: app-build-suite
           name: push-prometheus-operator-to-aws-app-collection
           app_name: "prometheus-operator-app"
           app_namespace: "monitoring"
@@ -63,7 +62,6 @@ workflows:
 
       - architect/push-to-app-collection:
           context: architect
-          executor: app-build-suite
           name: push-prometheus-operator-to-azure-app-collection
           app_name: "prometheus-operator-app"
           app_namespace: "monitoring"
@@ -80,7 +78,6 @@ workflows:
 
       - architect/push-to-app-collection:
           context: architect
-          executor: app-build-suite
           name: push-prometheus-operator-to-kvm-app-collection
           app_name: "prometheus-operator-app"
           app_namespace: "monitoring"
