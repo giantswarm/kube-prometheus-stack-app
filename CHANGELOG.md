@@ -59,7 +59,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Upstream project location an references throughout the chart  
+- Upstream project location an references throughout the chart
 - Change upstream-sync script to new upstream project location and structure
 - Replace hyperkube image with kubectl image
 - Replace name "prometheus-operator" with "kube-prometheus-stack" in templates
@@ -119,7 +119,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ## [v0.3.0]
 
 ### Changed
-- Fix kubelet service name in the Prometheus Operator deployment 
+- Fix kubelet service name in the Prometheus Operator deployment
 - Update Prometheus Operator to 0.38.1
 - Update Prometheus to 2.17.2
 - Update Alert manager to 0.20.0
