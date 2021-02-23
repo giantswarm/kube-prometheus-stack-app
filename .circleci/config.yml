@@ -51,7 +51,6 @@ workflows:
           app_namespace: "monitoring"
           app_collection_repo: "aws-app-collection"
           disable_force_upgrade: true
-          unique: "true"
           requires:
             - push-to-control-plane-app-catalog
           filters:
@@ -67,7 +66,6 @@ workflows:
           app_namespace: "monitoring"
           app_collection_repo: "azure-app-collection"
           disable_force_upgrade: true
-          unique: "true"
           requires:
             - push-to-control-plane-app-catalog
           filters:
@@ -83,7 +81,6 @@ workflows:
           app_namespace: "monitoring"
           app_collection_repo: "kvm-app-collection"
           disable_force_upgrade: true
-          unique: "true"
           requires:
             - push-to-control-plane-app-catalog
           filters:
