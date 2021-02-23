@@ -379,7 +379,7 @@ alertmanager:
     ## Image of Alertmanager
     ##
     image:
-      repository: quay.io/prometheus/alertmanager
+      repository: giantswarm/alertmanager
       tag: v0.21.0
       sha: ""
 
