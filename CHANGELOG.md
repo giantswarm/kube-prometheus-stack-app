@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Sync with upstream chart version kube-prometheus-stack-13.10.0
+- prometheus-operator v0.43.2 -> v0.45.0
+- prometheus-config-reloader v0.43.2 -> v0.45.0
+- prometheus v2.22.1 -> v2.24.0
+- **Breaking** chart `apiVersion` changes from `v1` to `v2`. The chart needs helm 3 to install now.
+
 ## [0.6.0] - 2021-01-25
 
 ### Changed
