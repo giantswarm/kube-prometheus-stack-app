@@ -62,8 +62,21 @@ spec:
             {{- end }}
             - --namespaces={{ $ns | join "," }}
             {{- end }}
-            - --logtostderr=true
             - --localhost=127.0.0.1
+            {{- if .Values.prometheusOperator.prometheusDefaultBaseImage }}
+            {{- if (.Values.Installation) }}
+            - --prometheus-default-base-image={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.prometheusDefaultBaseImage }}
+            {{- else }}
+            - --prometheus-default-base-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusDefaultBaseImage }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.prometheusOperator.alertmanagerDefaultBaseImage }}
+            {{- if (.Values.Installation) }}
+            - --alertmanager-default-base-image={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.alertmanagerDefaultBaseImage }}
+            {{- else }}
+            - --alertmanager-default-base-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.alertmanagerDefaultBaseImage }}
+            {{- end }}
+            {{- end }}
             {{- if (.Values.Installation) }}
             - --prometheus-config-reloader={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
             {{- else }}
@@ -71,19 +84,6 @@ spec:
             - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}@sha256:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
             {{- else }}
             - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
-            {{- end }}
-            {{- end }}
-            # Empty if statement to catch non-semver master tags that do not need the --config-reloader-image flag
-            {{- if regexMatch "master.*" .Values.prometheusOperator.image.tag -}}
-            {{- else if (semverCompare "< v0.43.0" .Values.prometheusOperator.image.tag) -}}
-            {{- if (.Values.Installation) }}
-            - --config-reloader-image={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
-            {{- else }}
-            {{- if .Values.prometheusOperator.configmapReloadImage.sha }}
-            - --config-reloader-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}@sha256:{{ .Values.prometheusOperator.configmapReloadImage.sha }}
-            {{- else }}
-            - --config-reloader-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.configmapReloadImage.repository }}:{{ .Values.prometheusOperator.configmapReloadImage.tag }}
-            {{- end }}
             {{- end }}
             {{- end }}
             - --config-reloader-cpu={{ .Values.prometheusOperator.configReloaderCpu }}
@@ -94,19 +94,23 @@ spec:
             {{- if .Values.prometheusOperator.prometheusInstanceNamespaces }}
             - --prometheus-instance-namespaces={{ .Values.prometheusOperator.prometheusInstanceNamespaces | join "," }}
             {{- end }}
-            {{- if .Values.prometheusOperator.thanosInstanceNamespaces }}
-            - --thanos-instance-namespaces={{ .Values.prometheusOperator.thanosInstanceNamespaces | join "," }}
+            {{- if .Values.prometheusOperator.thanosRulerInstanceNamespaces }}
+            - --thanos-ruler-instance-namespaces={{ .Values.prometheusOperator.thanosRulerInstanceNamespaces | join "," }}
             {{- end }}
             {{- if .Values.prometheusOperator.secretFieldSelector }}
             - --secret-field-selector={{ .Values.prometheusOperator.secretFieldSelector }}
             {{- end }}
+            {{- if .Values.prometheusOperator.clusterDomain }}
+            - --cluster-domain={{ .Values.prometheusOperator.clusterDomain }}
+            {{- end }}
             {{- if .Values.prometheusOperator.tls.enabled }}
             - --web.enable-tls=true
-            - --web.cert-file=cert/cert
-            - --web.key-file=cert/key
-            - --web.listen-address=:8443
+            - --web.cert-file=/cert/{{ if .Values.prometheusOperator.admissionWebhooks.certManager.enabled }}tls.crt{{ else }}cert{{ end }}
+            - --web.key-file=/cert/{{ if .Values.prometheusOperator.admissionWebhooks.certManager.enabled }}tls.key{{ else }}key{{ end }}
+            - --web.listen-address=:{{ .Values.prometheusOperator.tls.internalPort }}
+            - --web.tls-min-version={{ .Values.prometheusOperator.tls.tlsMinVersion }}
           ports:
-            - containerPort: 8443
+            - containerPort: {{ .Values.prometheusOperator.tls.internalPort }}
               name: https
           {{- else }}
           ports:
@@ -118,19 +122,21 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
-          {{- if .Values.prometheusOperator.tls.enabled }}
+{{- if .Values.prometheusOperator.tls.enabled }}
           volumeMounts:
             - name: tls-secret
               mountPath: /cert
               readOnly: true
-          {{- end }}
-{{- if .Values.prometheusOperator.tls.enabled }}
       volumes:
         - name: tls-secret
           secret:
             defaultMode: 420
             secretName: {{ template "kube-prometheus-stack.fullname" . }}-admission
 {{- end }}
+    {{- with .Values.prometheusOperator.dnsConfig }}
+      dnsConfig:
+{{ toYaml . | indent 8 }}
+    {{- end }}
 {{- if .Values.prometheusOperator.securityContext }}
       securityContext:
 {{ toYaml .Values.prometheusOperator.securityContext | indent 8 }}

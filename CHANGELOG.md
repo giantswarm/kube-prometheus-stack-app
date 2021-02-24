@@ -7,6 +7,16 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [0.7.0] - 2021-02-24
+
+### Changed
+
+- Sync with upstream chart version kube-prometheus-stack-13.10.0
+- prometheus-operator v0.43.2 -> v0.45.0
+- prometheus-config-reloader v0.43.2 -> v0.45.0
+- prometheus v2.22.1 -> v2.24.0
+- **Breaking** chart `apiVersion` changes from `v1` to `v2`. The chart needs helm 3 to install now.
+
 ## [0.6.0] - 2021-01-25
 
 ### Changed
@@ -51,7 +61,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Upstream project location an references throughout the chart  
+- Upstream project location an references throughout the chart
 - Change upstream-sync script to new upstream project location and structure
 - Replace hyperkube image with kubectl image
 - Replace name "prometheus-operator" with "kube-prometheus-stack" in templates
@@ -111,7 +121,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ## [v0.3.0]
 
 ### Changed
-- Fix kubelet service name in the Prometheus Operator deployment 
+- Fix kubelet service name in the Prometheus Operator deployment
 - Update Prometheus Operator to 0.38.1
 - Update Prometheus to 2.17.2
 - Update Alert manager to 0.20.0
@@ -143,7 +153,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.2...v0.6.0
 [0.5.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.0...v0.5.1

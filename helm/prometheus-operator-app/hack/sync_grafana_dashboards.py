@@ -32,7 +32,7 @@ charts = [
         'min_kubernetes': '1.14.0-0'
     },
     {
-        'source': 'https://raw.githubusercontent.com/etcd-io/etcd/master/Documentation/op-guide/grafana.json',
+        'source': 'https://raw.githubusercontent.com/etcd-io/website/master/content/docs/current/op-guide/grafana.json',
         'destination': '../templates/grafana/dashboards-1.14',
         'type': 'json',
         'min_kubernetes': '1.14.0-0'
@@ -45,7 +45,7 @@ charts = [
         'max_kubernetes': '1.14.0-0'
     },
     {
-        'source': 'https://raw.githubusercontent.com/etcd-io/etcd/master/Documentation/op-guide/grafana.json',
+        'source': 'https://raw.githubusercontent.com/etcd-io/website/master/content/docs/current/op-guide/grafana.json',
         'destination': '../templates/grafana/dashboards',
         'type': 'json',
         'min_kubernetes': '1.10.0-0',
@@ -101,6 +101,10 @@ def escape(s):
     return s.replace("{{", "{{`{{").replace("}}", "}}`}}").replace("{{`{{", "{{`{{`}}").replace("}}`}}", "{{`}}`}}")
 
 
+def unescape(s):
+    return s.replace("\{\{", "{{").replace("\}\}", "}}")
+
+
 def yaml_str_repr(struct, indent=2):
     """represent yaml as a string"""
     text = yaml.dump(
@@ -109,8 +113,50 @@ def yaml_str_repr(struct, indent=2):
         default_flow_style=False  # to disable multiple items on single line
     )
     text = escape(text)  # escape {{ and }} for helm
+    text = unescape(text)  # unescape \{\{ and \}\} for templating
     text = textwrap.indent(text, ' ' * indent)
     return text
+
+
+def patch_json_for_multicluster_configuration(content):
+    try:
+        content_struct = json.loads(content)
+        overwrite_list = []
+        for variable in content_struct['templating']['list']:
+            if variable['name'] == 'cluster':
+                variable['hide'] = ':multicluster:'
+            overwrite_list.append(variable)
+        content_struct['templating']['list'] = overwrite_list
+        content_array = []
+        original_content_lines = content.split('\n')
+        for i, line in enumerate(json.dumps(content_struct, indent=4).split('\n')):
+            if ('[]' not in line and '{}' not in line) or line == original_content_lines[i]:
+                content_array.append(line)
+                continue
+
+            append = ''
+            if line.endswith(','):
+                line = line[:-1]
+                append = ','
+
+            if line.endswith('{}') or line.endswith('[]'):
+                content_array.append(line[:-1])
+                content_array.append('')
+                content_array.append(' ' * (len(line) - len(line.lstrip())) + line[-1] + append)
+
+        content = '\n'.join(content_array)
+
+        multicluster = content.find(':multicluster:')
+        if multicluster != -1:
+            content = ''.join((
+                content[:multicluster-1],
+                '\{\{ if .Values.grafana.sidecar.dashboards.multicluster \}\}0\{\{ else \}\}2\{\{ end \}\}',
+                content[multicluster + 15:]
+            ))
+    except (ValueError, KeyError):
+        pass
+
+    return content
 
 
 def write_group_to_file(resource_name, content, url, destination, min_kubernetes, max_kubernetes):
@@ -122,6 +168,8 @@ def write_group_to_file(resource_name, content, url, destination, min_kubernetes
         'min_kubernetes': min_kubernetes,
         'max_kubernetes': max_kubernetes
     }
+
+    content = patch_json_for_multicluster_configuration(content)
 
     filename_struct = {resource_name + '.json': (LiteralStr(content))}
     # rules themselves

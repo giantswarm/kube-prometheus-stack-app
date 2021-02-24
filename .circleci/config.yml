@@ -6,6 +6,8 @@ workflows:
   package-and-push-chart-on-tag:
     jobs:
       - architect/push-to-app-catalog:
+          context: architect
+          executor: app-build-suite
           name: push-to-default-app-catalog
           app_catalog: "default-catalog"
           app_catalog_test: "default-test-catalog"
@@ -17,6 +19,8 @@ workflows:
               only: /^v.*/
 
       - architect/push-to-app-catalog:
+          context: architect
+          executor: app-build-suite
           name: push-to-giantswarm-app-catalog
           app_catalog: "giantswarm-catalog"
           app_catalog_test: "giantswarm-test-catalog"
@@ -26,8 +30,10 @@ workflows:
             # Trigger the job also on git tag.
             tags:
               only: /^v.*/
-      
+
       - architect/push-to-app-catalog:
+          context: architect
+          executor: app-build-suite
           name: push-to-control-plane-app-catalog
           app_catalog: "control-plane-catalog"
           app_catalog_test: "control-plane-test-catalog"
@@ -45,7 +51,6 @@ workflows:
           app_namespace: "monitoring"
           app_collection_repo: "aws-app-collection"
           disable_force_upgrade: true
-          unique: "true"
           requires:
             - push-to-control-plane-app-catalog
           filters:
@@ -61,7 +66,6 @@ workflows:
           app_namespace: "monitoring"
           app_collection_repo: "azure-app-collection"
           disable_force_upgrade: true
-          unique: "true"
           requires:
             - push-to-control-plane-app-catalog
           filters:
@@ -77,7 +81,6 @@ workflows:
           app_namespace: "monitoring"
           app_collection_repo: "kvm-app-collection"
           disable_force_upgrade: true
-          unique: "true"
           requires:
             - push-to-control-plane-app-catalog
           filters:
