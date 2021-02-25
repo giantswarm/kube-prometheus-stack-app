@@ -33,6 +33,7 @@ annotations:
       url: https://github.com/prometheus-community/helm-charts
     - name: Upstream Project
       url: https://github.com/prometheus-operator/kube-prometheus
+  config.giantswarm.io/version: 1.x.x
 
 dependencies:
 - name: kube-state-metrics

@@ -32,14 +32,10 @@ spec:
     {{- end }}
       containers:
         - name: {{ template "kube-prometheus-stack.name" . }}
-          {{- if (.Values.Installation) }}
-          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}"
-          {{ else }}
           {{- if .Values.prometheusOperator.image.sha }}
           image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}@sha256:{{ .Values.prometheusOperator.image.sha }}"
           {{- else }}
           image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}"
-          {{- end }}
           {{- end }}
           imagePullPolicy: "{{ .Values.prometheusOperator.image.pullPolicy }}"
           args:
