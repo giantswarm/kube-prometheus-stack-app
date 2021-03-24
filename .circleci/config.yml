@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@2.1.0
+  architect: giantswarm/architect@2.4.1
 
 workflows:
   package-and-push-chart-on-tag:
@@ -41,6 +41,21 @@ workflows:
           ct_config: ".circleci/ct-config.yaml"
           filters:
             # Trigger the job also on git tag.
+            tags:
+              only: /^v.*/
+
+      - architect/push-to-app-collection:
+          context: architect
+          name: push-prometheus-operator-to-shared-app-collection
+          app_name: "prometheus-operator-app"
+          app_namespace: "monitoring"
+          app_collection_repo: "shared-app-collection"
+          disable_force_upgrade: true
+          requires:
+            - push-to-control-plane-app-catalog
+          filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^v.*/
 

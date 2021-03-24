@@ -3,4 +3,3 @@ generate-metadata: true
 chart-dir: ./helm/prometheus-operator-app
 destination: ./build
 ct-config: ./.circleci/ct-config.yaml
-ct-chart-repos: kubernetes-charts=https://charts.helm.sh/stable,kube-state-metrics=https://kubernetes.github.io/kube-state-metrics,prometheus-node-exporter=https://prometheus-community.github.io/helm-charts,grafana=https://grafana.github.io/helm-charts
