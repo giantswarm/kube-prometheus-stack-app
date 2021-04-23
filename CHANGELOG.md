@@ -7,6 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Sync with upstream chart version kube-prometheus-stack-15.2.0
+- prometheus-operator v0.45.0 -> v0.47.0
+- prometheus-config-reloader v0.45.0 -> v0.47.0
+- prometheus v2.24.0 -> v2.26.0
+
 ## [0.7.0] - 2021-02-24
 
 ### Changed
