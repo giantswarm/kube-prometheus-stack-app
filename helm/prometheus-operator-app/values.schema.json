@@ -631,6 +631,14 @@
                 "namespaceOverride": {
                     "type": "string"
                 },
+                "rbac": {
+                    "type": "object",
+                    "properties": {
+                        "pspUseAppArmor": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "service": {
                     "type": "object",
                     "properties": {

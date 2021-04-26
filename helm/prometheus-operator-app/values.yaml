@@ -613,6 +613,9 @@ grafana:
   enabled: true
   namespaceOverride: ""
 
+  rbac:
+    pspUseAppArmor: false
+
   ## Deploy default dashboards.
   ##
   defaultDashboardsEnabled: true
