@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [0.8.0] - 2021-04-26
+
 ### Changed
 
 - Sync with upstream chart version kube-prometheus-stack-15.2.0
@@ -160,7 +162,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.2...v0.6.0
 [0.5.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.1...v0.5.2
