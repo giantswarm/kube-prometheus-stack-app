@@ -35,6 +35,9 @@
                         "externalUrl": {
                             "type": ["null", "string"]
                         },
+                        "forceEnableClusterMode": {
+                            "type": "boolean"
+                        },
                         "image": {
                             "type": "object",
                             "properties": {
@@ -48,6 +51,9 @@
                                     "type": "string"
                                 }
                             }
+                        },
+                        "initContainers": {
+                            "type": "array"
                         },
                         "listenLocal": {
                             "type": "boolean"
@@ -117,10 +123,22 @@
                         "tolerations": {
                             "type": "array"
                         },
+                        "topologySpreadConstraints": {
+                            "type": "array"
+                        },
                         "useExistingSecret": {
                             "type": "boolean"
+                        },
+                        "volumeMounts": {
+                            "type": "array"
+                        },
+                        "volumes": {
+                            "type": "array"
                         }
                     }
+                },
+                "annotations": {
+                    "type": "object"
                 },
                 "apiVersion": {
                     "type": "string"
@@ -187,6 +205,12 @@
                                         }
                                     }
                                 }
+                            }
+                        },
+                        "templates": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
                             }
                         }
                     }
@@ -279,6 +303,9 @@
                 "service": {
                     "type": "object",
                     "properties": {
+                        "additionalPorts": {
+                            "type": "array"
+                        },
                         "annotations": {
                             "type": "object"
                         },
@@ -336,6 +363,9 @@
                         },
                         "metricRelabelings": {
                             "type": "array"
+                        },
+                        "proxyUrl": {
+                            "type": "string"
                         },
                         "relabelings": {
                             "type": "array"
@@ -413,6 +443,9 @@
                         },
                         "metricRelabelings": {
                             "type": "array"
+                        },
+                        "proxyUrl": {
+                            "type": "string"
                         },
                         "relabelings": {
                             "type": "array"
@@ -623,6 +656,9 @@
                         "metricRelabelings": {
                             "type": "array"
                         },
+                        "path": {
+                            "type": "string"
+                        },
                         "relabelings": {
                             "type": "array"
                         },
@@ -645,6 +681,9 @@
                                 },
                                 "label": {
                                     "type": "string"
+                                },
+                                "multicluster": {
+                                    "type": "boolean"
                                 }
                             }
                         },
@@ -725,6 +764,9 @@
                         "metricRelabelings": {
                             "type": "array"
                         },
+                        "proxyUrl": {
+                            "type": "string"
+                        },
                         "selector": {
                             "type": "object",
                             "properties": {
@@ -768,6 +810,9 @@
                 "service": {
                     "type": "object",
                     "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "port": {
                             "type": "integer"
                         },
@@ -779,6 +824,9 @@
                 "serviceMonitor": {
                     "type": "object",
                     "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "https": {
                             "type": "boolean"
                         },
@@ -790,6 +838,9 @@
                         },
                         "metricRelabelings": {
                             "type": "array"
+                        },
+                        "proxyUrl": {
+                            "type": "string"
                         },
                         "relabelings": {
                             "type": "array"
@@ -849,6 +900,9 @@
                         "metricRelabelings": {
                             "type": "array"
                         },
+                        "proxyUrl": {
+                            "type": "string"
+                        },
                         "relabelings": {
                             "type": "array"
                         }
@@ -868,6 +922,9 @@
                 "service": {
                     "type": "object",
                     "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "port": {
                             "type": "integer"
                         },
@@ -885,6 +942,9 @@
                         "certFile": {
                             "type": "string"
                         },
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "insecureSkipVerify": {
                             "type": "boolean"
                         },
@@ -896,6 +956,9 @@
                         },
                         "metricRelabelings": {
                             "type": "array"
+                        },
+                        "proxyUrl": {
+                            "type": "string"
                         },
                         "relabelings": {
                             "type": "array"
@@ -922,6 +985,9 @@
                 "service": {
                     "type": "object",
                     "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "port": {
                             "type": "integer"
                         },
@@ -933,6 +999,9 @@
                 "serviceMonitor": {
                     "type": "object",
                     "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "https": {
                             "type": "boolean"
                         },
@@ -941,6 +1010,9 @@
                         },
                         "metricRelabelings": {
                             "type": "array"
+                        },
+                        "proxyUrl": {
+                            "type": "string"
                         },
                         "relabelings": {
                             "type": "array"
@@ -961,6 +1033,9 @@
                 "service": {
                     "type": "object",
                     "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "port": {
                             "type": "integer"
                         },
@@ -972,6 +1047,9 @@
                 "serviceMonitor": {
                     "type": "object",
                     "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "https": {
                             "type": "boolean"
                         },
@@ -983,6 +1061,9 @@
                         },
                         "metricRelabelings": {
                             "type": "array"
+                        },
+                        "proxyUrl": {
+                            "type": "string"
                         },
                         "relabelings": {
                             "type": "array"
@@ -1009,8 +1090,17 @@
                         "metricRelabelings": {
                             "type": "array"
                         },
+                        "namespaceOverride": {
+                            "type": "string"
+                        },
+                        "proxyUrl": {
+                            "type": "string"
+                        },
                         "relabelings": {
                             "type": "array"
+                        },
+                        "selectorOverride": {
+                            "type": "object"
                         }
                     }
                 }
@@ -1086,6 +1176,9 @@
                                 }
                             }
                         },
+                        "proxyUrl": {
+                            "type": "string"
+                        },
                         "relabelings": {
                             "type": "array",
                             "items": {
@@ -1154,6 +1247,9 @@
                         "metricRelabelings": {
                             "type": "array"
                         },
+                        "proxyUrl": {
+                            "type": "string"
+                        },
                         "relabelings": {
                             "type": "array"
                         },
@@ -1168,6 +1264,9 @@
             "type": "object",
             "properties": {
                 "additionalPodMonitors": {
+                    "type": "array"
+                },
+                "additionalRulesForClusterRole": {
                     "type": "array"
                 },
                 "additionalServiceMonitors": {
@@ -1258,6 +1357,12 @@
                     "properties": {
                         "allowedCapabilities": {
                             "type": "array"
+                        },
+                        "allowedHostPaths": {
+                            "type": "array"
+                        },
+                        "volumes": {
+                            "type": "array"
                         }
                     }
                 },
@@ -1273,6 +1378,12 @@
                         "additionalPrometheusSecretsAnnotations": {
                             "type": "object"
                         },
+                        "additionalRemoteRead": {
+                            "type": "array"
+                        },
+                        "additionalRemoteWrite": {
+                            "type": "array"
+                        },
                         "additionalScrapeConfigs": {
                             "type": "array"
                         },
@@ -1285,8 +1396,14 @@
                         "alertingEndpoints": {
                             "type": "array"
                         },
+                        "allowOverlappingBlocks": {
+                            "type": "boolean"
+                        },
                         "apiserverConfig": {
                             "type": "object"
+                        },
+                        "arbitraryFSAccessThroughSMs": {
+                            "type": "boolean"
                         },
                         "configMaps": {
                             "type": "array"
@@ -1300,6 +1417,15 @@
                         "enableAdminAPI": {
                             "type": "boolean"
                         },
+                        "enableFeatures": {
+                            "type": "array"
+                        },
+                        "enforcedNamespaceLabel": {
+                            "type": "string"
+                        },
+                        "enforcedSampleLimit": {
+                            "type": "boolean"
+                        },
                         "evaluationInterval": {
                             "type": "string"
                         },
@@ -1308,6 +1434,9 @@
                         },
                         "externalUrl": {
                             "type": "string"
+                        },
+                        "ignoreNamespaceSelectors": {
+                            "type": "boolean"
                         },
                         "image": {
                             "type": "object",
@@ -1337,6 +1466,12 @@
                         },
                         "nodeSelector": {
                             "type": "object"
+                        },
+                        "overrideHonorLabels": {
+                            "type": "boolean"
+                        },
+                        "overrideHonorTimestamps": {
+                            "type": "boolean"
                         },
                         "paused": {
                             "type": "boolean"
@@ -1380,8 +1515,14 @@
                         "prometheusExternalLabelNameClear": {
                             "type": "boolean"
                         },
+                        "prometheusRulesExcludedFromEnforce": {
+                            "type": "array"
+                        },
                         "query": {
                             "type": "object"
+                        },
+                        "queryLogFile": {
+                            "type": "boolean"
                         },
                         "remoteRead": {
                             "type": "array"
@@ -1425,6 +1566,9 @@
                         "scrapeInterval": {
                             "type": "string"
                         },
+                        "scrapeTimeout": {
+                            "type": "string"
+                        },
                         "secrets": {
                             "type": "array"
                         },
@@ -1454,6 +1598,9 @@
                         "serviceMonitorSelectorNilUsesHelmValues": {
                             "type": "boolean"
                         },
+                        "shards": {
+                            "type": "integer"
+                        },
                         "storageSpec": {
                             "type": "object"
                         },
@@ -1461,6 +1608,9 @@
                             "type": "object"
                         },
                         "tolerations": {
+                            "type": "array"
+                        },
+                        "topologySpreadConstraints": {
                             "type": "array"
                         },
                         "volumeMounts": {
@@ -1515,6 +1665,9 @@
                 "serviceAccount": {
                     "type": "object",
                     "properties": {
+                        "annotations": {
+                            "type": "object"
+                        },
                         "create": {
                             "type": "boolean"
                         },
@@ -1590,6 +1743,9 @@
                         "labels": {
                             "type": "object"
                         },
+                        "nodePort": {
+                            "type": "integer"
+                        },
                         "paths": {
                             "type": "array"
                         },
@@ -1598,6 +1754,38 @@
                         },
                         "tls": {
                             "type": "array"
+                        }
+                    }
+                },
+                "thanosService": {
+                    "type": "object",
+                    "properties": {
+                        "annotations": {
+                            "type": "object"
+                        },
+                        "clusterIP": {
+                            "type": "string"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "labels": {
+                            "type": "object"
+                        },
+                        "nodePort": {
+                            "type": "integer"
+                        },
+                        "port": {
+                            "type": "integer"
+                        },
+                        "portName": {
+                            "type": "string"
+                        },
+                        "targetPort": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "type": "string"
                         }
                     }
                 }
@@ -1631,6 +1819,17 @@
                 "admissionWebhooks": {
                     "type": "object",
                     "properties": {
+                        "caBundle": {
+                            "type": "string"
+                        },
+                        "certManager": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
                         "enabled": {
                             "type": "boolean"
                         },
@@ -1694,22 +1893,11 @@
                 "configReloaderMemory": {
                     "type": "string"
                 },
-                "configmapReloadImage": {
-                    "type": "object",
-                    "properties": {
-                        "repository": {
-                            "type": "string"
-                        },
-                        "sha": {
-                            "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
                 "denyNamespaces": {
                     "type": "array"
+                },
+                "dnsConfig": {
+                    "type": "object"
                 },
                 "enabled": {
                     "type": "boolean"
@@ -1887,7 +2075,7 @@
                         }
                     }
                 },
-                "thanosInstanceNamespaces": {
+                "thanosRulerInstanceNamespaces": {
                     "type": "array"
                 },
                 "tls": {
@@ -1895,6 +2083,12 @@
                     "properties": {
                         "enabled": {
                             "type": "boolean"
+                        },
+                        "internalPort": {
+                            "type": "integer"
+                        },
+                        "tlsMinVersion": {
+                            "type": "string"
                         }
                     }
                 },
