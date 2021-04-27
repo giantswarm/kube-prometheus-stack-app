@@ -18,7 +18,7 @@ name: prometheus-operator-app
 sources:
   - https://github.com/prometheus-community/helm-charts
   - https://github.com/prometheus-operator/kube-prometheus
-version: 13.10.0
+version: [[ .Version ]]
 appVersion: 0.45.0
 kubeVersion: ">=1.16.0-0"
 home: https://github.com/giantswarm/prometheus-operator-app
