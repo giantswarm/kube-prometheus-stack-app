@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [0.7.2] - 2021-04-27
+
+- Internal release, do not use.
+
+## [0.7.1] - 2021-04-27
+
+- Internal release, do not use.
+
 ## [0.8.0] - 2021-04-26
 
 ### Changed
@@ -164,6 +172,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 [Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.8.0...HEAD
 [0.8.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.7.0...v0.8.0
+[0.7.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.7.1...v0.7.2
+[0.7.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.2...v0.6.0
 [0.5.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.1...v0.5.2
