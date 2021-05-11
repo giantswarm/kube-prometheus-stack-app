@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Enable `ingressClass` and `pathType` by default to ease installing on kubernetes >= 1.18.
+
 ## [0.7.2] - 2021-04-27
 
 - Internal release, do not use.
