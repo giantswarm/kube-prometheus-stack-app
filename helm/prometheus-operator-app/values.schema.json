@@ -230,8 +230,14 @@
                         "hosts": {
                             "type": "array"
                         },
+                        "ingressClassName": {
+                            "type": "string"
+                        },
                         "labels": {
                             "type": "object"
+                        },
+                        "pathType": {
+                            "type": "string"
                         },
                         "paths": {
                             "type": "array"
@@ -256,8 +262,14 @@
                         "hostPrefix": {
                             "type": "string"
                         },
+                        "ingressClassName": {
+                            "type": "string"
+                        },
                         "labels": {
                             "type": "object"
+                        },
+                        "pathType": {
+                            "type": "string"
                         },
                         "paths": {
                             "type": "array"
@@ -1290,8 +1302,14 @@
                         "hosts": {
                             "type": "array"
                         },
+                        "ingressClassName": {
+                            "type": "string"
+                        },
                         "labels": {
                             "type": "object"
+                        },
+                        "pathType": {
+                            "type": "string"
                         },
                         "paths": {
                             "type": "array"
@@ -1316,8 +1334,14 @@
                         "hostPrefix": {
                             "type": "string"
                         },
+                        "ingressClassName": {
+                            "type": "string"
+                        },
                         "labels": {
                             "type": "object"
+                        },
+                        "pathType": {
+                            "type": "string"
                         },
                         "paths": {
                             "type": "array"
@@ -1740,11 +1764,17 @@
                         "hosts": {
                             "type": "array"
                         },
+                        "ingressClassName": {
+                            "type": "string"
+                        },
                         "labels": {
                             "type": "object"
                         },
                         "nodePort": {
                             "type": "integer"
+                        },
+                        "pathType": {
+                            "type": "string"
                         },
                         "paths": {
                             "type": "array"
