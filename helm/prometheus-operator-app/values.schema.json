@@ -1121,6 +1121,9 @@
         "kubeTargetVersionOverride": {
             "type": "string"
         },
+        "kubeVersionOverride": {
+            "type": "string"
+        },
         "kubelet": {
             "type": "object",
             "properties": {
@@ -1795,6 +1798,35 @@
                         },
                         "clusterIP": {
                             "type": "string"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "labels": {
+                            "type": "object"
+                        },
+                        "nodePort": {
+                            "type": "integer"
+                        },
+                        "port": {
+                            "type": "integer"
+                        },
+                        "portName": {
+                            "type": "string"
+                        },
+                        "targetPort": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "thanosServiceExternal": {
+                    "type": "object",
+                    "properties": {
+                        "annotations": {
+                            "type": "object"
                         },
                         "enabled": {
                             "type": "boolean"
