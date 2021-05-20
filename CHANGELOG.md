@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Sync with upstream chart version kube-prometheus-stack-15.4.6
+- Sync with upstream chart version [kube-prometheus-stack-15.4.6](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-15.4.6)
 
 ## [0.8.1] - 2021-05-11
 
