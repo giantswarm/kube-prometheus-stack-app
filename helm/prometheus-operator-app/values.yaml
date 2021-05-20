@@ -91,6 +91,10 @@ additionalPrometheusRulesMap: {}
 #      - record: my_record
 #        expr: 100 * my_record
 
+## Required for interchangability of image registry used for China
+image:
+  registry: quay.io
+
 ##
 global:
   rbac:
@@ -212,7 +216,7 @@ alertmanager:
 
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    # ingressClassName: nginx
+    ingressClassName: nginx
 
     annotations: {}
 
@@ -230,7 +234,7 @@ alertmanager:
 
     ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
     ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
-    # pathType: ImplementationSpecific
+    pathType: ImplementationSpecific
 
     ## TLS configuration for Alertmanager Ingress
     ## Secret must be manually created in the namespace
@@ -253,7 +257,7 @@ alertmanager:
 
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    # ingressClassName: nginx
+    ingressClassName: nginx
 
     annotations: {}
     labels: {}
@@ -274,7 +278,7 @@ alertmanager:
 
     ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
     ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
-    # pathType: ImplementationSpecific
+    pathType: ImplementationSpecific
 
     ## Secret name containing the TLS certificate for alertmanager per replica ingress
     ## Secret must be manually created in the namespace
@@ -395,7 +399,7 @@ alertmanager:
     ## Image of Alertmanager
     ##
     image:
-      repository: quay.io/prometheus/alertmanager
+      repository: giantswarm/alertmanager
       tag: v0.21.0
       sha: ""
 
@@ -612,6 +616,9 @@ alertmanager:
 grafana:
   enabled: true
   namespaceOverride: ""
+
+  rbac:
+    pspUseAppArmor: false
 
   ## Deploy default dashboards.
   ##
@@ -1341,7 +1348,7 @@ prometheusOperator:
     patch:
       enabled: true
       image:
-        repository: jettech/kube-webhook-certgen
+        repository: giantswarm/kube-webhook-certgen
         tag: v1.5.0
         sha: ""
         pullPolicy: IfNotPresent
@@ -1480,7 +1487,13 @@ prometheusOperator:
 
   ## Resource limits & requests
   ##
-  resources: {}
+  resources:
+    limits:
+      cpu: 200m
+      memory: 200Mi
+    requests:
+      cpu: 100m
+      memory: 100Mi
   # limits:
   #   cpu: 200m
   #   memory: 200Mi
@@ -1539,23 +1552,23 @@ prometheusOperator:
   ## Prometheus-operator image
   ##
   image:
-    repository: quay.io/prometheus-operator/prometheus-operator
+    repository: giantswarm/prometheus-operator
     tag: v0.47.0
     sha: ""
     pullPolicy: IfNotPresent
 
   ## Prometheus image to use for prometheuses managed by the operator
   ##
-  # prometheusDefaultBaseImage: quay.io/prometheus/prometheus
+  # prometheusDefaultBaseImage: giantswarm/prometheus
 
   ## Alertmanager image to use for alertmanagers managed by the operator
   ##
-  # alertmanagerDefaultBaseImage: quay.io/prometheus/alertmanager
+  # alertmanagerDefaultBaseImage: giantswarm/alertmanager
 
   ## Prometheus-config-reloader image to use for config and rule reloading
   ##
   prometheusConfigReloaderImage:
-    repository: quay.io/prometheus-operator/prometheus-config-reloader
+    repository: giantswarm/prometheus-config-reloader
     tag: v0.47.0
     sha: ""
 
@@ -1569,7 +1582,7 @@ prometheusOperator:
 
   ## Set a Field Selector to filter watched secrets
   ##
-  secretFieldSelector: ""
+  secretFieldSelector: "type!=helm.sh/release.v1"
 
 ## Deploy a Prometheus instance
 ##
@@ -1704,7 +1717,7 @@ prometheus:
 
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    # ingressClassName: nginx
+    ingressClassName: nginx
 
     annotations: {}
     labels: {}
@@ -1727,7 +1740,7 @@ prometheus:
 
     ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
     ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
-    # pathType: ImplementationSpecific
+    pathType: ImplementationSpecific
 
     ## TLS configuration for Thanos Ingress
     ## Secret must be manually created in the namespace
@@ -1742,7 +1755,7 @@ prometheus:
 
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    # ingressClassName: nginx
+    ingressClassName: nginx
 
     annotations: {}
     labels: {}
@@ -1761,7 +1774,7 @@ prometheus:
 
     ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
     ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
-    # pathType: ImplementationSpecific
+    pathType: ImplementationSpecific
 
     ## TLS configuration for Prometheus Ingress
     ## Secret must be manually created in the namespace
@@ -1779,7 +1792,7 @@ prometheus:
 
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    # ingressClassName: nginx
+    ingressClassName: nginx
 
     annotations: {}
     labels: {}
@@ -1800,7 +1813,7 @@ prometheus:
 
     ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
     ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
-    # pathType: ImplementationSpecific
+    pathType: ImplementationSpecific
 
     ## Secret name containing the TLS certificate for Prometheus per replica ingress
     ## Secret must be manually created in the namespace
@@ -1898,7 +1911,7 @@ prometheus:
     ## Image of Prometheus.
     ##
     image:
-      repository: quay.io/prometheus/prometheus
+      repository: giantswarm/prometheus
       tag: v2.26.0
       sha: ""
 
@@ -2492,3 +2505,6 @@ prometheus:
     ## https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#podmetricsendpoint
     ##
     # podMetricsEndpoints: []
+
+crds:
+  install: true

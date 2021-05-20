@@ -41,7 +41,7 @@ The longest name that gets created adds and extra 37 characters, so truncation s
 
 {{/* Create chart name and version as used by the chart label. */}}
 {{- define "kube-prometheus-stack.chartref" -}}
-{{- replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name -}}
+{{- (replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name) | trunc 63 -}}
 {{- end }}
 
 {{/* Generate basic labels */}}
@@ -115,4 +115,23 @@ Allow the release namespace to be overridden for multi-namespace deployments in 
 {{/* Check Ingress stability */}}
 {{- define "kube-prometheus-stack.ingress.isStable" -}}
   {{- eq (include "kube-prometheus-stack.ingress.apiVersion" .) "networking.k8s.io/v1" -}}
+{{- end -}}
+
+{{- define "kube-prometheus-stack.crdInstall" -}}
+{{- printf "%s-%s" ( include "kube-prometheus-stack.name" . ) "crd-install" | replace "+" "_" | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "kube-prometheus-stack.CRDInstallAnnotations" -}}
+"helm.sh/hook": "pre-install,pre-upgrade"
+"helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded,hook-failed"
+{{- end -}}
+
+{{- define "kube-prometheus-stack.selectorLabels" -}}
+app.kubernetes.io/name: "{{ template "kube-prometheus-stack.name" . }}"
+app.kubernetes.io/instance: "{{ template "kube-prometheus-stack.name" . }}"
+{{- end -}}
+
+{{/* Create a label which can be used to select any orphaned crd-install hook resources */}}
+{{- define "kube-prometheus-stack.CRDInstallSelector" -}}
+{{- printf "%s" "crd-install-hook" -}}
 {{- end -}}
