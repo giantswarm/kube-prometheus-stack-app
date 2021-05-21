@@ -10,6 +10,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Sync with upstream chart version [kube-prometheus-stack-15.4.6](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-15.4.6)
+- Add sha values to all image references in values.yaml
+- Bump default prometheus image to 2.26.1 to mitigate [CVE-2021-29622](https://github.com/prometheus/prometheus/security/advisories/GHSA-vx57-7f4q-fpc7)
 
 ## [0.8.1] - 2021-05-11
 
