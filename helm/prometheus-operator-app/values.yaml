@@ -401,7 +401,7 @@ alertmanager:
     image:
       repository: giantswarm/alertmanager
       tag: v0.21.0
-      sha: ""
+      sha: "913293083cb14085bfc01018bb30d1dcbbc9ed197ae21ef2ca917b0d29265198"
 
     ## If true then the user will be responsible to provide a secret with alertmanager configuration
     ## So when true the config part will be ignored (including templateFiles) and the one in the secret will be used
@@ -1350,7 +1350,7 @@ prometheusOperator:
       image:
         repository: giantswarm/kube-webhook-certgen
         tag: v1.5.0
-        sha: ""
+        sha: "f2fe9a0f3be274579e2d3a71c9d2180ab8e21c7203bcad74f653615d7eaeb5e0"
         pullPolicy: IfNotPresent
       resources: {}
       ## Provide a priority class name to the webhook patching job
@@ -1554,7 +1554,7 @@ prometheusOperator:
   image:
     repository: giantswarm/prometheus-operator
     tag: v0.47.0
-    sha: ""
+    sha: "2cce452d1a2cd662b253b3bb9ac7f6d8ecf32541ae438b250d8700fa3df7b288"
     pullPolicy: IfNotPresent
 
   ## Prometheus image to use for prometheuses managed by the operator
@@ -1570,7 +1570,7 @@ prometheusOperator:
   prometheusConfigReloaderImage:
     repository: giantswarm/prometheus-config-reloader
     tag: v0.47.0
-    sha: ""
+    sha: "7fe263687aaa9c441597193a5e9df940e29755fd2931e3964eb2f52553ed3c84"
 
   ## Set the prometheus config reloader side-car CPU limit
   ##
@@ -1912,8 +1912,8 @@ prometheus:
     ##
     image:
       repository: giantswarm/prometheus
-      tag: v2.26.0
-      sha: ""
+      tag: v2.26.1
+      sha: "99e405397f6b3f39912ae2ea9d231f81a181fa73b2a06b7f5cac67cef63760d0"
 
     ## Tolerations for use with node taints
     ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
