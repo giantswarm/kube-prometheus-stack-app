@@ -1,6 +1,6 @@
 # DO NOT EDIT. Generated with:
 #
-#    devctl@4.6.1
+#    devctl@4.7.0
 #
 version: 2
 updates:
@@ -14,3 +14,11 @@ updates:
       - giantswarm/app-squad-prometheus
     ignore:
       - dependency-name: zricethezav/gitleaks-action
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+      time: "04:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - giantswarm/app-squad-prometheus
