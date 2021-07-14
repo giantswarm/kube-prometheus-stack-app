@@ -32,14 +32,10 @@ spec:
     {{- end }}
       containers:
         - name: {{ template "kube-prometheus-stack.name" . }}
-          {{- if (.Values.Installation) }}
-          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}"
-          {{ else }}
           {{- if .Values.prometheusOperator.image.sha }}
           image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}@sha256:{{ .Values.prometheusOperator.image.sha }}"
           {{- else }}
           image: "{{ .Values.image.registry }}/{{ .Values.prometheusOperator.image.repository }}:{{ .Values.prometheusOperator.image.tag }}"
-          {{- end }}
           {{- end }}
           imagePullPolicy: "{{ .Values.prometheusOperator.image.pullPolicy }}"
           args:
@@ -64,27 +60,15 @@ spec:
             {{- end }}
             - --localhost=127.0.0.1
             {{- if .Values.prometheusOperator.prometheusDefaultBaseImage }}
-            {{- if (.Values.Installation) }}
-            - --prometheus-default-base-image={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.prometheusDefaultBaseImage }}
-            {{- else }}
             - --prometheus-default-base-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusDefaultBaseImage }}
             {{- end }}
-            {{- end }}
             {{- if .Values.prometheusOperator.alertmanagerDefaultBaseImage }}
-            {{- if (.Values.Installation) }}
-            - --alertmanager-default-base-image={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.alertmanagerDefaultBaseImage }}
-            {{- else }}
             - --alertmanager-default-base-image={{ .Values.image.registry }}/{{ .Values.prometheusOperator.alertmanagerDefaultBaseImage }}
             {{- end }}
-            {{- end }}
-            {{- if (.Values.Installation) }}
-            - --prometheus-config-reloader={{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
-            {{- else }}
             {{- if .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
             - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}@sha256:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.sha }}
             {{- else }}
             - --prometheus-config-reloader={{ .Values.image.registry }}/{{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
-            {{- end }}
             {{- end }}
             - --config-reloader-cpu={{ .Values.prometheusOperator.configReloaderCpu }}
             - --config-reloader-memory={{ .Values.prometheusOperator.configReloaderMemory }}

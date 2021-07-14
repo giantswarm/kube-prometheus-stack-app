@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@2.11.0
+  architect: giantswarm/architect@4.0.0
 
 workflows:
   package-and-push-chart-on-tag:
@@ -103,7 +103,7 @@ workflows:
               ignore: /.*/
             tags:
               only: /^v.*/
-              
+
       - architect/push-to-app-collection:
           context: architect
           name: push-prometheus-operator-to-vmware-app-collection
