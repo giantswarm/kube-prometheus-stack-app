@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Use `giantswarm/config` to generate managed configuration.
+
 ## [0.8.2] - 2021-05-21
 
 ### Changed
