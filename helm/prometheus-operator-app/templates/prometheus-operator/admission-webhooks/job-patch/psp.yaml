@@ -5,7 +5,7 @@ metadata:
   name: {{ template "kube-prometheus-stack.fullname" . }}-admission
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade,post-install,post-upgrade
-    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
   labels:
     app: {{ template "kube-prometheus-stack.name" . }}-admission
 {{- if .Values.global.rbac.pspAnnotations }}
