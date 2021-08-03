@@ -400,8 +400,8 @@ alertmanager:
     ##
     image:
       repository: giantswarm/alertmanager
-      tag: v0.21.0
-      sha: "913293083cb14085bfc01018bb30d1dcbbc9ed197ae21ef2ca917b0d29265198"
+      tag: v0.22.2
+      sha: "6ff24033b35ff1f6f66e2fc8fa4792cf91f0fee8da57955051036dbb8b6a6d44"
 
     ## If true then the user will be responsible to provide a secret with alertmanager configuration
     ## So when true the config part will be ignored (including templateFiles) and the one in the secret will be used
@@ -620,6 +620,14 @@ grafana:
   rbac:
     pspUseAppArmor: false
 
+  ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
+  ##
+  forceDeployDatasources: false
+
+  ## ForceDeployDashboard Create dashboard configmap even if grafana deployment has been disabled
+  ##
+  forceDeployDashboards: false
+
   ## Deploy default dashboards.
   ##
   defaultDashboardsEnabled: true
@@ -671,6 +679,10 @@ grafana:
     datasources:
       enabled: true
       defaultDatasourceEnabled: true
+
+      ## URL of prometheus datasource
+      ##
+      # url: http://prometheus-stack-prometheus:9090/
 
       # If not defined, will use prometheus.prometheusSpec.scrapeInterval or its default
       # defaultDatasourceScrapeInterval: 15s
@@ -749,19 +761,6 @@ kubeApiServer:
   tlsConfig:
     serverName: kubernetes
     insecureSkipVerify: false
-
-  ## If your API endpoint address is not reachable (as in AKS) you can replace it with the kubernetes service
-  ##
-  relabelings: []
-  # - sourceLabels:
-  #     - __meta_kubernetes_namespace
-  #     - __meta_kubernetes_service_name
-  #     - __meta_kubernetes_endpoint_port_name
-  #   action: keep
-  #   regex: default;kubernetes;https
-  # - targetLabel: __address__
-  #   replacement: kubernetes.default.svc:443
-
   serviceMonitor:
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
     ##
@@ -782,6 +781,15 @@ kubeApiServer:
     # - action: keep
     #   regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
     #   sourceLabels: [__name__]
+    relabelings: []
+    # - sourceLabels:
+    #     - __meta_kubernetes_namespace
+    #     - __meta_kubernetes_service_name
+    #     - __meta_kubernetes_endpoint_port_name
+    #   action: keep
+    #   regex: default;kubernetes;https
+    # - targetLabel: __address__
+    #   replacement: kubernetes.default.svc:443
 
 ## Component scraping the kubelet and kubelet-hosted cAdvisor
 ##
@@ -1257,6 +1265,10 @@ kubeStateMetrics:
     #   replacement: $1
     #   action: replace
 
+    # Enable self metrics configuration for Service Monitor
+    selfMonitor:
+      enabled: false
+
 ## Configuration for kube-state-metrics subchart
 ##
 kube-state-metrics:
@@ -1349,8 +1361,8 @@ prometheusOperator:
       enabled: true
       image:
         repository: giantswarm/kube-webhook-certgen
-        tag: v1.5.0
-        sha: "f2fe9a0f3be274579e2d3a71c9d2180ab8e21c7203bcad74f653615d7eaeb5e0"
+        tag: v1.5.2
+        sha: "aef46427991165d16db3b9323472855425e7d3d737d539ee19d43305925b5827"
         pullPolicy: IfNotPresent
       resources: {}
       ## Provide a priority class name to the webhook patching job
@@ -1360,6 +1372,16 @@ prometheusOperator:
       nodeSelector: {}
       affinity: {}
       tolerations: []
+
+      ## SecurityContext holds pod-level security attributes and common container settings.
+      ## This defaults to non root user with uid 2000 and gid 2000.	*v1.PodSecurityContext	false
+      ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+      ##
+      securityContext:
+        runAsGroup: 2000
+        runAsNonRoot: true
+        runAsUser: 2000
+
     # Use certmanager to generate webhook certs
     certManager:
       enabled: false
@@ -1553,8 +1575,8 @@ prometheusOperator:
   ##
   image:
     repository: giantswarm/prometheus-operator
-    tag: v0.47.0
-    sha: "2cce452d1a2cd662b253b3bb9ac7f6d8ecf32541ae438b250d8700fa3df7b288"
+    tag: v0.49.0
+    sha: "238d59719bf128096f5b137153a4aa6fb151e6646df6d3f88ccbacf214279ca0"
     pullPolicy: IfNotPresent
 
   ## Prometheus image to use for prometheuses managed by the operator
@@ -1569,8 +1591,8 @@ prometheusOperator:
   ##
   prometheusConfigReloaderImage:
     repository: giantswarm/prometheus-config-reloader
-    tag: v0.47.0
-    sha: "7fe263687aaa9c441597193a5e9df940e29755fd2931e3964eb2f52553ed3c84"
+    tag: v0.49.0
+    sha: "2ae2fb91892eab27410ce340a934243498c77ccc93d025a34d15f82b5148beec"
 
   ## Set the prometheus config reloader side-car CPU limit
   ##
@@ -1579,6 +1601,13 @@ prometheusOperator:
   ## Set the prometheus config reloader side-car memory limit
   ##
   configReloaderMemory: 50Mi
+
+  ## Thanos side-car image when configured
+  ##
+  thanosImage:
+    repository: giantswarm/thanos
+    tag: v0.17.2
+    sha: "46c6a75b884818bd02a93772e9cf6dd638ca2b8cbabfb6935b9e19eac6a1ce9e"
 
   ## Set a Field Selector to filter watched secrets
   ##
@@ -1633,6 +1662,8 @@ prometheus:
     portName: grpc
     port: 10901
     targetPort: "grpc"
+    loadBalancerIP: ""
+    loadBalancerSourceRanges: []
 
     ## Service type
     ##
@@ -1912,8 +1943,8 @@ prometheus:
     ##
     image:
       repository: giantswarm/prometheus
-      tag: v2.26.1
-      sha: "99e405397f6b3f39912ae2ea9d231f81a181fa73b2a06b7f5cac67cef63760d0"
+      tag: v2.28.1
+      sha: "d0710ff1c7566d1bea025a68eeb066e2d83a55df617f84fbdd4d5c8f585228f2"
 
     ## Tolerations for use with node taints
     ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -2282,6 +2313,14 @@ prometheus:
     #     tag_separator: ','
     #     services:
     #       - metrics-prometheus-alertmanager
+
+    ## If additional alertmanager configurations are already deployed in a single secret, or you want to manage
+    ## them separately from the helm deployment, you can use this section.
+    ## Expected values are the secret name and key
+    ## Cannot be used with additionalAlertManagerConfigs
+    additionalAlertManagerConfigsSecret: {}
+      # name:
+      # key:
 
     ## AdditionalAlertRelabelConfigs allows specifying Prometheus alert relabel configurations. Alert relabel configurations specified are appended
     ## to the configurations generated by the Prometheus Operator. Alert relabel configurations specified must have the form as specified in the
