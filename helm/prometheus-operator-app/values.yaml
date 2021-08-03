@@ -750,6 +750,8 @@ grafana:
     #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
+  rbac:
+    pspUseAppArmor: false
 
 ## Component scraping the kube api server
 ##
