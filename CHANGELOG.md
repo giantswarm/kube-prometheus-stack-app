@@ -7,13 +7,20 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Basic sli monitoring for prometheus-operator deployment
+
 ### Changed
 
 - Sync with upstream chart version [kube-prometheus-stack-17.0.3](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-17.0.3)
+    - Upgrade prometheus-operator from 0.47.0 to [0.49.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.49.0)
+    - Upgrade prometheus from 2.26.1 to [2.28.1](https://github.com/prometheus/prometheus/releases/tag/v2.28.1)
+    - Upgrade alertmanager from 0.21.0 to [0.22.2](https://github.com/prometheus/alertmanager/releases/tag/v0.22.2)
     - Remove pre 1.14 prometheus rules and grafana dashboards
     - `kubeApiServer.relabelings` moved to `kubeApiServer.serviceMonitor.relabelings`
     - Use `"helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded` in all helm hooks
-    - Change selectorLabels from `app: prometheus` to `app.kubernetes.io/name: prometheus`
+    - Change selectorLabels from `app: prometheus` to `app.kubernetes.io/name: prometheus` in prometheus deployment
 
 ## [0.9.0] - 2021-07-14
 

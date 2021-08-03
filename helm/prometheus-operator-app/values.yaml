@@ -617,6 +617,9 @@ grafana:
   enabled: true
   namespaceOverride: ""
 
+  rbac:
+    pspUseAppArmor: false
+
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
   ##
   forceDeployDatasources: false
@@ -750,8 +753,6 @@ grafana:
     #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
-  rbac:
-    pspUseAppArmor: false
 
 ## Component scraping the kube api server
 ##
