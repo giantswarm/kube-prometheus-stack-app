@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Sync with upstream chart version [kube-prometheus-stack-17.0.3](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-17.0.3)
+    - Remove pre 1.14 prometheus rules and grafana dashboards
+    - `kubeApiServer.relabelings` moved to `kubeApiServer.serviceMonitor.relabelings`
+    - Use `"helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded` in all helm hooks
+    - Change selectorLabels from `app: prometheus` to `app.kubernetes.io/name: prometheus`
+
 ## [0.9.0] - 2021-07-14
 
 ### Changed
