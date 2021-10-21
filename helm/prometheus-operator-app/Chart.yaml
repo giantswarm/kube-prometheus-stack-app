@@ -27,6 +27,7 @@ keywords:
 - prometheus
 - kube-prometheus
 annotations:
+  application.giantswarm.io/team: atlas
   "artifacthub.io/operator": "true"
   "artifacthub.io/links": |
     - name: Chart Source
