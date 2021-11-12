@@ -1,4 +1,5 @@
 {{- $namespace := printf "%s" (include "kube-prometheus-stack.namespace" .) }}
+{{- $defaultKubeletSvcName := printf "%s-kubelet" (include "kube-prometheus-stack.fullname" .) }}
 {{- if .Values.prometheusOperator.enabled }}
 apiVersion: apps/v1
 kind: Deployment
@@ -40,7 +41,7 @@ spec:
           imagePullPolicy: "{{ .Values.prometheusOperator.image.pullPolicy }}"
           args:
             {{- if .Values.prometheusOperator.kubeletService.enabled }}
-            - --kubelet-service={{ .Values.prometheusOperator.kubeletService.namespace }}/{{ template "kube-prometheus-stack.fullname" . }}-kubelet
+            - --kubelet-service={{ .Values.prometheusOperator.kubeletService.namespace }}/{{ default $defaultKubeletSvcName .Values.prometheusOperator.kubeletService.name  }}
             {{- end }}
             {{- if .Values.prometheusOperator.logFormat }}
             - --log-format={{ .Values.prometheusOperator.logFormat }}
@@ -70,8 +71,10 @@ spec:
             {{- else }}
             - --prometheus-config-reloader={{ .Values.prometheusOperator.prometheusConfigReloaderImage.repository }}:{{ .Values.prometheusOperator.prometheusConfigReloaderImage.tag }}
             {{- end }}
-            - --config-reloader-cpu={{ .Values.prometheusOperator.configReloaderCpu }}
-            - --config-reloader-memory={{ .Values.prometheusOperator.configReloaderMemory }}
+            - --config-reloader-cpu-request={{ .Values.prometheusOperator.configReloaderCpu }}
+            - --config-reloader-cpu-limit={{ .Values.prometheusOperator.configReloaderCpu }}
+            - --config-reloader-memory-request={{ .Values.prometheusOperator.configReloaderMemory }}
+            - --config-reloader-memory-limit={{ .Values.prometheusOperator.configReloaderMemory }}
             {{- if .Values.prometheusOperator.alertmanagerInstanceNamespaces }}
             - --alertmanager-instance-namespaces={{ .Values.prometheusOperator.alertmanagerInstanceNamespaces | join "," }}
             {{- end }}
