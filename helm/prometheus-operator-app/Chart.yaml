@@ -1,6 +1,6 @@
 apiVersion: v2
 description: kube-prometheus-stack collects Kubernetes manifests, Grafana dashboards, and Prometheus rules combined with documentation and scripts to provide easy to operate end-to-end Kubernetes cluster monitoring with Prometheus using the Prometheus Operator.
-icon: https://raw.githubusercontent.com/prometheus/prometheus.github.io/master/assets/prometheus_logo-cb55bb5c346.png
+icon: https://s.giantswarm.io/app-icons/prometheus-operator/2/light.svg
 engine: gotpl
 type: application
 maintainers:
@@ -14,26 +14,27 @@ maintainers:
     email: scott@r6by.com
   - name: Xtigyro
     email: miroslav.hadzhiev@gmail.com
-name: kube-prometheus-stack
+name: prometheus-operator-app
 sources:
   - https://github.com/prometheus-community/helm-charts
   - https://github.com/prometheus-operator/kube-prometheus
 version: 17.0.3
 appVersion: 0.49.0
 kubeVersion: ">=1.16.0-0"
-home: https://github.com/prometheus-operator/kube-prometheus
+home: https://github.com/giantswarm/prometheus-operator-app
 keywords:
 - operator
 - prometheus
 - kube-prometheus
 annotations:
+  application.giantswarm.io/team: atlas
   "artifacthub.io/operator": "true"
   "artifacthub.io/links": |
     - name: Chart Source
       url: https://github.com/prometheus-community/helm-charts
     - name: Upstream Project
       url: https://github.com/prometheus-operator/kube-prometheus
-
+  config.giantswarm.io/version: 1.x.x
 dependencies:
 - name: kube-state-metrics
   version: "3.4.*"
