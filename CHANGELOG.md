@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
 - Sync with upstream chart version [kube-prometheus-stack-19.3.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-19.3.0)
     - Upgrade prometheus-operator from 0.49.0 to [0.50.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.50.0)
     - fix `.Values.grafana.sidecar.dashboards.multicluster`
