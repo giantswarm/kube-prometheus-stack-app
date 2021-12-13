@@ -1661,7 +1661,7 @@ prometheusOperator:
   ## Prometheus-config-reloader image to use for config and rule reloading
   ##
   prometheusConfigReloaderImage:
-    repository: quay.io/prometheus-operator/prometheus-config-reloader
+    repository: giantswarm/prometheus-config-reloader
     tag: v0.50.0
     sha: ""
 
