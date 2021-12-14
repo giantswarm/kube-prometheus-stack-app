@@ -19,7 +19,7 @@ spec:
       - {{ printf "%s" (include "kube-prometheus-stack-prometheus-node-exporter.namespace" .) | quote }}
   {{- end }}
   endpoints:
-  - port: {{ index .Values "prometheus-node-exporter" "service" "portName" }}
+  - port: metrics
     {{- if .Values.nodeExporter.serviceMonitor.interval }}
     interval: {{ .Values.nodeExporter.serviceMonitor.interval }}
     {{- end }}
