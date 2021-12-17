@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Make pre-install/pre-upgrade CRD install hooks use server side apply.
+
 ## [0.12.0] - 2021-12-14
 
 ### Changed

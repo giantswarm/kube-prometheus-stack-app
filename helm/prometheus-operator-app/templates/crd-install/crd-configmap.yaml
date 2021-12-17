@@ -4,7 +4,7 @@ allowed length for a configmap if they are combined.
 */}}
 {{ $currentScope := . }}
 {{- if .Values.crds.install }}
-  {{- range $path, $_ := .Files.Glob "crds/**" }}
+  {{- range $path, $_ := .Files.Glob "files/**" }}
     {{- with $currentScope }}
 ---
 apiVersion: v1

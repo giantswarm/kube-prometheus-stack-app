@@ -38,9 +38,9 @@ spec:
           # piping stderr to stdout means kubectl's errors are surfaced
           # in the pod's logs.
 
-          kubectl apply -f /data/ 2>&1
+          kubectl apply --server-side=true --field-manager='kubectl-client-side-apply' --force-conflicts -f /data/ 2>&1
         volumeMounts:
-{{- range $path, $_ := .Files.Glob "crds/**" }}
+{{- range $path, $_ := .Files.Glob "files/**" }}
         - name: {{ $path | base | trimSuffix ".yaml" }}
           mountPath: /data/{{ $path | base }}
           subPath: {{ $path | base }}
@@ -48,7 +48,7 @@ spec:
         resources: {{- toYaml .Values.crds.resources | nindent 10 }}
       volumes:
 {{ $currentScope := . }}
-{{- range $path, $_ := .Files.Glob "crds/**" }}
+{{- range $path, $_ := .Files.Glob "files/**" }}
     {{- with $currentScope }}
       - name: {{ $path | base | trimSuffix ".yaml" }}
         configMap:
