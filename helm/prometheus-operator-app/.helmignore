@@ -25,4 +25,5 @@ hack/
 ci/
 kube-prometheus-*.tgz
 
+README.md
 unittests/
