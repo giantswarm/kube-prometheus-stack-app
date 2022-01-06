@@ -13,6 +13,7 @@ workflows:
           app_catalog_test: "giantswarm-test-catalog"
           chart: "prometheus-operator-crd"
           ct_config: ".circleci/ct-config.yaml"
+          explicit_allow_chart_name_mismatch: true
           filters:
             # Trigger the job also on git tag.
             tags:
