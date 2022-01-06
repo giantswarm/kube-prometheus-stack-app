@@ -7,7 +7,6 @@ workflows:
     jobs:
       - architect/push-to-app-catalog:
           context: architect
-          executor: app-build-suite
           name: crd-chart
           app_catalog: "giantswarm-catalog"
           app_catalog_test: "giantswarm-test-catalog"
