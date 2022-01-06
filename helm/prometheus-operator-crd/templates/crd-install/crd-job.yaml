@@ -20,8 +20,8 @@ spec:
     spec:
       serviceAccountName: {{ include "kube-prometheus-stack.crdInstall" . }}
       securityContext:
-        runAsUser: {{ .Values.prometheusOperator.securityContext.runAsUser }}
-        runAsGroup: {{ .Values.prometheusOperator.securityContext.runAsGroup }}
+        runAsUser: {{ .Values.job.securityContext.runAsUser }}
+        runAsGroup: {{ .Values.job.securityContext.runAsGroup }}
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
@@ -44,7 +44,6 @@ spec:
           mountPath: /data/{{ $path | base }}
           subPath: {{ $path | base }}
 {{- end }}
-        resources: {{- toYaml .Values.crds.resources | nindent 10 }}
       volumes:
 {{ $currentScope := . }}
 {{- range $path, $_ := .Files.Glob "files/**" }}
