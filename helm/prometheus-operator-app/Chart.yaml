@@ -48,6 +48,6 @@ dependencies:
   repository: https://grafana.github.io/helm-charts
   condition: grafana.enabled
 - name: prometheus-operator-crd
-  version: "23.2.*"
+  version: "0.12.*"
   repository: https://giantswarm.github.io/giantswarm-catalog/
   condition: crds.install
