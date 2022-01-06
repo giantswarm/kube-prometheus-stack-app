@@ -8,6 +8,19 @@ workflows:
       - architect/push-to-app-catalog:
           context: architect
           executor: app-build-suite
+          name: crd-chart
+          app_catalog: "giantswarm-catalog"
+          app_catalog_test: "giantswarm-test-catalog"
+          chart: "prometheus-operator-crd"
+          ct_config: ".circleci/ct-config.yaml"
+          filters:
+            # Trigger the job also on git tag.
+            tags:
+              only: /^v.*/
+
+      - architect/push-to-app-catalog:
+          context: architect
+          executor: app-build-suite
           name: push-to-default-app-catalog
           app_catalog: "default-catalog"
           app_catalog_test: "default-test-catalog"
