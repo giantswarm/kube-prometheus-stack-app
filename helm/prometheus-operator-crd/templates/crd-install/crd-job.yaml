@@ -1,4 +1,3 @@
-{{- if .Values.crds.install }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -60,4 +59,3 @@ spec:
 {{- end }}
       restartPolicy: Never
   backoffLimit: 4
-{{- end }}
