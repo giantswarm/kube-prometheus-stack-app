@@ -169,8 +169,26 @@ Use the prometheus-node-exporter namespace override for multi-namespace deployme
 {{- printf "%s-%s" ( include "kube-prometheus-stack.name" . ) "crd-install" | replace "+" "_" | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "kube-prometheus-stack.CRDInstallAnnotations" -}}
+{{- define "kube-prometheus-stack.crdUninstall" -}}
+{{- printf "%s-%s" ( include "kube-prometheus-stack.name" . ) "crd-uninstall" | replace "+" "_" | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "kube-prometheus-stack.Annotations" -}}
+"helm.sh/hook": "pre-install,pre-upgrade,pre-delete"
+{{- (include "kube-prometheus-stack.AnnotationsDeletePolicy" .) -}}
+{{- end -}}
+
+{{- define "kube-prometheus-stack.AnnotationsInstall" -}}
 "helm.sh/hook": "pre-install,pre-upgrade"
+{{- (include "kube-prometheus-stack.AnnotationsDeletePolicy" .) -}}
+{{- end -}}
+
+{{- define "kube-prometheus-stack.AnnotationsUninstall" -}}
+"helm.sh/hook": "pre-delete"
+{{- (include "kube-prometheus-stack.AnnotationsDeletePolicy" .) -}}
+{{- end -}}
+
+{{- define "kube-prometheus-stack.AnnotationsDeletePolicy" -}}
 "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded,hook-failed"
 {{- end -}}
 
