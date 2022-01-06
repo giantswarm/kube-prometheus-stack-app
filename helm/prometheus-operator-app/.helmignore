@@ -26,5 +26,4 @@ ci/
 kube-prometheus-*.tgz
 
 README.md
-files/
 unittests/
