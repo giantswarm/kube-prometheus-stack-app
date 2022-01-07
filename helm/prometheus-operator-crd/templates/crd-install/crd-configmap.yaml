@@ -3,9 +3,8 @@ We have to create individual configmaps for each CRD - they exceed the total
 allowed length for a configmap if they are combined.
 */}}
 {{ $currentScope := . }}
-{{- if .Values.crds.install }}
-  {{- range $path, $_ := .Files.Glob "files/**" }}
-    {{- with $currentScope }}
+{{- range $path, $_ := .Files.Glob "files/**" }}
+  {{- with $currentScope }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -15,7 +14,7 @@ metadata:
   annotations:
     # create hook dependencies in the right order
     "helm.sh/hook-weight": "-5"
-    {{- include "kube-prometheus-stack.CRDInstallAnnotations" . | nindent 4 }}
+    {{- include "kube-prometheus-stack.Annotations" . | nindent 4 }}
   labels:
     app.kubernetes.io/component: {{ include "kube-prometheus-stack.crdInstall" . | quote }}
     {{- include "kube-prometheus-stack.selectorLabels" . | nindent 4 }}
@@ -23,6 +22,5 @@ metadata:
 data:
   content: |
 {{ .Files.Get $path | indent 4 }}
-    {{- end }}
   {{- end }}
 {{- end }}

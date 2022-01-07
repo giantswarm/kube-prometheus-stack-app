@@ -169,11 +169,6 @@ Use the prometheus-node-exporter namespace override for multi-namespace deployme
 {{- printf "%s-%s" ( include "kube-prometheus-stack.name" . ) "crd-install" | replace "+" "_" | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "kube-prometheus-stack.CRDInstallAnnotations" -}}
-"helm.sh/hook": "pre-install,pre-upgrade"
-"helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded,hook-failed"
-{{- end -}}
-
 {{- define "kube-prometheus-stack.selectorLabels" -}}
 app.kubernetes.io/name: "{{ template "kube-prometheus-stack.name" . }}"
 app.kubernetes.io/instance: "{{ template "kube-prometheus-stack.name" . }}"
