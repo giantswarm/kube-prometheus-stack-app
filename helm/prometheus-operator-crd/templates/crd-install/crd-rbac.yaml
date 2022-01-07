@@ -48,7 +48,6 @@ metadata:
     {{- include "kube-prometheus-stack.Annotations" . | nindent 4 }}
   labels:
     app.kubernetes.io/component: {{ include "kube-prometheus-stack.crdInstall" . | quote }}
-    {{- include "kube-prometheus-stack.labels" . | nindent 4 }}
     role: {{ include "kube-prometheus-stack.CRDInstallSelector" . | quote }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
