@@ -14,7 +14,7 @@ The default `values.yaml` contains setting `crds.install: true` to install and u
 
 ### release
 
-CRDs are held in the `prometheus-operator-crd` chart which needs to be released before `prometheus-operator-app` dependencies can be upgraded.
+CRDs are held in the `prometheus-operator-crd` chart which is released separatly from this repository and uses tag with `v*-crd` format.
 
 ## Good to know
 

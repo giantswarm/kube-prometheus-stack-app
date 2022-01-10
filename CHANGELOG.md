@@ -7,10 +7,6 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
-### Fixed
-
-- Split CRDs into separate chart.
-
 ## [0.12.1] - 2021-12-17
 
 ### Fixed
