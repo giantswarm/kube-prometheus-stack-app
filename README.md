@@ -6,15 +6,9 @@ Giant Swarm offers a Prometheus Operator Managed App which can be installed in
 workload clusters. Here we define the Prometheus chart with its templates and
 default configuration.
 
-## CRD
-
-### installation
+## CRD installation
 
 The default `values.yaml` contains setting `crds.install: true` to install and update CRDs at installation and upgrade.
-
-### release
-
-CRDs are held in the `prometheus-operator-crd` chart which is released separatly from this repository and uses tag with `v*-crd` format.
 
 ## Good to know
 
