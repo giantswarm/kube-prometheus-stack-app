@@ -1,3 +1,4 @@
+{{- if .Values.crds.install }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -6,7 +7,7 @@ metadata:
   annotations:
     # create hook dependencies in the right order
     "helm.sh/hook-weight": "-3"
-    {{- include "kube-prometheus-stack.Annotations" . | nindent 4 }}
+    {{- include "kube-prometheus-stack.CRDInstallAnnotations" . | nindent 4 }}
   labels:
     app.kubernetes.io/component: {{ include "kube-prometheus-stack.crdInstall" . | quote }}
     {{- include "kube-prometheus-stack.selectorLabels" . | nindent 4 }}
@@ -45,9 +46,10 @@ metadata:
   annotations:
     # create hook dependencies in the right order
     "helm.sh/hook-weight": "-2"
-    {{- include "kube-prometheus-stack.Annotations" . | nindent 4 }}
+    {{- include "kube-prometheus-stack.CRDInstallAnnotations" . | nindent 4 }}
   labels:
     app.kubernetes.io/component: {{ include "kube-prometheus-stack.crdInstall" . | quote }}
+    {{- include "kube-prometheus-stack.labels" . | nindent 4 }}
     role: {{ include "kube-prometheus-stack.CRDInstallSelector" . | quote }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -57,3 +59,4 @@ subjects:
   - kind: ServiceAccount
     name: {{ include "kube-prometheus-stack.crdInstall" . }}
     namespace: {{ .Release.Namespace | quote }}
+{{- end }}

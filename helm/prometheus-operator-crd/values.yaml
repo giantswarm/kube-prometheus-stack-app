@@ -1,8 +1,0 @@
-## Required for interchangability of image registry used for China
-image:
-  registry: quay.io
-
-job:
-  securityContext:
-    runAsGroup: 2000
-    runAsUser: 1000

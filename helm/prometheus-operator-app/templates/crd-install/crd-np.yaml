@@ -1,3 +1,4 @@
+{{- if .Values.crds.install }}
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
@@ -6,7 +7,7 @@ metadata:
   annotations:
     # create hook dependencies in the right order
     "helm.sh/hook-weight": "-7"
-    {{- include "kube-prometheus-stack.Annotations" . | nindent 4 }}
+    {{- include "kube-prometheus-stack.CRDInstallAnnotations" . | nindent 4 }}
   labels:
     app.kubernetes.io/component: {{ include "kube-prometheus-stack.crdInstall" . | quote }}
     {{- include "kube-prometheus-stack.selectorLabels" . | nindent 4 }}
@@ -34,3 +35,4 @@ spec:
   policyTypes:
   - Egress
   - Ingress
+{{- end }}

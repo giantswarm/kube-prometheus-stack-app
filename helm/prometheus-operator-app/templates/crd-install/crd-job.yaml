@@ -1,3 +1,4 @@
+{{- if .Values.crds.install }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -6,7 +7,7 @@ metadata:
   annotations:
     # create hook dependencies in the right order
     "helm.sh/hook-weight": "-1"
-    {{- include "kube-prometheus-stack.AnnotationsInstall" . | nindent 4 }}
+    {{- include "kube-prometheus-stack.CRDInstallAnnotations" . | nindent 4 }}
   labels:
     app.kubernetes.io/component: {{ include "kube-prometheus-stack.crdInstall" . | quote }}
     {{- include "kube-prometheus-stack.selectorLabels" . | nindent 4 }}
@@ -20,8 +21,8 @@ spec:
     spec:
       serviceAccountName: {{ include "kube-prometheus-stack.crdInstall" . }}
       securityContext:
-        runAsUser: {{ .Values.job.securityContext.runAsUser }}
-        runAsGroup: {{ .Values.job.securityContext.runAsGroup }}
+        runAsUser: {{ .Values.prometheusOperator.securityContext.runAsUser }}
+        runAsGroup: {{ .Values.prometheusOperator.securityContext.runAsGroup }}
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
@@ -44,6 +45,7 @@ spec:
           mountPath: /data/{{ $path | base }}
           subPath: {{ $path | base }}
 {{- end }}
+        resources: {{- toYaml .Values.crds.resources | nindent 10 }}
       volumes:
 {{ $currentScope := . }}
 {{- range $path, $_ := .Files.Glob "files/**" }}
@@ -58,3 +60,4 @@ spec:
 {{- end }}
       restartPolicy: Never
   backoffLimit: 4
+{{- end }}
