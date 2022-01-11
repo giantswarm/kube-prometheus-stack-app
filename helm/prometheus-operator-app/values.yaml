@@ -672,21 +672,33 @@ grafana-dashboards:
 
       ## URL of prometheus datasource
       ##
+      url: http://{{ template "kube-prometheus-stack.fullname" . }}-prometheus.{{ template "kube-prometheus-stack.namespace" . }}:9090/
       # url: http://prometheus-stack-prometheus:9090/
 
-      # If not defined, will use prometheus.prometheusSpec.scrapeInterval or its default
+      # Good to align with prometheus.prometheusSpec.scrapeInterval
       # defaultDatasourceScrapeInterval: 15s
 
       ## Annotations for Grafana datasource configmaps
       ##
       annotations: {}
 
-      ## Create datasource for each Pod of Prometheus StatefulSet;
-      ## this uses headless service `prometheus-operated` which is
-      ## created by Prometheus Operator
-      ## ref: https://git.io/fjaBS
-      createPrometheusReplicasDatasources: false
       label: grafana_datasource
+
+  ## If true, create a serviceMonitor for grafana
+  ##
+  serviceMonitor:
+    ## Scrape interval. If not set, the Prometheus default scrape interval is used.
+    ##
+    interval: ""
+    selfMonitor: true
+
+    # Path to use for scraping metrics. Might be different if server.root_url is set
+    # in grafana.ini
+    path: "/metrics"
+
+  # Must be equal to grafana.service.portName
+  service:
+    portName: http-web
 
 ## Using default values from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
 ##
