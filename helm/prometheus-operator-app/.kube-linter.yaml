@@ -1,0 +1,16 @@
+checks:
+  addAllBuiltIn: true
+  exclude:
+  - "dangling-service"
+  - "host-network"
+  - "host-pid"
+  - "no-liveness-probe"
+  - "no-read-only-root-fs"
+  - "no-readiness-probe"
+  - "privileged-ports"
+  - "required-annotation-email"
+  - "required-label-owner"
+  - "run-as-non-root"
+  - "sensitive-host-mounts"
+  - "unset-cpu-requirements"
+  - "unset-memory-requirements"
