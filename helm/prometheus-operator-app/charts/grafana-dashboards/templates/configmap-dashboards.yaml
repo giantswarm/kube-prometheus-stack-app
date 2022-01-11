@@ -1,4 +1,4 @@
-{{- if or (and .Values.grafana.enabled .Values.grafana.defaultDashboardsEnabled) .Values.grafana.forceDeployDashboards }}
+{{- if or .Values.defaultDashboardsEnabled .Values.forceDeployDashboards }}
 {{- $files := .Files.Glob "dashboards-1.14/*.json" }}
 {{- if $files }}
 apiVersion: v1
