@@ -53,7 +53,7 @@ condition_map = {
     'scheduler': ' .Values.kubeScheduler.enabled',
     'node-rsrc-use': ' .Values.nodeExporter.enabled',
     'node-cluster-rsrc-use': ' .Values.nodeExporter.enabled',
-    'prometheus-remote-write': ' .Values.prometheus.prometheusSpec.remoteWriteDashboards'
+    'prometheus-remote-write': ' .Values.remoteWriteDashboards.enabled'
 }
 
 # standard header

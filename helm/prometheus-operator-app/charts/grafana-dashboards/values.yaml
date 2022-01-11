@@ -76,3 +76,24 @@ serviceMonitor:
 # Must be equal to grafana.service.portName
 service:
   portName: http-web
+
+coreDns:
+  enabled: true
+kubeEtcd:
+  enabled: true
+kubeApiServer:
+  enabled: true
+kubeControllerManager:
+  enabled: true
+kubelet:
+  enabled: true
+kubeProxy:
+  enabled: true
+kubeScheduler:
+  enabled: true
+nodeExporter:
+  enabled: true
+nodeExporter:
+  enabled: true
+remoteWriteDashboards:
+  enabled: true
