@@ -1,0 +1,14 @@
+## Required for interchangability of image registry used for China
+image:
+  registry: quay.io
+
+crds:
+  install: true
+  ## SecurityContext holds pod-level security attributes and common container settings.
+  ## This defaults to non root user with uid 2000 and gid 2000. *v1.PodSecurityContext  false
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  ##
+  securityContext:
+    runAsGroup: 2000
+    runAsNonRoot: true
+    runAsUser: 2000

@@ -1,0 +1,6 @@
+dependencies:
+- name: prometheus-operator
+  repository: ""
+  version: 23.2.*
+digest: sha256:65ab3f870aec726e04fbb67986bc8f7db0a8c2c5c5588d6a6062e17ee3a02a28
+generated: "2022-01-11T18:57:48.524348+01:00"
