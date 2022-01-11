@@ -29,12 +29,6 @@ data:
       isDefault: true
       jsonData:
         timeInterval: {{ $scrapeInterval }}
-      access: proxy
-      isDefault: false
-      jsonData:
-        timeInterval: {{ $scrapeInterval }}
-{{- end }}
-{{- end }}
 {{- end }}
 {{- if .Values.additionalDataSources }}
 {{ tpl (toYaml .Values.additionalDataSources | indent 4) . }}

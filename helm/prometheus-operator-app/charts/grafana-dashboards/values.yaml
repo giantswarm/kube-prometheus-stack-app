@@ -1,82 +1,75 @@
-# Default values for grafana-dashboards.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
+##
+forceDeployDatasources: false
 
-replicaCount: 1
+## ForceDeployDashboard Create dashboard configmap even if grafana deployment has been disabled
+##
+forceDeployDashboards: false
 
-image:
-  repository: nginx
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+## Deploy default dashboards
+##
+defaultDashboardsEnabled: true
 
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+## Timezone for the default dashboards
+## Other options are: browser or a specific timezone, i.e. Europe/Luxembourg
+##
+defaultDashboardsTimezone: utc
 
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: true
-  # Annotations to add to the service account
-  annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
+deleteDatasources: []
+# - name: example-datasource
+#   orgId: 1
 
-podAnnotations: {}
+## Configure additional grafana datasources (passed through tpl)
+## ref: http://docs.grafana.org/administration/provisioning/#datasources
+additionalDataSources: []
+# - name: prometheus-sample
+#   access: proxy
+#   basicAuth: true
+#   basicAuthPassword: pass
+#   basicAuthUser: daco
+#   editable: false
+#   jsonData:
+#       tlsSkipVerify: true
+#   orgId: 1
+#   type: prometheus
+#   url: https://{{ printf "%s-prometheus.svc" .Release.Name }}:9090
+#   version: 1
 
-podSecurityContext: {}
-  # fsGroup: 2000
+sidecar:
+  dashboards:
+    enabled: true
+    label: grafana_dashboard
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+  datasources:
+    enabled: true
+    defaultDatasourceEnabled: true
 
+    ## URL of prometheus datasource
+    ##
+    url: http://{{ template "kube-prometheus-stack.fullname" . }}-prometheus.{{ template "kube-prometheus-stack.namespace" . }}:9090/
+    # url: http://prometheus-stack-prometheus:9090/
+
+    # Good to align with prometheus.prometheusSpec.scrapeInterval
+    # defaultDatasourceScrapeInterval: 15s
+
+    ## Annotations for Grafana datasource configmaps
+    ##
+    annotations: {}
+
+    label: grafana_datasource
+
+## If true, create a serviceMonitor for grafana
+##
+serviceMonitor:
+  ## Scrape interval. If not set, the Prometheus default scrape interval is used.
+  ##
+  interval: ""
+  selfMonitor: true
+
+  # Path to use for scraping metrics. Might be different if server.root_url is set
+  # in grafana.ini
+  path: "/metrics"
+
+# Must be equal to grafana.service.portName
 service:
-  type: ClusterIP
-  port: 80
-
-ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
+  portName: http-web
