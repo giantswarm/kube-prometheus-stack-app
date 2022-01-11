@@ -28,14 +28,14 @@ def change_style(style, representer):
 charts = [
     {
         'source': 'https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/main/manifests/grafana-dashboardDefinitions.yaml',
-        'destination': '../templates/grafana/dashboards-1.14',
+        'destination': '../charts/grafana-dashboards/templates/dashboards-1.14',
         'type': 'yaml',
         'min_kubernetes': '1.14.0-0',
         'multicluster_key': '.Values.grafana.sidecar.dashboards.multicluster.global.enabled',
     },
     {
         'source': 'https://raw.githubusercontent.com/etcd-io/website/master/content/en/docs/v3.4/op-guide/grafana.json',
-        'destination': '../templates/grafana/dashboards-1.14',
+        'destination': '../charts/grafana-dashboards/templates/dashboards-1.14',
         'type': 'json',
         'min_kubernetes': '1.14.0-0',
         'multicluster_key': '(or .Values.grafana.sidecar.dashboards.multicluster.global.enabled .Values.grafana.sidecar.dashboards.multicluster.etcd.enabled)'
@@ -63,17 +63,17 @@ Do not change in-place! In order to change this file first read following link:
 https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack/hack
 */ -}}
 {{- $kubeTargetVersion := default .Capabilities.KubeVersion.GitVersion .Values.kubeTargetVersionOverride }}
-{{- if and (or .Values.grafana.enabled .Values.grafana.forceDeployDashboards) (semverCompare ">=%(min_kubernetes)s" $kubeTargetVersion) (semverCompare "<%(max_kubernetes)s" $kubeTargetVersion) .Values.grafana.defaultDashboardsEnabled%(condition)s }}
+{{- if and (.Values.forceDeployDashboards) (semverCompare ">=%(min_kubernetes)s" $kubeTargetVersion) (semverCompare "<%(max_kubernetes)s" $kubeTargetVersion) .Values.defaultDashboardsEnabled%(condition)s }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: {{ template "kube-prometheus-stack-grafana.namespace" . }}
   name: {{ printf "%%s-%%s" (include "kube-prometheus-stack.fullname" $) "%(name)s" | trunc 63 | trimSuffix "-" }}
   annotations:
-{{ toYaml .Values.grafana.sidecar.dashboards.annotations | indent 4 }}
+{{ toYaml .Values.sidecar.dashboards.annotations | indent 4 }}
   labels:
-    {{- if $.Values.grafana.sidecar.dashboards.label }}
-    {{ $.Values.grafana.sidecar.dashboards.label }}: "1"
+    {{- if $.Values.sidecar.dashboards.label }}
+    {{ $.Values.sidecar.dashboards.label }}: "1"
     {{- end }}
     app: {{ template "kube-prometheus-stack.name" $ }}-grafana
 {{ include "kube-prometheus-stack.labels" $ | indent 4 }}
