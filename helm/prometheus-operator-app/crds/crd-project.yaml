@@ -4,7 +4,7 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: (devel)
   creationTimestamp: null
-  name: test.theo.giantswarm.io
+  name: tests.theo.giantswarm.io
 spec:
   group: theo.giantswarm.io
   names:
