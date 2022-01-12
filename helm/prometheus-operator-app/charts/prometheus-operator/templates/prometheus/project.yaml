@@ -1,0 +1,6 @@
+apiVersion: theo.giantswarm.io/v1
+kind: Test
+metadata:
+  name: foo
+spec:
+  name: bar
