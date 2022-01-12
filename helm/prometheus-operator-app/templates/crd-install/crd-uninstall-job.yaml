@@ -20,8 +20,8 @@ spec:
     spec:
       serviceAccountName: {{ include "kube-prometheus-stack.crdInstall" . }}
       securityContext:
-        runAsUser: {{ .Values.job.securityContext.runAsUser }}
-        runAsGroup: {{ .Values.job.securityContext.runAsGroup }}
+        runAsUser: {{ .Values.crds.securityContext.runAsUser }}
+        runAsGroup: {{ .Values.crds.securityContext.runAsGroup }}
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
