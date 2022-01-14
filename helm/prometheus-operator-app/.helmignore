@@ -23,5 +23,6 @@
 OWNERS
 hack/
 ci/
+crds/
 
 unittests/
