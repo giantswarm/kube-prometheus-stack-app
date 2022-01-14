@@ -23,6 +23,5 @@
 OWNERS
 hack/
 ci/
-kube-prometheus-*.tgz
 
 unittests/
