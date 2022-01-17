@@ -10,7 +10,7 @@ default configuration.
 
 In order to run this app requires the following to be installed:
 
-* prometheus-operator-crd  0.x.x
+* prometheus-operator-crd 0.x.x
 
 ## Good to know
 
