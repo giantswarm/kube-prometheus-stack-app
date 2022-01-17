@@ -7,7 +7,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
-### Changed
+### Removed
 
 - Move CRD out into giantswarm/prometheus-operator-crd.
 
