@@ -1,0 +1,60 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "kube-prometheus-stack.crdInstall" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    # create hook dependencies in the right order
+    "helm.sh/hook-weight": "-3"
+    {{- include "kube-prometheus-stack.CRDInstallAnnotations" . | nindent 4 }}
+  labels:
+    app.kubernetes.io/component: {{ include "kube-prometheus-stack.crdInstall" . | quote }}
+    {{- include "kube-prometheus-stack.selectorLabels" . | nindent 4 }}
+    role: {{ include "kube-prometheus-stack.CRDInstallSelector" . | quote }}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - jobs
+  verbs:
+  - create
+  - delete
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - create
+  - delete
+  - get
+  - patch
+- apiGroups:
+  - policy
+  resources:
+  - podsecuritypolicies
+  resourceNames:
+  - {{ include "kube-prometheus-stack.crdInstall" . }}
+  verbs:
+  - use
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "kube-prometheus-stack.crdInstall" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    # create hook dependencies in the right order
+    "helm.sh/hook-weight": "-2"
+    {{- include "kube-prometheus-stack.CRDInstallAnnotations" . | nindent 4 }}
+  labels:
+    app.kubernetes.io/component: {{ include "kube-prometheus-stack.crdInstall" . | quote }}
+    {{- include "kube-prometheus-stack.labels" . | nindent 4 }}
+    role: {{ include "kube-prometheus-stack.CRDInstallSelector" . | quote }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "kube-prometheus-stack.crdInstall" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "kube-prometheus-stack.crdInstall" . }}
+    namespace: {{ .Release.Namespace | quote }}
