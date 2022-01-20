@@ -39,6 +39,5 @@ spec:
           exec 2>&1
 
           kubectl api-resources --api-group=monitoring.coreos.com -oname|tr '\n' ' '|xargs kubectl patch --record=false -p '{"metadata":{"annotations":{"meta.helm.sh/release-name": "prometheus-operator-crd","meta.helm.sh/release-namespace": "prometheus-operator-crd"},"labels":{"app.kubernetes.io/managed-by": "Helm"}}}' crd
-        resources: {{- toYaml .Values.crds.resources | nindent 10 }}
       restartPolicy: Never
   backoffLimit: 4
