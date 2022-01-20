@@ -11,8 +11,9 @@ metadata:
 {{- if .Values.prometheusOperator.service.labels }}
 {{ toYaml .Values.prometheusOperator.service.labels | indent 4 }}
 {{- end }}
-{{- if .Values.prometheusOperator.service.annotations }}
   annotations:
+    giantswarm.io/monitoring-protocol: "https"
+{{- if .Values.prometheusOperator.service.annotations }}
 {{ toYaml .Values.prometheusOperator.service.annotations | indent 4 }}
 {{- end }}
 spec:
