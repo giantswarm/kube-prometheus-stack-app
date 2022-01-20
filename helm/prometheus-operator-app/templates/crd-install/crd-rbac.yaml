@@ -20,7 +20,7 @@ rules:
   - create
   - delete
 - apiGroups:
-  - ""
+  - apps
   resources:
   - deployments
   verbs:
