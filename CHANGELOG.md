@@ -7,6 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix CRD helm chart ownership
+- Fix `kube-state-metrics` selector, see https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus/README.md#to-150
+
 ### Removed
 
 - Move CRD out into giantswarm/prometheus-operator-crd.

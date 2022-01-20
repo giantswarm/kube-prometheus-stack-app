@@ -1,0 +1,36 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: {{ include "kube-prometheus-stack.crdInstall" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    # create hook dependencies in the right order
+    "helm.sh/hook-weight": "-7"
+    {{- include "kube-prometheus-stack.CRDInstallAnnotations" . | nindent 4 }}
+  labels:
+    app.kubernetes.io/component: {{ include "kube-prometheus-stack.crdInstall" . | quote }}
+    {{- include "kube-prometheus-stack.selectorLabels" . | nindent 4 }}
+    role: {{ include "kube-prometheus-stack.CRDInstallSelector" . | quote }}
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: {{ include "kube-prometheus-stack.crdInstall" . | quote }}
+      {{- include "kube-prometheus-stack.selectorLabels" . | nindent 6 }}
+  # allow egress traffic to the Kubernetes API
+  egress:
+  - ports:
+    - port: 443
+      protocol: TCP
+    # legacy port kept for compatibility
+    - port: 6443
+      protocol: TCP
+    to:
+    {{- range tuple "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" }}
+    - ipBlock:
+        cidr: {{ . }}
+    {{- end }}
+  # deny ingress traffic
+  ingress: []
+  policyTypes:
+  - Egress
+  - Ingress
