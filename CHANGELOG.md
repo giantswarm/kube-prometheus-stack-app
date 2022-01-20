@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Add monitoring label to scrape prometheus-operator metrics.
+
 ## [1.0.0] - 2022-01-20
 
 ### Fixed
