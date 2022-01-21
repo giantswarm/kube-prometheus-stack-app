@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Removed `kube-state-metrics` selector fix
+
 ## [1.0.1] - 2022-01-20
 
 ### Changed
