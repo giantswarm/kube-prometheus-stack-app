@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix CRD helm chart namespace
+
 ## [1.0.1] - 2022-01-20
 
 ### Changed
