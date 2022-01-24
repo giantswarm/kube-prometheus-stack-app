@@ -27,6 +27,12 @@ rules:
   - list
   - delete
 - apiGroups:
+  - application.giantswarm.io
+  resources:
+  - charts
+  verbs:
+  - get
+- apiGroups:
   - apiextensions.k8s.io
   resources:
   - customresourcedefinitions
