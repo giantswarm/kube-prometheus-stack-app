@@ -6,22 +6,13 @@ metadata:
   namespace: {{ template "kube-prometheus-stack.namespace" . }}
   labels:
     app: {{ template "kube-prometheus-stack.name" . }}-operator
-    # This value is coming from giantswarm/config to diffenciate installation in the MC and the WC
-    {{- if not .Values.isManagementCluster }}
-    giantswarm.io/monitoring: "true"
-    {{- end }}
 {{ include "kube-prometheus-stack.labels" . | indent 4 }}
 {{- if .Values.prometheusOperator.service.labels }}
 {{ toYaml .Values.prometheusOperator.service.labels | indent 4 }}
 {{- end }}
-{{- if or (.Values.prometheusOperator.service.annotations) (not .Values.isManagementCluster) }}
-  annotations:
-{{- if not .Values.isManagementCluster }}
-    giantswarm.io/monitoring-protocol: "https"
-{{- end }}
 {{- if .Values.prometheusOperator.service.annotations }}
+  annotations:
 {{ toYaml .Values.prometheusOperator.service.annotations | indent 4 }}
-{{- end }}
 {{- end }}
 spec:
 {{- if .Values.prometheusOperator.service.clusterIP }}
