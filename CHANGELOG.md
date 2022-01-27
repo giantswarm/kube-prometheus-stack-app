@@ -7,13 +7,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
-### Added
-
-- Add giantswarm monitoring label to prometheus.
-
 ### Changed
 
-- Remove monitoring label to scrape prometheus-operator.
+- Monitoring Prometheus pods instead or prometheus-operator.
 
 ## [1.0.2] - 2022-01-24
 
