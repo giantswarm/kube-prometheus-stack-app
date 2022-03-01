@@ -11,6 +11,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add giantswarm monitoring label to prometheus.
 
+### Fixed
+
+- Set grafana ingress class name to nginx by default.
+
 ## [1.0.2] - 2022-01-24
 
 ### Fixed
