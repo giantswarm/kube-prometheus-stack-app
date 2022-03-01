@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [1.1.0] - 2022-03-01
+
 ### Added
 
 - Add giantswarm monitoring label to prometheus.
@@ -270,7 +272,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.0.2...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.12.1...v1.0.0
