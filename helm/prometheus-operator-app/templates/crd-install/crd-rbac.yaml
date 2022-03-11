@@ -32,6 +32,7 @@ rules:
   - charts
   verbs:
   - get
+  - list
 - apiGroups:
   - apiextensions.k8s.io
   resources:
