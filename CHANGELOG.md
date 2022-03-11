@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Fixed
 
-- Fix crd-install job to select crd chart by label.
+- Fix crd-install job to inject correct name and namespace for prometheus-operator-crd.
 
 ## [1.1.0] - 2022-03-01
 
