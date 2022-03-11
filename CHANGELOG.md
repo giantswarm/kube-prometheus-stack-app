@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix crd-install job permission, add list verb.
+
 ## [1.1.1] - 2022-03-11
 
 ### Fixed
