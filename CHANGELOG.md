@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix crd-install job to select crd chart by label.
+
 ## [1.1.0] - 2022-03-01
 
 ### Added
