@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Support custom app name & namespace for prometheus-operator-crd.
+
 ## [1.1.0] - 2022-03-01
 
 ### Added

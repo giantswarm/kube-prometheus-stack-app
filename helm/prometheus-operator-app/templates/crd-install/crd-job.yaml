@@ -38,7 +38,8 @@ spec:
           # in the pod's logs.
           exec 2>&1
 
-          namespace=$(kubectl get chart --namespace=giantswarm prometheus-operator-crd --output=jsonpath="{.spec.namespace}")
-          kubectl api-resources --api-group=monitoring.coreos.com -oname|tr '\n' ' '|xargs kubectl patch --record=false -p '{"metadata":{"annotations":{"meta.helm.sh/release-name": "prometheus-operator-crd","meta.helm.sh/release-namespace": "'"${namespace}"'"},"labels":{"app.kubernetes.io/managed-by": "Helm"}}}' crd
+          name=$(kubectl get chart --namespace=giantswarm -l app.kubernetes.io/name=prometheus-operator-crd --output=jsonpath="{.items[0].spec.name}")
+          namespace=$(kubectl get chart --namespace=giantswarm -l app.kubernetes.io/name=prometheus-operator-crd --output=jsonpath="{.items[0].spec.namespace}")
+          kubectl api-resources --api-group=monitoring.coreos.com -oname|tr '\n' ' '|xargs kubectl patch --record=false -p '{"metadata":{"annotations":{"meta.helm.sh/release-name": "'"${name}"'","meta.helm.sh/release-namespace": "'"${namespace}"'"},"labels":{"app.kubernetes.io/managed-by": "Helm"}}}' crd
       restartPolicy: Never
   backoffLimit: 4
