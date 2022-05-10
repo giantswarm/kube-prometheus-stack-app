@@ -13,7 +13,7 @@ metadata:
 {{ toYaml .Values.alertmanager.service.labels | indent 4 }}
 {{- end }}
   annotations:
-    giantswarm.io/monitoring-port: {{ .Values.alertmanager.service.targetPort }}
+    giantswarm.io/monitoring-port: {{ .Values.alertmanager.service.targetPort | quote }}
 {{- if .Values.alertmanager.service.annotations }}
 {{ toYaml .Values.alertmanager.service.annotations | indent 4 }}
 {{- end }}
