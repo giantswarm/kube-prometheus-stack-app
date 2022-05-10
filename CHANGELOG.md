@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Scrape only the alertmanager http port and not the gossip protocol.
+
 ## [1.2.0] - 2022-05-10
 
 ### Added
