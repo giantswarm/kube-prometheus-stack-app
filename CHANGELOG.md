@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add giantswarm monitoring label to alertmanager.
+
 ## [1.1.2] - 2022-03-11
 
 ### Fixed
