@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Document how to use persistence volume for grafana.
+
 ## [1.2.1] - 2022-05-10
 
 ### Fixed

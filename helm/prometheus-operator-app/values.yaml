@@ -788,6 +788,34 @@ grafana:
     #   replacement: $1
     #   action: replace
 
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+  ##
+  persistence:
+    type: pvc
+    enabled: false
+    # storageClassName: default
+    accessModes:
+      - ReadWriteOnce
+    size: 10Gi
+    # annotations: {}
+    finalizers:
+      - kubernetes.io/pvc-protection
+    # selectorLabels: {}
+    # subPath: ""
+    # existingClaim:
+
+    ## If persistence is not enabled, this allows to mount the
+    ## local storage in-memory to improve performance
+    ##
+    inMemory:
+      enabled: false
+      ## The maximum usage on memory medium EmptyDir would be
+      ## the minimum value between the SizeLimit specified
+      ## here and the sum of memory limits of all containers in a pod
+      ##
+      # sizeLimit: 300Mi
+
 ## Component scraping the kube api server
 ##
 kubeApiServer:
