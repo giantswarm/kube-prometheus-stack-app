@@ -6,13 +6,15 @@ metadata:
   namespace: {{ template "kube-prometheus-stack.namespace" . }}
   labels:
     app: {{ template "kube-prometheus-stack.name" . }}-alertmanager
+    giantswarm.io/monitoring: "true"
     self-monitor: {{ .Values.alertmanager.serviceMonitor.selfMonitor | quote }}
 {{ include "kube-prometheus-stack.labels" . | indent 4 }}
 {{- if .Values.alertmanager.service.labels }}
 {{ toYaml .Values.alertmanager.service.labels | indent 4 }}
 {{- end }}
-{{- if .Values.alertmanager.service.annotations }}
   annotations:
+    giantswarm.io/monitoring-port: {{ .Values.alertmanager.service.targetPort | quote }}
+{{- if .Values.alertmanager.service.annotations }}
 {{ toYaml .Values.alertmanager.service.annotations | indent 4 }}
 {{- end }}
 spec:

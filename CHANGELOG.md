@@ -7,6 +7,30 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [1.2.1] - 2022-05-10
+
+### Fixed
+
+- Scrape only the alertmanager http port and not the gossip protocol.
+
+## [1.2.0] - 2022-05-10
+
+### Added
+
+- Add giantswarm monitoring label to alertmanager.
+
+## [1.1.2] - 2022-03-11
+
+### Fixed
+
+- Fix crd-install job permission, add list verb.
+
+## [1.1.1] - 2022-03-11
+
+### Fixed
+
+- Support custom app name & namespace for prometheus-operator-crd.
+
 ## [1.1.0] - 2022-03-01
 
 ### Added
@@ -272,7 +296,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.1.2...v1.2.0
+[1.1.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.0.0...v1.0.1
