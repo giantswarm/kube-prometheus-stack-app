@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'checkout'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - id: files
         uses: jitterbit/get-changed-files@v1
       - name: 'show changed files in PR'
