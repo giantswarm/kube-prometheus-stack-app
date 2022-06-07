@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Limit prometheus-operator interactions to its own namespace. Set `releaseNamespace: true`.
+
 ## [1.2.1] - 2022-05-10
 
 ### Fixed
