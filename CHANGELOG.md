@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Label prometheus-operator deployment with atlas as monitoring team.
+
 ## [1.2.1] - 2022-05-10
 
 ### Fixed
