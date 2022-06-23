@@ -9,5 +9,5 @@ metadata:
 spec:
   name: prometheus-operator-crd
   namespace: monitoring
-  tarballURL: https://giantswarm.github.io/control-plane-test-catalog/prometheus-operator-crd-{{ .Release.Version }.tgz
+  tarballURL: https://giantswarm.github.io/control-plane-test-catalog/prometheus-operator-crd-{{ .Release.Version }}.tgz
   version: {{ .Release.Version }}
