@@ -1,7 +1,7 @@
 apiVersion: v2
 name: prometheus-operator-crd
 description: kube-prometheus-stack CustomResourceDefinitions.
-home: https://github.com/giantswarm/prometheus-operator-crd
+home: https://github.com/giantswarm/prometheus-operator-app
 icon: https://s.giantswarm.io/app-icons/prometheus-operator/2/light.svg
 engine: gotpl
 type: application
