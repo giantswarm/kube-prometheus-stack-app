@@ -2,12 +2,12 @@ apiVersion: application.giantswarm.io/v1alpha1
 kind: Chart
 metadata:
   labels:
-    app.kubernetes.io/name: prometheus-operator-crd
+    app.kubernetes.io/name: prometheus-operator-app
     giantswarm.io/organization: giantswarm
     giantswarm.io/service-type: managed
-  name: prometheus-operator-crd
+  name: prometheus-operator-app
 spec:
-  name: prometheus-operator-crd
+  name: prometheus-operator-app
   namespace: monitoring
-  tarballURL: https://giantswarm.github.io/control-plane-test-catalog/prometheus-operator-crd-{{ .Chart.Version }}.tgz
+  tarballURL: https://giantswarm.github.io/control-plane-test-catalog/prometheus-operator-app-{{ .Chart.Version }}.tgz
   version: {{ .Chart.Version }}
