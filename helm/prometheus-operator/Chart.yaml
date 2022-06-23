@@ -13,7 +13,7 @@ maintainers:
     email: scott@r6by.com
   - name: Xtigyro
     email: miroslav.hadzhiev@gmail.com
-name: prometheus-operator-app
+name: prometheus-operator
 sources:
   - https://github.com/prometheus-community/helm-charts
   - https://github.com/prometheus-operator/kube-prometheus

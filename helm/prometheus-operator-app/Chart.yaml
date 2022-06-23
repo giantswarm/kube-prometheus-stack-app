@@ -6,7 +6,7 @@ type: application
 maintainers:
   - name: ThéoBrigitte
     email: theo@giantswarm.io
-name: prometheus-operator
+name: prometheus-operator-app
 version: 23.2.0
 appVersion: 0.52.1
 kubeVersion: ">=1.16.0-0"
