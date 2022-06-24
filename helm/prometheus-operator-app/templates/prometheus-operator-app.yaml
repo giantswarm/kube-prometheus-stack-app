@@ -9,5 +9,12 @@ metadata:
 spec:
   name: prometheus-operator
   namespace: monitoring
+  config:
+    configMap:
+      name: prometheus-operator-app-chart-values
+      namespace: giantswarm
+    secret:
+      name: prometheus-operator-app-chart-secrets
+      namespace: giantswarm
   tarballURL: https://giantswarm.github.io/control-plane-test-catalog/prometheus-operator-{{ .Chart.Version }}.tgz
   version: {{ .Chart.Version }}
