@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
-- Label prometheus-operator deployment with atlas as monitoring team.
+- Label resources with `application.giantswarm.io/team` label.
 
 ## [1.2.1] - 2022-05-10
 
