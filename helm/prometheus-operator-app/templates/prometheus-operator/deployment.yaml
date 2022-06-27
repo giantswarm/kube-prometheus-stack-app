@@ -9,7 +9,6 @@ metadata:
   labels:
     app: {{ template "kube-prometheus-stack.name" . }}-operator
     giantswarm.io/monitoring_basic_sli: "true"
-    giantswarm.io/monitoring_team: "atlas"
 {{ include "kube-prometheus-stack.labels" . | indent 4 }}
 spec:
   replicas: 1
