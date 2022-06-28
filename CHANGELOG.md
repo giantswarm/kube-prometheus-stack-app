@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Label resources with `application.giantswarm.io/team` label.
+
 ## [1.2.1] - 2022-05-10
 
 ### Fixed
