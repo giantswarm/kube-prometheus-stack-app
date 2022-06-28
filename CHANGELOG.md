@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Label resources with `application.giantswarm.io/team` label.
+
 ### Changed
 
 - Limit prometheus-operator interactions to its own namespace. Set `releaseNamespace: true`.
