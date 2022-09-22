@@ -1,49 +1,16 @@
 apiVersion: v2
-description: kube-prometheus-stack collects Kubernetes manifests, Grafana dashboards, and Prometheus rules combined with documentation and scripts to provide easy to operate end-to-end Kubernetes cluster monitoring with Prometheus using the Prometheus Operator.
-icon: https://s.giantswarm.io/app-icons/prometheus-operator/2/light.svg
-engine: gotpl
-type: application
-maintainers:
-  - name: bismarck
-  - name: gianrubio
-    email: gianrubio@gmail.com
-  - name: gkarthiks
-    email: github.gkarthiks@gmail.com
-  - name: scottrigby
-    email: scott@r6by.com
-  - name: Xtigyro
-    email: miroslav.hadzhiev@gmail.com
+appVersion: "v0.54.0"
 name: prometheus-operator-app
+description: Giant Swarm's Prometheus Operator Deployment
+version: 32.4.0
 sources:
-  - https://github.com/prometheus-community/helm-charts
-  - https://github.com/prometheus-operator/kube-prometheus
-version: 23.2.0
-appVersion: 0.52.1
-kubeVersion: ">=1.16.0-0"
+  - "https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack"
 home: https://github.com/giantswarm/prometheus-operator-app
-keywords:
-- operator
-- prometheus
-- kube-prometheus
-annotations:
-  application.giantswarm.io/team: atlas
-  "artifacthub.io/operator": "true"
-  "artifacthub.io/links": |
-    - name: Chart Source
-      url: https://github.com/prometheus-community/helm-charts
-    - name: Upstream Project
-      url: https://github.com/prometheus-operator/kube-prometheus
-  config.giantswarm.io/version: 1.x.x
+maintainers:
+  - name: Mohamed Chiheb Ben Jemaa
+    email: mohamed@giantswarm.io
 dependencies:
-- name: kube-state-metrics
-  version: "4.1.*"
-  repository: https://prometheus-community.github.io/helm-charts
-  condition: kubeStateMetrics.enabled
-- name: prometheus-node-exporter
-  version: "2.2.*"
-  repository: https://prometheus-community.github.io/helm-charts
-  condition: nodeExporter.enabled
-- name: grafana
-  version: "6.19.*"
-  repository: https://grafana.github.io/helm-charts
-  condition: grafana.enabled
+  - name: kube-prometheus-stack
+    version: 32.4.0
+    repository: https://prometheus-community.github.io/helm-charts
+    alias: prometheusOperator
