@@ -10,7 +10,7 @@ maintainers:
   - name: Mohamed Chiheb Ben Jemaa
     email: mohamed@giantswarm.io
 annotations:
-   application.giantswarm.io/team: atlas
+  application.giantswarm.io/team: atlas
 dependencies:
   - name: kube-prometheus-stack
     version: 32.4.0
