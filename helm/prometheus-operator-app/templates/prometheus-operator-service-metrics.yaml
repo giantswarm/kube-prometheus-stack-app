@@ -1,0 +1,25 @@
+## This Service is needed, when deploying to a WC.
+## To enable monitoring of the operator in the MC, we need
+## this label service giantswarm.io/monitoring: "true" in the service.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    giantswarm.io/monitoring-protocol: https
+  labels:
+    giantswarm.io/monitoring: "true"
+    app: {{ template "kube-prometheus-stack.name" . }}-operator
+{{ include "kube-prometheus-stack.labels" . | indent 4 }}
+  name: {{ template "kube-prometheus-stack.fullname" . }}-operator-metrics
+  namespace: {{ template "kube-prometheus-stack.namespace" . }}
+spec:
+  clusterIP: ""
+  ports:
+  - name: https
+    port: 443
+    targetPort: https
+  selector:
+    app: {{ template "kube-prometheus-stack.name" . }}-operator
+    release: {{ $.Release.Name | quote }}
+  type: "ClusterIP"

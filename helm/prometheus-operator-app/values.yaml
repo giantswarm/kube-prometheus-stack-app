@@ -1,14 +1,28 @@
 ---
 isManagementCluster: true
-prometheusOperator:
+
+upstream:
   alertmanager:
     enabled: false
+    alertmanagerSpec:
+      image:
+        repository: quay.io/giantswarm/alertmanager
+    ingress:
+      ingressClassName: nginx
+      pathType: ImplementationSpecific
+    ingressPerReplica:
+      ingressClassName: nginx
+      pathType: ImplementationSpecific
   coreDns:
     enabled: false
   defaultRules:
     create: false
   grafana:
     enabled: false
+    rbac:
+      pspUseAppArmor: false
+    ingress:
+      ingressClassName: nginx
   kubelet:
     enabled: false
   kubeApiServer:
@@ -27,14 +41,41 @@ prometheusOperator:
     enabled: false
   prometheus:
     enabled: false
+    prometheusSpec:
+      image:
+        repository: quay.io/giantswarm/prometheus
+    ingress:
+        ingressClassName: nginx
+        pathType: ImplementationSpecific
+    ingressPerReplica:
+      ingressClassName: nginx
+      pathType: ImplementationSpecific
+    thanosIngress:
+      ingressClassName: nginx
+      pathType: ImplementationSpecific
   prometheusOperator:
+    image:
+      repository: quay.io/giantswarm/prometheus-operator
+    podLabels: {}
     createCustomResource: false
     configReloaderCpu: 25m
     kubeletService:
       enabled: false
-    prometheusDefaultBaseImage: giantswarm/prometheus
+    prometheusDefaultBaseImage: quay.io/giantswarm/prometheus
     resources:
       limits:
-        memory: 500Mi
+        cpu: 200m
+        memory: 200Mi
       requests:
-        memory: 250Mi
+        cpu: 100m
+        memory: 100Mi
+    admissionWebhooks:
+      patch:
+        image:
+          repository: quay.io/giantswarm/kube-webhook-certgen
+    prometheusConfigReloader:
+      image:
+        repository: quay.io/giantswarm/prometheus-config-reloader
+    thanosImage:
+      repository: quay.io/giantswarm/thanos
+    secretFieldSelector: "type!=helm.sh/release.v1"
