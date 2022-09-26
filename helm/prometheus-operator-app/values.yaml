@@ -1,7 +1,7 @@
 ---
 isManagementCluster: true
 
-upstream:
+prometheus-operator-app:
   alertmanager:
     enabled: false
     alertmanagerSpec:
