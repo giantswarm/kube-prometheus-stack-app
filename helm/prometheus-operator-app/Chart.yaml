@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: "v0.54.0"
 name: prometheus-operator-app
 description: Giant Swarm's Prometheus Operator Deployment
-version: 32.4.0
+version: [[ .Version ]]
 sources:
   - "https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack"
 home: https://github.com/giantswarm/prometheus-operator-app
