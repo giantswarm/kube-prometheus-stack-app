@@ -18,13 +18,13 @@ jobs:
         run: |
           sed -i 's/\[\[ .Version \]\]/0.0.0/' helm/prometheus-operator-app/Chart.yaml
       
-          helm install e2e-test-prometheus-operator ./helm/prometheus-operator-app/ --wait
+          helm --kube-context kind-chart-testing install e2e-test-prometheus-operator ./helm/prometheus-operator-app/ --wait
 
-          kubectl wait pod --for=condition=Ready -l app=prometheus-operator-app-operator
+          kubectl --context kind-chart-testing wait pod --for=condition=Ready -l app=prometheus-operator-app-operator
 
           sleep 120
 
-          kubectl wait pod --for=condition=Ready -l app=prometheus-operator-app-operator
+          kubectl --context kind-chart-testing  wait pod --for=condition=Ready -l app=prometheus-operator-app-operator
 
 
 
