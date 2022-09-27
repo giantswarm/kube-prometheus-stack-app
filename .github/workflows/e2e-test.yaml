@@ -1,0 +1,31 @@
+name: 'e2e-test: install chart on kind'
+on: pull_request
+
+jobs:
+  create-cluster:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1.3.0
+
+  test-install:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: install chart
+        run: |
+          sed -i 's/\[\[ .Version \]\]/0.0.0/' helm/prometheus-operator-app/Chart.yaml
+      
+          helm install e2e-test-prometheus-operator ./helm/prometheus-operator-app/ --wait
+
+          kubectl wait pod --for=condition=Ready -l app=prometheus-operator-app-operator
+
+          sleep 120
+
+          kubectl wait pod --for=condition=Ready -l app=prometheus-operator-app-operator
+
+
+
+
