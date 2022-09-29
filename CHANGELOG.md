@@ -7,11 +7,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
-## [1.3.1] - 2022-10-06
+### Changed
 
-### Added
-
-- Added Circle CI job to push to CAPA app collection
+- Upgrade prometheus-operator to v0.54.0, There's a lot of breaking changes please check [update-changelog](./changelog/23.x_32.x.md)
 
 ## [1.3.0] - 2022-06-28
 
