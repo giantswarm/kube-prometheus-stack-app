@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Added Circle CI job to push to CAPA app collection
+
 ## [1.3.0] - 2022-06-28
 
 ### Added
