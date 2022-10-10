@@ -19,3 +19,25 @@ heritage: {{ $.Release.Service | quote }}
 {{ toYaml .Values.commonLabels }}
 {{- end }}
 {{- end }}
+
+{{/* Deploymet label Hook name. */}}
+{{- define "prometheus-operator.deployment-label-name" -}}
+{{- printf "%s-%s" ( include "kube-prometheus-stack.name" . ) "hook" | replace "+" "_" | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "kube-prometheus-stack.selectorLabels" -}}
+app.kubernetes.io/name: "{{ template "kube-prometheus-stack.name" . }}"
+app.kubernetes.io/instance: "{{ template "kube-prometheus-stack.name" . }}"
+{{- end -}}
+
+
+{{/* Job Deploymet label annotation */}}
+{{- define "prometheus-operator.deployment-label-annotation" -}}
+"helm.sh/hook": "post-install,post-upgrade"
+"helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+{{- end -}}
+
+{{/* Create a label which can be used to select any orphaned crd-install hook resources */}}
+{{- define "prometheus-operator.deployment-label-selector" -}}
+{{- printf "%s" "deployment-label-hook" -}}
+{{- end -}}
