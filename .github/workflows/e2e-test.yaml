@@ -14,6 +14,8 @@ jobs:
       - name: install chart
         run: |
           sed -i 's/\[\[ .Version \]\]/0.0.0/' helm/prometheus-operator-app/Chart.yaml
+
+          helm dependency update ./helm/prometheus-operator-app/
       
           helm --kube-context kind-chart-testing install e2e-test-prometheus-operator ./helm/prometheus-operator-app/ --wait
 
