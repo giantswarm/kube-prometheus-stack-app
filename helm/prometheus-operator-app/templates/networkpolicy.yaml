@@ -1,4 +1,3 @@
-{{- if $.Release.Namespace eq "kube-system" }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -19,4 +18,3 @@ spec:
   policyTypes:
   - Egress
   - Ingress
-{{- end }}

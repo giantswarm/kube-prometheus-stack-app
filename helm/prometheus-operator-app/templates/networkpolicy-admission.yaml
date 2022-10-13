@@ -1,5 +1,4 @@
-{{- if and  index .Values "prometheus-operator-app.prometheusOperator.enabled" index .Values "prometheus-operator-app.prometheusOperator.admissionWebhooks.enabled" index .Values "prometheus-operator-app.prometheusOperator.admissionWebhooks.patch.enabled" (not index .Values "prometheus-operator-app.prometheusOperator.admissionWebhooks.certManager.enabled") }}
-{{- if $.Release.Namespace eq "kube-system" }}
+{{- if and  (index .Values "prometheus-operator-app.prometheusOperator.enabled") (index .Values "prometheus-operator-app.prometheusOperator.admissionWebhooks.enabled") (index .Values "prometheus-operator-app.prometheusOperator.admissionWebhooks.patch.enabled") (not (index .Values "prometheus-operator-app.prometheusOperator.admissionWebhooks.certManager.enabled")) }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -49,5 +48,4 @@ spec:
   policyTypes:
   - Egress
   - Ingress
-{{- end }}
 {{- end }}
