@@ -1,0 +1,22 @@
+{{- if $.Release.Namespace eq "kube-system" }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ template "kube-prometheus-stack.fullname" . }}-operator-network-policy
+  namespace: {{ template "kube-prometheus-stack.namespace" . }}
+  labels:
+    app: {{ template "kube-prometheus-stack.name" . }}-operator
+{{ include "kube-prometheus-stack.labels" . | indent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ template "kube-prometheus-stack.name" . }}-operator
+      release: {{ $.Release.Name | quote }}
+  egress:
+  - {}
+  ingress:
+  - {}
+  policyTypes:
+  - Egress
+  - Ingress
+{{- end }}

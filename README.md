@@ -20,6 +20,7 @@ The default configuration of this chart ignores secrets of type `helm.sh/release
 prometheusOperator:
   secretFieldSelector: ""
 ```
+
 ### Upgrade
 #### From 1.3.x to 2.x
 
@@ -27,3 +28,4 @@ prometheusOperator:
 
 * **⚠️ Please be carefull with the new way of nesting values, check [update-changes](https://github.com/giantswarmprometheus-operator-app/changelog/23.x_32.x.md) for reference ⚠️**
 
+* **⚠️ Consider using Giant Swarm node-exporter, grafana and kube-state-metrics managed apps, instead of enabling them in this chart ⚠️**

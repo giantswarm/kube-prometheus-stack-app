@@ -23,8 +23,10 @@ jobs:
 
           sleep 120
 
-          kubectl --context kind-chart-testing  wait pod --for=condition=Ready -l app=prometheus-operator-app-operator
-
-
-
-
+          STATE=$(kubectl --context kind-chart-testing get pods -l app=prometheus-operator-app-operator -ojson | jq -r '.items | .[0].status.phase')
+          if [ "$STATE" == "Running" ]; then
+              echo 'prometheus operator is Running'
+          else
+              echo 'Error prometheus operator is not Running' >&2
+              exit 1
+          fi

@@ -1,6 +1,6 @@
 # prometheus-operator-app
 
-![Version: 32.4.0](https://img.shields.io/badge/Version-32.4.0-informational?style=flat-square) ![AppVersion: v0.54.0](https://img.shields.io/badge/AppVersion-v0.54.0-informational?style=flat-square)
+![Version: v1.3.1](https://img.shields.io/badge/Version-v1.3.1-informational?style=flat-square) ![AppVersion: v0.54.0](https://img.shields.io/badge/AppVersion-v0.54.0-informational?style=flat-square)
 
 **Homepage:** <https://github.com/giantswarm/prometheus-operator-app>
 
@@ -12,7 +12,7 @@
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | prometheusOperator(kube-prometheus-stack) | 32.4.0 |
+| https://prometheus-community.github.io/helm-charts | prometheus-operator-app(kube-prometheus-stack) | 32.4.0 |
 
 ## Maintainers
 
@@ -33,25 +33,48 @@ Giant Swarm's Prometheus Operator Deployment
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | isManagementCluster | bool | `true` |  |
-| prometheusOperator.alertmanager.enabled | bool | `false` |  |
-| prometheusOperator.coreDns.enabled | bool | `false` |  |
-| prometheusOperator.defaultRules.create | bool | `false` |  |
-| prometheusOperator.grafana.enabled | bool | `false` |  |
-| prometheusOperator.kubeApiServer.enabled | bool | `false` |  |
-| prometheusOperator.kubeControllerManager.enabled | bool | `false` |  |
-| prometheusOperator.kubeEtcd.enabled | bool | `false` |  |
-| prometheusOperator.kubeProxy.enabled | bool | `false` |  |
-| prometheusOperator.kubeScheduler.enabled | bool | `false` |  |
-| prometheusOperator.kubeStateMetrics.enabled | bool | `false` |  |
-| prometheusOperator.kubelet.enabled | bool | `false` |  |
-| prometheusOperator.nodeExporter.enabled | bool | `false` |  |
-| prometheusOperator.prometheus.enabled | bool | `false` |  |
-| prometheusOperator.prometheusOperator.configReloaderCpu | string | `"25m"` |  |
-| prometheusOperator.prometheusOperator.createCustomResource | bool | `false` |  |
-| prometheusOperator.prometheusOperator.kubeletService.enabled | bool | `false` |  |
-| prometheusOperator.prometheusOperator.prometheusDefaultBaseImage | string | `"giantswarm/prometheus"` |  |
-| prometheusOperator.prometheusOperator.resources.limits.memory | string | `"500Mi"` |  |
-| prometheusOperator.prometheusOperator.resources.requests.memory | string | `"250Mi"` |  |
+| prometheus-operator-app.alertmanager.alertmanagerSpec.image.repository | string | `"quay.io/giantswarm/alertmanager"` |  |
+| prometheus-operator-app.alertmanager.enabled | bool | `false` |  |
+| prometheus-operator-app.alertmanager.ingress.ingressClassName | string | `"nginx"` |  |
+| prometheus-operator-app.alertmanager.ingress.pathType | string | `"ImplementationSpecific"` |  |
+| prometheus-operator-app.alertmanager.ingressPerReplica.ingressClassName | string | `"nginx"` |  |
+| prometheus-operator-app.alertmanager.ingressPerReplica.pathType | string | `"ImplementationSpecific"` |  |
+| prometheus-operator-app.coreDns.enabled | bool | `false` |  |
+| prometheus-operator-app.defaultRules.create | bool | `false` |  |
+| prometheus-operator-app.grafana.enabled | bool | `false` |  |
+| prometheus-operator-app.grafana.ingress.ingressClassName | string | `"nginx"` |  |
+| prometheus-operator-app.grafana.rbac.pspUseAppArmor | bool | `false` |  |
+| prometheus-operator-app.kubeApiServer.enabled | bool | `false` |  |
+| prometheus-operator-app.kubeControllerManager.enabled | bool | `false` |  |
+| prometheus-operator-app.kubeEtcd.enabled | bool | `false` |  |
+| prometheus-operator-app.kubeProxy.enabled | bool | `false` |  |
+| prometheus-operator-app.kubeScheduler.enabled | bool | `false` |  |
+| prometheus-operator-app.kubeStateMetrics.enabled | bool | `false` |  |
+| prometheus-operator-app.kubelet.enabled | bool | `false` |  |
+| prometheus-operator-app.nodeExporter.enabled | bool | `false` |  |
+| prometheus-operator-app.prometheus.enabled | bool | `false` |  |
+| prometheus-operator-app.prometheus.ingress.ingressClassName | string | `"nginx"` |  |
+| prometheus-operator-app.prometheus.ingress.pathType | string | `"ImplementationSpecific"` |  |
+| prometheus-operator-app.prometheus.ingressPerReplica.ingressClassName | string | `"nginx"` |  |
+| prometheus-operator-app.prometheus.ingressPerReplica.pathType | string | `"ImplementationSpecific"` |  |
+| prometheus-operator-app.prometheus.prometheusSpec.image.repository | string | `"quay.io/giantswarm/prometheus"` |  |
+| prometheus-operator-app.prometheus.thanosIngress.ingressClassName | string | `"nginx"` |  |
+| prometheus-operator-app.prometheus.thanosIngress.pathType | string | `"ImplementationSpecific"` |  |
+| prometheus-operator-app.prometheusOperator.admissionWebhooks.patch.image.repository | string | `"quay.io/giantswarm/kube-webhook-certgen"` |  |
+| prometheus-operator-app.prometheusOperator.admissionWebhooks.patch.image.sha | string | `""` |  |
+| prometheus-operator-app.prometheusOperator.configReloaderCpu | string | `"25m"` |  |
+| prometheus-operator-app.prometheusOperator.createCustomResource | bool | `false` |  |
+| prometheus-operator-app.prometheusOperator.image.repository | string | `"quay.io/giantswarm/prometheus-operator"` |  |
+| prometheus-operator-app.prometheusOperator.kubeletService.enabled | bool | `false` |  |
+| prometheus-operator-app.prometheusOperator.podLabels | object | `{}` |  |
+| prometheus-operator-app.prometheusOperator.prometheusConfigReloader.image.repository | string | `"quay.io/giantswarm/prometheus-config-reloader"` |  |
+| prometheus-operator-app.prometheusOperator.prometheusDefaultBaseImage | string | `"quay.io/giantswarm/prometheus"` |  |
+| prometheus-operator-app.prometheusOperator.resources.limits.cpu | string | `"200m"` |  |
+| prometheus-operator-app.prometheusOperator.resources.limits.memory | string | `"200Mi"` |  |
+| prometheus-operator-app.prometheusOperator.resources.requests.cpu | string | `"100m"` |  |
+| prometheus-operator-app.prometheusOperator.resources.requests.memory | string | `"100Mi"` |  |
+| prometheus-operator-app.prometheusOperator.secretFieldSelector | string | `"type!=helm.sh/release.v1"` |  |
+| prometheus-operator-app.prometheusOperator.thanosImage.repository | string | `"quay.io/giantswarm/thanos"` |  |
 
 ## Installing the Chart
 
@@ -105,4 +128,3 @@ After file modification, regenerate README.md with command:
 ```bash
 docker run --rm --volume "$(pwd):/helm-docs" -u $(id -u) jnorwood/helm-docs:latest
 ```
-
