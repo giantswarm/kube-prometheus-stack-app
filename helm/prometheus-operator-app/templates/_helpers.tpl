@@ -1,9 +1,3 @@
-{{/* Create chart name and version as used by the chart label. */}}
-{{- define "kube-prometheus-stack.chartref" -}}
-{{- replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name | trunc 63 -}}
-{{- end }}
-
-
 {{/* this will override "kube-prometheus-stack.labels" in the sub-chart  */}}
 {{/* Generate basic labels */}}
 {{- define "kube-prometheus-stack.labels" }}
