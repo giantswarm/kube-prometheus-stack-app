@@ -54,6 +54,7 @@ prometheus-operator-app:
       ingressClassName: nginx
       pathType: ImplementationSpecific
   prometheusOperator:
+    enabled: true
     image:
       repository: quay.io/giantswarm/prometheus-operator
     podLabels: {}
@@ -70,10 +71,14 @@ prometheus-operator-app:
         cpu: 100m
         memory: 100Mi
     admissionWebhooks:
+      enabled: true
       patch:
+        enabled: true
         image:
           repository: quay.io/giantswarm/kube-webhook-certgen
           sha: ""
+      certManager:
+        enabled: false
     prometheusConfigReloader:
       image:
         repository: quay.io/giantswarm/prometheus-config-reloader
