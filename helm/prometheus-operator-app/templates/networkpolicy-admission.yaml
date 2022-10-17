@@ -8,14 +8,14 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
   labels:
     app: {{ template "kube-prometheus-stack.name" $ }}-admission-create
-{{ include "kube-prometheus-stack.labels" . | indent 4 }}
+    {{- include "kube-prometheus-stack.labels" . | nindent 4 }}
   name: {{ template "kube-prometheus-stack.fullname" . }}-admission-create-network-policy
   namespace: {{ template "kube-prometheus-stack.namespace" . }}
 spec:
   podSelector:
     matchLabels:
       app: {{ template "kube-prometheus-stack.name" $ }}-admission-create
-{{- include "kube-prometheus-stack.labels" $ | indent 6 }}
+      {{- include "kube-prometheus-stack.networkPolicySelector" $ | nindent 6 }}
   egress:
   - {}
   ingress:
@@ -33,14 +33,14 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
   labels:
     app: {{ template "kube-prometheus-stack.name" $ }}-admission-patch
-{{ include "kube-prometheus-stack.labels" . | indent 4 }}
+    {{- include "kube-prometheus-stack.labels" . | indent 4 }}
   name: {{ template "kube-prometheus-stack.fullname" . }}-admission-patch-network-policy
   namespace: {{ template "kube-prometheus-stack.namespace" . }}
 spec:
   podSelector:
     matchLabels:
       app: {{ template "kube-prometheus-stack.name" $ }}-admission-patch
-{{- include "kube-prometheus-stack.labels" $ | indent 6 }}
+      {{- include "kube-prometheus-stack.networkPolicySelector" $ | indent 6 }}
   egress:
   - {}
   ingress:

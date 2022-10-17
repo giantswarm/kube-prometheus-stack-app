@@ -35,3 +35,10 @@ app.kubernetes.io/instance: "{{ template "kube-prometheus-stack.name" . }}"
 {{- define "prometheus-operator.deployment-label-selector" -}}
 {{- printf "%s" "deployment-label-hook" -}}
 {{- end -}}
+
+
+{{/* Generate basic labels for NetworkPolicy */}}
+{{- define "kube-prometheus-stack.networkPolicySelector" }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+release: {{ $.Release.Name | quote }}
+{{- end }}
