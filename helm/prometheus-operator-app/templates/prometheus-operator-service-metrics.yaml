@@ -9,7 +9,6 @@ metadata:
     giantswarm.io/monitoring-protocol: https
   labels:
     giantswarm.io/monitoring: "true"
-    app: {{ template "kube-prometheus-stack.name" . }}-operator
 {{ include "kube-prometheus-stack.labels" . | indent 4 }}
   name: {{ template "kube-prometheus-stack.fullname" . }}-operator-metrics
   namespace: {{ template "kube-prometheus-stack.namespace" . }}
