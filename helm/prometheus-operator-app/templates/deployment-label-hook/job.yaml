@@ -1,3 +1,6 @@
+## This Job will add `giantswarm.io/monitoring_basic_sli="true"` label to the prometheus
+## operator deployment, as it's not supported in the current version.
+## this can be removed after upgrading to 40.2
 apiVersion: batch/v1
 kind: Job
 metadata:
