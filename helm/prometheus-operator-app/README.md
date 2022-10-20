@@ -32,7 +32,6 @@ Giant Swarm's Prometheus Operator Deployment
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| isManagementCluster | bool | `true` |  |
 | prometheus-operator-app.alertmanager.alertmanagerSpec.image.repository | string | `"quay.io/giantswarm/alertmanager"` |  |
 | prometheus-operator-app.alertmanager.enabled | bool | `false` |  |
 | prometheus-operator-app.alertmanager.ingress.ingressClassName | string | `"nginx"` |  |
@@ -60,10 +59,14 @@ Giant Swarm's Prometheus Operator Deployment
 | prometheus-operator-app.prometheus.prometheusSpec.image.repository | string | `"quay.io/giantswarm/prometheus"` |  |
 | prometheus-operator-app.prometheus.thanosIngress.ingressClassName | string | `"nginx"` |  |
 | prometheus-operator-app.prometheus.thanosIngress.pathType | string | `"ImplementationSpecific"` |  |
+| prometheus-operator-app.prometheusOperator.admissionWebhooks.certManager.enabled | bool | `false` |  |
+| prometheus-operator-app.prometheusOperator.admissionWebhooks.enabled | bool | `true` |  |
+| prometheus-operator-app.prometheusOperator.admissionWebhooks.patch.enabled | bool | `true` |  |
 | prometheus-operator-app.prometheusOperator.admissionWebhooks.patch.image.repository | string | `"quay.io/giantswarm/kube-webhook-certgen"` |  |
 | prometheus-operator-app.prometheusOperator.admissionWebhooks.patch.image.sha | string | `""` |  |
 | prometheus-operator-app.prometheusOperator.configReloaderCpu | string | `"25m"` |  |
 | prometheus-operator-app.prometheusOperator.createCustomResource | bool | `false` |  |
+| prometheus-operator-app.prometheusOperator.enabled | bool | `true` |  |
 | prometheus-operator-app.prometheusOperator.image.repository | string | `"quay.io/giantswarm/prometheus-operator"` |  |
 | prometheus-operator-app.prometheusOperator.kubeletService.enabled | bool | `false` |  |
 | prometheus-operator-app.prometheusOperator.podLabels | object | `{}` |  |

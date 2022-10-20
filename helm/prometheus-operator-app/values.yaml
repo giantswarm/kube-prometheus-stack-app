@@ -1,6 +1,4 @@
 ---
-isManagementCluster: true
-
 prometheus-operator-app:
   alertmanager:
     enabled: false
