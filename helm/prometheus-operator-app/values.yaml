@@ -3,7 +3,7 @@ prometheus-operator-app:
   alertmanager:
     alertmanagerSpec:
       image:
-        repository: quay.io/giantswarm/alertmanager
+        repository: docker.io/giantswarm/alertmanager
     ingress:
       ingressClassName: nginx
       pathType: ImplementationSpecific
@@ -16,7 +16,7 @@ prometheus-operator-app:
   prometheus:
     prometheusSpec:
       image:
-        repository: quay.io/giantswarm/prometheus
+        repository: docker.io/giantswarm/prometheus
     ingress:
       ingressClassName: nginx
       pathType: ImplementationSpecific
@@ -29,8 +29,8 @@ prometheus-operator-app:
   prometheusOperator:
     enabled: true
     image:
-      repository: quay.io/giantswarm/prometheus-operator
-    prometheusDefaultBaseImage: quay.io/giantswarm/prometheus
+      repository: docker.io/giantswarm/prometheus-operator
+    prometheusDefaultBaseImage: docker.io/giantswarm/prometheus
     resources:
       limits:
         cpu: 200m
@@ -43,13 +43,13 @@ prometheus-operator-app:
       patch:
         enabled: true
         image:
-          repository: quay.io/giantswarm/kube-webhook-certgen
+          repository: docker.io/giantswarm/kube-webhook-certgen
           sha: ""
       certManager:
         enabled: false
     prometheusConfigReloader:
       image:
-        repository: quay.io/giantswarm/prometheus-config-reloader
+        repository: docker.io/giantswarm/prometheus-config-reloader
     thanosImage:
-      repository: quay.io/giantswarm/thanos
+      repository: docker.io/giantswarm/thanos
     secretFieldSelector: "type!=helm.sh/release.v1"
