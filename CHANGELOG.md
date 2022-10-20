@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.0.0] - 2022-10-20
+
 ### Changed
 
 - Upgrade prometheus-operator to v0.54.0, There's a lot of breaking changes please check [update-changes](./changelog/23.x_32.x.md)
@@ -312,7 +314,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.3.1...v2.0.0
 [1.3.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.2.0...v1.2.1
