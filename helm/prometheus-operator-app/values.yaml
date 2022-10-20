@@ -13,6 +13,8 @@ prometheus-operator-app:
   grafana:
     ingress:
       ingressClassName: nginx
+  kubeStateMetrics:
+    enabled: false
   prometheus:
     prometheusSpec:
       image:
