@@ -1,0 +1,32 @@
+name: 'e2e-test: install chart on kind'
+on: pull_request
+
+jobs:
+  test-install:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1.3.0  
+
+      - name: install chart
+        run: |
+          sed -i 's/\[\[ .Version \]\]/0.0.0/' helm/prometheus-operator-app/Chart.yaml
+
+          helm dependency update ./helm/prometheus-operator-app/
+      
+          helm --kube-context kind-chart-testing install e2e-test-prometheus-operator ./helm/prometheus-operator-app/ --wait
+
+          kubectl --context kind-chart-testing wait pod --for=condition=Ready -l app=prometheus-operator-app-operator
+
+          sleep 120
+
+          STATE=$(kubectl --context kind-chart-testing get pods -l app=prometheus-operator-app-operator -ojson | jq -r '.items | .[0].status.phase')
+          if [ "$STATE" == "Running" ]; then
+              echo 'prometheus operator is Running'
+          else
+              echo 'Error prometheus operator is not Running' >&2
+              exit 1
+          fi
