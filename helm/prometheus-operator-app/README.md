@@ -33,25 +33,11 @@ Giant Swarm's Prometheus Operator Deployment
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | prometheus-operator-app.alertmanager.alertmanagerSpec.image.repository | string | `"quay.io/giantswarm/alertmanager"` |  |
-| prometheus-operator-app.alertmanager.enabled | bool | `false` |  |
 | prometheus-operator-app.alertmanager.ingress.ingressClassName | string | `"nginx"` |  |
 | prometheus-operator-app.alertmanager.ingress.pathType | string | `"ImplementationSpecific"` |  |
 | prometheus-operator-app.alertmanager.ingressPerReplica.ingressClassName | string | `"nginx"` |  |
 | prometheus-operator-app.alertmanager.ingressPerReplica.pathType | string | `"ImplementationSpecific"` |  |
-| prometheus-operator-app.coreDns.enabled | bool | `false` |  |
-| prometheus-operator-app.defaultRules.create | bool | `false` |  |
-| prometheus-operator-app.grafana.enabled | bool | `false` |  |
 | prometheus-operator-app.grafana.ingress.ingressClassName | string | `"nginx"` |  |
-| prometheus-operator-app.grafana.rbac.pspUseAppArmor | bool | `false` |  |
-| prometheus-operator-app.kubeApiServer.enabled | bool | `false` |  |
-| prometheus-operator-app.kubeControllerManager.enabled | bool | `false` |  |
-| prometheus-operator-app.kubeEtcd.enabled | bool | `false` |  |
-| prometheus-operator-app.kubeProxy.enabled | bool | `false` |  |
-| prometheus-operator-app.kubeScheduler.enabled | bool | `false` |  |
-| prometheus-operator-app.kubeStateMetrics.enabled | bool | `false` |  |
-| prometheus-operator-app.kubelet.enabled | bool | `false` |  |
-| prometheus-operator-app.nodeExporter.enabled | bool | `false` |  |
-| prometheus-operator-app.prometheus.enabled | bool | `false` |  |
 | prometheus-operator-app.prometheus.ingress.ingressClassName | string | `"nginx"` |  |
 | prometheus-operator-app.prometheus.ingress.pathType | string | `"ImplementationSpecific"` |  |
 | prometheus-operator-app.prometheus.ingressPerReplica.ingressClassName | string | `"nginx"` |  |
@@ -59,17 +45,9 @@ Giant Swarm's Prometheus Operator Deployment
 | prometheus-operator-app.prometheus.prometheusSpec.image.repository | string | `"quay.io/giantswarm/prometheus"` |  |
 | prometheus-operator-app.prometheus.thanosIngress.ingressClassName | string | `"nginx"` |  |
 | prometheus-operator-app.prometheus.thanosIngress.pathType | string | `"ImplementationSpecific"` |  |
-| prometheus-operator-app.prometheusOperator.admissionWebhooks.certManager.enabled | bool | `false` |  |
-| prometheus-operator-app.prometheusOperator.admissionWebhooks.enabled | bool | `true` |  |
-| prometheus-operator-app.prometheusOperator.admissionWebhooks.patch.enabled | bool | `true` |  |
 | prometheus-operator-app.prometheusOperator.admissionWebhooks.patch.image.repository | string | `"quay.io/giantswarm/kube-webhook-certgen"` |  |
 | prometheus-operator-app.prometheusOperator.admissionWebhooks.patch.image.sha | string | `""` |  |
-| prometheus-operator-app.prometheusOperator.configReloaderCpu | string | `"25m"` |  |
-| prometheus-operator-app.prometheusOperator.createCustomResource | bool | `false` |  |
-| prometheus-operator-app.prometheusOperator.enabled | bool | `true` |  |
 | prometheus-operator-app.prometheusOperator.image.repository | string | `"quay.io/giantswarm/prometheus-operator"` |  |
-| prometheus-operator-app.prometheusOperator.kubeletService.enabled | bool | `false` |  |
-| prometheus-operator-app.prometheusOperator.podLabels | object | `{}` |  |
 | prometheus-operator-app.prometheusOperator.prometheusConfigReloader.image.repository | string | `"quay.io/giantswarm/prometheus-config-reloader"` |  |
 | prometheus-operator-app.prometheusOperator.prometheusDefaultBaseImage | string | `"quay.io/giantswarm/prometheus"` |  |
 | prometheus-operator-app.prometheusOperator.resources.limits.cpu | string | `"200m"` |  |

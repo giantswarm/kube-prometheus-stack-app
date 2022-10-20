@@ -1,7 +1,6 @@
 ---
 prometheus-operator-app:
   alertmanager:
-    enabled: false
     alertmanagerSpec:
       image:
         repository: quay.io/giantswarm/alertmanager
@@ -11,34 +10,10 @@ prometheus-operator-app:
     ingressPerReplica:
       ingressClassName: nginx
       pathType: ImplementationSpecific
-  coreDns:
-    enabled: false
-  defaultRules:
-    create: false
   grafana:
-    enabled: false
-    rbac:
-      pspUseAppArmor: false
     ingress:
       ingressClassName: nginx
-  kubelet:
-    enabled: false
-  kubeApiServer:
-    enabled: false
-  kubeControllerManager:
-    enabled: false
-  kubeEtcd:
-    enabled: false
-  kubeProxy:
-    enabled: false
-  kubeScheduler:
-    enabled: false
-  kubeStateMetrics:
-    enabled: false
-  nodeExporter:
-    enabled: false
   prometheus:
-    enabled: false
     prometheusSpec:
       image:
         repository: quay.io/giantswarm/prometheus
@@ -52,14 +27,8 @@ prometheus-operator-app:
       ingressClassName: nginx
       pathType: ImplementationSpecific
   prometheusOperator:
-    enabled: true
     image:
       repository: quay.io/giantswarm/prometheus-operator
-    podLabels: {}
-    createCustomResource: false
-    configReloaderCpu: 25m
-    kubeletService:
-      enabled: false
     prometheusDefaultBaseImage: quay.io/giantswarm/prometheus
     resources:
       limits:
@@ -69,14 +38,10 @@ prometheus-operator-app:
         cpu: 100m
         memory: 100Mi
     admissionWebhooks:
-      enabled: true
       patch:
-        enabled: true
         image:
           repository: quay.io/giantswarm/kube-webhook-certgen
           sha: ""
-      certManager:
-        enabled: false
     prometheusConfigReloader:
       image:
         repository: quay.io/giantswarm/prometheus-config-reloader
