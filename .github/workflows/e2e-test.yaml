@@ -17,11 +17,11 @@ jobs:
 
           helm dependency update ./helm/prometheus-operator-app/
       
-          helm --kube-context kind-chart-testing install e2e-test-prometheus-operator ./helm/prometheus-operator-app/ --wait
+          helm --kube-context kind-chart-testing install e2e-test-prometheus-operator ./helm/prometheus-operator-app/ --wait  --debug
 
           kubectl --context kind-chart-testing wait pod --for=condition=Ready -l app=prometheus-operator-app-operator
 
-          sleep 120
+          sleep 180
 
           STATE=$(kubectl --context kind-chart-testing get pods -l app=prometheus-operator-app-operator -ojson | jq -r '.items | .[0].status.phase')
           if [ "$STATE" == "Running" ]; then

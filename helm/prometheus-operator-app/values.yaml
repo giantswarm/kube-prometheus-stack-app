@@ -10,10 +10,16 @@ prometheus-operator-app:
     ingressPerReplica:
       ingressClassName: nginx
       pathType: ImplementationSpecific
+  coreDns:
+    service:
+      selector:
+        k8s-app: coredns
   grafana:
     ingress:
       ingressClassName: nginx
   kubeStateMetrics:
+    enabled: false
+  nodeExporter:
     enabled: false
   prometheus:
     prometheusSpec:
