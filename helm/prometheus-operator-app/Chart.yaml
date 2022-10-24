@@ -7,7 +7,7 @@ sources:
   - "https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack"
 home: https://github.com/giantswarm/prometheus-operator-app
 maintainers:
-  - name: hervenicol 
+  - name: hervenicol
     email: marie@giantswarm.io
   - name: marieroque
     email: marie@giantswarm.io
