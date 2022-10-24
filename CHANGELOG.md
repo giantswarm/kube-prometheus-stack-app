@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.0.1] - 2022-10-24
+
 ### Changed
 
 - Disable `node-exporter` by default.
@@ -322,7 +324,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.3.1...v2.0.0
 [1.3.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.2.1...v1.3.0
