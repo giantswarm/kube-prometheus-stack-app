@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Disable `node-exporter` by default.
+
+### Fixed
+
+- Fix coredns service selector.
+
 ## [2.0.0] - 2022-10-20
 
 ### Changed
