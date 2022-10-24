@@ -9,7 +9,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Upgrade prometheus-operator to v0.60.1, There's a lot of breaking changes please check [update-changes](./changelog/32.x_41.x.md)
+- Update `upstream chart` to [kube-prometheus-stack-41.5.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-41.5.1). See [breaking changes](./changelog/32.x_41.x.md)
+    - Upgrade `prometheus-operator` from [0.54.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.54.0) to [0.60.1](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.60.1)
+    - Update `prometheus` from 2.33.1 to 2.39.1
+    - Update `alertmanager` from 0.23.0 to 0.24.0
 
 ### Removed
 
