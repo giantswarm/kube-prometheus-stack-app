@@ -1,6 +1,6 @@
 # prometheus-operator-app
 
-![Version: v2.0.0](https://img.shields.io/badge/Version-v2.0.0-informational?style=flat-square) ![AppVersion: v0.54.0](https://img.shields.io/badge/AppVersion-v0.54.0-informational?style=flat-square)
+![Version: v2.0.0](https://img.shields.io/badge/Version-v2.0.0-informational?style=flat-square) ![AppVersion: v0.60.1](https://img.shields.io/badge/AppVersion-v0.60.1-informational?style=flat-square)
 
 **Homepage:** <https://github.com/giantswarm/prometheus-operator-app>
 
@@ -12,13 +12,17 @@
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | prometheus-operator-app(kube-prometheus-stack) | 32.4.0 |
+| https://prometheus-community.github.io/helm-charts | prometheus-operator-app(kube-prometheus-stack) | 41.5.1 |
 
 ## Maintainers
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Mohamed Chiheb Ben Jemaa | <mohamed@giantswarm.io> |  |
+| hervenicol | <marie@giantswarm.io> |  |
+| marieroque | <marie@giantswarm.io> |  |
+| mcbenjemaa | <mohamed@giantswarm.io> |  |
+| QuentinBisson | <quentin@giantswarm.io> |  |
+| TheoBrigitte | <theo@giantswarm.io> |  |
 
 ## Description
 
@@ -69,6 +73,11 @@ To install the chart with the app CR name `prometheus-operator`:
 ```
 
 ### Upgrade
+
+#### From 32.x to 41.x
+
+Upgrade the [prometheus-operator-crd](https://github.com/giantswarm/prometheus-operator-crd) chart,
+check Changelog: [32.x to 41.x](../../changelog/32.x_41.x.md)
 
 #### From 23.x to 32.x
 
