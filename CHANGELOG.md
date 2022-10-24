@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade prometheus-operator to v0.60.1, There's a lot of breaking changes please check [update-changes](./changelog/32.x_41.x.md)
+
 ### Removed
 
 - Delete push job to capa-app-collection, gcp-app-collection, openstack-app-collection
