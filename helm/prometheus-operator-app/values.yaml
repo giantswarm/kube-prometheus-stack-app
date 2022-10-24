@@ -32,14 +32,11 @@ prometheus-operator-app:
     enabled: true
     image:
       repository: docker.io/giantswarm/prometheus-operator
+    labels:
+      giantswarm.io/monitoring_basic_sli: "true"
     prometheusDefaultBaseImage: docker.io/giantswarm/prometheus
-    resources:
-      limits:
-        cpu: 200m
-        memory: 200Mi
-      requests:
-        cpu: 100m
-        memory: 100Mi
+    verticalPodAutoscaler:
+      enabled: true
     admissionWebhooks:
       enabled: true
       patch:
