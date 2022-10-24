@@ -1,6 +1,6 @@
 # prometheus-operator-app
 
-![Version: v1.3.1](https://img.shields.io/badge/Version-v1.3.1-informational?style=flat-square) ![AppVersion: v0.54.0](https://img.shields.io/badge/AppVersion-v0.54.0-informational?style=flat-square)
+![Version: v2.0.0](https://img.shields.io/badge/Version-v2.0.0-informational?style=flat-square) ![AppVersion: v0.54.0](https://img.shields.io/badge/AppVersion-v0.54.0-informational?style=flat-square)
 
 **Homepage:** <https://github.com/giantswarm/prometheus-operator-app>
 
@@ -53,14 +53,12 @@ Giant Swarm's Prometheus Operator Deployment
 | prometheus-operator-app.prometheusOperator.admissionWebhooks.patch.image.sha | string | `""` |  |
 | prometheus-operator-app.prometheusOperator.enabled | bool | `true` |  |
 | prometheus-operator-app.prometheusOperator.image.repository | string | `"docker.io/giantswarm/prometheus-operator"` |  |
+| prometheus-operator-app.prometheusOperator.labels."giantswarm.io/monitoring_basic_sli" | string | `"true"` |  |
 | prometheus-operator-app.prometheusOperator.prometheusConfigReloader.image.repository | string | `"docker.io/giantswarm/prometheus-config-reloader"` |  |
 | prometheus-operator-app.prometheusOperator.prometheusDefaultBaseImage | string | `"docker.io/giantswarm/prometheus"` |  |
-| prometheus-operator-app.prometheusOperator.resources.limits.cpu | string | `"200m"` |  |
-| prometheus-operator-app.prometheusOperator.resources.limits.memory | string | `"200Mi"` |  |
-| prometheus-operator-app.prometheusOperator.resources.requests.cpu | string | `"100m"` |  |
-| prometheus-operator-app.prometheusOperator.resources.requests.memory | string | `"100Mi"` |  |
 | prometheus-operator-app.prometheusOperator.secretFieldSelector | string | `"type!=helm.sh/release.v1"` |  |
 | prometheus-operator-app.prometheusOperator.thanosImage.repository | string | `"docker.io/giantswarm/thanos"` |  |
+| prometheus-operator-app.prometheusOperator.verticalPodAutoscaler.enabled | bool | `true` |  |
 
 ## Installing the Chart
 
