@@ -8,16 +8,8 @@ sources:
   - "https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack"
 home: https://github.com/giantswarm/prometheus-operator-app
 maintainers:
-  - name: hervenicol
-    email: marie@giantswarm.io
-  - name: marieroque
-    email: marie@giantswarm.io
-  - name: mcbenjemaa
-    email: mohamed@giantswarm.io
-  - name: QuentinBisson
-    email: quentin@giantswarm.io
-  - name: TheoBrigitte
-    email: theo@giantswarm.io
+  - name: giantswarm/team-atlas
+    email: team-atlas@giantswarm.io
 annotations:
   application.giantswarm.io/team: atlas
 dependencies:
