@@ -146,3 +146,17 @@ workflows:
             tags:
               only: /^v.*/
 
+      - architect/push-to-app-collection:
+          context: architect
+          name: push-to-gcp-app-collection
+          app_name: "prometheus-operator-app"
+          app_namespace: "monitoring"
+          app_collection_repo: "gcp-app-collection"
+          disable_force_upgrade: true
+          requires:
+            - push-to-control-plane-app-catalog
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
