@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.0.2] - 2022-10-31
+
 ### Changed
 
 - Push app to GCP collection
@@ -328,7 +330,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.2...HEAD
+[2.0.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.3.1...v2.0.0
 [1.3.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.3.0...v1.3.1
