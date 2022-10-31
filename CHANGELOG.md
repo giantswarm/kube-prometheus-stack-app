@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Push app to GCP collection
+
 ## [2.0.0] - 2022-10-20
 
 ### Changed
