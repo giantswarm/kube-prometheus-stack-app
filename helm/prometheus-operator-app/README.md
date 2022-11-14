@@ -1,6 +1,6 @@
 # prometheus-operator-app
 
-![Version: v2.0.0](https://img.shields.io/badge/Version-v2.0.0-informational?style=flat-square) ![AppVersion: v0.60.1](https://img.shields.io/badge/AppVersion-v0.60.1-informational?style=flat-square)
+![Version: v3.0.0](https://img.shields.io/badge/Version-v3.0.0-informational?style=flat-square) ![AppVersion: v0.60.1](https://img.shields.io/badge/AppVersion-v0.60.1-informational?style=flat-square)
 
 **Homepage:** <https://github.com/giantswarm/prometheus-operator-app>
 

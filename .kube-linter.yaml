@@ -1,0 +1,10 @@
+checks:
+  exclude:
+  - "no-read-only-root-fs"
+  - "unset-cpu-requirements"
+  - "unset-memory-requirements"
+  - "dangling-service"
+  - "host-network"
+  - "host-pid"
+  - "sensitive-host-mounts"
+  - "run-as-non-root"
