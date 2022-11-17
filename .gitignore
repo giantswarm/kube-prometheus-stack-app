@@ -1,0 +1,4 @@
+**/__pycache__
+**/test_results**.xml
+build/
+helm/promtheus-operator-app/charts/*.tgz
