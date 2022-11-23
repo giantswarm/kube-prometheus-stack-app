@@ -1,5 +1,3 @@
-{{- if not ( .Capabilities.APIVersions.Has "cilium.io/v2" ) }}
----
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
@@ -36,4 +34,3 @@ spec:
   policyTypes:
   - Egress
   - Ingress
-{{- end }}
