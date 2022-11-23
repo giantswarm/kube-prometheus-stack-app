@@ -1,3 +1,32 @@
+{{- if .Capabilities.APIVersions.Has "cilium.io/v2" }}
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: {{ include "prometheus-operator.deployment-label-name" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    # create hook dependencies in the right order
+    "helm.sh/hook-weight": "-7"
+    {{- include "prometheus-operator.deployment-label-annotation" . | nindent 4 }}
+  labels:
+    app.kubernetes.io/component: {{ include "prometheus-operator.deployment-label-name" . | quote }}
+    {{- include "kube-prometheus-stack.selectorLabels" . | nindent 4 }}
+    role: {{ include "prometheus-operator.deployment-label-selector" . | quote }}
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/component: {{ include "prometheus-operator.deployment-label-name" . | quote }}
+      {{- include "kube-prometheus-stack.selectorLabels" . | nindent 6 }}
+  egress:
+    - toEntities:
+        - kube-apiserver
+      toPorts:
+        - ports:
+            - port: "443"
+        - ports:
+            - port: "6443"
+{{- else}}
+---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
@@ -34,3 +63,4 @@ spec:
   policyTypes:
   - Egress
   - Ingress
+{{- end }}

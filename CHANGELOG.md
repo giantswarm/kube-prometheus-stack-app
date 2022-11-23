@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Added `CiliumNetworkPolicy` for the deployment-label-hook.
+
 ## [2.0.2] - 2022-10-31
 
 ### Changed
