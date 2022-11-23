@@ -1,7 +1,6 @@
-{{- if not ( .Capabilities.APIVersions.Has "cilium.io/v2" ) }}
----
-kind: NetworkPolicy
-apiVersion: networking.k8s.io/v1
+{{- if .Capabilities.APIVersions.Has "cilium.io/v2" }}
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
 metadata:
   name: {{ include "prometheus-operator.deployment-label-name" . }}
   namespace: {{ .Release.Namespace | quote }}
@@ -14,26 +13,16 @@ metadata:
     {{- include "kube-prometheus-stack.selectorLabels" . | nindent 4 }}
     role: {{ include "prometheus-operator.deployment-label-selector" . | quote }}
 spec:
-  podSelector:
+  endpointSelector:
     matchLabels:
       app.kubernetes.io/component: {{ include "prometheus-operator.deployment-label-name" . | quote }}
       {{- include "kube-prometheus-stack.selectorLabels" . | nindent 6 }}
-  # allow egress traffic to the Kubernetes API
   egress:
-  - ports:
-    - port: 443
-      protocol: TCP
-    # legacy port kept for compatibility
-    - port: 6443
-      protocol: TCP
-    to:
-    {{- range tuple "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" }}
-    - ipBlock:
-        cidr: {{ . }}
-    {{- end }}
-  # deny ingress traffic
-  ingress: []
-  policyTypes:
-  - Egress
-  - Ingress
+    - toEntities:
+        - kube-apiserver
+      toPorts:
+        - ports:
+            - port: "443"
+        - ports:
+            - port: "6443"
 {{- end }}
