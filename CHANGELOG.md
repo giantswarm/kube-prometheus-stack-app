@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Add grafana-app as subchart to resolve AppArmor issue
+
 ## [2.0.2] - 2022-10-31
 
 ### Changed

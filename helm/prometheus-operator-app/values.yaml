@@ -1,4 +1,6 @@
 ---
+grafana:
+  enabled: true
 prometheus-operator-app:
   alertmanager:
     alertmanagerSpec:
@@ -15,6 +17,7 @@ prometheus-operator-app:
       selector:
         k8s-app: coredns
   grafana:
+    enabled: false
     ingress:
       ingressClassName: nginx
   kubeStateMetrics:
