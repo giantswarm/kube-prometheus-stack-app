@@ -63,6 +63,14 @@
                         }
                     }
                 },
+                "global": {
+                    "type": "object",
+                    "properties": {
+                        "imageRegistry": {
+                            "type": "string"
+                        }
+                    }
+                },
                 "grafana": {
                     "type": "object",
                     "properties": {

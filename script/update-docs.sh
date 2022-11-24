@@ -2,7 +2,6 @@
 #
 # This script generate the README.md in helm/prometheus-operator-app helm chart
 
-
 tag=$(git describe --tags --abbrev=0)
 
 sed -i 's/\[\[ .Version \]\]/'"$tag"'/' ./helm/prometheus-operator-app/Chart.yaml

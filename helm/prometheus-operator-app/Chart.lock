@@ -1,9 +1,6 @@
 dependencies:
 - name: kube-prometheus-stack
   repository: https://prometheus-community.github.io/helm-charts
-  version: 41.6.0
-- name: grafana
-  repository: https://giantswarm.github.io/giantswarm-catalog/
-  version: 2.0.0
-digest: sha256:3dc1cca8f11d0bb690d5b4adc1a84ec7f3e70e6bb5a2286507485fb969be6523
-generated: "2022-11-21T14:35:59.039880666+01:00"
+  version: 42.0.2
+digest: sha256:360c2c61ccf09441573adf5bf4b54386e042e670b754bb5f4b4807aba4c4a346
+generated: "2022-11-24T21:28:08.090267523+01:00"
