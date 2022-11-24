@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.1.0] - 2022-11-24
+
 ### Added
 
 - Added `CiliumNetworkPolicy` for the deployment-label-hook.
@@ -334,7 +336,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.2...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.2...v2.1.0
 [2.0.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.3.1...v2.0.0
