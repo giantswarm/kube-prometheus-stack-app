@@ -1,5 +1,9 @@
 ---
 prometheus-operator-app:
+  global:
+    rbac:
+      create: true
+      pspEnabled: true
   alertmanager:
     alertmanagerSpec:
       image:
