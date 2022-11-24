@@ -5,5 +5,5 @@ dependencies:
 - name: grafana
   repository: https://giantswarm.github.io/control-plane-catalog/
   version: 2.0.2
-digest: sha256:dcd38f86da74bbbc203bef0b4d06c23e2f505167b64ab563631a4f60d80e3400
-generated: "2022-11-24T09:15:58.212875336+01:00"
+digest: sha256:70c2251dea2fd56468e579225e51de945b734416a7f3d2bb7ec6ea735219c20f
+generated: "2022-11-24T14:40:07.32013521+01:00"
