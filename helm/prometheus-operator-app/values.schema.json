@@ -68,6 +68,17 @@
                     "properties": {
                         "imageRegistry": {
                             "type": "string"
+                        },
+                        "rbac": {
+                            "type": "object",
+                            "properties": {
+                                "create": {
+                                    "type": "boolean"
+                                },
+                                "pspEnabled": {
+                                    "type": "boolean"
+                                }
+                            }
                         }
                     }
                 },

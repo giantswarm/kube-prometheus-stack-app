@@ -39,8 +39,11 @@ Giant Swarm's Prometheus Operator Deployment
 | prometheus-operator-app.alertmanager.ingressPerReplica.pathType | string | `"ImplementationSpecific"` |  |
 | prometheus-operator-app.coreDns.service.selector.k8s-app | string | `"coredns"` |  |
 | prometheus-operator-app.global.imageRegistry | string | `"docker.io"` |  |
+| prometheus-operator-app.global.rbac.create | bool | `true` |  |
+| prometheus-operator-app.global.rbac.pspEnabled | bool | `true` |  |
 | prometheus-operator-app.grafana.ingress.ingressClassName | string | `"nginx"` |  |
 | prometheus-operator-app.kubeStateMetrics.enabled | bool | `false` |  |
+| prometheus-operator-app.nodeExporter.enabled | bool | `false` |  |
 | prometheus-operator-app.prometheus.ingress.ingressClassName | string | `"nginx"` |  |
 | prometheus-operator-app.prometheus.ingress.pathType | string | `"ImplementationSpecific"` |  |
 | prometheus-operator-app.prometheus.ingressPerReplica.ingressClassName | string | `"nginx"` |  |

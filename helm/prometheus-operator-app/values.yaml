@@ -1,5 +1,6 @@
 prometheus-operator-app:
   global:
+    imageRegistry: docker.io
     rbac:
       create: true
       pspEnabled: true
@@ -18,8 +19,6 @@ prometheus-operator-app:
     service:
       selector:
         k8s-app: coredns
-  global:
-    imageRegistry: docker.io
   grafana:
     ingress:
       ingressClassName: nginx
@@ -52,22 +51,12 @@ prometheus-operator-app:
       repository: giantswarm/prometheus-operator
     labels:
       giantswarm.io/monitoring_basic_sli: "true"
-    prometheusDefaultBaseImage: docker.io/giantswarm/prometheus
-    verticalPodAutoscaler:
-      enabled: true
-    admissionWebhooks:
-      enabled: true
-      patch:
-        enabled: true
-        image:
-          repository: docker.io/giantswarm/kube-webhook-certgen
-          sha: ""
-      certManager:
-        enabled: false
     prometheusConfigReloader:
       image:
         repository: giantswarm/prometheus-config-reloader
     prometheusDefaultBaseImage: giantswarm/prometheus
+    networkPolicy:
+      enabled: true
     secretFieldSelector: "type!=helm.sh/release.v1"
     thanosImage:
       repository: giantswarm/thanos
