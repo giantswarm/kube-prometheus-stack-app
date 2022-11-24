@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Enable PSP by default.
+
 ## [2.1.0] - 2022-11-24
 
 ### Added
