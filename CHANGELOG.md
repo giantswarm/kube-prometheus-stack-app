@@ -9,10 +9,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Update `upstream chart` to [kube-prometheus-stack-41.5.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-41.5.1). See [breaking changes](./changelog/32.x_41.x.md)
-    - Upgrade `prometheus-operator` from [0.54.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.54.0) to [0.60.1](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.60.1)
-    - Update `prometheus` from 2.33.1 to 2.39.1
+- Update chart to [kube-prometheus-stack-42.0.2](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-42.0.2). See [breaking changes](./changelog/32.x_42.x.md)
     - Update `alertmanager` from 0.23.0 to 0.24.0
+    - Update `grafana` from 6.22.* to 6.43.*
+    - Update `kube-state-metrics` from 4.5.* to 4.23.*
+    - Update `prometheus` from 2.33.1 to 2.39.1
+    - Update `prometheus-node-exporter` from 2.5.* to 4.4.*
+    - Update `prometheus-operator` from [0.54.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.54.0) to [0.60.1](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.60.1)
 
 ### Removed
 

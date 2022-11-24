@@ -19,6 +19,8 @@ prometheus-operator-app:
     service:
       selector:
         k8s-app: coredns
+  global:
+    imageRegistry: docker.io
   grafana:
     rbac:
       pspEnabled: true
