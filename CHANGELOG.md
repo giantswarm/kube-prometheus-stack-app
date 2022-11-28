@@ -16,6 +16,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
     - Update `prometheus` from 2.33.1 to 2.39.1
     - Update `prometheus-node-exporter` from 2.5.* to 4.4.*
     - Update `prometheus-operator` from [0.54.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.54.0) to [0.60.1](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.60.1)
+- Disable AppArmor in embedded grafana
 
 ## [2.1.1] - 2022-11-24
 
