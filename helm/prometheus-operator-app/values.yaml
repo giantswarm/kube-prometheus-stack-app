@@ -48,7 +48,7 @@ prometheus-operator-app:
           # We have 2 images for this: https://github.com/giantswarm/retagger/blob/dc815cbec228a32d7dc1859e6e3c73bef5488b52/images.yaml#L1069 and https://github.com/giantswarm/retagger/blob/dc815cbec228a32d7dc1859e6e3c73bef5488b52/images.yaml#L513
           # The jettech one is old and does not work with Kubernetes 1.22. We need to deprecate it later.
           repository: giantswarm/ingress-nginx-kube-webhook-certgen
-    alertmanagerDefaultBaseImage: giantswarm/prometheus
+    alertmanagerDefaultBaseImage: giantswarm/alertmanager
     image:
       repository: giantswarm/prometheus-operator
     labels:
