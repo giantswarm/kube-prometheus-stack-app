@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Removed
 
-- Delete push job to capa-app-collection
+- Delete push job to capa-app-collection, gcp-app-collection, openstack-app-collection
 
 ## [2.1.1] - 2022-11-24
 
