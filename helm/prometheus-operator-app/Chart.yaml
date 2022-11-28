@@ -6,7 +6,6 @@ icon: https://s.giantswarm.io/app-icons/prometheus-operator/2/light.svg
 version: [[ .Version ]]
 sources:
   - "https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack"
-  - "https://github.com/giantswarm/grafana-app/tree/master/helm/grafana"
 home: https://github.com/giantswarm/prometheus-operator-app
 maintainers:
   - name: Mohamed Chiheb Ben Jemaa
@@ -18,7 +17,3 @@ dependencies:
     version: 32.4.0
     repository: https://prometheus-community.github.io/helm-charts
     alias: prometheus-operator-app
-  - name: grafana
-    version: 2.0.2
-    repository: https://giantswarm.github.io/control-plane-catalog/
-    condition: grafana.enabled

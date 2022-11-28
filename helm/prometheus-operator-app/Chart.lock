@@ -2,8 +2,5 @@ dependencies:
 - name: kube-prometheus-stack
   repository: https://prometheus-community.github.io/helm-charts
   version: 32.4.0
-- name: grafana
-  repository: https://giantswarm.github.io/control-plane-catalog/
-  version: 2.0.2
-digest: sha256:70c2251dea2fd56468e579225e51de945b734416a7f3d2bb7ec6ea735219c20f
-generated: "2022-11-24T14:40:07.32013521+01:00"
+digest: sha256:6dfd25e27fb73615d84b7ea7cc291042898b3c4b1d6476b216cdebe0bf086555
+generated: "2022-11-28T10:18:56.050606329+01:00"

@@ -1,6 +1,4 @@
 ---
-grafana:
-  enabled: true
 prometheus-operator-app:
   global:
     rbac:
@@ -21,8 +19,8 @@ prometheus-operator-app:
       selector:
         k8s-app: coredns
   grafana:
-    # Embedded grafana disabled because GS managed grafana-app with custom conf is used instead
-    enabled: false
+    rbac:
+      pspUseAppArmor: false
     ingress:
       ingressClassName: nginx
   kubeStateMetrics:
