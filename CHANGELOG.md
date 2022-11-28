@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Removed
+
+- Delete push job to capa-app-collection
+
 ## [1.3.0] - 2022-06-28
 
 ### Added
