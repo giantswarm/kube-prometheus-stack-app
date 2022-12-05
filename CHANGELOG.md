@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.1.2] - 2022-12-05
+
 ### Changed
 
 - Disable AppArmor in embedded grafana
@@ -346,7 +348,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.1...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.2...HEAD
+[2.1.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.2...v2.1.0
 [2.0.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.1...v2.0.2
