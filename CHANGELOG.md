@@ -7,7 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
-### Changed
+### Removed
+
+- Delete push job to capa-app-collection, gcp-app-collection, openstack-app-collection
+
+## [2.1.2] - 2022-12-05
+
+### Fixed
 
 - Update chart to [kube-prometheus-stack-42.2.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-42.2.0). See [breaking changes](./changelog/32.x_42.x.md)
     - Update `alertmanager` from 0.23.0 to 0.24.0
