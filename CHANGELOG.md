@@ -9,9 +9,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [2.1.2] - 2022-12-05
 
-### Changed
+### Fixed
 
 - Disable AppArmor in embedded grafana
+- Enable grafana PSP by default.
 
 ## [2.1.1] - 2022-11-24
 
