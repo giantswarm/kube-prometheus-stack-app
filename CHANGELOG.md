@@ -7,7 +7,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
-### Changed
+## [2.1.2] - 2022-12-05
+
+### Fixed
 
 - Update chart to [kube-prometheus-stack-42.0.2](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-42.0.2). See [breaking changes](./changelog/32.x_42.x.md)
     - Update `alertmanager` from 0.23.0 to 0.24.0
@@ -17,6 +19,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
     - Update `prometheus-node-exporter` from 2.5.* to 4.4.*
     - Update `prometheus-operator` from [0.54.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.54.0) to [0.60.1](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.60.1)
 - Disable AppArmor in embedded grafana
+- Enable grafana PSP by default.
 
 ## [2.1.1] - 2022-11-24
 
@@ -355,7 +358,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.1...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.2...HEAD
+[2.1.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.2...v2.1.0
 [2.0.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.1...v2.0.2
