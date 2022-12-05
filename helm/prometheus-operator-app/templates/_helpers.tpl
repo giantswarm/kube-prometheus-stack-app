@@ -24,8 +24,7 @@ app.kubernetes.io/name: "{{ template "kube-prometheus-stack.name" . }}"
 app.kubernetes.io/instance: "{{ template "kube-prometheus-stack.name" . }}"
 {{- end -}}
 
-
-{{/* Job Deploymet label annotation */}}
+{{/* Job Deployment label annotation */}}
 {{- define "prometheus-operator.deployment-label-annotation" -}}
 "helm.sh/hook": "post-install,post-upgrade"
 "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
@@ -35,7 +34,6 @@ app.kubernetes.io/instance: "{{ template "kube-prometheus-stack.name" . }}"
 {{- define "prometheus-operator.deployment-label-selector" -}}
 {{- printf "%s" "deployment-label-hook" -}}
 {{- end -}}
-
 
 {{/* Generate basic labels for NetworkPolicy */}}
 {{- define "kube-prometheus-stack.networkPolicySelector" }}

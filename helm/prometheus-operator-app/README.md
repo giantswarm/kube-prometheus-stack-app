@@ -12,7 +12,7 @@
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | prometheus-operator-app(kube-prometheus-stack) | 42.0.2 |
+| https://prometheus-community.github.io/helm-charts | prometheus-operator-app(kube-prometheus-stack) | 42.2.0 |
 
 ## Maintainers
 
