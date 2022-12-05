@@ -19,6 +19,9 @@ prometheus-operator-app:
       selector:
         k8s-app: coredns
   grafana:
+    rbac:
+      pspEnabled: true
+      pspUseAppArmor: false
     ingress:
       ingressClassName: nginx
   kubeStateMetrics:
