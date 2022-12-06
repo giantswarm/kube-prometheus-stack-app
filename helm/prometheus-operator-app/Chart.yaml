@@ -15,6 +15,6 @@ annotations:
   config.giantswarm.io/version: 1.x.x
 dependencies:
   - name: kube-prometheus-stack
-    version: 42.2.0
+    version: 42.2.1
     repository: https://prometheus-community.github.io/helm-charts
     alias: prometheus-operator-app

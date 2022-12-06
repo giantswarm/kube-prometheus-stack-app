@@ -92,6 +92,17 @@
                                     "type": "string"
                                 }
                             }
+                        },
+                        "rbac": {
+                            "type": "object",
+                            "properties": {
+                                "pspEnabled": {
+                                    "type": "boolean"
+                                },
+                                "pspUseAppArmor": {
+                                    "type": "boolean"
+                                }
+                            }
                         }
                     }
                 },
