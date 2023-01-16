@@ -26,7 +26,7 @@ prometheusOperator:
 
 * Check [Changelog](https://github.com/giantswarm/prometheus-operator-app/blob/main/CHANGELOG.md).
 
-* **⚠️ Please check the [breaking changes](https://github.com/giantswarm/prometheus-operator-app/blob/main/changelog/32.x_43.x.md) ⚠️**
+* **⚠️ Please check the [breaking changes](https://github.com/giantswarm/prometheus-operator-app/blob/main/changelog/32.x_44.x.md) ⚠️**
 
 #### From 1.3.x to 2.x
 

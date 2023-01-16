@@ -9,13 +9,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Update chart to [kube-prometheus-stack-43.3.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-43.3.0). See [breaking changes](./changelog/32.x_43.x.md)
+- Update chart to [kube-prometheus-stack-44.2.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-44.2.0). See [breaking changes](./changelog/32.x_44.x.md)
     - Update `alertmanager` from 0.23.0 to 0.25.0
     - Update `grafana` from 6.22.* to 6.48.*
     - Update `kube-state-metrics` from 4.5.* to 4.24.*
-    - Update `prometheus` from 2.33.1 to 2.39.1
+    - Update `prometheus` from 2.33.1 to 2.41.0
     - Update `prometheus-node-exporter` from 2.5.* to 4.8.*
-    - Update `prometheus-operator` from [0.54.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.54.0) to [0.61.1](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.61.1)
+    - Update `prometheus-operator` from [0.54.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.54.0) to [0.62.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.62.0)
+    - Update `thanos` from 0.24.0 to 0.30.1
 
 ## [2.1.2] - 2022-12-05
 

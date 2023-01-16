@@ -12,7 +12,7 @@
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | prometheus-operator-app(kube-prometheus-stack) | 43.3.0 |
+| https://prometheus-community.github.io/helm-charts | prometheus-operator-app(kube-prometheus-stack) | 44.2.0 |
 
 ## Maintainers
 
@@ -75,10 +75,10 @@ To install the chart with the app CR name `prometheus-operator`:
 
 ### Upgrade
 
-#### From 32.x to 43.x
+#### From 32.x to 44.x
 
 Upgrade the [prometheus-operator-crd](https://github.com/giantswarm/prometheus-operator-crd) chart,
-check Changelog: [32.x to 43.x](../../changelog/32.x_43.x.md)
+check Changelog: [32.x to 44.x](../../changelog/32.x_44.x.md)
 
 #### From 23.x to 32.x
 
