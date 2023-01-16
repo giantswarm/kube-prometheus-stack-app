@@ -7,9 +7,18 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
-### Removed
+## [3.0.0] - 2023-01-16
 
-- Delete push job to capa-app-collection, gcp-app-collection, openstack-app-collection
+### Changed
+
+- Update chart to [kube-prometheus-stack-44.2.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-44.2.0). See [breaking changes](./changelog/32.x_44.x.md)
+    - Update `alertmanager` from 0.23.0 to 0.25.0
+    - Update `grafana` from 6.22.* to 6.48.*
+    - Update `kube-state-metrics` from 4.5.* to 4.24.*
+    - Update `prometheus` from 2.33.1 to 2.41.0
+    - Update `prometheus-node-exporter` from 2.5.* to 4.8.*
+    - Update `prometheus-operator` from [0.54.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.54.0) to [0.62.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.62.0)
+    - Update `thanos` from 0.24.0 to 0.30.1
 
 ## [2.1.2] - 2022-12-05
 
@@ -50,7 +59,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Upgrade prometheus-operator to v0.54.0, There's a lot of breaking changes please check [update-changes](./changelog/23.x_32.x.md)
+- Update `upstream chart` to [kube-prometheus-stack-32.4.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-32.4.0). See [breaking changes](./changelog/23.x_32.x.md)
+    - Upgrade `prometheus-operator` from [0.52.1](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.52.1) to [0.54.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.54.0)
+    - Update `prometheus` from 2.31.1 to 2.33.1
 
 ## [1.3.1] - 2022-10-06
 
@@ -353,7 +364,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.2...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.2...v3.0.0
 [2.1.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.2...v2.1.0

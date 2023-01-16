@@ -2,7 +2,7 @@
 
 ### Upgrade the upstream Chart.
 
-- First check the changelog in upstream and take notes
+- First check the upstream changelog and take notes
 
 - Then, find a suitable version.
 
@@ -27,7 +27,6 @@
 
 - Annonce the change to our customers.
 
-
 ### Update documentation
 
 Chart documentation is generated with [helm-docs](https://github.com/norwoodj/helm-docs) from `values.yaml` file.
@@ -36,6 +35,3 @@ After file modification, regenerate README.md with command:
 ```bash
 ./script/update-docs.sh
 ```
-
-
-
