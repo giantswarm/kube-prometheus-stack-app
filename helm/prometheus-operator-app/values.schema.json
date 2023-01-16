@@ -1,0 +1,293 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "prometheus-operator-app": {
+            "type": "object",
+            "properties": {
+                "alertmanager": {
+                    "type": "object",
+                    "properties": {
+                        "alertmanagerSpec": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "object",
+                                    "properties": {
+                                        "repository": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "ingress": {
+                            "type": "object",
+                            "properties": {
+                                "ingressClassName": {
+                                    "type": "string"
+                                },
+                                "pathType": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "ingressPerReplica": {
+                            "type": "object",
+                            "properties": {
+                                "ingressClassName": {
+                                    "type": "string"
+                                },
+                                "pathType": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "coreDns": {
+                    "type": "object",
+                    "properties": {
+                        "service": {
+                            "type": "object",
+                            "properties": {
+                                "selector": {
+                                    "type": "object",
+                                    "properties": {
+                                        "k8s-app": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "global": {
+                    "type": "object",
+                    "properties": {
+                        "imageRegistry": {
+                            "type": "string"
+                        },
+                        "rbac": {
+                            "type": "object",
+                            "properties": {
+                                "create": {
+                                    "type": "boolean"
+                                },
+                                "pspEnabled": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                },
+                "grafana": {
+                    "type": "object",
+                    "properties": {
+                        "ingress": {
+                            "type": "object",
+                            "properties": {
+                                "ingressClassName": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "rbac": {
+                            "type": "object",
+                            "properties": {
+                                "pspEnabled": {
+                                    "type": "boolean"
+                                },
+                                "pspUseAppArmor": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                },
+                "kubeStateMetrics": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "nodeExporter": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "prometheus": {
+                    "type": "object",
+                    "properties": {
+                        "ingress": {
+                            "type": "object",
+                            "properties": {
+                                "ingressClassName": {
+                                    "type": "string"
+                                },
+                                "pathType": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "ingressPerReplica": {
+                            "type": "object",
+                            "properties": {
+                                "ingressClassName": {
+                                    "type": "string"
+                                },
+                                "pathType": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "prometheusSpec": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "object",
+                                    "properties": {
+                                        "repository": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "thanosIngress": {
+                            "type": "object",
+                            "properties": {
+                                "ingressClassName": {
+                                    "type": "string"
+                                },
+                                "pathType": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "prometheusOperator": {
+                    "type": "object",
+                    "properties": {
+                        "admissionWebhooks": {
+                            "type": "object",
+                            "properties": {
+                                "patch": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image": {
+                                            "type": "object",
+                                            "properties": {
+                                                "repository": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "alertmanagerDefaultBaseImage": {
+                            "type": "string"
+                        },
+                        "image": {
+                            "type": "object",
+                            "properties": {
+                                "repository": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "labels": {
+                            "type": "object",
+                            "properties": {
+                                "giantswarm.io/monitoring_basic_sli": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "networkPolicy": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
+                        "prometheusConfigReloader": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "object",
+                                    "properties": {
+                                        "repository": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "prometheusDefaultBaseImage": {
+                            "type": "string"
+                        },
+                        "secretFieldSelector": {
+                            "type": "string"
+                        },
+                        "thanosImage": {
+                            "type": "object",
+                            "properties": {
+                                "repository": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "verticalPodAutoscaler": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                },
+                "thanosRuler": {
+                    "type": "object",
+                    "properties": {
+                        "ingress": {
+                            "type": "object",
+                            "properties": {
+                                "ingressClassName": {
+                                    "type": "string"
+                                },
+                                "pathType": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "thanosRulerSpec": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "object",
+                                    "properties": {
+                                        "repository": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
