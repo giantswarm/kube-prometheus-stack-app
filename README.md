@@ -1,12 +1,11 @@
 # Prometheus Operator App
 
-[![CircleCI](https://circleci.com/gh/giantswarm/promtail-app.svg?style=shield)](https://circleci.com/gh/giantswarm/prometheus-operator-app)
+[![CircleCI](https://circleci.com/gh/giantswarm/prometheus-operator-app.svg?style=shield)](https://circleci.com/gh/giantswarm/prometheus-operator-app)
 
 Giant Swarm offers Prometheus Operator as a [managed app](https://docs.giantswarm.io/changes/managed-apps/) which can be installed in any clusters.
 
 **Table of Contents:**
 
-- [Prometheus Operator App](#prometheus-operator-app)
 - [Requirements](#requirements)
 - [Install](#install)
 - [Upgrading](#upgrading)
@@ -368,27 +367,11 @@ By default, Prometheus Operator App is configured to scrape all targets equipped
 ```yaml
 prometheus-operator-app:
   kubeStateMetrics:
-    enabled: false
+    enabled: true
   nodeExporter:
-    enabled: false
+    enabled: true
 ```
 As this application is build upon the kube-prometheus-stack community driven upstream chart as a dependency, most of the values to override can be found [here](https://github.com/prometheus-community/helm-charts/blob/kube-prometheus-stack-44.2.0/charts/kube-prometheus-stack/values.yaml).
-
-### values.yaml
-
-**This is an example of a values file you could upload using our web interface.**
-
-```yaml
-# values.yaml
-promtail:
-  resources:
-    limits:
-      cpu: 200m
-      memory: 256Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
-```
 
 ### Sample App CR and ConfigMap for the management cluster
 
@@ -404,18 +387,18 @@ apiVersion: application.giantswarm.io/v1alpha1
 kind: App
 metadata:
   labels:
-  name: promtail-app
+  name: prometheus-operator-app
   # workload cluster resources live in a namespace with the same ID as the
   # workload cluster.
   namespace: abc12
 spec:
-  name: promtail-app
-  namespace: promtail
+  name: prometheus-operator-app
+  namespace: prometheus-operator-app
   catalog: giantswarm
   version: 2.2.0
   userConfig:
     configMap:
-      name: promtail-app-user-values
+      name: prometheus-operator-app-user-values
       namespace: abc12
 ```
 
@@ -424,19 +407,15 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-ingress-controller-app-user-values
+  name: prometheus-operator-app-user-values
   namespace: abc12
 data:
   values: |
-    promtail:
-      # -- Resource requests and limits
-      resources:
-        limits:
-          cpu: 200m
-          memory: 256Mi
-        requests:
-          cpu: 100m
-          memory: 128Mi
+    prometheus-operator-app:
+      kubeStateMetrics:
+        enabled: true
+      nodeExporter:
+        enabled: true
 ```
 
 See our [full reference on how to configure apps](https://docs.giantswarm.io/app-platform/app-configuration/) for more details.
@@ -459,6 +438,6 @@ If you want to use it for any other scenario, know that you might need to adjust
 
 ## Credit
 
-This application is installating the upstream chart below with defaults to ensure it runs smoothly in Giant Swarm clusters.
+This application is installing the upstream chart below with defaults to ensure it runs smoothly in Giant Swarm clusters.
 
 * <https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack>
