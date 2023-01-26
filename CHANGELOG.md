@@ -11,7 +11,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Update chart to [kube-prometheus-stack-44.2.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-44.2.0). See [breaking changes](./changelog/32.x_44.x.md)
+- Update chart to [kube-prometheus-stack-44.2.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-44.2.0). See [breaking changes](https://github.com/giantswarm/prometheus-operator-app/blob/main/README.md#from-2x-to-3x)
     - Update `alertmanager` from 0.23.0 to 0.25.0
     - Update `grafana` from 6.22.* to 6.48.*
     - Update `kube-state-metrics` from 4.5.* to 4.24.*
@@ -59,7 +59,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Update `upstream chart` to [kube-prometheus-stack-32.4.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-32.4.0). See [breaking changes](./changelog/23.x_32.x.md)
+- Update `upstream chart` to [kube-prometheus-stack-32.4.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-32.4.0). See [breaking changes](https://github.com/giantswarm/prometheus-operator-app/blob/main/README.md#from-13x-to-2x)
     - Upgrade `prometheus-operator` from [0.52.1](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.52.1) to [0.54.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.54.0)
     - Update `prometheus` from 2.31.1 to 2.33.1
 
