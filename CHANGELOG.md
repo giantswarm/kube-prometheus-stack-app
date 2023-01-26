@@ -11,7 +11,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Update chart to [kube-prometheus-stack-44.2.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-44.2.0). See [breaking changes](https://github.com/giantswarm/prometheus-operator-app/blob/master/README.md#from-2.x-to-3.x)
+- Update chart to [kube-prometheus-stack-44.2.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-44.2.0). See [breaking changes](https://github.com/giantswarm/prometheus-operator-app/blob/main/README.md#from-2x-to-3x)
     - Update `alertmanager` from 0.23.0 to 0.25.0
     - Update `grafana` from 6.22.* to 6.48.*
     - Update `kube-state-metrics` from 4.5.* to 4.24.*
