@@ -11,6 +11,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Update chart to [kube-prometheus-stack-44.3.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-44.3.1).
     - Update `grafana` from 6.48.* to 6.50.*
+- Enable prometheus-node-exporter psp by default
 
 ## [3.0.0] - 2023-01-16
 
