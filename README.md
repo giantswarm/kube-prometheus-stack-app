@@ -38,6 +38,8 @@ This version upgrades the kube-prometheus-stack chart from 32.x to 44.x and brin
 
 ⚠️ The chart is enabling VPA and hence removing the configured resource requests and limits for the prometheus operator.
 
+⚠️ If you are using the node-exporter subchart, you need to delete it prior to the upgrade as per https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack#from-39x-to-40x
+
 #### Values diff:
 
 In order to upgrade to 3.0.0, you should check the changes in values below and adapt yours accordingly.
