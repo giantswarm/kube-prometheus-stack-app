@@ -29,6 +29,9 @@ prometheus-operator-app:
     enabled: false
   nodeExporter:
     enabled: false
+  prometheus-node-exporter:
+    rbac:
+      pspEnabled: true
   prometheus:
     prometheusSpec:
       image:
