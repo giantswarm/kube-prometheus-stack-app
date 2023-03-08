@@ -15,6 +15,7 @@ prometheus-operator-app:
       ingressClassName: nginx
       pathType: ImplementationSpecific
   coreDns:
+    enabled: false
     # This PR fixes the coredns service as we use the `k8s-app: coredns` label
     service:
       selector:
@@ -25,8 +26,29 @@ prometheus-operator-app:
       pspUseAppArmor: false
     ingress:
       ingressClassName: nginx
+  kubeApiServer:
+    enabled: false
+  kubelet:
+    enabled: false
+  kubeControllerManager:
+    enabled: false
+  kubeEtcd:
+    enabled: false
+  kubeProxy:
+    enabled: false
+  kubeScheduler:
+    enabled: false
   kubeStateMetrics:
     enabled: false
+  kube-state-metrics:
+    verticalPodAutoscaler:
+      enabled: true
+    networkPolicy:
+      enabled: true
+      egress:
+      - {}
+      ingress:
+      - {}
   nodeExporter:
     enabled: false
   prometheus-node-exporter:
@@ -46,6 +68,7 @@ prometheus-operator-app:
       ingressClassName: nginx
       pathType: ImplementationSpecific
   prometheusOperator:
+    enabled: false
     admissionWebhooks:
       patch:
         image:
@@ -69,6 +92,7 @@ prometheus-operator-app:
     verticalPodAutoscaler:
       enabled: true
   thanosRuler:
+    enabled: false
     thanosRulerSpec:
       image:
         repository: giantswarm/thanos
