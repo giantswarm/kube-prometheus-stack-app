@@ -9,10 +9,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Update chart to [kube-prometheus-stack-45.6.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-45.6.0).
+- Update chart to [kube-prometheus-stack-45.7.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-45.7.1).
     - Update `prometheus-operator` from [0.62.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.62.0) to [0.63.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.63.0)
     - Update `prometheus` from 2.41.0 to 2.43.0
-    - Update `kube-state-metrics` from 4.24.* to 4.31.*
+    - Update `kube-state-metrics` from 4.24.* to 5.0.*
     - Update `prometheus-node-exporter` from 4.8.* to 4.14.*
     - Update `grafana` from 6.48.* to 6.51.*
     - Update `thanos` from 0.30.1 to 0.30.2
