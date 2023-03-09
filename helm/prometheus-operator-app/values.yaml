@@ -15,7 +15,7 @@ prometheus-operator-app:
       ingressClassName: nginx
       pathType: ImplementationSpecific
   coreDns:
-    enabled: false
+    enabled: true
     # This PR fixes the coredns service as we use the `k8s-app: coredns` label
     service:
       selector:
@@ -27,17 +27,17 @@ prometheus-operator-app:
     ingress:
       ingressClassName: nginx
   kubeApiServer:
-    enabled: false
+    enabled: true
   kubelet:
-    enabled: false
+    enabled: true
   kubeControllerManager:
-    enabled: false
+    enabled: true
   kubeEtcd:
-    enabled: false
+    enabled: true
   kubeProxy:
-    enabled: false
+    enabled: true
   kubeScheduler:
-    enabled: false
+    enabled: true
   kubeStateMetrics:
     enabled: false
   kube-state-metrics:
@@ -68,7 +68,7 @@ prometheus-operator-app:
       ingressClassName: nginx
       pathType: ImplementationSpecific
   prometheusOperator:
-    enabled: false
+    enabled: true
     admissionWebhooks:
       patch:
         image:
