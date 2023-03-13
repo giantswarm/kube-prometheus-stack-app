@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Enable `kube-state-metrics` from kube-prometheus-stack.
+
 ## [4.0.0] - 2023-03-13
 
 ### Changed

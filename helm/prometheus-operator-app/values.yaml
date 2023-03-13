@@ -1,9 +1,10 @@
+global:
+  imagePullSecrets: []
+  imageRegistry: docker.io
+  rbac:
+    create: true
+    pspEnabled: true
 prometheus-operator-app:
-  global:
-    imageRegistry: docker.io
-    rbac:
-      create: true
-      pspEnabled: true
   alertmanager:
     alertmanagerSpec:
       image:
@@ -39,16 +40,49 @@ prometheus-operator-app:
   kubeScheduler:
     enabled: true
   kubeStateMetrics:
-    enabled: false
+    enabled: true
   kube-state-metrics:
-    verticalPodAutoscaler:
-      enabled: true
+    image:
+      repository: giantswarm/kube-state-metrics
+    metricLabelsAllowlist:
+    - daemonsets=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
+    - deployments=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
+    - nodes=[ip, giantswarm.io/machine-pool, giantswarm.io/machine-deployment, topology.kubernetes.io/region, topology.kubernetes.io/zone]
+    - statefulsets=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
     networkPolicy:
       enabled: true
       egress:
-      - {}
+      - to:
+        - ipBlock:
+            cidr: 10.0.0.0/8
+        - ipBlock:
+            cidr: 172.16.0.0/12
+        - ipBlock:
+            cidr: 192.168.0.0/16
+        - ipBlock:
+            cidr: 100.64.0.0/10
       ingress:
-      - {}
+      - ports:
+        - port: 8080
+          protocol: TCP
+    podAnnotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    podSecurityPolicy:
+      enabled: true
+    # Remove prometheus.io/scrape annotation
+    prometheusScrape: false
+    ## We set resources so VPA can do its thing
+    resources:
+      requests:
+        cpu: 200m
+        memory: 200Mi
+      limits:
+        cpu: 200m
+        memory: 200Mi
+    selfMonitor:
+      enabled: true
+    verticalPodAutoscaler:
+      enabled: true
   nodeExporter:
     enabled: false
   prometheus-node-exporter:
