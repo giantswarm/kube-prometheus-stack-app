@@ -21,6 +21,7 @@ prometheus-operator-app:
       selector:
         k8s-app: coredns
   grafana:
+    enabled: true
     rbac:
       pspEnabled: true
       pspUseAppArmor: false
@@ -50,11 +51,79 @@ prometheus-operator-app:
       ingress:
       - {}
   nodeExporter:
-    enabled: false
+    enabled: true
   prometheus-node-exporter:
+    ## Blocked by those 2
+    disableConntrackCollector: false
+    disableNvmeCollector: false
+    extraArgs:
+    - '--log.level=info'
+    - '--collector.arp'
+    - '--collector.bcache'
+    - '--collector.conntrack'
+    - '--collector.cpu'
+    - '--collector.diskstats'
+    - '--collector.edac'
+    - '--collector.entropy'
+    - '--collector.ethtool'
+    - '--collector.filefd'
+    - '--collector.filesystem'
+    - '--collector.filesystem.mount-points-exclude=boot'
+    - '--collector.hwmon'
+    - '--collector.loadavg'
+    - '--collector.mdadm'
+    - '--collector.meminfo'
+    - '--collector.netdev'
+    - '--collector.netstat'
+    - '--collector.sockstat'
+    - '--collector.stat'
+    - '--collector.systemd'
+    - '--collector.time'
+    - '--collector.timex'
+    - '--collector.uname'
+    - '--collector.vmstat'
+    - '--collector.xfs'
+    - '--no-collector.btrfs'
+    - '--no-collector.infiniband'
+    - '--no-collector.ipvs'
+    - '--no-collector.powersupplyclass'
+    - '--no-collector.rapl'
+    - '--no-collector.schedstat'
+    - '--no-collector.softnet'
+    - '--no-collector.textfile'
+    - '--no-collector.thermal_zone'
+    - '--no-collector.udp_queues'
+    - '--no-collector.wifi'
+    - '--no-collector.zfs'
+    - '--no-collector.tapestats'
+    - '--no-collector.fibrechannel'
+    extraHostVolumeMounts:
+    - name: dbus
+      hostPath: /var/run/dbus
+      mountPath: /var/run/dbus
+      readOnly: true
+      mountPropagation: HostToContainer
+    - name: systemd
+      hostPath: /run/systemd
+      mountPath: /run/systemd
+      readOnly: true
+      mountPropagation: HostToContainer
+    image:
+      repository: giantswarm/node-exporter
+    priorityClassName: system-node-critical
     rbac:
       pspEnabled: true
+    resources:
+      limits:
+        cpu: 50m
+        memory: 50Mi
+      requests:
+        cpu: 50m
+        memory: 50Mi
+    verticalPodAutoscaler:
+      enabled: true
   prometheus:
+    enabled: true
     prometheusSpec:
       image:
         repository: giantswarm/prometheus

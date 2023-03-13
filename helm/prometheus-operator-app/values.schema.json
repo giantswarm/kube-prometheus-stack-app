@@ -48,6 +48,9 @@
                 "coreDns": {
                     "type": "object",
                     "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "service": {
                             "type": "object",
                             "properties": {
@@ -85,6 +88,9 @@
                 "grafana": {
                     "type": "object",
                     "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "ingress": {
                             "type": "object",
                             "properties": {
@@ -106,7 +112,88 @@
                         }
                     }
                 },
+                "kube-state-metrics": {
+                    "type": "object",
+                    "properties": {
+                        "networkPolicy": {
+                            "type": "object",
+                            "properties": {
+                                "egress": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "ingress": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        },
+                        "verticalPodAutoscaler": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                },
+                "kubeApiServer": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "kubeControllerManager": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "kubeEtcd": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "kubeProxy": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "kubeScheduler": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "kubeStateMetrics": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "kubelet": {
                     "type": "object",
                     "properties": {
                         "enabled": {
@@ -125,6 +212,9 @@
                 "prometheus": {
                     "type": "object",
                     "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "ingress": {
                             "type": "object",
                             "properties": {
@@ -173,6 +263,100 @@
                         }
                     }
                 },
+                "prometheus-node-exporter": {
+                    "type": "object",
+                    "properties": {
+                        "disableConntrackCollector": {
+                            "type": "boolean"
+                        },
+                        "disableNvmeCollector": {
+                            "type": "boolean"
+                        },
+                        "extraArgs": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "extraHostVolumeMounts": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "hostPath": {
+                                        "type": "string"
+                                    },
+                                    "mountPath": {
+                                        "type": "string"
+                                    },
+                                    "mountPropagation": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "readOnly": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            }
+                        },
+                        "image": {
+                            "type": "object",
+                            "properties": {
+                                "repository": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "priorityClassName": {
+                            "type": "string"
+                        },
+                        "rbac": {
+                            "type": "object",
+                            "properties": {
+                                "pspEnabled": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
+                        "resources": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "verticalPodAutoscaler": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                },
                 "prometheusOperator": {
                     "type": "object",
                     "properties": {
@@ -196,6 +380,9 @@
                         },
                         "alertmanagerDefaultBaseImage": {
                             "type": "string"
+                        },
+                        "enabled": {
+                            "type": "boolean"
                         },
                         "image": {
                             "type": "object",
@@ -261,6 +448,9 @@
                 "thanosRuler": {
                     "type": "object",
                     "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "ingress": {
                             "type": "object",
                             "properties": {

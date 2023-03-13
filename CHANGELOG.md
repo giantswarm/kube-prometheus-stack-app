@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Enable node exporter app.
+
 ## [4.0.0] - 2023-03-13
 
 ### Changed
