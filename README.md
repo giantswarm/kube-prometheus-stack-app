@@ -32,6 +32,10 @@ There are several ways to install this app onto a workload cluster.
 
 A major chart version change (like v0.5.0 -> v1.0.0) indicates that there is an incompatible breaking change needing manual actions.
 
+### From 3.x to 4.x
+
+This version upgrades the kube-prometheus-stack chart from 44.x to 45.x and brings a small subset of changes (mainly upgrading prometheus-operator from 0.62 to 0.63 and a bunch of fixes).
+
 ### From 2.x to 3.x
 
 This version upgrades the kube-prometheus-stack chart from 32.x to 44.x and brings along a lot of changes.

@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "v0.62.0"
+appVersion: "v0.63.0"
 name: prometheus-operator-app
 description: Giant Swarm's Prometheus Operator Deployment
 icon: https://s.giantswarm.io/app-icons/prometheus-operator/2/light.svg
