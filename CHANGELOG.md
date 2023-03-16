@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [4.0.1] - 2023-03-16
+
 ### Fixed
 
 - Fix kube-state-metrics image repository.
@@ -381,7 +383,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.0.1...HEAD
+[4.0.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v3.0.0...v4.0.0
 [3.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.2...v3.0.0
 [2.1.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.1...v2.1.2
