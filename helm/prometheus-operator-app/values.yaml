@@ -190,6 +190,12 @@ prometheus-operator-app:
       - ports:
         - port: 8080
           protocol: TCP
+        - port: 8081
+          protocol: TCP
+    podAnnotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    podSecurityPolicy:
+      enabled: true
     prometheus:
       monitor:
         metricRelabelings:
@@ -246,10 +252,6 @@ prometheus-operator-app:
           targetLabel: nodepool
           replacement: ${1}
           action: replace
-    podAnnotations:
-      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-    podSecurityPolicy:
-      enabled: true
     # Remove prometheus.io/scrape annotation
     prometheusScrape: false
     ## We set resources so VPA can do its thing
