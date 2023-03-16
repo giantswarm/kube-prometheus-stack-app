@@ -65,6 +65,8 @@ prometheus-operator-app:
       - ports:
         - port: 8080
           protocol: TCP
+        - port: 8081
+          protocol: TCP
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
     podSecurityPolicy:
