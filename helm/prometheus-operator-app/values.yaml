@@ -41,6 +41,8 @@ prometheus-operator-app:
   kubeStateMetrics:
     enabled: false
   kube-state-metrics:
+    image:
+      repository: giantswarm/kube-state-metrics
     verticalPodAutoscaler:
       enabled: true
     networkPolicy:
