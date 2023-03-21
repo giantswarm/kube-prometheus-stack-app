@@ -167,6 +167,7 @@ prometheus-operator-app:
   kubeStateMetrics:
     enabled: true
   kube-state-metrics:
+    # TODO Add Cilium Network Policy https://github.com/giantswarm/kube-state-metrics-app/pull/183
     image:
       repository: giantswarm/kube-state-metrics
     metricLabelsAllowlist:
@@ -253,6 +254,12 @@ prometheus-operator-app:
           replacement: ${1}
           action: replace
     # Remove prometheus.io/scrape annotation
+    prometheus:
+      monitor:
+        enabled: true
+        relabelings:
+        - action: labeldrop
+          regex: uid|container_id
     prometheusScrape: false
     ## We set resources so VPA can do its thing
     resources:
