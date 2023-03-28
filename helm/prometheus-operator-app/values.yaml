@@ -69,7 +69,7 @@ prometheus-operator-app:
   kubeEtcd:
     enabled: true
   kubeProxy:
-    enabled: false
+    enabled: true
   kubeScheduler:
     enabled: true
     service:
