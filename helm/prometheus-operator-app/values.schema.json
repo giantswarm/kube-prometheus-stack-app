@@ -48,6 +48,9 @@
                 "coreDns": {
                     "type": "object",
                     "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "service": {
                             "type": "object",
                             "properties": {
@@ -106,7 +109,185 @@
                         }
                     }
                 },
+                "kube-state-metrics": {
+                    "type": "object",
+                    "properties": {
+                        "image": {
+                            "type": "object",
+                            "properties": {
+                                "repository": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "networkPolicy": {
+                            "type": "object",
+                            "properties": {
+                                "egress": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "ingress": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        },
+                        "verticalPodAutoscaler": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                },
+                "kubeApiServer": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "serviceMonitor": {
+                            "type": "object",
+                            "properties": {
+                                "metricRelabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "action": {
+                                                "type": "string"
+                                            },
+                                            "regex": {
+                                                "type": "string"
+                                            },
+                                            "sourceLabels": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "relabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "replacement": {
+                                                "type": "string"
+                                            },
+                                            "targetLabel": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "kubeControllerManager": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "serviceMonitor": {
+                            "type": "object",
+                            "properties": {
+                                "https": {
+                                    "type": "boolean"
+                                },
+                                "insecureSkipVerify": {
+                                    "type": "boolean"
+                                },
+                                "relabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "replacement": {
+                                                "type": "string"
+                                            },
+                                            "targetLabel": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "kubeEtcd": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "kubeProxy": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "kubeScheduler": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "serviceMonitor": {
+                            "type": "object",
+                            "properties": {
+                                "https": {
+                                    "type": "boolean"
+                                },
+                                "insecureSkipVerify": {
+                                    "type": "boolean"
+                                },
+                                "relabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "replacement": {
+                                                "type": "string"
+                                            },
+                                            "targetLabel": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 "kubeStateMetrics": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "kubelet": {
                     "type": "object",
                     "properties": {
                         "enabled": {
@@ -173,6 +354,19 @@
                         }
                     }
                 },
+                "prometheus-node-exporter": {
+                    "type": "object",
+                    "properties": {
+                        "rbac": {
+                            "type": "object",
+                            "properties": {
+                                "pspEnabled": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                },
                 "prometheusOperator": {
                     "type": "object",
                     "properties": {
@@ -196,6 +390,9 @@
                         },
                         "alertmanagerDefaultBaseImage": {
                             "type": "string"
+                        },
+                        "enabled": {
+                            "type": "boolean"
                         },
                         "image": {
                             "type": "object",
@@ -240,6 +437,28 @@
                         "secretFieldSelector": {
                             "type": "string"
                         },
+                        "serviceMonitor": {
+                            "type": "object",
+                            "properties": {
+                                "relabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "sourceLabels": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "targetLabel": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
                         "thanosImage": {
                             "type": "object",
                             "properties": {
@@ -261,6 +480,9 @@
                 "thanosRuler": {
                     "type": "object",
                     "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "ingress": {
                             "type": "object",
                             "properties": {

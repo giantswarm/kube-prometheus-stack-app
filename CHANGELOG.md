@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Move config to the default values
+
 ## [4.0.1] - 2023-03-16
 
 ### Fixed

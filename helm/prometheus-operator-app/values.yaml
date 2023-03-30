@@ -28,16 +28,67 @@ prometheus-operator-app:
       ingressClassName: nginx
   kubeApiServer:
     enabled: true
+    serviceMonitor:
+      relabelings:
+      # Add app label.
+      - targetLabel: app
+        replacement: kubernetes
+      metricRelabelings:
+        # Keep from upstream values (https://github.com/prometheus-community/helm-charts/blob/kube-prometheus-stack-44.4.1/charts/kube-prometheus-stack/values.yaml#L967)
+      - action: drop
+        regex: apiserver_request_duration_seconds_bucket;(0.15|0.2|0.3|0.35|0.4|0.45|0.6|0.7|0.8|0.9|1.25|1.5|1.75|2|3|3.5|4|4.5|6|7|8|9|15|25|40|50)
+        sourceLabels:
+        - __name__
+        - le
+      # GS addition to reduce cardinality
+      - action: drop
+        regex: apiserver_request_slo_duration_seconds_bucket
+        sourceLabels:
+        - __name__
   kubelet:
     enabled: true
   kubeControllerManager:
     enabled: true
+    service:
+      port: 10257
+      targetPort: 10257
+      selector:
+        component: kube-controller-manager
+    serviceMonitor:
+      https: true
+      insecureSkipVerify: true
+      relabelings:
+      # Add app label.
+      - targetLabel: app
+        replacement: kube-controller-manager
+      # Add node label.
+      - sourceLabels:
+        - __meta_kubernetes_pod_node_name
+        targetLabel: node
+
   kubeEtcd:
     enabled: true
   kubeProxy:
     enabled: true
   kubeScheduler:
     enabled: true
+    service:
+      port: 10259
+      targetPort: 10259
+      selector:
+        component: kube-scheduler
+    serviceMonitor:
+      https: true
+      insecureSkipVerify: true
+      relabelings:
+      # Add app label.
+      - targetLabel: app
+        replacement: kube-scheduler
+      # Add node label.
+      - sourceLabels:
+        - __meta_kubernetes_pod_node_name
+        targetLabel: node
+
   kubeStateMetrics:
     enabled: false
   kube-state-metrics:
@@ -93,6 +144,24 @@ prometheus-operator-app:
       repository: giantswarm/thanos
     verticalPodAutoscaler:
       enabled: true
+    serviceMonitor:
+      relabelings:
+      # Add app label.
+      - sourceLabels:
+        - __meta_kubernetes_pod_label_app_kubernetes_io_name
+        targetLabel: app
+        # Add instance label.
+      - sourceLabels:
+        - __meta_kubernetes_pod_label_app_kubernetes_io_instance
+        targetLabel: instance
+      # Add node label.
+      - sourceLabels:
+        - __meta_kubernetes_pod_node_name
+        targetLabel: node
+      # Add team label.
+      - sourceLabels:
+        - __meta_kubernetes_pod_label_application_giantswarm_io_team
+        targetLabel: team
   thanosRuler:
     enabled: false
     thanosRulerSpec:
