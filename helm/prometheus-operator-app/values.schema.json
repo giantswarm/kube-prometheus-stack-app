@@ -199,6 +199,33 @@
                                 }
                             }
                         },
+                        "prometheus": {
+                            "type": "object",
+                            "properties": {
+                                "monitor": {
+                                    "type": "object",
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean"
+                                        },
+                                        "relabelings": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "action": {
+                                                        "type": "string"
+                                                    },
+                                                    "regex": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
                         "prometheusScrape": {
                             "type": "boolean"
                         },
@@ -252,6 +279,45 @@
                     "properties": {
                         "enabled": {
                             "type": "boolean"
+                        },
+                        "serviceMonitor": {
+                            "type": "object",
+                            "properties": {
+                                "metricRelabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "action": {
+                                                "type": "string"
+                                            },
+                                            "regex": {
+                                                "type": "string"
+                                            },
+                                            "sourceLabels": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "relabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "replacement": {
+                                                "type": "string"
+                                            },
+                                            "targetLabel": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -260,6 +326,50 @@
                     "properties": {
                         "enabled": {
                             "type": "boolean"
+                        },
+                        "service": {
+                            "type": "object",
+                            "properties": {
+                                "port": {
+                                    "type": "integer"
+                                },
+                                "selector": {
+                                    "type": "object",
+                                    "properties": {
+                                        "component": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "targetPort": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "serviceMonitor": {
+                            "type": "object",
+                            "properties": {
+                                "https": {
+                                    "type": "boolean"
+                                },
+                                "insecureSkipVerify": {
+                                    "type": "boolean"
+                                },
+                                "relabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "replacement": {
+                                                "type": "string"
+                                            },
+                                            "targetLabel": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -284,6 +394,50 @@
                     "properties": {
                         "enabled": {
                             "type": "boolean"
+                        },
+                        "service": {
+                            "type": "object",
+                            "properties": {
+                                "port": {
+                                    "type": "integer"
+                                },
+                                "selector": {
+                                    "type": "object",
+                                    "properties": {
+                                        "component": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "targetPort": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "serviceMonitor": {
+                            "type": "object",
+                            "properties": {
+                                "https": {
+                                    "type": "boolean"
+                                },
+                                "insecureSkipVerify": {
+                                    "type": "boolean"
+                                },
+                                "relabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "replacement": {
+                                                "type": "string"
+                                            },
+                                            "targetLabel": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -444,6 +598,28 @@
                         },
                         "secretFieldSelector": {
                             "type": "string"
+                        },
+                        "serviceMonitor": {
+                            "type": "object",
+                            "properties": {
+                                "relabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "sourceLabels": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "targetLabel": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         },
                         "thanosImage": {
                             "type": "object",

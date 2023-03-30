@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Enable `kube-state-metrics` from kube-prometheus-stack.
+- Update default values to work in Giant Swarm clusters
 
 ## [4.0.1] - 2023-03-16
 
