@@ -42,7 +42,19 @@ prometheus-operator-app:
         - le
       # GS addition to reduce cardinality
       - action: drop
-        regex: apiserver_request_slo_duration_seconds_bucket
+        regex: apiserver_(longrunning_requests|watch_events_sizes_count|watch_events_sizes_sum|storage_list_fetched_objects_total|storage_list_total|storage_list_returned_objects_total)
+        sourceLabels:
+        - __name__
+      - action: drop
+        regex: apiserver_request_(slo_(duration_seconds_bucket|duration_seconds_sum)|duration_seconds_sum)
+        sourceLabels:
+        - __name__
+      - action: drop
+        regex: apiserver_response_(sizes_count|sizes_sum)
+        sourceLabels:
+        - __name__
+      - action: drop
+        regex: apiextensions_openapi_v2_regeneration_count|apiextensions_openapi_v3_regeneration_count
         sourceLabels:
         - __name__
   kubelet:
@@ -125,8 +137,6 @@ prometheus-operator-app:
     admissionWebhooks:
       patch:
         image:
-          # We have 2 images for this: https://github.com/giantswarm/retagger/blob/dc815cbec228a32d7dc1859e6e3c73bef5488b52/images.yaml#L1069 and https://github.com/giantswarm/retagger/blob/dc815cbec228a32d7dc1859e6e3c73bef5488b52/images.yaml#L513
-          # The jettech one is old and does not work with Kubernetes 1.22. We need to deprecate it later.
           repository: giantswarm/ingress-nginx-kube-webhook-certgen
     alertmanagerDefaultBaseImage: giantswarm/alertmanager
     image:
