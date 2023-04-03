@@ -5,6 +5,9 @@
         "global": {
             "type": "object",
             "properties": {
+                "imagePullSecrets": {
+                    "type": "array"
+                },
                 "imageRegistry": {
                     "type": "string"
                 },
@@ -145,13 +148,37 @@
                                 }
                             }
                         },
+                        "metricLabelsAllowlist": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
                         "networkPolicy": {
                             "type": "object",
                             "properties": {
                                 "egress": {
                                     "type": "array",
                                     "items": {
-                                        "type": "object"
+                                        "type": "object",
+                                        "properties": {
+                                            "to": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "ipBlock": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "cidr": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 },
                                 "enabled": {
@@ -160,8 +187,40 @@
                                 "ingress": {
                                     "type": "array",
                                     "items": {
-                                        "type": "object"
+                                        "type": "object",
+                                        "properties": {
+                                            "ports": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "port": {
+                                                            "type": "integer"
+                                                        },
+                                                        "protocol": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
+                                }
+                            }
+                        },
+                        "podAnnotations": {
+                            "type": "object",
+                            "properties": {
+                                "cluster-autoscaler.kubernetes.io/safe-to-evict": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "podSecurityPolicy": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
                                 }
                             }
                         },
@@ -171,6 +230,9 @@
                                 "monitor": {
                                     "type": "object",
                                     "properties": {
+                                        "enabled": {
+                                            "type": "boolean"
+                                        },
                                         "metricRelabelings": {
                                             "type": "array",
                                             "items": {
@@ -192,6 +254,44 @@
                                             }
                                         }
                                     }
+                                }
+                            }
+                        },
+                        "prometheusScrape": {
+                            "type": "boolean"
+                        },
+                        "resources": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "selfMonitor": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
                                 }
                             }
                         },
@@ -423,44 +523,49 @@
                 "kubelet": {
                     "type": "object",
                     "properties": {
-                        "cadvisorMetricRelabelings": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "action": {
-                                        "type": "string"
-                                    },
-                                    "regex": {
-                                        "type": "string"
-                                    },
-                                    "sourceLabels": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        },
                         "enabled": {
                             "type": "boolean"
                         },
-                        "metricRelabelings": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "action": {
-                                        "type": "string"
-                                    },
-                                    "regex": {
-                                        "type": "string"
-                                    },
-                                    "source_labels": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "string"
+                        "serviceMonitor": {
+                            "type": "object",
+                            "properties": {
+                                "cAdvisorMetricRelabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "action": {
+                                                "type": "string"
+                                            },
+                                            "regex": {
+                                                "type": "string"
+                                            },
+                                            "sourceLabels": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "metricRelabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "action": {
+                                                "type": "string"
+                                            },
+                                            "regex": {
+                                                "type": "string"
+                                            },
+                                            "source_labels": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
                                         }
                                     }
                                 }

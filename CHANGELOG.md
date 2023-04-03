@@ -12,6 +12,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Configure defaults so the app can run successfully in Giant Swarm clusters.
 - Drop unused api-server metrics.
 - Align metric configuration with prometheus-meta-operator scrape config.
+- Enable `kube-state-metrics` from kube-prometheus-stack.
+- Update default values to work in Giant Swarm clusters
 
 ## [4.0.1] - 2023-03-16
 

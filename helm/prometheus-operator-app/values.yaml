@@ -1,4 +1,5 @@
 global:
+  imagePullSecrets: []
   imageRegistry: docker.io
   rbac:
     create: true
@@ -49,7 +50,7 @@ prometheus-operator-app:
         - le
       # GS addition to reduce cardinality
       # drop unused rest client metrics
-      - source_labels: [__name__]
+      - sourceLabels: [__name__]
         regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
         action: drop
       - action: drop
@@ -100,13 +101,13 @@ prometheus-operator-app:
       # drop id and name labels from cAdvisor as they do not provide value but use a lot of RAM
       - action: labeldrop
         regex: id|name
-      - source_labels: [__name__]
+      - sourceLabels: [__name__]
         regex: container_(blkio_device_usage_total|network_transmit_errors_total|network_receive_errors_total|memory_failures_total|memory_max_usage_bytes|memory_failcnt)
         action: drop
       metricRelabelings:
       # GS addition to reduce cardinality
       # drop unused rest client metrics
-      - source_labels: [__name__]
+      - sourceLabels: [__name__]
         regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
         action: drop
       # drop uid label from kubelet
@@ -133,7 +134,7 @@ prometheus-operator-app:
       metricRelabelings:
       # GS addition to reduce cardinality
       # drop unused rest client metrics
-      - source_labels: [__name__]
+      - sourceLabels: [__name__]
         regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
         action: drop
   kubeEtcd:
@@ -161,78 +162,113 @@ prometheus-operator-app:
       metricRelabelings:
       # GS addition to reduce cardinality
       # drop unused rest client metrics
-      - source_labels: [__name__]
+      - sourceLabels: [__name__]
         regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
         action: drop
   kubeStateMetrics:
-    enabled: false
+    enabled: true
   kube-state-metrics:
+    # TODO Add Cilium Network Policy https://github.com/giantswarm/kube-state-metrics-app/pull/183
     image:
       repository: giantswarm/kube-state-metrics
-    verticalPodAutoscaler:
-      enabled: true
+    metricLabelsAllowlist:
+    - daemonsets=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
+    - deployments=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
+    - nodes=[ip, giantswarm.io/machine-pool, giantswarm.io/machine-deployment, topology.kubernetes.io/region, topology.kubernetes.io/zone]
+    - statefulsets=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
     networkPolicy:
       enabled: true
       egress:
-      - {}
+      - to:
+        - ipBlock:
+            cidr: 10.0.0.0/8
+        - ipBlock:
+            cidr: 172.16.0.0/12
+        - ipBlock:
+            cidr: 192.168.0.0/16
+        - ipBlock:
+            cidr: 100.64.0.0/10
       ingress:
-      - {}
+      - ports:
+        - port: 8080
+          protocol: TCP
+        - port: 8081
+          protocol: TCP
+    podAnnotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    podSecurityPolicy:
+      enabled: true
     prometheus:
       monitor:
+        enabled: true
         metricRelabelings:
         # GS addition to reduce cardinality
         # drop unused kube-state-metrics metrics with the highest cardinality as they increase Prometheus memory usage
-        - source_labels: [__name__]
+        - sourceLabels: [__name__]
           regex: kube_(pod_tolerations|pod_status_scheduled|replicaset_metadata_generation|replicaset_status_observed_generation|replicaset_annotations|replicaset_status_fully_labeled_replicas|.+_metadata_resource_version)
           action: drop
         # drop uid, image_id and container_id labels
         - action: labeldrop
           regex: uid|image_id|container_id
         # GS addition for dashboards
-        - source_labels: [deployment]
-          target_label: workload_type
+        - sourceLabels: [deployment]
+          targetLabel: workload_type
           replacement: deployment
           action: replace
-        - source_labels: [deployment]
-          target_label: workload_name
+        - sourceLabels: [deployment]
+          targetLabel: workload_name
           replacement: ${1}
           action: replace
-        - source_labels: [daemonset]
-          target_label: workload_type
+        - sourceLabels: [daemonset]
+          targetLabel: workload_type
           replacement: daemonset
           action: replace
-        - source_labels: [daemonset]
-          target_label: workload_name
+        - sourceLabels: [daemonset]
+          targetLabel: workload_name
           replacement: ${1}
           action: replace
-        - source_labels: [statefulset]
-          target_label: workload_type
+        - sourceLabels: [statefulset]
+          targetLabel: workload_type
           replacement: statefulset
           action: replace
-        - source_labels: [statefulset]
-          target_label: workload_name
+        - sourceLabels: [statefulset]
+          targetLabel: workload_name
           replacement: ${1}
           action: replace
-        - source_labels: [label_topology_kubernetes_io_region]
-          target_label: region
+        - sourceLabels: [label_topology_kubernetes_io_region]
+          targetLabel: region
           replacement: ${1}
           action: replace
-        - source_labels: [label_topology_kubernetes_io_zone]
-          target_label: zone
+        - sourceLabels: [label_topology_kubernetes_io_zone]
+          targetLabel: zone
           replacement: ${1}
           action: replace
         - action: labeldrop
           regex: label_topology_kubernetes_io_region|label_topology_kubernetes_io_zone
         # Override with label for AWS clusters if exists.
-        - source_labels: [label_giantswarm_io_machine_deployment]
-          target_label: nodepool
+        - sourceLabels: [label_giantswarm_io_machine_deployment]
+          targetLabel: nodepool
           replacement: ${1}
           action: replace
         # Override with label for Azure clusters if exists.
-        - source_labels: [label_giantswarm_io_machine_pool]
-          target_label: nodepool
+        - sourceLabels: [label_giantswarm_io_machine_pool]
+          targetLabel: nodepool
           replacement: ${1}
           action: replace
+    # Remove prometheus.io/scrape annotation
+    prometheusScrape: false
+    ## We set resources so VPA can do its thing
+    resources:
+      requests:
+        cpu: 200m
+        memory: 200Mi
+      limits:
+        cpu: 200m
+        memory: 200Mi
+    selfMonitor:
+      enabled: true
+    verticalPodAutoscaler:
+      enabled: true
   nodeExporter:
     enabled: false
   prometheus-node-exporter:
