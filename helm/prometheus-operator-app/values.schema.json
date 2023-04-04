@@ -159,7 +159,7 @@
                 "kube-state-metrics": {
                     "type": "object",
                     "properties": {
-                        "extraArgs": {
+                        "collectors": {
                             "type": "array",
                             "items": {
                                 "type": "string"
@@ -298,6 +298,37 @@
                         },
                         "prometheusScrape": {
                             "type": "boolean"
+                        },
+                        "rbac": {
+                            "type": "object",
+                            "properties": {
+                                "extraRules": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "apiGroups": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "resources": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "verbs": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         },
                         "resources": {
                             "type": "object",
