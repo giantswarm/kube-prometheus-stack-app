@@ -227,6 +227,9 @@
                                 "monitor": {
                                     "type": "object",
                                     "properties": {
+                                        "enabled": {
+                                            "type": "boolean"
+                                        },
                                         "metricRelabelings": {
                                             "type": "array",
                                             "items": {

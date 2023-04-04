@@ -199,6 +199,7 @@ prometheus-operator-app:
       enabled: true
     prometheus:
       monitor:
+        enabled: true
         metricRelabelings:
         # GS addition to reduce cardinality
         # drop unused kube-state-metrics metrics with the highest cardinality as they increase Prometheus memory usage
@@ -254,12 +255,6 @@ prometheus-operator-app:
           replacement: ${1}
           action: replace
     # Remove prometheus.io/scrape annotation
-    prometheus:
-      monitor:
-        enabled: true
-        relabelings:
-        - action: labeldrop
-          regex: uid|container_id
     prometheusScrape: false
     ## We set resources so VPA can do its thing
     resources:
@@ -272,7 +267,7 @@ prometheus-operator-app:
     selfMonitor:
       enabled: true
     verticalPodAutoscaler:
-      enabled: true  
+      enabled: true
   nodeExporter:
     enabled: false
   prometheus-node-exporter:
