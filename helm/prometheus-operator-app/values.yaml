@@ -213,6 +213,9 @@ prometheus-operator-app:
         - action: labeldrop
           regex: uid|image_id|container_id
         # GS addition for dashboards
+        - targetLabel: app
+          replacement: kube-state-metrics
+          action: replace
         - sourceLabels: [deployment]
           targetLabel: workload_type
           replacement: deployment
