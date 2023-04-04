@@ -212,6 +212,7 @@ prometheus-operator-app:
               target_api_version: [apiVersion]
               target_kind: [spec, targetRef, kind]
               target_name: [spec, targetRef, name]
+            metricNamePrefix: kube_verticalpodautoscaler
             metrics:
               - name: "annotations"
                 help: "Kubernetes annotations converted to Prometheus labels."
@@ -219,6 +220,20 @@ prometheus-operator-app:
                   type: Gauge
                   gauge:
                     path: [metadata, annotations]
+              - name: "labels"
+                help: "Kubernetes labels converted to Prometheus labels."
+                each:
+                  type: Gauge
+                  gauge:
+                    path: [metadata, labels]
+              - name: "spec_updatepolicy_updatemode"
+                help: "Update mode of the VerticalPodAutoscaler."
+                each:
+                  type: StateSet
+                  stateSet:
+                    labelName: update_mode
+                    path: [spec, updatePolicy, updateMode]
+                    list: [Auto, Off, Initial, Recreate]
     image:
       repository: giantswarm/kube-state-metrics
     metricLabelsAllowlist:
@@ -311,6 +326,13 @@ prometheus-operator-app:
           action: replace
     # Remove prometheus.io/scrape annotation
     prometheusScrape: false
+    # Enable this so we can have vpa metrics
+    rbac:
+      extraRules:
+      - apiGroups: ["autoscaling.k8s.io"]
+        resources:
+          - verticalpodautoscalers
+        verbs: ["list", "watch"]
     ## We set resources so VPA can do its thing
     resources:
       requests:
