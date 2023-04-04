@@ -25,6 +25,10 @@ prometheus-operator-app:
       selector:
         k8s-app: coredns
     serviceMonitor:
+      relabelings:
+      # Add app label.
+      - targetLabel: app
+        replacement: coredns
       metricRelabelings:
       # GS addition to reduce cardinality
       - action: drop
@@ -75,6 +79,10 @@ prometheus-operator-app:
   kubelet:
     enabled: true
     serviceMonitor:
+      cAdvisorRelabelings:
+      # Add app label.
+      - targetLabel: app
+        replacement: cadvisor
       cAdvisorMetricRelabelings:
       # Drop less useful container CPU metrics.
       - sourceLabels: [__name__]
@@ -107,6 +115,10 @@ prometheus-operator-app:
       - sourceLabels: [__name__]
         regex: container_(blkio_device_usage_total|network_transmit_errors_total|network_receive_errors_total|memory_failures_total|memory_max_usage_bytes|memory_failcnt)
         action: drop
+      relabelings:
+      # Add app label.
+      - targetLabel: app
+        replacement: kubelet
       metricRelabelings:
       # GS addition to reduce cardinality
       # drop unused rest client metrics
@@ -142,8 +154,18 @@ prometheus-operator-app:
         action: drop
   kubeEtcd:
     enabled: true
+    serviceMonitor:
+      relabelings:
+      # Add app label.
+      - targetLabel: app
+        replacement: etcd
   kubeProxy:
     enabled: true
+    serviceMonitor:
+      relabelings:
+      # Add app label.
+      - targetLabel: app
+        replacement: kube-proxy
   kubeScheduler:
     enabled: true
     service:
@@ -203,6 +225,10 @@ prometheus-operator-app:
     prometheus:
       monitor:
         enabled: true
+        relabelings:
+        # Add app label.
+        - targetLabel: app
+          replacement: kube-state-metrics
         metricRelabelings:
         # GS addition to reduce cardinality
         # drop unused kube-state-metrics metrics with the highest cardinality as they increase Prometheus memory usage
@@ -213,9 +239,6 @@ prometheus-operator-app:
         - action: labeldrop
           regex: uid|image_id|container_id
         # GS addition for dashboards
-        - targetLabel: app
-          replacement: kube-state-metrics
-          action: replace
         - sourceLabels: [deployment]
           targetLabel: workload_type
           replacement: deployment
