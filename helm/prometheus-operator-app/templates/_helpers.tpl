@@ -14,7 +14,29 @@ heritage: {{ $.Release.Service | quote }}
 {{- end }}
 {{- end }}
 
-{{/* Deploymet label Hook name. */}}
+{{/*
+Generate basic labels
+*/}}
+{{- define "kube-state-metrics.labels" }}
+helm.sh/chart: {{ template "kube-state-metrics.chart" . }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/component: metrics
+app.kubernetes.io/part-of: {{ template "kube-state-metrics.name" . }}
+{{- include "kube-state-metrics.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+{{- if .Values.customLabels }}
+{{ toYaml .Values.customLabels }}
+{{- end }}
+{{- if .Values.releaseLabel }}
+release: {{ $.Release.Name | quote }}
+heritage: {{ $.Release.Service | quote }}
+{{- end }}
+application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | default "atlas" | quote }}
+{{- end }}
+
+{{/* Deployment label Hook name. */}}
 {{- define "prometheus-operator.deployment-label-name" -}}
 {{- printf "%s-%s" ( include "kube-prometheus-stack.name" . ) "hook" | replace "+" "_" | trimSuffix "-" -}}
 {{- end -}}

@@ -3,6 +3,10 @@ global:
   rbac:
     create: true
     pspEnabled: true
+
+ciliumNetworkPolicy:
+  enabled: false
+
 prometheus-operator-app:
   alertmanager:
     alertmanagerSpec:
@@ -21,6 +25,10 @@ prometheus-operator-app:
       selector:
         k8s-app: coredns
     serviceMonitor:
+      relabelings:
+      # Add app label.
+      - targetLabel: app
+        replacement: coredns
       metricRelabelings:
       # GS addition to reduce cardinality
       - action: drop
@@ -71,6 +79,10 @@ prometheus-operator-app:
   kubelet:
     enabled: true
     serviceMonitor:
+      cAdvisorRelabelings:
+      # Add app label.
+      - targetLabel: app
+        replacement: cadvisor
       cAdvisorMetricRelabelings:
       # Drop less useful container CPU metrics.
       - sourceLabels: [__name__]
@@ -103,6 +115,10 @@ prometheus-operator-app:
       - sourceLabels: [__name__]
         regex: container_(blkio_device_usage_total|network_transmit_errors_total|network_receive_errors_total|memory_failures_total|memory_max_usage_bytes|memory_failcnt)
         action: drop
+      relabelings:
+      # Add app label.
+      - targetLabel: app
+        replacement: kubelet
       metricRelabelings:
       # GS addition to reduce cardinality
       # drop unused rest client metrics
@@ -138,8 +154,18 @@ prometheus-operator-app:
         action: drop
   kubeEtcd:
     enabled: true
+    serviceMonitor:
+      relabelings:
+      # Add app label.
+      - targetLabel: app
+        replacement: etcd
   kubeProxy:
     enabled: true
+    serviceMonitor:
+      relabelings:
+      # Add app label.
+      - targetLabel: app
+        replacement: kube-proxy
   kubeScheduler:
     enabled: true
     service:
@@ -165,20 +191,44 @@ prometheus-operator-app:
         regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
         action: drop
   kubeStateMetrics:
-    enabled: false
+    enabled: true
   kube-state-metrics:
     image:
       repository: giantswarm/kube-state-metrics
-    verticalPodAutoscaler:
-      enabled: true
+    metricLabelsAllowlist:
+    - daemonsets=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
+    - deployments=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
+    - nodes=[ip, giantswarm.io/machine-pool, giantswarm.io/machine-deployment, topology.kubernetes.io/region, topology.kubernetes.io/zone]
+    - statefulsets=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
     networkPolicy:
       enabled: true
       egress:
-      - {}
+      - to:
+        - ipBlock:
+            cidr: 10.0.0.0/8
+        - ipBlock:
+            cidr: 172.16.0.0/12
+        - ipBlock:
+            cidr: 192.168.0.0/16
+        - ipBlock:
+            cidr: 100.64.0.0/10
       ingress:
-      - {}
+      - ports:
+        - port: 8080
+          protocol: TCP
+        - port: 8081
+          protocol: TCP
+    podAnnotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    podSecurityPolicy:
+      enabled: true
     prometheus:
       monitor:
+        enabled: true
+        relabelings:
+        # Add app label.
+        - targetLabel: app
+          replacement: kube-state-metrics
         metricRelabelings:
         # GS addition to reduce cardinality
         # drop unused kube-state-metrics metrics with the highest cardinality as they increase Prometheus memory usage
@@ -233,6 +283,20 @@ prometheus-operator-app:
           targetLabel: nodepool
           replacement: ${1}
           action: replace
+    # Remove prometheus.io/scrape annotation
+    prometheusScrape: false
+    ## We set resources so VPA can do its thing
+    resources:
+      requests:
+        cpu: 200m
+        memory: 200Mi
+      limits:
+        cpu: 200m
+        memory: 200Mi
+    selfMonitor:
+      enabled: true
+    verticalPodAutoscaler:
+      enabled: true
   nodeExporter:
     enabled: false
   prometheus-node-exporter:

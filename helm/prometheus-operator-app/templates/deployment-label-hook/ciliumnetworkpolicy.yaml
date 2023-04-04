@@ -1,4 +1,4 @@
-{{- if .Capabilities.APIVersions.Has "cilium.io/v2" }}
+{{- if or .Values.ciliumNetworkPolicy.enabled (.Capabilities.APIVersions.Has "cilium.io/v2") }}
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
@@ -20,9 +20,4 @@ spec:
   egress:
     - toEntities:
         - kube-apiserver
-      toPorts:
-        - ports:
-            - port: "443"
-        - ports:
-            - port: "6443"
 {{- end }}
