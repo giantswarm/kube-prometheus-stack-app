@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [4.1.0] - 2023-04-04
+
 ### Changed
 
 - Configure defaults so the app can run successfully in Giant Swarm clusters.
@@ -390,7 +392,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.1.0...HEAD
+[4.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.0.1...v4.1.0
 [4.0.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v3.0.0...v4.0.0
 [3.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.2...v3.0.0
