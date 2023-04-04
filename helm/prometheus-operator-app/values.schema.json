@@ -2,6 +2,25 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
+        "global": {
+            "type": "object",
+            "properties": {
+                "imageRegistry": {
+                    "type": "string"
+                },
+                "rbac": {
+                    "type": "object",
+                    "properties": {
+                        "create": {
+                            "type": "boolean"
+                        },
+                        "pspEnabled": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        },
         "prometheus-operator-app": {
             "type": "object",
             "properties": {
@@ -63,23 +82,29 @@
                                     }
                                 }
                             }
-                        }
-                    }
-                },
-                "global": {
-                    "type": "object",
-                    "properties": {
-                        "imageRegistry": {
-                            "type": "string"
                         },
-                        "rbac": {
+                        "serviceMonitor": {
                             "type": "object",
                             "properties": {
-                                "create": {
-                                    "type": "boolean"
-                                },
-                                "pspEnabled": {
-                                    "type": "boolean"
+                                "metricRelabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "action": {
+                                                "type": "string"
+                                            },
+                                            "regex": {
+                                                "type": "string"
+                                            },
+                                            "sourceLabels": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -136,6 +161,36 @@
                                     "type": "array",
                                     "items": {
                                         "type": "object"
+                                    }
+                                }
+                            }
+                        },
+                        "prometheus": {
+                            "type": "object",
+                            "properties": {
+                                "monitor": {
+                                    "type": "object",
+                                    "properties": {
+                                        "metricRelabelings": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "action": {
+                                                        "type": "string"
+                                                    },
+                                                    "regex": {
+                                                        "type": "string"
+                                                    },
+                                                    "source_labels": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -203,6 +258,25 @@
                         "enabled": {
                             "type": "boolean"
                         },
+                        "service": {
+                            "type": "object",
+                            "properties": {
+                                "port": {
+                                    "type": "integer"
+                                },
+                                "selector": {
+                                    "type": "object",
+                                    "properties": {
+                                        "component": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "targetPort": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
                         "serviceMonitor": {
                             "type": "object",
                             "properties": {
@@ -211,6 +285,26 @@
                                 },
                                 "insecureSkipVerify": {
                                     "type": "boolean"
+                                },
+                                "metricRelabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "action": {
+                                                "type": "string"
+                                            },
+                                            "regex": {
+                                                "type": "string"
+                                            },
+                                            "source_labels": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
                                 },
                                 "relabelings": {
                                     "type": "array",
@@ -252,6 +346,25 @@
                         "enabled": {
                             "type": "boolean"
                         },
+                        "service": {
+                            "type": "object",
+                            "properties": {
+                                "port": {
+                                    "type": "integer"
+                                },
+                                "selector": {
+                                    "type": "object",
+                                    "properties": {
+                                        "component": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "targetPort": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
                         "serviceMonitor": {
                             "type": "object",
                             "properties": {
@@ -260,6 +373,26 @@
                                 },
                                 "insecureSkipVerify": {
                                     "type": "boolean"
+                                },
+                                "metricRelabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "action": {
+                                                "type": "string"
+                                            },
+                                            "regex": {
+                                                "type": "string"
+                                            },
+                                            "source_labels": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
                                 },
                                 "relabelings": {
                                     "type": "array",
@@ -290,8 +423,48 @@
                 "kubelet": {
                     "type": "object",
                     "properties": {
+                        "cadvisorMetricRelabelings": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "action": {
+                                        "type": "string"
+                                    },
+                                    "regex": {
+                                        "type": "string"
+                                    },
+                                    "sourceLabels": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
                         "enabled": {
                             "type": "boolean"
+                        },
+                        "metricRelabelings": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "action": {
+                                        "type": "string"
+                                    },
+                                    "regex": {
+                                        "type": "string"
+                                    },
+                                    "source_labels": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 },

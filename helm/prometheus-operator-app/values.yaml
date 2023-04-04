@@ -1,9 +1,9 @@
+global:
+  imageRegistry: docker.io
+  rbac:
+    create: true
+    pspEnabled: true
 prometheus-operator-app:
-  global:
-    imageRegistry: docker.io
-    rbac:
-      create: true
-      pspEnabled: true
   alertmanager:
     alertmanagerSpec:
       image:
@@ -20,6 +20,13 @@ prometheus-operator-app:
     service:
       selector:
         k8s-app: coredns
+    serviceMonitor:
+      metricRelabelings:
+      # GS addition to reduce cardinality
+      - action: drop
+        regex: coredns_dns_(request_size_bytes_bucket|response_size_bytes_bucket)
+        sourceLabels:
+        - __name__
   grafana:
     rbac:
       pspEnabled: true
@@ -34,13 +41,17 @@ prometheus-operator-app:
       - targetLabel: app
         replacement: kubernetes
       metricRelabelings:
-        # Keep from upstream values (https://github.com/prometheus-community/helm-charts/blob/kube-prometheus-stack-44.4.1/charts/kube-prometheus-stack/values.yaml#L967)
+      # Keep from upstream values (https://github.com/prometheus-community/helm-charts/blob/kube-prometheus-stack-44.4.1/charts/kube-prometheus-stack/values.yaml#L967)
       - action: drop
         regex: apiserver_request_duration_seconds_bucket;(0.15|0.2|0.3|0.35|0.4|0.45|0.6|0.7|0.8|0.9|1.25|1.5|1.75|2|3|3.5|4|4.5|6|7|8|9|15|25|40|50)
         sourceLabels:
         - __name__
         - le
       # GS addition to reduce cardinality
+      # drop unused rest client metrics
+      - sourceLabels: [__name__]
+        regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
+        action: drop
       - action: drop
         regex: apiserver_(longrunning_requests|watch_events_sizes_count|watch_events_sizes_sum|storage_list_fetched_objects_total|storage_list_total|storage_list_returned_objects_total)
         sourceLabels:
@@ -59,6 +70,48 @@ prometheus-operator-app:
         - __name__
   kubelet:
     enabled: true
+    serviceMonitor:
+      cAdvisorMetricRelabelings:
+      # Drop less useful container CPU metrics.
+      - sourceLabels: [__name__]
+        action: drop
+        regex: 'container_cpu_(cfs_throttled_seconds_total|load_average_10s|system_seconds_total|user_seconds_total)'
+      # Drop less useful container / always zero filesystem metrics.
+      - sourceLabels: [__name__]
+        action: drop
+        regex: 'container_fs_(io_current|io_time_seconds_total|io_time_weighted_seconds_total|reads_merged_total|sector_reads_total|sector_writes_total|writes_merged_total)'
+      # Drop less useful / always zero container memory metrics.
+      - sourceLabels: [__name__]
+        action: drop
+        regex: 'container_memory_(mapped_file|swap)'
+      # Drop less useful container process metrics.
+      - sourceLabels: [__name__]
+        action: drop
+        regex: 'container_(file_descriptors|tasks_state|threads_max)'
+      # Drop container spec metrics that overlap with kube-state-metrics.
+      - sourceLabels: [__name__]
+        action: drop
+        regex: 'container_spec.*'
+      # Drop cgroup metrics with no pod.
+      - sourceLabels: [id, pod]
+        action: drop
+        regex: '.+;'
+      # GS addition to reduce cardinality
+      # drop id and name labels from cAdvisor as they do not provide value but use a lot of RAM
+      - action: labeldrop
+        regex: id|name
+      - sourceLabels: [__name__]
+        regex: container_(blkio_device_usage_total|network_transmit_errors_total|network_receive_errors_total|memory_failures_total|memory_max_usage_bytes|memory_failcnt)
+        action: drop
+      metricRelabelings:
+      # GS addition to reduce cardinality
+      # drop unused rest client metrics
+      - sourceLabels: [__name__]
+        regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
+        action: drop
+      # drop uid label from kubelet
+      - action: labeldrop
+        regex: uid
   kubeControllerManager:
     enabled: true
     service:
@@ -77,7 +130,12 @@ prometheus-operator-app:
       - sourceLabels:
         - __meta_kubernetes_pod_node_name
         targetLabel: node
-
+      metricRelabelings:
+      # GS addition to reduce cardinality
+      # drop unused rest client metrics
+      - sourceLabels: [__name__]
+        regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
+        action: drop
   kubeEtcd:
     enabled: true
   kubeProxy:
@@ -100,7 +158,12 @@ prometheus-operator-app:
       - sourceLabels:
         - __meta_kubernetes_pod_node_name
         targetLabel: node
-
+      metricRelabelings:
+      # GS addition to reduce cardinality
+      # drop unused rest client metrics
+      - sourceLabels: [__name__]
+        regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
+        action: drop
   kubeStateMetrics:
     enabled: false
   kube-state-metrics:
@@ -114,6 +177,62 @@ prometheus-operator-app:
       - {}
       ingress:
       - {}
+    prometheus:
+      monitor:
+        metricRelabelings:
+        # GS addition to reduce cardinality
+        # drop unused kube-state-metrics metrics with the highest cardinality as they increase Prometheus memory usage
+        - sourceLabels: [__name__]
+          regex: kube_(pod_tolerations|pod_status_scheduled|replicaset_metadata_generation|replicaset_status_observed_generation|replicaset_annotations|replicaset_status_fully_labeled_replicas|.+_metadata_resource_version)
+          action: drop
+        # drop uid, image_id and container_id labels
+        - action: labeldrop
+          regex: uid|image_id|container_id
+        # GS addition for dashboards
+        - sourceLabels: [deployment]
+          targetLabel: workload_type
+          replacement: deployment
+          action: replace
+        - sourceLabels: [deployment]
+          targetLabel: workload_name
+          replacement: ${1}
+          action: replace
+        - sourceLabels: [daemonset]
+          targetLabel: workload_type
+          replacement: daemonset
+          action: replace
+        - sourceLabels: [daemonset]
+          targetLabel: workload_name
+          replacement: ${1}
+          action: replace
+        - sourceLabels: [statefulset]
+          targetLabel: workload_type
+          replacement: statefulset
+          action: replace
+        - sourceLabels: [statefulset]
+          targetLabel: workload_name
+          replacement: ${1}
+          action: replace
+        - sourceLabels: [label_topology_kubernetes_io_region]
+          targetLabel: region
+          replacement: ${1}
+          action: replace
+        - sourceLabels: [label_topology_kubernetes_io_zone]
+          targetLabel: zone
+          replacement: ${1}
+          action: replace
+        - action: labeldrop
+          regex: label_topology_kubernetes_io_region|label_topology_kubernetes_io_zone
+        # Override with label for AWS clusters if exists.
+        - sourceLabels: [label_giantswarm_io_machine_deployment]
+          targetLabel: nodepool
+          replacement: ${1}
+          action: replace
+        # Override with label for Azure clusters if exists.
+        - sourceLabels: [label_giantswarm_io_machine_pool]
+          targetLabel: nodepool
+          replacement: ${1}
+          action: replace
   nodeExporter:
     enabled: false
   prometheus-node-exporter:
