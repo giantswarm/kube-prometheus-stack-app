@@ -193,6 +193,32 @@ prometheus-operator-app:
   kubeStateMetrics:
     enabled: true
   kube-state-metrics:
+    extraArgs:
+    - --custom-resource-state-config
+    # This will output the following metric:
+    # HELP kube_customresource_autoscaling_annotations Kubernetes annotations converted to Prometheus labels.
+    # TYPE kube_customresource_autoscaling_annotations gauge
+    # kube_customresource_autoscaling_annotations{customresource_group="autoscaling.k8s.io", customresource_kind="VerticalPodAutoscaler", customresource_version="v1", namespace="default",target_api_version="autoscaling.k8s.io/v1",target_kind="Deployment",target_name="hamster",verticalpodautoscaler="hamster-vpa"} 123
+    - |
+        spec:
+          resources:
+          - groupVersionKind:
+              group: autoscaling.k8s.io
+              kind: "VerticalPodAutoscaler"
+              version: "v1"
+            labelsFromPath:
+              verticalpodautoscaler: [metadata, name]
+              namespace: [metadata, namespace]
+              target_api_version: [apiVersion]
+              target_kind: [spec, targetRef, kind]
+              target_name: [spec, targetRef, name]
+            metrics:
+              - name: "annotations"
+                help: "Kubernetes annotations converted to Prometheus labels."
+                each:
+                  type: Gauge
+                  gauge:
+                    path: [metadata, annotations]
     image:
       repository: giantswarm/kube-state-metrics
     metricLabelsAllowlist:

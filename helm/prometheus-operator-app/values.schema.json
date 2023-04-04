@@ -113,6 +113,20 @@
                                             }
                                         }
                                     }
+                                },
+                                "relabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "replacement": {
+                                                "type": "string"
+                                            },
+                                            "targetLabel": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -145,6 +159,12 @@
                 "kube-state-metrics": {
                     "type": "object",
                     "properties": {
+                        "extraArgs": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
                         "image": {
                             "type": "object",
                             "properties": {
@@ -254,6 +274,20 @@
                                                         "items": {
                                                             "type": "string"
                                                         }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "relabelings": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "replacement": {
+                                                        "type": "string"
+                                                    },
+                                                    "targetLabel": {
+                                                        "type": "string"
                                                     }
                                                 }
                                             }
@@ -434,6 +468,25 @@
                     "properties": {
                         "enabled": {
                             "type": "boolean"
+                        },
+                        "serviceMonitor": {
+                            "type": "object",
+                            "properties": {
+                                "relabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "replacement": {
+                                                "type": "string"
+                                            },
+                                            "targetLabel": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -442,6 +495,25 @@
                     "properties": {
                         "enabled": {
                             "type": "boolean"
+                        },
+                        "serviceMonitor": {
+                            "type": "object",
+                            "properties": {
+                                "relabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "replacement": {
+                                                "type": "string"
+                                            },
+                                            "targetLabel": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -554,6 +626,20 @@
                                         }
                                     }
                                 },
+                                "cAdvisorRelabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "replacement": {
+                                                "type": "string"
+                                            },
+                                            "targetLabel": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
                                 "metricRelabelings": {
                                     "type": "array",
                                     "items": {
@@ -570,6 +656,20 @@
                                                 "items": {
                                                     "type": "string"
                                                 }
+                                            }
+                                        }
+                                    }
+                                },
+                                "relabelings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "replacement": {
+                                                "type": "string"
+                                            },
+                                            "targetLabel": {
+                                                "type": "string"
                                             }
                                         }
                                     }
