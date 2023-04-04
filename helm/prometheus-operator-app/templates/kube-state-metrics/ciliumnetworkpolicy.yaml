@@ -1,0 +1,16 @@
+{{- if or .Values.ciliumNetworkPolicy.enabled (.Capabilities.APIVersions.Has "cilium.io/v2") }}
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: {{ template "kube-state-metrics.fullname" . }}
+  namespace: {{ template "kube-state-metrics.namespace" . }}
+  labels:
+    {{- include "kube-state-metrics.labels" . | indent 4 }}
+spec:
+  endpointSelector:
+    matchLabels:
+      {{- include "kube-state-metrics.selectorLabels" . | indent 6 }}
+  egress:
+    - toEntities:
+        - kube-apiserver
+{{ end }}

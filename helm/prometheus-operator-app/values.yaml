@@ -3,6 +3,10 @@ global:
   rbac:
     create: true
     pspEnabled: true
+
+ciliumNetworkPolicy:
+  enabled: false
+
 prometheus-operator-app:
   alertmanager:
     alertmanagerSpec:
@@ -167,7 +171,6 @@ prometheus-operator-app:
   kubeStateMetrics:
     enabled: true
   kube-state-metrics:
-    # TODO Add Cilium Network Policy https://github.com/giantswarm/kube-state-metrics-app/pull/183
     image:
       repository: giantswarm/kube-state-metrics
     metricLabelsAllowlist:
