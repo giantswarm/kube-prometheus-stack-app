@@ -29,6 +29,10 @@ prometheus-operator-app:
       # Add app label.
       - targetLabel: app
         replacement: coredns
+      # Add node label.
+      - sourceLabels:
+        - __meta_kubernetes_pod_node_name
+        targetLabel: node
       metricRelabelings:
       # GS addition to reduce cardinality
       - action: drop
@@ -159,6 +163,10 @@ prometheus-operator-app:
       # Add app label.
       - targetLabel: app
         replacement: etcd
+      # Add node label.
+      - sourceLabels:
+        - __meta_kubernetes_pod_node_name
+        targetLabel: node
   kubeProxy:
     enabled: true
     serviceMonitor:
@@ -229,6 +237,9 @@ prometheus-operator-app:
         # Add app label.
         - targetLabel: app
           replacement: kube-state-metrics
+        # Add node label.
+        - sourceLabels: [__meta_kubernetes_pod_node_name]
+          targetLabel: node
         metricRelabelings:
         # GS addition to reduce cardinality
         # drop unused kube-state-metrics metrics with the highest cardinality as they increase Prometheus memory usage
