@@ -29,10 +29,6 @@ prometheus-operator-app:
       # Add app label.
       - targetLabel: app
         replacement: coredns
-      # Add container label.
-      - sourceLabels:
-        - __meta_kubernetes_pod_container_name
-        targetLabel: container
       # Add node label.
       - sourceLabels:
         - __meta_kubernetes_pod_node_name
@@ -167,10 +163,6 @@ prometheus-operator-app:
       # Add app label.
       - targetLabel: app
         replacement: etcd
-      # Add container label.
-      - sourceLabels:
-        - __meta_kubernetes_pod_container_name
-        targetLabel: container
       # Add node label.
       - sourceLabels:
         - __meta_kubernetes_pod_node_name
