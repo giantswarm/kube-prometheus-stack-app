@@ -3,7 +3,7 @@ appVersion: "v0.63.0"
 name: prometheus-operator-app
 description: Giant Swarm's Prometheus Operator Deployment
 icon: https://s.giantswarm.io/app-icons/prometheus-operator/2/light.svg
-version: 4.1.0
+version: 4.2.0
 sources:
   - "https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack"
 home: https://github.com/giantswarm/prometheus-operator-app
