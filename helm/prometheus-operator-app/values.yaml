@@ -201,6 +201,37 @@ prometheus-operator-app:
   kubeStateMetrics:
     enabled: true
   kube-state-metrics:
+    # Enabling verticalpodautoscaler collector until 2.9.0.
+    collectors:
+    - certificatesigningrequests
+    - configmaps
+    - cronjobs
+    - daemonsets
+    - deployments
+    - endpoints
+    - horizontalpodautoscalers
+    - ingresses
+    - jobs
+    - leases
+    - limitranges
+    - mutatingwebhookconfigurations
+    - namespaces
+    - networkpolicies
+    - nodes
+    - persistentvolumeclaims
+    - persistentvolumes
+    - poddisruptionbudgets
+    - pods
+    - replicasets
+    - replicationcontrollers
+    - resourcequotas
+    - secrets
+    - services
+    - statefulsets
+    - storageclasses
+    - validatingwebhookconfigurations
+    - volumeattachments
+    - verticalpodautoscalers
     image:
       repository: giantswarm/kube-state-metrics
     metricLabelsAllowlist:
@@ -244,7 +275,7 @@ prometheus-operator-app:
         # GS addition to reduce cardinality
         # drop unused kube-state-metrics metrics with the highest cardinality as they increase Prometheus memory usage
         - sourceLabels: [__name__]
-          regex: kube_(pod_tolerations|pod_status_scheduled|replicaset_metadata_generation|replicaset_status_observed_generation|replicaset_annotations|replicaset_status_fully_labeled_replicas|.+_metadata_resource_version)
+          regex: kube_(pod_tolerations|pod_status_scheduled|replicaset_metadata_generation|replicaset_status_observed_generation|replicaset_annotations|replicaset_status_fully_labeled_replicas|.+_metadata_resource_version|verticalpodautoscaler_annotations|verticalpodautoscaler_labels)
           action: drop
         # drop uid, image_id and container_id labels
         - action: labeldrop
@@ -296,6 +327,13 @@ prometheus-operator-app:
           action: replace
     # Remove prometheus.io/scrape annotation
     prometheusScrape: false
+    # Enable this so we can have vpa metrics
+    rbac:
+      extraRules:
+      - apiGroups: ["autoscaling.k8s.io"]
+        resources:
+          - verticalpodautoscalers
+        verbs: ["list", "watch"]
     ## We set resources so VPA can do its thing
     resources:
       requests:
