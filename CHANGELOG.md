@@ -7,9 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [4.2.0] - 2023-04-06
+
 ### Added
 
 - Add Vertical Pod Autoscaler metrics from kube-state-metrics.
+
 ### Changed
 
 - Upgraded chart dependency to [kube-prometheus-stack-45.9.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-45.9.1)
@@ -403,7 +406,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.0...HEAD
+[4.2.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.1.0...v4.2.0
 [4.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.0.1...v4.1.0
 [4.0.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v3.0.0...v4.0.0
