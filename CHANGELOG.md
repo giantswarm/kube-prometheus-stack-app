@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix kube-state-metrics cilium network policy selector.
+
 ## [4.2.0] - 2023-04-06
 
 ### Added
