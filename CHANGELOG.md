@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Add missing relabeling default values for the kubelet service monitors.
+
 ## [4.2.1] - 2023-04-12
 
 ### Fixed
