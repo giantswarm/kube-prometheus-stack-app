@@ -84,6 +84,10 @@ prometheus-operator-app:
     enabled: true
     serviceMonitor:
       cAdvisorRelabelings:
+      # Keep the default value
+      - action: replace
+        sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
       # Add app label.
       - targetLabel: app
         replacement: cadvisor
@@ -120,6 +124,10 @@ prometheus-operator-app:
         regex: container_(blkio_device_usage_total|network_transmit_errors_total|network_receive_errors_total|memory_failures_total|memory_max_usage_bytes|memory_failcnt)
         action: drop
       relabelings:
+      # Keep the default value
+      - action: replace
+        sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
       # Add app label.
       - targetLabel: app
         replacement: kubelet
