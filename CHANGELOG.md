@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix kube-state-metrics cilium network policy ingress section.
+
 ## [4.2.2] - 2023-04-25
 
 ### Fixed
