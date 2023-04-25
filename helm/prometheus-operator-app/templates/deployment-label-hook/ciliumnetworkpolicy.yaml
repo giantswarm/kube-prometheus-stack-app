@@ -20,4 +20,11 @@ spec:
   egress:
     - toEntities:
         - kube-apiserver
+  ingress:
+  - toPorts:
+    - ports:
+      - port: "8080"
+        protocol: TCP
+      - port: "8081"
+        protocol: TCP
 {{- end }}
