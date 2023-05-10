@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Make the prometheus agent evictable by the cluster-autoscaler.
+- Make the prometheus operator evictable by the cluster-autoscaler.
 
 ## [4.2.3] - 2023-04-25
 
