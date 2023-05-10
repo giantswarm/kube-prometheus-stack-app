@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [4.2.4] - 2023-05-10
+
 ### Changed
 
 - Make the prometheus operator evictable by the cluster-autoscaler.
@@ -428,7 +430,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.3...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.4...HEAD
+[4.2.4]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.3...v4.2.4
 [4.2.3]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.2...v4.2.3
 [4.2.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.1...v4.2.2
 [4.2.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.0...v4.2.1
