@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Set minAllowed cpu to 200m for kube-state-metrics VPA CR to avoid CPU throttling on big clusters.
+
 ## [4.3.0] - 2023-05-18
 
 ### Changed
