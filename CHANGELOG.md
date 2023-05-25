@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [5.0.0] - 2023-05-25
+
 - Upgraded chart dependency to [kube-prometheus-stack-46.4.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-46.4.0)
 
 ## [4.4.0] - 2023-05-22
@@ -447,7 +449,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.4.0...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.0...HEAD
+[5.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.4.0...v5.0.0
 [4.4.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.3.0...v4.4.0
 [4.3.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.4...v4.3.0
 [4.2.4]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.3...v4.2.4
