@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+- Upgraded chart dependency to [kube-prometheus-stack-46.4.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-46.4.0)
+
 ## [4.4.0] - 2023-05-22
 
 ### Changed
@@ -52,6 +54,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Upgraded chart dependency to [kube-prometheus-stack-45.9.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-45.9.1)
+  - Update `prometheus-operator` from [0.63.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.63.0) to [0.65.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.65.0)
+    - Update `prometheus` from 2.43.0 to 2.44.0
+    - Update `thanos` from 0.30.2 to 0.31.0
 
 ### Fixed
 
