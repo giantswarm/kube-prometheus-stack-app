@@ -287,7 +287,7 @@ prometheus-operator-app:
           action: drop
         # drop uid, image_id and container_id labels
         - action: labeldrop
-          regex: uid|image_id|container_id
+          regex: uid|image_id
         # GS addition for dashboards
         - sourceLabels: [deployment]
           targetLabel: workload_type

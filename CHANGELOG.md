@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Remove `container_id` from drop labels in KSM metrics.
+
 ## [5.0.2] - 2023-05-30
 
 ### Changed
