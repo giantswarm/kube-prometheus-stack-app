@@ -285,9 +285,9 @@ prometheus-operator-app:
         - sourceLabels: [__name__]
           regex: kube_(pod_tolerations|pod_status_scheduled|replicaset_metadata_generation|replicaset_status_observed_generation|replicaset_annotations|replicaset_status_fully_labeled_replicas|.+_metadata_resource_version|verticalpodautoscaler_annotations|verticalpodautoscaler_labels)
           action: drop
-        # drop uid, image_id and container_id labels
+        # drop uid and image_id labels
         - action: labeldrop
-          regex: uid|image_id|container_id
+          regex: uid|image_id
         # GS addition for dashboards
         - sourceLabels: [deployment]
           targetLabel: workload_type
