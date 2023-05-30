@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [5.0.3] - 2023-05-30
+
 ### Fixed
 
 - Remove `container_id` from drop labels in KSM metrics.
@@ -466,7 +468,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.2...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.3...HEAD
+[5.0.3]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.2...v5.0.3
 [5.0.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.4.0...v5.0.0
