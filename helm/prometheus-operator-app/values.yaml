@@ -282,7 +282,7 @@ prometheus-operator-app:
         # GS addition to reduce cardinality
         # drop unused kube-state-metrics metrics with the highest cardinality as they increase Prometheus memory usage
         - sourceLabels: [__name__]
-          regex: kube_(pod_tolerations|pod_status_scheduled|replicaset_metadata_generation|replicaset_status_observed_generation|replicaset_annotations|replicaset_status_fully_labeled_replicas|.+_metadata_resource_version)
+          regex: kube_(.+_annotations|secret_type|pod_status_qos_class|pod_tolerations|pod_status_scheduled|replicaset_metadata_generation|replicaset_status_observed_generation|replicaset_annotations|replicaset_status_fully_labeled_replicas|.+_metadata_resource_version)
           action: drop
         # drop image_id label
         - action: labeldrop

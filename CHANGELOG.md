@@ -9,7 +9,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Fixed
 
-- Remove `uid` (pod_id) from drop labels in KSM metrics.
+- Update dropped labels in KSM metrics to avoid duplicate samples.
+- Drop unused greedy KSM metrics.
 
 ## [5.0.4] - 2023-06-02
 
