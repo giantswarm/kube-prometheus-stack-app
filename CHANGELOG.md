@@ -7,9 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [5.0.5] - 2023-06-09
+
 ### Fixed
 
-- Remove `uid` (pod_id) from drop labels in KSM metrics.
+- Update dropped labels in KSM metrics to avoid duplicate samples.
+- Drop unused greedy KSM metrics.
 
 ## [5.0.4] - 2023-06-02
 
@@ -478,7 +481,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.4...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.5...HEAD
+[5.0.5]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.4...v5.0.5
 [5.0.4]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.3...v5.0.4
 [5.0.3]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.2...v5.0.3
 [5.0.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.1...v5.0.2
