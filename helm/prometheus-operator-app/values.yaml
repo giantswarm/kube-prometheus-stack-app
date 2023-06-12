@@ -241,11 +241,14 @@ prometheus-operator-app:
     - volumeattachments
     image:
       repository: giantswarm/kube-state-metrics
+    metricAnnotationsAllowList:
+    - pods=[kubernetes.io/psp]
     metricLabelsAllowlist:
     - daemonsets=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
     - deployments=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
     - nodes=[ip, giantswarm.io/machine-pool, giantswarm.io/machine-deployment, topology.kubernetes.io/region, topology.kubernetes.io/zone]
     - statefulsets=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
+    - pods=[app.kubernetes.io/name]
     networkPolicy:
       enabled: true
       egress:
