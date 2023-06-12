@@ -10,6 +10,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Add `kubernetes.io/psp` pod annotation to whitelist on `kube_pod_annotations` metric 
+- Add `app.kubernetes.io/name` pod label to whitelist on `kube_pod_labels` metric
+- Do not drop `kube_pod_annotations` metrics 
 
 ## [5.0.5] - 2023-06-09
 
