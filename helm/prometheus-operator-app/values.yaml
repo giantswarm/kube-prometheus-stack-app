@@ -288,30 +288,6 @@ prometheus-operator-app:
         - action: labeldrop
           regex: image_id
         # GS addition for dashboards
-        - sourceLabels: [deployment]
-          targetLabel: workload_type
-          replacement: deployment
-          action: replace
-        - sourceLabels: [deployment]
-          targetLabel: workload_name
-          replacement: ${1}
-          action: replace
-        - sourceLabels: [daemonset]
-          targetLabel: workload_type
-          replacement: daemonset
-          action: replace
-        - sourceLabels: [daemonset]
-          targetLabel: workload_name
-          replacement: ${1}
-          action: replace
-        - sourceLabels: [statefulset]
-          targetLabel: workload_type
-          replacement: statefulset
-          action: replace
-        - sourceLabels: [statefulset]
-          targetLabel: workload_name
-          replacement: ${1}
-          action: replace
         - sourceLabels: [label_topology_kubernetes_io_region]
           targetLabel: region
           replacement: ${1}
