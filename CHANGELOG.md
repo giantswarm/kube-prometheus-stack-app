@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Remove unused kube-state-metrics `workload_type` and `workload_name` labels.
+
 ## [5.0.5] - 2023-06-09
 
 ### Fixed
