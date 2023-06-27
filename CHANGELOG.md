@@ -7,9 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+
 ### Fixed
 
 - Remove unused kube-state-metrics `workload_type` and `workload_name` labels.
+
+### Changed
+
+- Move `prometheus-operator` `cluster-autoscaler safe-to-evict` annotation to `podAnnotations` rather than the deployment annotation
 
 ## [5.0.5] - 2023-06-09
 
