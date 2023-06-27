@@ -381,7 +381,7 @@ prometheus-operator-app:
         image:
           repository: giantswarm/ingress-nginx-kube-webhook-certgen
     alertmanagerDefaultBaseImage: giantswarm/alertmanager
-    annotations:
+    podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
     image:
       repository: giantswarm/prometheus-operator

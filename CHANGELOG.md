@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Move `prometheus-operator` `cluster-autoscaler safe-to-evict` annotation to `podAnnotations` rather than the deployment annotation
+
 ## [5.0.5] - 2023-06-09
 
 ### Fixed
