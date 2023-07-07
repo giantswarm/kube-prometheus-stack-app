@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- node-exporter: use giantswarm-retagged image
+
 ## [5.0.6] - 2023-06-28
 
 
