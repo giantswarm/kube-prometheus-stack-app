@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Fixed
 
 - node-exporter: use giantswarm-retagged image
+- PSPs: add annotation to allow seccomp profiles
 
 ## [5.0.6] - 2023-06-28
 
