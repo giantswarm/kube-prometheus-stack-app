@@ -8,6 +8,10 @@ ciliumNetworkPolicy:
   enabled: false
 
 prometheus-operator-app:
+  global:
+    rbac:
+      pspAnnotations:
+        seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
   alertmanager:
     alertmanagerSpec:
       image:
