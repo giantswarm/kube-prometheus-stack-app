@@ -335,6 +335,8 @@ prometheus-operator-app:
   nodeExporter:
     enabled: false
   prometheus-node-exporter:
+    image:
+      repository: giantswarm/node-exporter
     rbac:
       pspEnabled: true
   prometheus:
