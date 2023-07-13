@@ -246,10 +246,11 @@ prometheus-operator-app:
     image:
       repository: giantswarm/kube-state-metrics
     metricLabelsAllowlist:
-    - daemonsets=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
-    - deployments=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
-    - nodes=[ip, giantswarm.io/machine-pool, giantswarm.io/machine-deployment, topology.kubernetes.io/region, topology.kubernetes.io/zone]
-    - statefulsets=[giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type, app.kubernetes.io/name, application.giantswarm.io/team]
+    - daemonsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
+    - deployments=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
+    - nodes=[giantswarm.io/machine-pool, giantswarm.io/machine-deployment, ip, topology.kubernetes.io/region, topology.kubernetes.io/zone]
+    - pods=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
+    - statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
     networkPolicy:
       enabled: true
       egress:
