@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add `app.kubernetes.io/component` and `app.kubernetes.io/instance` to the list of allowed labels.
+
 ## [5.0.7] - 2023-07-07
 
 ### Fixed
