@@ -1,6 +1,6 @@
-# Prometheus Operator App
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/prometheus-operator-app/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/prometheus-operator-app/tree/main)
 
-[![CircleCI](https://circleci.com/gh/giantswarm/prometheus-operator-app.svg?style=shield)](https://circleci.com/gh/giantswarm/prometheus-operator-app)
+# Prometheus Operator App
 
 Giant Swarm offers Prometheus Operator as a [managed app](https://docs.giantswarm.io/changes/managed-apps/) which can be installed in any clusters.
 
