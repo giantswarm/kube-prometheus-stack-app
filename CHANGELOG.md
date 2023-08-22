@@ -14,7 +14,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Replaced Kube-State-Metrics Vertical-Pod-Autoscaler minAllowed resources with high limits/requests ratio to prevent throttling and yet spare resources on clusters any size.
-- Upgraded chart dependency to [kube-prometheus-stack-48.3.3](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-46.6.0)
+- Upgraded chart dependency to [kube-prometheus-stack-48.3.6](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-48.3.6)
+
+### Removed
+
+- Remove duplicate `kube-state-metrics` CiliumNetworkPolicy as it is now upstream
+- Remove useless `deployment-label-hook` CiliumNetworkPolicy
 
 ## [5.0.7] - 2023-07-07
 
@@ -453,7 +458,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - hyperkubeImage `1.12.1` -> `1.16.12`
 
 
-## [v0.3.3]
+## [0.3.3]
 
 ### Changed
 
@@ -462,18 +467,18 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Update Grafana chart to 5.1.4
 - Update prometheus-node-exporter chart to 1.10.0
 
-## [v0.3.2]
+## [0.3.2]
 
 ### Changed
 - Fix CRD installation to support both helm2 and helm3
 - Add support for installations in China
 
-## [v0.3.1]
+## [0.3.1]
 
 ### Changed
 - Fix application name in the circleci config
 
-## [v0.3.0]
+## [0.3.0]
 
 ### Changed
 - Fix kubelet service name in the Prometheus Operator deployment
@@ -485,7 +490,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Update prometheus-node-exporter chart to 1.9.1
 - Rename to prometheus-operator-app
 
-## [v0.2.0]
+## [0.2.0]
 
 ### Changed
 - Add Kubernetes 1.16 support
@@ -496,13 +501,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Update kube-state-metrics chart to 2.4.1
 - Update prometheus-node-exporter chart to 1.8.1
 
-## [v0.1.1]
+## [0.1.1]
 
 ### Changed
 
 - Disable App Armor in grafana as it does not work on CoreOS and Flatcar.
 
-## [v0.1.0]
+## [0.1.0]
 
 ### Added
 
@@ -563,11 +568,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 [0.5.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.4...v0.4.0
 [0.3.4]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.3...v0.3.4
-[v0.3.3]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.2..v0.3.3
-[v0.3.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.1..v0.3.2
-[v0.3.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.0..v0.3.1
-[v0.3.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.2.0..v0.3.0
-[v0.2.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.1.1..v0.2.0
-[v0.1.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.1.0..v0.1.1
-
-[v0.1.0]: https://github.com/giantswarm/prometheus-operator-app/releases/tag/v0.1.0
+[0.3.3]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.2..v0.3.3
+[0.3.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.1..v0.3.2
+[0.3.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.0..v0.3.1
+[0.3.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.2.0..v0.3.0
+[0.2.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.1.1..v0.2.0
+[0.1.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.1.0..v0.1.1
+[0.1.0]: https://github.com/giantswarm/prometheus-operator-app/releases/tag/v0.1.0
