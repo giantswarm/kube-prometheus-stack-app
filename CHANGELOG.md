@@ -14,6 +14,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Replaced Kube-State-Metrics Vertical-Pod-Autoscaler minAllowed resources with high limits/requests ratio to prevent throttling and yet spare resources on clusters any size.
+- Upgraded chart dependency to [kube-prometheus-stack-48.3.3](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-46.6.0)
 
 ## [5.0.7] - 2023-07-07
 
