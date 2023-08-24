@@ -3,15 +3,10 @@ global:
   rbac:
     create: true
     pspEnabled: true
-
-ciliumNetworkPolicy:
-  enabled: false
+    pspAnnotations:
+      seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
 
 prometheus-operator-app:
-  global:
-    rbac:
-      pspAnnotations:
-        seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
   alertmanager:
     alertmanagerSpec:
       image:
@@ -253,6 +248,7 @@ prometheus-operator-app:
     - statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
     networkPolicy:
       enabled: true
+      flavor: kubernetes
       egress:
       - to:
         - ipBlock:
