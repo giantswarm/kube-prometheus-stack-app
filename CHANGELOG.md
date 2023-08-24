@@ -11,6 +11,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add `app.kubernetes.io/component` and `app.kubernetes.io/instance` to the list of allowed labels.
 
+### Changed
+
+- Replaced Kube-State-Metrics Vertical-Pod-Autoscaler minAllowed resources with high limits/requests ratio to prevent throttling and yet spare resources on clusters any size.
+
 ## [5.0.7] - 2023-07-07
 
 ### Fixed

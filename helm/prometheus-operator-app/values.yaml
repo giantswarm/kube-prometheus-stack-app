@@ -328,15 +328,12 @@ prometheus-operator-app:
         cpu: 200m
         memory: 200Mi
       limits:
-        cpu: 200m
+        cpu: 2000m
         memory: 200Mi
     selfMonitor:
       enabled: true
     verticalPodAutoscaler:
       enabled: true
-      minAllowed:
-        cpu: 200m
-        memory: 200Mi
   nodeExporter:
     enabled: false
   prometheus-node-exporter:
