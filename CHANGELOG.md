@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [5.1.0] - 2023-08-24
+
 ### Added
 
 - Add `app.kubernetes.io/component` and `app.kubernetes.io/instance` to the list of allowed labels.
@@ -513,7 +515,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.7...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.1.0...HEAD
+[5.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.7...v5.1.0
 [5.0.7]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.6...v5.0.7
 [5.0.6]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.5...v5.0.6
 [5.0.5]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.4...v5.0.5
