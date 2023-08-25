@@ -11,6 +11,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Upgraded chart dependency to [kube-prometheus-stack-48.4.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-48.4.0)
    - Update `alertmanager` from 0.25.0 to 0.26.0
+- Add dropped `apiserver_response_sizes_sum` and `apiserver_response_sizes_count` metrics back.
 
 ## [5.1.0] - 2023-08-24
 
