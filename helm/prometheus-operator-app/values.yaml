@@ -72,10 +72,6 @@ prometheus-operator-app:
         sourceLabels:
         - __name__
       - action: drop
-        regex: apiserver_response_(sizes_count|sizes_sum)
-        sourceLabels:
-        - __name__
-      - action: drop
         regex: apiextensions_openapi_v2_regeneration_count|apiextensions_openapi_v3_regeneration_count
         sourceLabels:
         - __name__
