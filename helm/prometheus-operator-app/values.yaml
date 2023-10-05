@@ -6,6 +6,10 @@ global:
     pspAnnotations:
       seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
 
+kyvernoPolicyExceptions:
+  enabled: true
+  namespace: giantswarm
+
 prometheus-operator-app:
   alertmanager:
     alertmanagerSpec:

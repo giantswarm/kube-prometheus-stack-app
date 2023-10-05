@@ -1,0 +1,53 @@
+{{- if and .Values.kyvernoPolicyExceptions.enabled (index .Values "prometheus-operator-app" "nodeExporter" "enabled") }}
+{{- if .Capabilities.APIVersions.Has "kyverno.io/v2alpha1/PolicyException" -}}
+apiVersion: kyverno.io/v2alpha1
+kind: PolicyException
+metadata:
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+  labels:
+    {{- include "prometheus-node-exporter.labels" . | nindent 4 }}
+  name: {{ include "prometheus-node-exporter.fullname" . }}-exceptions
+  namespace: {{ .Values.kyvernoPolicyExceptions.namespace | default (include "prometheus-node-exporter.namespace" .) }}
+spec:
+  exceptions:
+  - policyName: disallow-host-path
+    ruleNames:
+    - host-path
+    - autogen-host-path
+  - policyName: disallow-privilege-escalation
+    ruleNames:
+    - privilege-escalation
+    - autogen-privilege-escalation
+  - policyName: disallow-capabilities-strict
+    ruleNames:
+    - require-drop-all
+    - autogen-require-drop-all
+  - policyName: disallow-host-namespaces
+    ruleNames:
+    - host-namespaces
+    - autogen-host-namespaces
+  - policyName: disallow-host-ports
+    ruleNames:
+    - host-ports-none
+    - autogen-host-ports-none
+  - policyName: restrict-seccomp-strict
+    ruleNames:
+    - check-seccomp-strict
+    - autogen-check-seccomp-strict
+  - policyName: restrict-volume-types
+    ruleNames:
+    - restricted-volumes
+    - autogen-restricted-volumes
+  match:
+    any:
+    - resources:
+        kinds:
+        - DaemonSet
+        - Pod
+        namespaces:
+        - {{ include "prometheus-node-exporter.namespace" . }}
+        names:
+        - {{ include "prometheus-node-exporter.fullname" . }}*
+  {{- end -}}
+{{- end -}}
