@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [6.2.0] - 2023-10-09
+
 ### Changed
 
 - Add kyverno policy exceptions for node exporter.
@@ -546,7 +548,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v6.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v6.2.0...HEAD
+[6.2.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v6.1.0...v6.2.0
 [6.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v6.0.0...v6.1.0
 [6.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.2.0...v6.0.0
 [5.2.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.1.0...v5.2.0
