@@ -9,6 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- Add kyverno policy exceptions for node exporter.
 - Upgraded chart dependency to [kube-prometheus-stack-51.4.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-51.4.0)
 
 ## [6.1.0] - 2023-09-12

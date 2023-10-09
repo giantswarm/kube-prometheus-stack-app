@@ -14,10 +14,29 @@
                         "create": {
                             "type": "boolean"
                         },
+                        "pspAnnotations": {
+                            "type": "object",
+                            "properties": {
+                                "seccomp.security.alpha.kubernetes.io/allowedProfileNames": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "pspEnabled": {
                             "type": "boolean"
                         }
                     }
+                }
+            }
+        },
+        "kyvernoPolicyExceptions": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "namespace": {
+                    "type": "string"
                 }
             }
         },
@@ -200,6 +219,9 @@
                                 },
                                 "enabled": {
                                     "type": "boolean"
+                                },
+                                "flavor": {
+                                    "type": "string"
                                 },
                                 "ingress": {
                                     "type": "array",
@@ -654,8 +676,14 @@
                                     "items": {
                                         "type": "object",
                                         "properties": {
-                                            "replacement": {
+                                            "action": {
                                                 "type": "string"
+                                            },
+                                            "sourceLabels": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
                                             },
                                             "targetLabel": {
                                                 "type": "string"
@@ -688,8 +716,14 @@
                                     "items": {
                                         "type": "object",
                                         "properties": {
-                                            "replacement": {
+                                            "action": {
                                                 "type": "string"
+                                            },
+                                            "sourceLabels": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
                                             },
                                             "targetLabel": {
                                                 "type": "string"
@@ -763,6 +797,14 @@
                 "prometheus-node-exporter": {
                     "type": "object",
                     "properties": {
+                        "image": {
+                            "type": "object",
+                            "properties": {
+                                "repository": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "rbac": {
                             "type": "object",
                             "properties": {
@@ -821,6 +863,14 @@
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
+                                }
+                            }
+                        },
+                        "podAnnotations": {
+                            "type": "object",
+                            "properties": {
+                                "cluster-autoscaler.kubernetes.io/safe-to-evict": {
+                                    "type": "string"
                                 }
                             }
                         },
