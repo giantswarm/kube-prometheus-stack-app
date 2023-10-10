@@ -13,7 +13,7 @@ annotations:
   application.giantswarm.io/team: atlas
 dependencies:
   - name: kube-prometheus-stack
-    version: 51.4.1
+    version: 51.5.1
     repository: https://prometheus-community.github.io/helm-charts
     alias: prometheus-operator-app
 sources:
