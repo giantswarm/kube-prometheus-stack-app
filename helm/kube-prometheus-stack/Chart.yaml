@@ -1,10 +1,10 @@
 apiVersion: v2
 appVersion: "v0.68.0"
-name: prometheus-operator-app
+name: kube-prometheus-stack
 description: Giant Swarm's Prometheus Operator Deployment
 icon: https://s.giantswarm.io/app-icons/prometheus-operator/2/light.svg
 version: 6.2.1
-home: https://github.com/giantswarm/prometheus-operator-app
+home: https://github.com/giantswarm/kube-prometheus-stack
 kubeVersion: ">=1.19.0-0"
 maintainers:
   - name: giantswarm/team-atlas
