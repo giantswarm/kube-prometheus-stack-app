@@ -1,6 +1,6 @@
 replace-chart-version-with-git: true
 generate-metadata: true
-chart-dir: ./helm/prometheus-operator-app
+chart-dir: ./helm/kube-prometheus-stack
 destination: ./build
 ct-config: ./.circleci/ct-config.yaml
 catalog-base-url: https://giantswarm.github.io/giantswarm-catalog/

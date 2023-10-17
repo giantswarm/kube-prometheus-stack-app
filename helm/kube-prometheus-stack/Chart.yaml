@@ -15,6 +15,5 @@ dependencies:
   - name: kube-prometheus-stack
     version: 51.5.1
     repository: https://prometheus-community.github.io/helm-charts
-    alias: prometheus-operator-app
 sources:
   - "https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack"

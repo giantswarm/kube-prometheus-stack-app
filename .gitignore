@@ -1,4 +1,4 @@
 **/__pycache__
 **/test_results**.xml
 build/
-helm/prometheus-operator-app/charts/*.tgz
+helm/kube-prometheus-stack/charts/*.tgz

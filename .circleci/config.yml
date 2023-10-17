@@ -11,7 +11,8 @@ workflows:
           name: push-to-default-app-catalog
           app_catalog: "default-catalog"
           app_catalog_test: "default-test-catalog"
-          chart: "prometheus-operator-app"
+          chart: "kube-prometheus-stack"
+          explicit_allow_chart_name_mismatch: true
           ct_config: ".circleci/ct-config.yaml"
           filters:
             # Trigger the job also on git tag.
@@ -24,7 +25,8 @@ workflows:
           name: push-to-giantswarm-app-catalog
           app_catalog: "giantswarm-catalog"
           app_catalog_test: "giantswarm-test-catalog"
-          chart: "prometheus-operator-app"
+          chart: "kube-prometheus-stack"
+          explicit_allow_chart_name_mismatch: true
           ct_config: ".circleci/ct-config.yaml"
           filters:
             # Trigger the job also on git tag.
