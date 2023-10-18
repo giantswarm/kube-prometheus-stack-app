@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [7.0.0] - 2023-10-18
+
 ### Changed
 
 - Rename app to `kube-prometheus-stack`
@@ -563,7 +565,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v6.2.1...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v7.0.0...HEAD
+[7.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v6.2.1...v7.0.0
 [6.2.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v6.2.0...v6.2.1
 [6.2.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v6.1.0...v6.2.0
 [6.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v6.0.0...v6.1.0
