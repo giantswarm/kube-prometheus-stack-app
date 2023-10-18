@@ -7,12 +7,16 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Rename app to `kube-prometheus-stack`
+- Upgraded chart dependency to [kube-prometheus-stack-51.9.4](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-51.9.4)
+
 ## [6.2.1] - 2023-10-11
 
 ### Changed
 
-- Rename app to `kube-prometheus-stack``
-- Upgraded chart dependency to [kube-prometheus-stack-51.5.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-51.5.1)
+- Upgraded chart dependency to [kube-prometheus-stack-51.4.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-51.4.1)
 
 ## [6.2.0] - 2023-10-09
 
