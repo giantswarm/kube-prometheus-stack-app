@@ -1,10 +1,10 @@
 apiVersion: v2
 appVersion: "v0.68.0"
-name: prometheus-operator-app
+name: kube-prometheus-stack
 description: Giant Swarm's Prometheus Operator Deployment
 icon: https://s.giantswarm.io/app-icons/prometheus-operator/2/light.svg
 version: 6.2.1
-home: https://github.com/giantswarm/prometheus-operator-app
+home: https://github.com/giantswarm/kube-prometheus-stack
 kubeVersion: ">=1.19.0-0"
 maintainers:
   - name: giantswarm/team-atlas
@@ -15,6 +15,5 @@ dependencies:
   - name: kube-prometheus-stack
     version: 51.5.1
     repository: https://prometheus-community.github.io/helm-charts
-    alias: prometheus-operator-app
 sources:
   - "https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack"

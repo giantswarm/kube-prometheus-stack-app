@@ -1,6 +1,6 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/prometheus-operator-app/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/prometheus-operator-app/tree/main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/kube-prometheus-stack-app/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/kube-prometheus-stack-app/tree/main)
 
-# Prometheus Operator App
+# Kube Prometheus Stack App
 
 Giant Swarm offers Prometheus Operator as a [managed app](https://docs.giantswarm.io/changes/managed-apps/) which can be installed in any clusters.
 
@@ -16,7 +16,7 @@ Giant Swarm offers Prometheus Operator as a [managed app](https://docs.giantswar
 ## Requirements
 
 In order to run this app and to be able to ensure smooth upgrades, we decided to split the CRDs from the application helm chart.
-In this regard, you need to install the `prometheus-operator-crd` app compatible with the `prometheus-operator-app` version (same major version).
+In this regard, you need to install the `prometheus-operator-crd` app compatible with the `kube-prometheus-stack` app version (same major version).
 
 ## Install
 
@@ -31,6 +31,40 @@ There are several ways to install this app onto a workload cluster.
 ### Upgrading an existing Release to a new major version
 
 A major chart version change (like v0.5.0 -> v1.0.0) indicates that there is an incompatible breaking change needing manual actions.
+
+### From 6.x to 7.x
+
+This version renames `prometheus-operator-app` to `kube-prometheus-stack`.
+
+**⚠️ Please make sure to move all values nested under `prometheus-operator-app` to the new nested value `kube-prometheus-stack` ⚠️**
+
+Example:
+
+```yaml
+# old values.yaml structure
+prometheus-operator-app:
+  defaultRules:
+    rules:
+      kubeProxy: true
+  prometheusOperator:
+    image:
+      tag: v0.54.0
+```
+
+```yaml
+# new values.yaml structure
+kube-prometheus-stack:
+  defaultRules:
+    rules:
+      kubeProxy: true
+  prometheusOperator:
+    image:
+      tag: v0.54.0
+```
+
+### From 5.x to 6.x
+
+This version upgrades the kube-prometheus-stack chart from 46.x to 51.x and brings a small subset of changes (mainly upgrading prometheus-operator from 0.65 to 0.68 and a bunch of fixes).
 
 ### From 4.x to 5.x
 
@@ -370,12 +404,12 @@ In order to upgrade to 2.0.0, you should check the changes in values below and a
 
 ## Configuration
 
-By default, Prometheus Operator App is configured to scrape all targets equipped with a Service Monitor in the cluster it's deployed to.
+By default, Kube Prometheus Stack is configured to scrape all targets equipped with a Service Monitor in the cluster it's deployed to.
 
 `node-exporter` and `kube-state-metrics` are disabled by default because Giant Swarm provides them in their clusters but those components can be installed with:
 
 ```yaml
-prometheus-operator-app:
+kube-prometheus-stack:
   kubeStateMetrics:
     enabled: true
   nodeExporter:
@@ -397,18 +431,18 @@ apiVersion: application.giantswarm.io/v1alpha1
 kind: App
 metadata:
   labels:
-  name: prometheus-operator-app
+  name: kube-prometheus-stack
   # workload cluster resources live in a namespace with the same ID as the
   # workload cluster.
   namespace: abc12
 spec:
-  name: prometheus-operator-app
-  namespace: prometheus-operator-app
+  name: kube-prometheus-stack
+  namespace: kube-prometheus-stack
   catalog: giantswarm
   version: 2.2.0
   userConfig:
     configMap:
-      name: prometheus-operator-app-user-values
+      name: kube-prometheus-stack-user-values
       namespace: abc12
 ```
 
@@ -417,11 +451,11 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: prometheus-operator-app-user-values
+  name: kube-prometheus-stack-user-values
   namespace: abc12
 data:
   values: |
-    prometheus-operator-app:
+    kube-prometheus-stack:
       kubeStateMetrics:
         enabled: true
       nodeExporter:
@@ -436,7 +470,7 @@ The default configuration of this chart ignores secrets of type `helm.sh/release
 This can be changed by changing the value of `prometheusOperator.secretFieldSelector` in your values.yaml. Example:
 
 ```yaml
-prometheus-operator-app:
+kube-prometheus-stack:
   prometheusOperator:
     secretFieldSelector: ""
 ```
