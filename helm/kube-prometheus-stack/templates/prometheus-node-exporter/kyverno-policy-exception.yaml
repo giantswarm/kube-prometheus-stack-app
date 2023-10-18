@@ -1,4 +1,4 @@
-{{- if and .Values.kyvernoPolicyExceptions.enabled (index .Values "prometheus-operator-app" "nodeExporter" "enabled") }}
+{{- if and .Values.kyvernoPolicyExceptions.enabled (index .Values "kube-prometheus-stack" "nodeExporter" "enabled") }}
 {{- if .Capabilities.APIVersions.Has "kyverno.io/v2alpha1/PolicyException" -}}
 apiVersion: kyverno.io/v2alpha1
 kind: PolicyException

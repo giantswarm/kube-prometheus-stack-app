@@ -29,18 +29,7 @@
                 }
             }
         },
-        "kyvernoPolicyExceptions": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "namespace": {
-                    "type": "string"
-                }
-            }
-        },
-        "prometheus-operator-app": {
+        "kube-prometheus-stack": {
             "type": "object",
             "properties": {
                 "alertmanager": {
@@ -964,6 +953,17 @@
                             }
                         }
                     }
+                }
+            }
+        },
+        "kyvernoPolicyExceptions": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "namespace": {
+                    "type": "string"
                 }
             }
         }

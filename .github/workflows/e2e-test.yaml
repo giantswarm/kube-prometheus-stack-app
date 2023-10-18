@@ -13,17 +13,17 @@ jobs:
 
       - name: install chart
         run: |
-          sed -i 's/\[\[ .Version \]\]/0.0.0/' helm/prometheus-operator-app/Chart.yaml
+          sed -i 's/\[\[ .Version \]\]/0.0.0/' helm/kube-prometheus-stack/Chart.yaml
 
-          helm dependency update ./helm/prometheus-operator-app/
+          helm dependency update ./helm/kube-prometheus-stack/
       
-          helm --kube-context kind-chart-testing install e2e-test-prometheus-operator ./helm/prometheus-operator-app/ --wait
+          helm --kube-context kind-chart-testing install e2e-test-prometheus-operator ./helm/kube-prometheus-stack/ --wait
 
-          kubectl --context kind-chart-testing wait pod --for=condition=Ready -l app=prometheus-operator-app-operator
+          kubectl --context kind-chart-testing wait pod --for=condition=Ready -l app=kube-prometheus-stack-operator
 
           sleep 120
 
-          STATE=$(kubectl --context kind-chart-testing get pods -l app=prometheus-operator-app-operator -ojson | jq -r '.items | .[0].status.phase')
+          STATE=$(kubectl --context kind-chart-testing get pods -l app=kube-prometheus-stack-operator -ojson | jq -r '.items | .[0].status.phase')
           if [ "$STATE" == "Running" ]; then
               echo 'prometheus operator is Running'
           else

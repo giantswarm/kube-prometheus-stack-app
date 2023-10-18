@@ -10,7 +10,7 @@ kyvernoPolicyExceptions:
   enabled: true
   namespace: giantswarm
 
-prometheus-operator-app:
+kube-prometheus-stack:
   alertmanager:
     alertmanagerSpec:
       image:

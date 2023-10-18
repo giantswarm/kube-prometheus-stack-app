@@ -11,7 +11,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Upgraded chart dependency to [kube-prometheus-stack-51.4.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-51.4.1)
+- Rename app to `kube-prometheus-stack``
+- Upgraded chart dependency to [kube-prometheus-stack-51.5.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-51.5.1)
 
 ## [6.2.0] - 2023-10-09
 
@@ -201,7 +202,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Update chart to [kube-prometheus-stack-44.2.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-44.2.0). See [breaking changes](https://github.com/giantswarm/prometheus-operator-app/blob/main/README.md#from-2x-to-3x)
+- Update chart to [kube-prometheus-stack-44.2.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-44.2.0). See [breaking changes](https://github.com/giantswarm/kube-prometheus-stack-app/blob/main/README.md#from-2x-to-3x)
     - Update `alertmanager` from 0.23.0 to 0.25.0
     - Update `grafana` from 6.22.* to 6.48.*
     - Update `kube-state-metrics` from 4.5.* to 4.24.*
@@ -249,7 +250,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Update `upstream chart` to [kube-prometheus-stack-32.4.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-32.4.0). See [breaking changes](https://github.com/giantswarm/prometheus-operator-app/blob/main/README.md#from-13x-to-2x)
+- Update `upstream chart` to [kube-prometheus-stack-32.4.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-32.4.0). See [breaking changes](https://github.com/giantswarm/kube-prometheus-stack-app/blob/main/README.md#from-13x-to-2x)
     - Upgrade `prometheus-operator` from [0.52.1](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.52.1) to [0.54.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.54.0)
     - Update `prometheus` from 2.31.1 to 2.33.1
 
@@ -511,17 +512,20 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ## [0.3.2]
 
 ### Changed
+
 - Fix CRD installation to support both helm2 and helm3
 - Add support for installations in China
 
 ## [0.3.1]
 
 ### Changed
+
 - Fix application name in the circleci config
 
 ## [0.3.0]
 
 ### Changed
+
 - Fix kubelet service name in the Prometheus Operator deployment
 - Update Prometheus Operator to 0.38.1
 - Update Prometheus to 2.17.2
@@ -534,6 +538,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ## [0.2.0]
 
 ### Changed
+
 - Add Kubernetes 1.16 support
 - Update Prometheus Operator to 0.35.0
 - Update Prometheus to 2.15.2
@@ -554,71 +559,71 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/prometheus-operator-app/compare/v6.2.1...HEAD
-[6.2.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v6.2.0...v6.2.1
-[6.2.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v6.1.0...v6.2.0
-[6.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v6.0.0...v6.1.0
-[6.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.2.0...v6.0.0
-[5.2.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.1.0...v5.2.0
-[5.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.7...v5.1.0
-[5.0.7]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.6...v5.0.7
-[5.0.6]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.5...v5.0.6
-[5.0.5]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.4...v5.0.5
-[5.0.4]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.3...v5.0.4
-[5.0.3]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.2...v5.0.3
-[5.0.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.1...v5.0.2
-[5.0.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v5.0.0...v5.0.1
-[5.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.4.0...v5.0.0
-[4.4.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.3.0...v4.4.0
-[4.3.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.4...v4.3.0
-[4.2.4]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.3...v4.2.4
-[4.2.3]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.2...v4.2.3
-[4.2.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.1...v4.2.2
-[4.2.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.2.0...v4.2.1
-[4.2.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.1.0...v4.2.0
-[4.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.0.1...v4.1.0
-[4.0.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v4.0.0...v4.0.1
-[4.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v3.0.0...v4.0.0
-[3.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.2...v3.0.0
-[2.1.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.1...v2.1.2
-[2.1.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.1.0...v2.1.1
-[2.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.2...v2.1.0
-[2.0.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.1...v2.0.2
-[2.0.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v2.0.0...v2.0.1
-[2.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.3.1...v2.0.0
-[1.3.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.3.0...v1.3.1
-[1.3.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.2.1...v1.3.0
-[1.2.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.2.0...v1.2.1
-[1.2.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.1.2...v1.2.0
-[1.1.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.1.1...v1.1.2
-[1.1.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.1.0...v1.1.1
-[1.1.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.0.2...v1.1.0
-[1.0.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.0.1...v1.0.2
-[1.0.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v1.0.0...v1.0.1
-[1.0.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.12.1...v1.0.0
-[0.12.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.12.0...v0.12.1
-[0.12.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.11.0...v0.12.0
-[0.11.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.10.2...v0.11.0
-[0.10.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.10.1...v0.10.2
-[0.10.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.10.0...v0.10.1
-[0.10.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.9.0...v0.10.0
-[0.9.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.8.2...v0.9.0
-[0.8.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.8.1...v0.8.2
-[0.8.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.8.0...v0.8.1
-[0.8.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.7.0...v0.8.0
-[0.7.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.7.1...v0.7.2
-[0.7.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.7.0...v0.7.1
-[0.7.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.6.0...v0.7.0
-[0.6.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.2...v0.6.0
-[0.5.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.1...v0.5.2
-[0.5.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.5.0...v0.5.1
-[0.5.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.4.0...v0.5.0
-[0.4.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.4...v0.4.0
-[0.3.4]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.3...v0.3.4
-[0.3.3]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.2..v0.3.3
-[0.3.2]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.1..v0.3.2
-[0.3.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.3.0..v0.3.1
-[0.3.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.2.0..v0.3.0
-[0.2.0]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.1.1..v0.2.0
-[0.1.1]: https://github.com/giantswarm/prometheus-operator-app/compare/v0.1.0..v0.1.1
-[0.1.0]: https://github.com/giantswarm/prometheus-operator-app/releases/tag/v0.1.0
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v6.2.1...HEAD
+[6.2.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v6.2.0...v6.2.1
+[6.2.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v6.1.0...v6.2.0
+[6.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v6.0.0...v6.1.0
+[6.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v5.2.0...v6.0.0
+[5.2.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v5.1.0...v5.2.0
+[5.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v5.0.7...v5.1.0
+[5.0.7]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v5.0.6...v5.0.7
+[5.0.6]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v5.0.5...v5.0.6
+[5.0.5]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v5.0.4...v5.0.5
+[5.0.4]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v5.0.3...v5.0.4
+[5.0.3]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v5.0.2...v5.0.3
+[5.0.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v5.0.1...v5.0.2
+[5.0.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v5.0.0...v5.0.1
+[5.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v4.4.0...v5.0.0
+[4.4.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v4.3.0...v4.4.0
+[4.3.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v4.2.4...v4.3.0
+[4.2.4]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v4.2.3...v4.2.4
+[4.2.3]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v4.2.2...v4.2.3
+[4.2.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v4.2.1...v4.2.2
+[4.2.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v4.2.0...v4.2.1
+[4.2.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v4.1.0...v4.2.0
+[4.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v4.0.1...v4.1.0
+[4.0.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v4.0.0...v4.0.1
+[4.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v3.0.0...v4.0.0
+[3.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v2.1.2...v3.0.0
+[2.1.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v2.1.1...v2.1.2
+[2.1.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v2.1.0...v2.1.1
+[2.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v2.0.2...v2.1.0
+[2.0.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v2.0.1...v2.0.2
+[2.0.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v1.3.1...v2.0.0
+[1.3.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v1.3.0...v1.3.1
+[1.3.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v1.1.2...v1.2.0
+[1.1.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v1.0.2...v1.1.0
+[1.0.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.12.1...v1.0.0
+[0.12.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.12.0...v0.12.1
+[0.12.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.11.0...v0.12.0
+[0.11.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.10.2...v0.11.0
+[0.10.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.10.1...v0.10.2
+[0.10.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.10.0...v0.10.1
+[0.10.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.9.0...v0.10.0
+[0.9.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.8.2...v0.9.0
+[0.8.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.8.1...v0.8.2
+[0.8.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.8.0...v0.8.1
+[0.8.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.7.0...v0.8.0
+[0.7.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.7.1...v0.7.2
+[0.7.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.7.0...v0.7.1
+[0.7.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.6.0...v0.7.0
+[0.6.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.5.2...v0.6.0
+[0.5.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.5.1...v0.5.2
+[0.5.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.5.0...v0.5.1
+[0.5.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.3.4...v0.4.0
+[0.3.4]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.3.3...v0.3.4
+[0.3.3]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.3.2..v0.3.3
+[0.3.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.3.1..v0.3.2
+[0.3.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.3.0..v0.3.1
+[0.3.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.2.0..v0.3.0
+[0.2.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.1.1..v0.2.0
+[0.1.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v0.1.0..v0.1.1
+[0.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/releases/tag/v0.1.0
