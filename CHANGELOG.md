@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Allowed the `application.giantswarm.io/team` and `app.kubernetes.io/name` labels for `cronjobs` and `jobs`.
+
 ## [7.0.0] - 2023-10-18
 
 ### Changed
