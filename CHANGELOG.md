@@ -7,9 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [8.1.1] - 2023-12-13
+
 ### Changed
 
 - Upgraded chart dependency to [kube-prometheus-stack-55.4.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-55.4.0)
+    - This PR configures the value of GOGC to 30 (instead of 100) for Prometheus-Operator deployment to reduce it's resource usage.
 
 ## [8.1.0] - 2023-12-12
 
@@ -581,7 +584,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.1...HEAD
+[8.1.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.0...v8.1.1
 [8.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.0.0...v8.1.0
 [8.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v7.0.0...v8.0.0
 [7.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v6.2.1...v7.0.0
