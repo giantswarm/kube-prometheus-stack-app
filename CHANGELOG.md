@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Configure `gsoci.azurecr.io` as the default container image registry.
+
 ## [8.1.1] - 2023-12-13
 
 ### Changed
@@ -523,7 +527,6 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - grafana chart requirement `5.1.*` -> `5.3.*`
 - configmapReloadImage `0.0.1` -> `0.3.0`
 - hyperkubeImage `1.12.1` -> `1.16.12`
-
 
 ## [0.3.3]
 
