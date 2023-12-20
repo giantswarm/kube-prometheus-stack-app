@@ -30,18 +30,18 @@ kube-prometheus-stack:
     serviceMonitor:
       relabelings:
       # Add app label.
-        - targetLabel: app
-          replacement: coredns
+      - targetLabel: app
+        replacement: coredns
       # Add node label.
-        - sourceLabels:
-            - __meta_kubernetes_pod_node_name
-          targetLabel: node
+      - sourceLabels:
+        - __meta_kubernetes_pod_node_name
+        targetLabel: node
       metricRelabelings:
       # GS addition to reduce cardinality
-        - action: drop
-          regex: coredns_dns_(request_size_bytes_bucket|response_size_bytes_bucket)
-          sourceLabels:
-            - __name__
+      - action: drop
+        regex: coredns_dns_(request_size_bytes_bucket|response_size_bytes_bucket)
+        sourceLabels:
+        - __name__
   grafana:
     rbac:
       pspEnabled: true
@@ -53,99 +53,92 @@ kube-prometheus-stack:
     serviceMonitor:
       relabelings:
       # Add app label.
-        - targetLabel: app
-          replacement: kubernetes
+      - targetLabel: app
+        replacement: kubernetes
       metricRelabelings:
       # Keep from upstream values (https://github.com/prometheus-community/helm-charts/blob/kube-prometheus-stack-44.4.1/charts/kube-prometheus-stack/values.yaml#L967)
-        - action: drop
-          regex: 
-            apiserver_request_duration_seconds_bucket;(0.15|0.2|0.3|0.35|0.4|0.45|0.6|0.7|0.8|0.9|1.25|1.5|1.75|2|3|3.5|4|4.5|6|7|8|9|15|25|40|50)
-          sourceLabels:
-            - __name__
-            - le
+      - action: drop
+        regex: apiserver_request_duration_seconds_bucket;(0.15|0.2|0.3|0.35|0.4|0.45|0.6|0.7|0.8|0.9|1.25|1.5|1.75|2|3|3.5|4|4.5|6|7|8|9|15|25|40|50)
+        sourceLabels:
+        - __name__
+        - le
       # GS addition to reduce cardinality
       # drop unused rest client metrics
-        - sourceLabels: [__name__]
-          regex: 
-            rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
-          action: drop
-        - action: drop
-          regex: 
-            apiserver_(longrunning_requests|watch_events_sizes_count|watch_events_sizes_sum|storage_list_fetched_objects_total|storage_list_total|storage_list_returned_objects_total)
-          sourceLabels:
-            - __name__
-        - action: drop
-          regex: 
-            apiserver_request_(slo_(duration_seconds_bucket|duration_seconds_sum)|duration_seconds_sum)
-          sourceLabels:
-            - __name__
-        - action: drop
-          regex: 
-            apiextensions_openapi_v2_regeneration_count|apiextensions_openapi_v3_regeneration_count
-          sourceLabels:
-            - __name__
+      - sourceLabels: [__name__]
+        regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
+        action: drop
+      - action: drop
+        regex: apiserver_(longrunning_requests|watch_events_sizes_count|watch_events_sizes_sum|storage_list_fetched_objects_total|storage_list_total|storage_list_returned_objects_total)
+        sourceLabels:
+        - __name__
+      - action: drop
+        regex: apiserver_request_(slo_(duration_seconds_bucket|duration_seconds_sum)|duration_seconds_sum)
+        sourceLabels:
+        - __name__
+      - action: drop
+        regex: apiextensions_openapi_v2_regeneration_count|apiextensions_openapi_v3_regeneration_count
+        sourceLabels:
+        - __name__
   kubelet:
     enabled: true
     serviceMonitor:
       cAdvisorRelabelings:
       # Keep the default value
-        - action: replace
-          sourceLabels: [__metrics_path__]
-          targetLabel: metrics_path
+      - action: replace
+        sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
       # Add app label.
-        - targetLabel: app
-          replacement: cadvisor
+      - targetLabel: app
+        replacement: cadvisor
       cAdvisorMetricRelabelings:
       # Drop less useful container CPU metrics.
-        - sourceLabels: [__name__]
-          action: drop
-          regex: 'container_cpu_(cfs_throttled_seconds_total|load_average_10s|system_seconds_total|user_seconds_total)'
+      - sourceLabels: [__name__]
+        action: drop
+        regex: 'container_cpu_(cfs_throttled_seconds_total|load_average_10s|system_seconds_total|user_seconds_total)'
       # Drop less useful container / always zero filesystem metrics.
-        - sourceLabels: [__name__]
-          action: drop
-          regex: 'container_fs_(io_current|io_time_seconds_total|io_time_weighted_seconds_total|reads_merged_total|sector_reads_total|sector_writes_total|writes_merged_total)'
+      - sourceLabels: [__name__]
+        action: drop
+        regex: 'container_fs_(io_current|io_time_seconds_total|io_time_weighted_seconds_total|reads_merged_total|sector_reads_total|sector_writes_total|writes_merged_total)'
       # Drop less useful / always zero container memory metrics.
-        - sourceLabels: [__name__]
-          action: drop
-          regex: 'container_memory_(mapped_file|swap)'
+      - sourceLabels: [__name__]
+        action: drop
+        regex: 'container_memory_(mapped_file|swap)'
       # Drop less useful container process metrics.
-        - sourceLabels: [__name__]
-          action: drop
-          regex: 'container_(file_descriptors|tasks_state|threads_max)'
+      - sourceLabels: [__name__]
+        action: drop
+        regex: 'container_(file_descriptors|tasks_state|threads_max)'
       # Drop container spec metrics that overlap with kube-state-metrics.
-        - sourceLabels: [__name__]
-          action: drop
-          regex: 'container_spec.*'
+      - sourceLabels: [__name__]
+        action: drop
+        regex: 'container_spec.*'
       # Drop cgroup metrics with no pod.
-        - sourceLabels: [id, pod]
-          action: drop
-          regex: '.+;'
+      - sourceLabels: [id, pod]
+        action: drop
+        regex: '.+;'
       # GS addition to reduce cardinality
       # drop id and name labels from cAdvisor as they do not provide value but use a lot of RAM
-        - action: labeldrop
-          regex: id|name
-        - sourceLabels: [__name__]
-          regex: 
-            container_(blkio_device_usage_total|network_transmit_errors_total|network_receive_errors_total|memory_failures_total|memory_max_usage_bytes|memory_failcnt)
-          action: drop
+      - action: labeldrop
+        regex: id|name
+      - sourceLabels: [__name__]
+        regex: container_(blkio_device_usage_total|network_transmit_errors_total|network_receive_errors_total|memory_failures_total|memory_max_usage_bytes|memory_failcnt)
+        action: drop
       relabelings:
       # Keep the default value
-        - action: replace
-          sourceLabels: [__metrics_path__]
-          targetLabel: metrics_path
+      - action: replace
+        sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
       # Add app label.
-        - targetLabel: app
-          replacement: kubelet
+      - targetLabel: app
+        replacement: kubelet
       metricRelabelings:
       # GS addition to reduce cardinality
       # drop unused rest client metrics
-        - sourceLabels: [__name__]
-          regex: 
-            rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
-          action: drop
+      - sourceLabels: [__name__]
+        regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
+        action: drop
       # drop uid label from kubelet
-        - action: labeldrop
-          regex: uid
+      - action: labeldrop
+        regex: uid
   kubeControllerManager:
     enabled: true
     service:
@@ -158,37 +151,36 @@ kube-prometheus-stack:
       insecureSkipVerify: true
       relabelings:
       # Add app label.
-        - targetLabel: app
-          replacement: kube-controller-manager
+      - targetLabel: app
+        replacement: kube-controller-manager
       # Add node label.
-        - sourceLabels:
-            - __meta_kubernetes_pod_node_name
-          targetLabel: node
+      - sourceLabels:
+        - __meta_kubernetes_pod_node_name
+        targetLabel: node
       metricRelabelings:
       # GS addition to reduce cardinality
       # drop unused rest client metrics
-        - sourceLabels: [__name__]
-          regex: 
-            rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
-          action: drop
+      - sourceLabels: [__name__]
+        regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
+        action: drop
   kubeEtcd:
     enabled: true
     serviceMonitor:
       relabelings:
       # Add app label.
-        - targetLabel: app
-          replacement: etcd
+      - targetLabel: app
+        replacement: etcd
       # Add node label.
-        - sourceLabels:
-            - __meta_kubernetes_pod_node_name
-          targetLabel: node
+      - sourceLabels:
+        - __meta_kubernetes_pod_node_name
+        targetLabel: node
   kubeProxy:
     enabled: true
     serviceMonitor:
       relabelings:
       # Add app label.
-        - targetLabel: app
-          replacement: kube-proxy
+      - targetLabel: app
+        replacement: kube-proxy
   kubeScheduler:
     enabled: true
     service:
@@ -201,84 +193,78 @@ kube-prometheus-stack:
       insecureSkipVerify: true
       relabelings:
       # Add app label.
-        - targetLabel: app
-          replacement: kube-scheduler
+      - targetLabel: app
+        replacement: kube-scheduler
       # Add node label.
-        - sourceLabels:
-            - __meta_kubernetes_pod_node_name
-          targetLabel: node
+      - sourceLabels:
+        - __meta_kubernetes_pod_node_name
+        targetLabel: node
       metricRelabelings:
       # GS addition to reduce cardinality
       # drop unused rest client metrics
-        - sourceLabels: [__name__]
-          regex: 
-            rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
-          action: drop
+      - sourceLabels: [__name__]
+        regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
+        action: drop
   kubeStateMetrics:
     enabled: true
   kube-state-metrics:
     # Enabling verticalpodautoscaler collector until 2.9.0.
     collectors:
-      - certificatesigningrequests
-      - configmaps
-      - cronjobs
-      - daemonsets
-      - deployments
-      - endpoints
-      - horizontalpodautoscalers
-      - ingresses
-      - jobs
-      - leases
-      - limitranges
-      - mutatingwebhookconfigurations
-      - namespaces
-      - networkpolicies
-      - nodes
-      - persistentvolumeclaims
-      - persistentvolumes
-      - poddisruptionbudgets
-      - pods
-      - replicasets
-      - replicationcontrollers
-      - resourcequotas
-      - secrets
-      - services
-      - statefulsets
-      - storageclasses
-      - validatingwebhookconfigurations
-      - volumeattachments
+    - certificatesigningrequests
+    - configmaps
+    - cronjobs
+    - daemonsets
+    - deployments
+    - endpoints
+    - horizontalpodautoscalers
+    - ingresses
+    - jobs
+    - leases
+    - limitranges
+    - mutatingwebhookconfigurations
+    - namespaces
+    - networkpolicies
+    - nodes
+    - persistentvolumeclaims
+    - persistentvolumes
+    - poddisruptionbudgets
+    - pods
+    - replicasets
+    - replicationcontrollers
+    - resourcequotas
+    - secrets
+    - services
+    - statefulsets
+    - storageclasses
+    - validatingwebhookconfigurations
+    - volumeattachments
     image:
       repository: giantswarm/kube-state-metrics
     metricLabelsAllowlist:
-      - daemonsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component,
-        app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
-      - deployments=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component,
-        app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
-      - nodes=[giantswarm.io/machine-pool, giantswarm.io/machine-deployment, ip, topology.kubernetes.io/region,
-        topology.kubernetes.io/zone]
-      - pods=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component,
-        app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
-      - statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component,
-        app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
+    - daemonsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
+    - deployments=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
+    - nodes=[giantswarm.io/machine-pool, giantswarm.io/machine-deployment, ip, topology.kubernetes.io/region, topology.kubernetes.io/zone]
+    - pods=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
+    - statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
     networkPolicy:
       enabled: true
       flavor: kubernetes
       egress:
-        - to:
-            - ipBlock:
-                cidr: 10.0.0.0/8
-            - ipBlock:
-                cidr: 172.16.0.0/12
-            - ipBlock:
-                cidr: 192.168.0.0/16
-            - ipBlock:
-                cidr: 100.64.0.0/10
+      - to:
+        - ipBlock:
+            cidr: 10.0.0.0/8
+        - ipBlock:
+            cidr: 172.16.0.0/12
+        - ipBlock:
+            cidr: 192.168.0.0/16
+        - ipBlock:
+            cidr: 100.64.0.0/10
       ingress:
-        - ports:
-            - port: 8080
-              protocol: TCP
-            - port: 8081
-              protocol: TCP
+      - ports:
+        - port: 8080
+          protocol: TCP
+        - port: 8081
+          protocol: TCP
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
     podSecurityPolicy:
@@ -288,51 +274,50 @@ kube-prometheus-stack:
         enabled: true
         relabelings:
         # Add app label.
-          - targetLabel: app
-            replacement: kube-state-metrics
+        - targetLabel: app
+          replacement: kube-state-metrics
         # Add node label.
-          - sourceLabels: [__meta_kubernetes_pod_node_name]
-            targetLabel: node
+        - sourceLabels: [__meta_kubernetes_pod_node_name]
+          targetLabel: node
         metricRelabelings:
         # GS addition to reduce cardinality
         # drop unused kube-state-metrics metrics with the highest cardinality as they increase Prometheus memory usage
-          - sourceLabels: [__name__]
-            regex: 
-              kube_(.+_annotations|secret_type|pod_status_qos_class|pod_tolerations|pod_status_scheduled|replicaset_metadata_generation|replicaset_status_observed_generation|replicaset_annotations|replicaset_status_fully_labeled_replicas|.+_metadata_resource_version)
-            action: drop
+        - sourceLabels: [__name__]
+          regex: kube_(.+_annotations|secret_type|pod_status_qos_class|pod_tolerations|pod_status_scheduled|replicaset_metadata_generation|replicaset_status_observed_generation|replicaset_annotations|replicaset_status_fully_labeled_replicas|.+_metadata_resource_version)
+          action: drop
         # drop image_id label
-          - action: labeldrop
-            regex: image_id
+        - action: labeldrop
+          regex: image_id
         # GS addition for dashboards
-          - sourceLabels: [label_topology_kubernetes_io_region]
-            targetLabel: region
-            replacement: ${1}
-            action: replace
-          - sourceLabels: [label_topology_kubernetes_io_zone]
-            targetLabel: zone
-            replacement: ${1}
-            action: replace
-          - action: labeldrop
-            regex: label_topology_kubernetes_io_region|label_topology_kubernetes_io_zone
+        - sourceLabels: [label_topology_kubernetes_io_region]
+          targetLabel: region
+          replacement: ${1}
+          action: replace
+        - sourceLabels: [label_topology_kubernetes_io_zone]
+          targetLabel: zone
+          replacement: ${1}
+          action: replace
+        - action: labeldrop
+          regex: label_topology_kubernetes_io_region|label_topology_kubernetes_io_zone
         # Override with label for AWS clusters if exists.
-          - sourceLabels: [label_giantswarm_io_machine_deployment]
-            targetLabel: nodepool
-            replacement: ${1}
-            action: replace
+        - sourceLabels: [label_giantswarm_io_machine_deployment]
+          targetLabel: nodepool
+          replacement: ${1}
+          action: replace
         # Override with label for Azure clusters if exists.
-          - sourceLabels: [label_giantswarm_io_machine_pool]
-            targetLabel: nodepool
-            replacement: ${1}
-            action: replace
+        - sourceLabels: [label_giantswarm_io_machine_pool]
+          targetLabel: nodepool
+          replacement: ${1}
+          action: replace
     # Remove prometheus.io/scrape annotation
     prometheusScrape: false
     # Enable this so we can have vpa metrics
     rbac:
       extraRules:
-        - apiGroups: ["autoscaling.k8s.io"]
-          resources:
-            - verticalpodautoscalers
-          verbs: ["list", "watch"]
+      - apiGroups: ["autoscaling.k8s.io"]
+        resources:
+          - verticalpodautoscalers
+        verbs: ["list", "watch"]
     ## We set resources so VPA can do its thing
     resources:
       requests:
@@ -392,21 +377,21 @@ kube-prometheus-stack:
     serviceMonitor:
       relabelings:
       # Add app label.
-        - sourceLabels:
-            - __meta_kubernetes_pod_label_app_kubernetes_io_name
-          targetLabel: app
+      - sourceLabels:
+        - __meta_kubernetes_pod_label_app_kubernetes_io_name
+        targetLabel: app
         # Add instance label.
-        - sourceLabels:
-            - __meta_kubernetes_pod_label_app_kubernetes_io_instance
-          targetLabel: instance
+      - sourceLabels:
+        - __meta_kubernetes_pod_label_app_kubernetes_io_instance
+        targetLabel: instance
       # Add node label.
-        - sourceLabels:
-            - __meta_kubernetes_pod_node_name
-          targetLabel: node
+      - sourceLabels:
+        - __meta_kubernetes_pod_node_name
+        targetLabel: node
       # Add team label.
-        - sourceLabels:
-            - __meta_kubernetes_pod_label_application_giantswarm_io_team
-          targetLabel: team
+      - sourceLabels:
+        - __meta_kubernetes_pod_label_application_giantswarm_io_team
+        targetLabel: team
   thanosRuler:
     enabled: false
     thanosRulerSpec:
