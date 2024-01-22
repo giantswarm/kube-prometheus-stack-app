@@ -330,6 +330,9 @@ kube-prometheus-stack:
       enabled: true
     verticalPodAutoscaler:
       enabled: true
+      minAllowed:
+        cpu: 200m
+        memory: 200Mi
   nodeExporter:
     enabled: false
   prometheus-node-exporter:

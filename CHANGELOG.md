@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add `minAllowed` field for KSM vpa.
+
 ## [8.1.1] - 2023-12-13
 
 ### Changed
