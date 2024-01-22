@@ -373,6 +373,17 @@
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
+                                },
+                                "minAllowed": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
                             }
                         }
