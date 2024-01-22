@@ -330,7 +330,7 @@ kube-prometheus-stack:
       enabled: true
     verticalPodAutoscaler:
       enabled: true
-      # We set minAllowed=requests to allow VPA to work effiently
+      # We set minAllowed=requests to allow VPA to work efficiently
       minAllowed:
         cpu: 200m
         memory: 200Mi
