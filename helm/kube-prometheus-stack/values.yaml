@@ -1,5 +1,5 @@
 global:
-  imageRegistry: docker.io
+  imageRegistry: gsoci.azurecr.io
   rbac:
     create: true
     pspEnabled: true
