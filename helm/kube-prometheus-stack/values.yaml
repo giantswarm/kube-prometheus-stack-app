@@ -43,11 +43,16 @@ kube-prometheus-stack:
         sourceLabels:
         - __name__
   grafana:
+    image:
+      repository: "giantswarm/grafana"
     rbac:
       pspEnabled: true
       pspUseAppArmor: false
     ingress:
       ingressClassName: nginx
+    sidecar:
+      image:
+        repository: "giantswarm/k8s-sidecar"
   kubeApiServer:
     enabled: true
     serviceMonitor:

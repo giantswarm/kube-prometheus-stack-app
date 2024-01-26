@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+- Change default grafana images to use GS-retagged ones
+
 ## [8.1.3] - 2024-01-25
 
 ### Changed
