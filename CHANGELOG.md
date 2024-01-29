@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [8.1.4] - 2024-01-29
+
 - Change default grafana images to use GS-retagged ones
 
 ## [8.1.3] - 2024-01-25
@@ -597,7 +599,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.3...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.4...HEAD
+[8.1.4]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.3...v8.1.4
 [8.1.3]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.2...v8.1.3
 [8.1.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.1...v8.1.2
 [8.1.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.0...v8.1.1
