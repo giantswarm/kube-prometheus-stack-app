@@ -9,13 +9,17 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Changed default grafana images to use GS-retagged ones
 - Upgraded chart dependency to [kube-prometheus-stack-56.1.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-56.1.0)
   - prometheus upgraded from v0.70.0 to v0.71.2
   - kube-state-metrics upgraded from 5.15 to 5.16
   - prometheus-node-exporter upgraded from 4.24 to 4.26
   - grafana upgraded from 7.0 to 7.2
   - prometheus-windows-exporter upgraded from 0.1 to 0.3
+
+
+## [8.1.4] - 2024-01-29
+
+- Change default grafana images to use GS-retagged ones
 
 ## [8.1.3] - 2024-01-25
 
@@ -605,7 +609,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.3...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.4...HEAD
+[8.1.4]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.3...v8.1.4
 [8.1.3]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.2...v8.1.3
 [8.1.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.1...v8.1.2
 [8.1.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.0...v8.1.1
