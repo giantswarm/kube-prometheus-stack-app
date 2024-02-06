@@ -16,6 +16,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - grafana upgraded from 7.0 to 7.2
   - prometheus-windows-exporter upgraded from 0.1 to 0.3
 
+### Breaking
+
+- Prometheus resources now support `scale` subresource (https://github.com/prometheus-operator/prometheus-operator/pull/5962). This can break existing VPAs, which should now target the `prometheus` resource instead of the `statefulset`.
 
 ## [8.1.4] - 2024-01-29
 
