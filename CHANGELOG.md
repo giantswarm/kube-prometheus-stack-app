@@ -10,11 +10,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Upgraded chart dependency to [kube-prometheus-stack-56.1.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-56.1.0)
-  - prometheus upgraded from v0.70.0 to v0.71.2
+  - prometheus-operator upgraded from v0.70.0 to v0.71.2
   - kube-state-metrics upgraded from 5.15 to 5.16
   - prometheus-node-exporter upgraded from 4.24 to 4.26
-  - grafana upgraded from 7.0 to 7.2
+  - grafana upgraded from 7.0 to 7.3
   - prometheus-windows-exporter upgraded from 0.1 to 0.3
+  - thanos upgraded from 0.33.0 to 0.34.0
 
 ### Breaking
 
