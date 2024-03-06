@@ -361,6 +361,8 @@ kube-prometheus-stack:
       pathType: ImplementationSpecific
   prometheusOperator:
     enabled: true
+    strategy:
+      type: Recreate
     admissionWebhooks:
       patch:
         image:
