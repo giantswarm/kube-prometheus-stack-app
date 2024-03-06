@@ -362,6 +362,9 @@ kube-prometheus-stack:
   prometheusOperator:
     enabled: true
     admissionWebhooks:
+      deployment:
+        strategy:
+          type: Recreate
       patch:
         image:
           repository: giantswarm/ingress-nginx-kube-webhook-certgen
