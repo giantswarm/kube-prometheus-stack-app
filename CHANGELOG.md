@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Set rollout strategy to Recreate for prometheus-operator.
+- Set rollout strategy to Recreate for prometheus-operator deployment.
 - Upgraded chart dependency to [kube-prometheus-stack-56.21.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-56.21.1)
   - prometheus-node-exporter upgraded from 4.26 to 4.30
   - thanos upgraded from 0.34.0 to 0.34.1
