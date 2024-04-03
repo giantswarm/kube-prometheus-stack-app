@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [9.1.1] - 2024-04-03
+
 ### Changed
 
 - Add `node.kubernetes.io/instance-type` to the list of exported kube_node_labels.
@@ -630,7 +632,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.1...HEAD
+[9.1.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.0...v9.1.1
 [9.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.0.0...v9.1.0
 [9.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.4...v9.0.0
 [8.1.4]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.3...v8.1.4
