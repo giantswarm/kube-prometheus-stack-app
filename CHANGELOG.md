@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Add `node.kubernetes.io/instance-type` to the list of exported kube_node_labels.
+
 ## [9.1.0] - 2024-03-06
 
 ### Changed

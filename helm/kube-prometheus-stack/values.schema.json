@@ -135,6 +135,14 @@
                 "grafana": {
                     "type": "object",
                     "properties": {
+                        "image": {
+                            "type": "object",
+                            "properties": {
+                                "repository": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "ingress": {
                             "type": "object",
                             "properties": {
@@ -151,6 +159,19 @@
                                 },
                                 "pspUseAppArmor": {
                                     "type": "boolean"
+                                }
+                            }
+                        },
+                        "sidecar": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "object",
+                                    "properties": {
+                                        "repository": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -912,6 +933,14 @@
                                             }
                                         }
                                     }
+                                }
+                            }
+                        },
+                        "strategy": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string"
                                 }
                             }
                         },
