@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [9.2.0] - 2024-04-04
+
 ### Changed
 
 - Set `GOGC=75` to prometheus-operator to reduce CPU usage (side effect of https://github.com/prometheus-operator/prometheus-operator/pull/5993).
@@ -636,7 +638,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.1...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.2.0...HEAD
+[9.2.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.1...v9.2.0
 [9.1.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.0...v9.1.1
 [9.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.0.0...v9.1.0
 [9.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v8.1.4...v9.0.0
