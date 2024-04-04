@@ -361,6 +361,8 @@ kube-prometheus-stack:
       pathType: ImplementationSpecific
   prometheusOperator:
     enabled: true
+    env:
+      GOGC: "75"
     strategy:
       type: Recreate
     admissionWebhooks:

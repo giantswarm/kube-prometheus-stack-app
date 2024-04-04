@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Set `GOGC=75` to prometheus-operator to reduce CPU usage (side effect of https://github.com/prometheus-operator/prometheus-operator/pull/5993).
+
 ## [9.1.1] - 2024-04-03
 
 ### Changed
