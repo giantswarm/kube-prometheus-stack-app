@@ -221,7 +221,6 @@ kube-prometheus-stack:
     - daemonsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
     - deployments=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
     - nodes=[giantswarm.io/machine-pool, giantswarm.io/machine-deployment, ip, node.kubernetes.io/instance-type, topology.kubernetes.io/region, topology.kubernetes.io/zone]
-    - persistentvolumeclaims=[name]
     - pods=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
     - statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
     networkPolicy:
