@@ -213,42 +213,15 @@ kube-prometheus-stack:
   kubeStateMetrics:
     enabled: true
   kube-state-metrics:
-    # Enabling verticalpodautoscaler collector until 2.9.0.
-    collectors:
-    - certificatesigningrequests
-    - configmaps
-    - cronjobs
-    - daemonsets
-    - deployments
-    - endpoints
-    - horizontalpodautoscalers
-    - ingresses
-    - jobs
-    - leases
-    - limitranges
-    - mutatingwebhookconfigurations
-    - namespaces
-    - networkpolicies
-    - nodes
-    - persistentvolumeclaims
-    - persistentvolumes
-    - poddisruptionbudgets
-    - pods
-    - replicasets
-    - replicationcontrollers
-    - resourcequotas
-    - secrets
-    - services
-    - statefulsets
-    - storageclasses
-    - validatingwebhookconfigurations
-    - volumeattachments
     image:
       repository: giantswarm/kube-state-metrics
     metricLabelsAllowlist:
+    - cronjobs=[application.giantswarm.io/team, app.kubernetes.io/name]
+    - jobs=[application.giantswarm.io/team, app.kubernetes.io/name]
     - daemonsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
     - deployments=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
     - nodes=[giantswarm.io/machine-pool, giantswarm.io/machine-deployment, ip, node.kubernetes.io/instance-type, topology.kubernetes.io/region, topology.kubernetes.io/zone]
+    - persistentvolumeclaims=[name]
     - pods=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
     - statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]
     networkPolicy:
