@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [10.0.0] - 2024-04-30
+
+- Upgraded chart dependency to [kube-prometheus-stack-58.3.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-58.3.0)
+  - kube-state-metrics from 2.10.0 to [2.12.0](https://github.com/kubernetes/kube-state-metrics/releases/tag/v2.12.0)
+  - prometheus upgraded from 2.50.1 to 2.51.2
+  - prometheus-node-exporter upgraded from 1.17.0 to [1.18.0](https://github.com/prometheus/node_exporter/releases/tag/v1.8.0)
+  - prometheus-operator from 0.71.2 to 0.73.2 also adding Scrape Class support
+
 ## [9.1.2] - 2024-04-04
 
 ### Changed
@@ -638,7 +646,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.2...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v10.0.0...HEAD
+[10.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.2...v10.0.0
 [9.1.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.1...v9.1.2
 [9.1.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.0...v9.1.1
 [9.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.0.0...v9.1.0
