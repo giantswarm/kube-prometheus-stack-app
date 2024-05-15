@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [10.1.0] - 2024-05-15
+
 - Upgraded chart dependency from kube-prometheus-stack-58.5.2 to [kube-prometheus-stack-58.5.2](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-58.5.2)
   - prometheus upgraded from 2.51.2 to 2.52.0
   - thanos ruler upgraded from 0.34.1 to 0.35.0
@@ -650,7 +652,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v10.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v10.1.0...HEAD
+[10.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v10.0.0...v10.1.0
 [10.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.2...v10.0.0
 [9.1.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.1...v9.1.2
 [9.1.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.0...v9.1.1
