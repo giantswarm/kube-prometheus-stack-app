@@ -9,7 +9,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Upgraded chart dependency from kube-prometheus-stack-58.3.0 to [kube-prometheus-stack-58.3.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-58.3.1)
+- Upgraded chart dependency from kube-prometheus-stack-58.5.2 to [kube-prometheus-stack-58.5.2](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-58.5.2)
+  - prometheus upgraded from 2.51.2 to 2.52.0
+  - thanos ruler upgraded from 0.34.1 to 0.35.0
 
 ### Removed
 
