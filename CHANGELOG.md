@@ -7,9 +7,17 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
 - Upgraded chart dependency from kube-prometheus-stack-58.3.0 to [kube-prometheus-stack-58.3.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-58.3.1)
 
+### Removed
+
+- Remove `giantswarm.io/monitoring_basic_sli` label on the prometheus operator to get rid of the old slo alert mechanism.
+
 ## [10.0.0] - 2024-04-30
+
+### Changed
 
 - Upgraded chart dependency to [kube-prometheus-stack-58.3.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-58.3.0)
   - kube-state-metrics from 2.10.0 to [2.12.0](https://github.com/kubernetes/kube-state-metrics/releases/tag/v2.12.0)

@@ -180,12 +180,6 @@
                 "kube-state-metrics": {
                     "type": "object",
                     "properties": {
-                        "collectors": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
                         "image": {
                             "type": "object",
                             "properties": {
@@ -863,18 +857,18 @@
                         "enabled": {
                             "type": "boolean"
                         },
-                        "image": {
+                        "env": {
                             "type": "object",
                             "properties": {
-                                "repository": {
+                                "GOGC": {
                                     "type": "string"
                                 }
                             }
                         },
-                        "labels": {
+                        "image": {
                             "type": "object",
                             "properties": {
-                                "giantswarm.io/monitoring_basic_sli": {
+                                "repository": {
                                     "type": "string"
                                 }
                             }
