@@ -7,13 +7,21 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Upgraded chart dependency from kube-prometheus-stack-58.5.3 to [kube-prometheus-stack-58.5.3](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-58.5.3)
+
 ## [10.1.0] - 2024-05-15
+
+### Changed
 
 - Upgraded chart dependency from kube-prometheus-stack-58.5.2 to [kube-prometheus-stack-58.5.2](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-58.5.2)
   - prometheus upgraded from 2.51.2 to 2.52.0
   - thanos ruler upgraded from 0.34.1 to 0.35.0
 
 ## [10.0.0] - 2024-04-30
+
+### Changed
 
 - Upgraded chart dependency to [kube-prometheus-stack-58.3.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-58.3.0)
   - kube-state-metrics from 2.10.0 to [2.12.0](https://github.com/kubernetes/kube-state-metrics/releases/tag/v2.12.0)
