@@ -346,8 +346,6 @@ kube-prometheus-stack:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
     image:
       repository: giantswarm/prometheus-operator
-    labels:
-      giantswarm.io/monitoring_basic_sli: "true"
     prometheusConfigReloader:
       image:
         repository: giantswarm/prometheus-config-reloader

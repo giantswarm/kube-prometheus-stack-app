@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Removed
+
+- Remove `giantswarm.io/monitoring_basic_sli` label on the prometheus operator to get rid of the old slo alert mechanism.
+
 ### Changed
 
 - Upgraded chart dependency from kube-prometheus-stack-58.6.0 to [kube-prometheus-stack-58.6.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-58.6.0)
