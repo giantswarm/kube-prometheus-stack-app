@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [10.2.0] - 2024-05-29
+
 ### Removed
 
 - Remove `giantswarm.io/monitoring_basic_sli` label on the prometheus operator to get rid of the old slo alert mechanism.
@@ -664,7 +666,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v10.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v10.2.0...HEAD
+[10.2.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v10.1.0...v10.2.0
 [10.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v10.0.0...v10.1.0
 [10.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.2...v10.0.0
 [9.1.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.1...v9.1.2
