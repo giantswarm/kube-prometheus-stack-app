@@ -11,6 +11,9 @@ kyvernoPolicyExceptions:
   namespace: giantswarm
 
 kube-prometheus-stack:
+  # Full list of values can be found at:
+  # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+  # Note: make sure to add values you want to override under the `kube-prometheus-stack` key.
   alertmanager:
     alertmanagerSpec:
       image:
