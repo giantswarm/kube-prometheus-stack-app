@@ -45,6 +45,12 @@ kube-prometheus-stack:
         regex: coredns_dns_(request_size_bytes_bucket|response_size_bytes_bucket)
         sourceLabels:
         - __name__
+      # Drop zone label, due to large cardinality. Zones can be deducted from
+      # the server configuration and we keep the server label.
+      - action: drop
+        regex: core_cache_.*
+        sourceLabels:
+        - zone
   grafana:
     image:
       repository: "giantswarm/grafana"

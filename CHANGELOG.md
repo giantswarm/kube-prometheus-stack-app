@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Drop `zone` label for `coredns_cache_.*` metrics due to large cardinality. Zones can be deducted from the server configuration and we keep the `server` label.
+
 ## [10.2.0] - 2024-05-29
 
 ### Removed
