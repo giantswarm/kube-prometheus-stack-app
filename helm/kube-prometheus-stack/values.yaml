@@ -47,10 +47,11 @@ kube-prometheus-stack:
         - __name__
       # Drop zone label, due to large cardinality. Zones can be deducted from
       # the server configuration and we keep the server label.
-      - action: drop
+      - action: LabelDrop
         regex: core_cache_.*
         sourceLabels:
-        - zone
+        - __name__
+        targetLabel: zone
   grafana:
     image:
       repository: "giantswarm/grafana"
