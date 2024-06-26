@@ -45,13 +45,28 @@ kube-prometheus-stack:
         regex: coredns_dns_(request_size_bytes_bucket|response_size_bytes_bucket)
         sourceLabels:
         - __name__
-      # Drop zone label, due to large cardinality. Zones can be deducted from
-      # the server configuration and we keep the server label.
-      - action: labeldrop
-        regex: core_cache_.*
+      #
+      # Will replace:
+      #
+      # - zones="cluster.local.,31.172.in-addr.arpa.,64.100.in-addr.arpa.,65.100.in-addr.arpa.,something.else."
+      #   to zones="cluster.local.,__replaced__*.in-addr.__,something.else"
+      #
+      # - zones="cluster.local.,31.172.in-addr.arpa.,64.100.in-addr.arpa.,65.100.in-addr.arpa.,66.100.in-addr.arpa."
+      #   to zones="cluster.local.,__replaced__*.in-addr.__"
+      #
+      # - zones="31.172.in-addr.arpa.,64.100.in-addr.arpa.,65.100.in-addr.arpa.,66.100.in-addr.arpa.,something.else."
+      #   to zones="__replaced__*.in-addr.__,something.else"
+      #
+      # - zones="31.172.in-addr.arpa.,64.100.in-addr.arpa.,65.100.in-addr.arpa.,66.100.in-addr.arpa."
+      #   to zones="__replaced__*.in-addr.__"
+      #
+      - action: replace
+        regex: coredns_cache_.*;([^,]*?,?)(?:(?:,?[\d\.]+\.in-addr\.arpa\.)+)+(,?.*)
         sourceLabels:
         - __name__
-        targetLabel: zone
+        - zones
+        targetLabel: zones
+        replacement: "${1}__replaced__*.in-addr.__${2}"
   grafana:
     image:
       repository: "giantswarm/grafana"

@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Drop `zone` label for `coredns_cache_.*` metrics due to large cardinality. Zones can be deducted from the server configuration and we keep the `server` label.
+- Replace `in-addr.arpa` records in `zone` label for `coredns_cache_.*` metrics due to large cardinality.
 
 ## [10.2.0] - 2024-05-29
 
