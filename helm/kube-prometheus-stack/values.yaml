@@ -60,6 +60,8 @@ kube-prometheus-stack:
       # - zones="31.172.in-addr.arpa.,64.100.in-addr.arpa.,65.100.in-addr.arpa.,66.100.in-addr.arpa."
       #   to zones="__replaced__*.in-addr.__"
       #
+      # Check PR https://github.com/giantswarm/kube-prometheus-stack-app/pull/404 for testing code.
+      #
       - action: replace
         regex: coredns_cache_.*;([^,]*?,?)(?:(?:,?[\d\.]+\.in-addr\.arpa\.)+)+(,?.*)
         sourceLabels:
