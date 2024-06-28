@@ -11,6 +11,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- Upgraded chart dependency to [kube-prometheus-stack-61.0.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-61.0.0)
+  - prometheus-operator from 0.73.2 to [0.75.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.75.0) - adding remoteWrite.proxyFromEnvironment support
+  - prometheus upgraded from 2.52.0 to [2.53.0](https://github.com/prometheus-community/helm-charts/releases/tag/prometheus-25.22.0)
+  - grafana from 7.3.12 to [8.2.0](https://github.com/grafana/helm-charts/releases/tag/grafana-8.2.0)
+  - thanos ruler upgraded from 0.35.0 to [0.35.1](https://github.com/thanos-io/thanos/releases/tag/v0.35.1)
+  - prometheus-node-exporter upgraded from 1.8.0 to [1.8.1](https://github.com/prometheus/node_exporter/releases/tag/v1.8.1)
 - Replace `in-addr.arpa` records in `zone` label for `coredns_cache_.*` metrics due to large cardinality.
 
 ## [10.2.0] - 2024-05-29
