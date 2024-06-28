@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [11.0.0] - 2024-06-28
+
 ### Changed
 
 - Replace `in-addr.arpa` records in `zone` label for `coredns_cache_.*` metrics due to large cardinality.
@@ -670,7 +672,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v10.2.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v11.0.0...HEAD
+[11.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v10.2.0...v11.0.0
 [10.2.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v10.1.0...v10.2.0
 [10.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v10.0.0...v10.1.0
 [10.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v9.1.2...v10.0.0
