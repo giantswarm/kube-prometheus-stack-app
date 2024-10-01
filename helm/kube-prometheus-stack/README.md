@@ -78,11 +78,11 @@ Kubernetes: `>=1.19.0-0`
 | kube-prometheus-stack.kube-state-metrics.collectors[8] | string | `"jobs"` |  |
 | kube-prometheus-stack.kube-state-metrics.collectors[9] | string | `"leases"` |  |
 | kube-prometheus-stack.kube-state-metrics.image.repository | string | `"giantswarm/kube-state-metrics"` |  |
-| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[0] | string | `"daemonsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]"` |  |
-| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[1] | string | `"deployments=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]"` |  |
+| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[0] | string | `"daemonsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]"` |  |
+| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[1] | string | `"deployments=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]"` |  |
 | kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[2] | string | `"nodes=[giantswarm.io/machine-pool, giantswarm.io/machine-deployment, ip, topology.kubernetes.io/region, topology.kubernetes.io/zone]"` |  |
-| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[3] | string | `"pods=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]"` |  |
-| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[4] | string | `"statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/monitoring_basic_sli, giantswarm.io/service-type]"` |  |
+| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[3] | string | `"pods=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]"` |  |
+| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[4] | string | `"statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]"` |  |
 | kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].to[0].ipBlock.cidr | string | `"10.0.0.0/8"` |  |
 | kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].to[1].ipBlock.cidr | string | `"172.16.0.0/12"` |  |
 | kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].to[2].ipBlock.cidr | string | `"192.168.0.0/16"` |  |
