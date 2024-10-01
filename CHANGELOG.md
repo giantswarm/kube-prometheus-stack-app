@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Removed
+
+- Get rid of legacy in-house slo framework.
+
 ## [11.0.0] - 2024-06-28
 
 ### Changed
