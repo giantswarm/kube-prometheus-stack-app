@@ -13,7 +13,7 @@ annotations:
   application.giantswarm.io/team: atlas
 dependencies:
   - name: kube-prometheus-stack
-    version: 61.0.0
+    version: 63.1.0
     repository: https://prometheus-community.github.io/helm-charts
 sources:
   - "https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack"
