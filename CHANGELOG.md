@@ -7,6 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Upgraded chart dependency to [kube-prometheus-stack-66.1.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-66.1.1)
+  - prometheus-operator from 0.77.1 to [0.78.1](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.78.1)
+  - kube-state-metrics from 2.13.0 to [2.14.0](https://github.com/kubernetes/kube-state-metrics/releases/tag/v2.14.0)
+
 ## [12.0.0] - 2024-10-11
 
 ### Changed
