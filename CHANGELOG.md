@@ -7,6 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Upgraded chart dependency to [kube-prometheus-stack-69.5.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-66.5.1)
+  - grafana from 8.6.0 to [8.10.0](https://github.com/grafana/helm-charts/releases/tag/grafana-8.10.0)
+  - prometheus-operator to [0.80.1](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.80.1)
+  - prometheus to [3.0.1](https://github.com/prometheus/prometheus/releases/tag/v3.0.1)
+
 ## [13.0.1] - 2024-11-18
 
 ### Changed
