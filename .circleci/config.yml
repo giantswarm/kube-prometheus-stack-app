@@ -1,10 +1,12 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@5.12.0
+  architect: giantswarm/architect@dev:315aea16304e64ebe6844cc8f9d1799a6fe54446
 
 workflows:
   package-and-push-chart-on-tag:
     jobs:
+      - architect/run-kyverno-tests:
+          name: execute kyverno policy evaluation
       - architect/push-to-app-catalog:
           context: architect
           executor: "app-build-suite"
