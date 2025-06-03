@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Disable PodSecurityPolicies by default as PodSecurityPolicies are deprecated and removed in Kubernetes v1.25+ clusters
+
 ## [16.0.0] - 2025-05-13
 
 - Upgraded chart dependency to [kube-prometheus-stack-72.3.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-72.3.0)

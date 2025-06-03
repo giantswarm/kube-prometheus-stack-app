@@ -14,14 +14,6 @@
                         "create": {
                             "type": "boolean"
                         },
-                        "pspAnnotations": {
-                            "type": "object",
-                            "properties": {
-                                "seccomp.security.alpha.kubernetes.io/allowedProfileNames": {
-                                    "type": "string"
-                                }
-                            }
-                        },
                         "pspEnabled": {
                             "type": "boolean"
                         }
@@ -155,9 +147,6 @@
                             "type": "object",
                             "properties": {
                                 "pspEnabled": {
-                                    "type": "boolean"
-                                },
-                                "pspUseAppArmor": {
                                     "type": "boolean"
                                 }
                             }
