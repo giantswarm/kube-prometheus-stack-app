@@ -415,7 +415,7 @@ kube-prometheus-stack:
   nodeExporter:
     enabled: true
 ```
-As this application is build upon the kube-prometheus-stack community driven upstream chart as a dependency, most of the values to override can be found [here](https://github.com/prometheus-community/helm-charts/blob/kube-prometheus-stack-44.2.0/charts/kube-prometheus-stack/values.yaml).
+As this application is build upon the kube-prometheus-stack community driven upstream chart as a dependency, most of the values to override can be found [here](https://github.com/prometheus-community/helm-charts/blob/kube-prometheus-stack-72.3.0/charts/kube-prometheus-stack/values.yaml).
 
 ### Sample App CR and ConfigMap for the management cluster
 

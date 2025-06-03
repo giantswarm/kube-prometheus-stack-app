@@ -2,9 +2,7 @@ global:
   imageRegistry: gsoci.azurecr.io
   rbac:
     create: true
-    pspEnabled: true
-    pspAnnotations:
-      seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
+    pspEnabled: false
 
 kyvernoPolicyExceptions:
   enabled: true
@@ -73,8 +71,7 @@ kube-prometheus-stack:
     image:
       repository: "giantswarm/grafana"
     rbac:
-      pspEnabled: true
-      pspUseAppArmor: false
+      pspEnabled: false
     ingress:
       ingressClassName: nginx
     sidecar:
@@ -272,7 +269,7 @@ kube-prometheus-stack:
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
     podSecurityPolicy:
-      enabled: true
+      enabled: false
     prometheus:
       monitor:
         enabled: true
@@ -344,7 +341,7 @@ kube-prometheus-stack:
     image:
       repository: giantswarm/node-exporter
     rbac:
-      pspEnabled: true
+      pspEnabled: false
   prometheus:
     prometheusSpec:
       image:
