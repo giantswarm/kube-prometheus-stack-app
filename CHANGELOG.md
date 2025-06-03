@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [16.1.0] - 2025-06-03
+
 ### Changed
 
 - Disable PodSecurityPolicies by default as PodSecurityPolicies are deprecated and removed in Kubernetes v1.25+ clusters
@@ -734,7 +736,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v16.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v16.1.0...HEAD
+[16.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v16.0.0...v16.1.0
 [16.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v15.0.0...v16.0.0
 [15.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v14.0.0...v15.0.0
 [14.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v13.0.1...v14.0.0
