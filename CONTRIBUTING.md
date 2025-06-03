@@ -12,4 +12,5 @@
 * re-generate `helm/kube-prometheus-stack/values.schema.json`:
   * `helm schema-gen helm/kube-prometheus-stack/values.yaml > helm/kube-prometheus-stack/values.schema.json` to re-generate the file.
   * `sed -i 's/"type": "null"/"type": ["string", "null"]/g' helm/kube-prometheus-stack/values.schema.json` to accept strings for all null values.
+* re-generate the chart README using `make helm-docs APPLICATION=helm/kube-prometheus-stack` or use the provided script `./script/update-docs.sh`
 * update the link in the [`Configuration`](./README.md#configuration) section of the Readme to point to the new tag configuration.
