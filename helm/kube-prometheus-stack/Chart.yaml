@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "v0.82.0"
+appVersion: "v0.84.1"
 name: kube-prometheus-stack
 description: Giant Swarm's Prometheus Operator Deployment
 icon: https://s.giantswarm.io/app-icons/prometheus-operator/2/light.svg
