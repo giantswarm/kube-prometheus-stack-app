@@ -3,7 +3,7 @@ appVersion: "v0.85.0"
 name: kube-prometheus-stack
 description: Giant Swarm's Prometheus Operator Deployment
 icon: https://s.giantswarm.io/app-icons/prometheus-operator/2/light.svg
-version: 17.0.0
+version: 18.0.0
 home: https://github.com/giantswarm/kube-prometheus-stack-app
 kubeVersion: ">=1.25.0-0"
 maintainers:
