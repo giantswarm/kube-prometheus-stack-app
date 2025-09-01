@@ -1,6 +1,11 @@
 {{- if and .Values.kyvernoPolicyExceptions.enabled (index .Values "kube-prometheus-stack" "nodeExporter" "enabled") }}
-{{- if .Capabilities.APIVersions.Has "kyverno.io/v2alpha1/PolicyException" -}}
+{{- if .Capabilities.APIVersions.Has "kyverno.io/v2/PolicyException" -}}
+apiVersion: kyverno.io/v2
+{{- else if .Capabilities.APIVersions.Has "kyverno.io/v2beta1/PolicyException" -}}
+apiVersion: kyverno.io/v2beta1
+{{- else -}}
 apiVersion: kyverno.io/v2alpha1
+{{- end }}
 kind: PolicyException
 metadata:
   annotations:
@@ -49,5 +54,4 @@ spec:
         - {{ include "prometheus-node-exporter.namespace" . }}
         names:
         - {{ include "prometheus-node-exporter.fullname" . }}*
-  {{- end -}}
 {{- end -}}
