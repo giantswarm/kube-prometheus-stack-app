@@ -310,6 +310,29 @@ kube-prometheus-stack:
           targetLabel: nodepool
           replacement: ${1}
           action: replace
+
+        # CAPI monitoring specific BEGIN
+        # (see kube-state-metrics rules in https://github.com/giantswarm/observability-bundle/tree/main/helm/observability-bundle/ksm-configurations)
+
+        - action: replace
+          sourceLabels:
+            - __name__
+            - cluster_name
+          regex: "^capi_.+;(.+)"
+          replacement: "${1}"
+          targetLabel: cluster_id
+        # Use the `name` label as cluster name if the above fails
+        - action: replace
+          sourceLabels:
+            - __name__
+            - cluster_name
+            - name
+          regex: "^capi_.+;;(.+)"
+          replacement: "${1}"
+          targetLabel: cluster_id
+
+        # CAPI monitoring specific END
+
     # Remove prometheus.io/scrape annotation
     prometheusScrape: false
     # Enable this so we can have vpa metrics
