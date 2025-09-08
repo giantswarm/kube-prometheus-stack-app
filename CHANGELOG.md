@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add relabeling rules from `cluster-api-monitoring-app` so that `cluster_id` label points to the workload cluster name as expected in some alert definitions
+
 ### Changed
 
 - Update Kyverno PolicyExceptions to v2.
