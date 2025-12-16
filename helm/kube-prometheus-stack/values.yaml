@@ -387,7 +387,7 @@ kube-prometheus-stack:
     admissionWebhooks:
       patch:
         image:
-          repository: giantswarm/ingress-nginx-kube-webhook-certgen
+          repository: giantswarm/jkroepke-kube-webhook-certgen
     alertmanagerDefaultBaseImage: giantswarm/alertmanager
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
