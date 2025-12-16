@@ -220,7 +220,7 @@ Kubernetes: `>=1.25.0-0`
 | kube-prometheus-stack.prometheus.prometheusSpec.image.repository | string | `"giantswarm/prometheus"` |  |
 | kube-prometheus-stack.prometheus.thanosIngress.ingressClassName | string | `"nginx"` |  |
 | kube-prometheus-stack.prometheus.thanosIngress.pathType | string | `"ImplementationSpecific"` |  |
-| kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.image.repository | string | `"giantswarm/ingress-nginx-kube-webhook-certgen"` |  |
+| kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.image.repository | string | `"giantswarm/jkroepke-kube-webhook-certgen"` |  |
 | kube-prometheus-stack.prometheusOperator.alertmanagerDefaultBaseImage | string | `"giantswarm/alertmanager"` |  |
 | kube-prometheus-stack.prometheusOperator.enabled | bool | `true` |  |
 | kube-prometheus-stack.prometheusOperator.env.GOGC | string | `"75"` |  |
