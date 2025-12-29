@@ -9,6 +9,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [19.0.1] - 2025-12-29
 
+### Fixed
+
+- KSM were not collecting endpoints anymore
+
 ## [19.0.0] - 2025-12-16
 
 ### Changed
