@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [19.0.1] - 2025-12-29
+
 ## [19.0.0] - 2025-12-16
 
 ### Changed
@@ -768,7 +770,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v19.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v19.0.1...HEAD
+[19.0.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v19.0.0...v19.0.1
 [19.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v18.1.0...v19.0.0
 [18.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v18.0.0...v18.1.0
 [18.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v17.0.0...v18.0.0
