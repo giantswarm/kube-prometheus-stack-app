@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [19.0.2] - 2026-02-12
+
 ### Changed
 
 - Change team annotation in `Chart.yaml` to OpenContainers format (`io.giantswarm.application.team`).
@@ -778,7 +780,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v19.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v19.0.2...HEAD
+[19.0.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v19.0.1...v19.0.2
 [19.0.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v19.0.0...v19.0.1
 [19.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v18.1.0...v19.0.0
 [18.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v18.0.0...v18.1.0
