@@ -5,7 +5,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/version: "{{ .Chart.Version }}"
 app.kubernetes.io/part-of: {{ template "kube-prometheus-stack.name" . }}
-application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | default "atlas" | quote }}
+application.giantswarm.io/team: {{ index .Chart.Annotations "io.giantswarm.application.team" | default "atlas" | quote }}
 chart: {{ include "kube-prometheus-stack.chartref" . | trunc 63 }}
 release: {{ $.Release.Name | quote }}
 heritage: {{ $.Release.Service | quote }}
@@ -58,8 +58,8 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/component: metrics
 app.kubernetes.io/part-of: {{ template "kube-state-metrics.name" . }}
 {{- include "kube-state-metrics.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- if .Chart.Version }}
+app.kubernetes.io/version: {{ .Chart.Version | quote }}
 {{- end }}
 {{- if .Values.customLabels }}
 {{ toYaml .Values.customLabels }}

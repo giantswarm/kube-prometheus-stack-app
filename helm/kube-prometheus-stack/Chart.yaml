@@ -10,7 +10,7 @@ maintainers:
   - name: giantswarm/team-atlas
     email: team-atlas@giantswarm.io
 annotations:
-  application.giantswarm.io/team: atlas
+  io.giantswarm.application.team: atlas
 dependencies:
   - name: kube-prometheus-stack
     version: 80.4.1
