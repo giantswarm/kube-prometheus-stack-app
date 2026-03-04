@@ -242,11 +242,11 @@ kube-prometheus-stack:
     metricLabelsAllowlist:
     - cronjobs=[application.giantswarm.io/team, app.kubernetes.io/name]
     - jobs=[application.giantswarm.io/team, app.kubernetes.io/name]
-    - daemonsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]
-    - deployments=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]
+    - daemonsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, app.kubernetes.io/version, giantswarm.io/service-type, helm.toolkit.fluxcd.io/name, helm.toolkit.fluxcd.io/namespace]
+    - deployments=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, app.kubernetes.io/version, giantswarm.io/service-type, helm.toolkit.fluxcd.io/name, helm.toolkit.fluxcd.io/namespace]
     - nodes=[giantswarm.io/machine-pool, giantswarm.io/machine-deployment, ip, node.kubernetes.io/instance-type, topology.kubernetes.io/region, topology.kubernetes.io/zone]
     - pods=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]
-    - statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]
+    - statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, app.kubernetes.io/version, giantswarm.io/service-type, helm.toolkit.fluxcd.io/name, helm.toolkit.fluxcd.io/namespace]
     # Available collectors for kube-state-metrics.
     # By default, all available resources are enabled, comment out to disable.
     collectors:
