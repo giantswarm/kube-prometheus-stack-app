@@ -7,6 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Upgraded chart dependency to [kube-prometheus-stack-82.8.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-82.8.0)
+  - Added VPA support for Alertmanager
+  - Added VPA support for Prometheus
+  - grafana from 11.2.2 to 11.2.3
+
 ## [20.0.0] - 2026-03-03
 
 ### Changed
