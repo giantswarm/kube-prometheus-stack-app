@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add labels to Deployment, DaemonSet, StatefulSet metrics: `app.kubernetes.io/version`, `helm.toolkit.fluxcd.io/name`, `helm.toolkit.fluxcd.io/namespace`
+
 ## [20.1.0] - 2026-03-04
 
 ### Changed
