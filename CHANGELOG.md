@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [20.2.0] - 2026-03-05
+
 ### Added
 
 - Add labels to Deployment, DaemonSet, StatefulSet metrics: `app.kubernetes.io/version`, `helm.toolkit.fluxcd.io/name`, `helm.toolkit.fluxcd.io/namespace`
@@ -801,7 +803,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v20.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v20.2.0...HEAD
+[20.2.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v20.1.0...v20.2.0
 [20.1.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v20.0.0...v20.1.0
 [20.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v19.0.2...v20.0.0
 [19.0.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v19.0.1...v19.0.2
