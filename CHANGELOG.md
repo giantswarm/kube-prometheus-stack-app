@@ -7,6 +7,17 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Upgraded chart dependency to [kube-prometheus-stack-85.2.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-85.2.0)
+  - prometheus-operator to [0.90.1](https://github.com/prometheus-operator/prometheus-operator/blob/main/CHANGELOG.md#0901--2026-04-29)
+  - alertmanager image tag from `v0.31.1` to `v0.32.1`
+  - prometheus image tag from `v3.10.0` to `v3.11.3-distroless` (distroless variant now enabled by default)
+  - prometheus-node-exporter from 4.52.0 to 4.55.0, distroless variant enabled by default
+  - grafana subchart from 11.2.3 to 12.3.3 (Grafana app upgraded to v13)
+  - kube-state-metrics from 7.2.0 to 7.3.0
+  - kube-webhook-certgen image tag from `1.7.8` to `1.8.2`
+
 ## [20.2.0] - 2026-03-05
 
 ### Added
