@@ -11,6 +11,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add `app.circleci.com/circle-project-reponame` label to the KSM Pods labels allowed list.
 
+### Changed
+
+- Fix ABS config to not override AppVersion in Chart.yaml
+
 ## [21.0.0] - 2026-05-22
 
 ### Changed
