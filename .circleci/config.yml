@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@9.3.0
+  architect: giantswarm/architect@9.4.1
 
 workflows:
   package-and-push-chart-on-tag:
@@ -14,6 +14,7 @@ workflows:
           chart: "kube-prometheus-stack"
           explicit_allow_chart_name_mismatch: true
           ct_config: ".circleci/ct-config.yaml"
+          override_app_version: false
           filters:
             # Trigger the job also on git tag.
             tags:
@@ -28,6 +29,7 @@ workflows:
           chart: "kube-prometheus-stack"
           explicit_allow_chart_name_mismatch: true
           ct_config: ".circleci/ct-config.yaml"
+          override_app_version: false
           filters:
             # Trigger the job also on git tag.
             tags:
