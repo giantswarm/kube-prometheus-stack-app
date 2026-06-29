@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Upgraded chart dependency to [kube-prometheus-stack-87.2.1](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-87.2.1) (from `85.2.1`)
+- Upgraded chart dependency to [kube-prometheus-stack-87.3.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-87.3.0) (from `85.2.1`)
   - prometheus-operator to [0.92.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.92.0) (via [0.91.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.91.0))
   - alertmanager image tag from `v0.32.1` to `v0.33.0`
   - prometheus image tag from `v3.11.3-distroless` to `v3.12.0-distroless`
@@ -17,6 +17,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - kube-state-metrics subchart from `7.4.0` to `7.5.1`
   - kube-webhook-certgen image tag from `1.8.3` to `1.8.4`
   - Refreshed bundled default Prometheus alerting/recording rules and Grafana dashboards.
+  - `prometheus.prometheusSpec.containers` and `initContainers` are now rendered through `tpl` (87.3.0), so templated values inside them are evaluated. We do not set these values, so no impact.
 
 > **Note:** Update the matching-major `prometheus-operator-crd` app (to the v0.92.0 CRDs) before/alongside this upgrade. The `PrometheusTopologySharding` and `PrometheusShardRetentionPolicy` feature gates are now enabled by default in v0.92.0.
 
