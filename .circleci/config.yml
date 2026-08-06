@@ -13,7 +13,6 @@ workflows:
           app_catalog_test: "default-test-catalog"
           chart: "kube-prometheus-stack"
           explicit_allow_chart_name_mismatch: true
-          ct_config: ".circleci/ct-config.yaml"
           override_app_version: false
           filters:
             # Trigger the job also on git tag.
@@ -28,7 +27,6 @@ workflows:
           app_catalog_test: "giantswarm-test-catalog"
           chart: "kube-prometheus-stack"
           explicit_allow_chart_name_mismatch: true
-          ct_config: ".circleci/ct-config.yaml"
           override_app_version: false
           filters:
             # Trigger the job also on git tag.
