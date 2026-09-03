@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [23.0.0] - 2026-09-03
+
 ### Changed
 
 - Chart: Upgrade `kube-prometheus-stack` to v88.6.3, including:
@@ -850,7 +852,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v22.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v23.0.0...HEAD
+[23.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v22.0.0...v23.0.0
 [22.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v21.0.1...v22.0.0
 [21.0.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v21.0.0...v21.0.1
 [21.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v20.2.0...v21.0.0
