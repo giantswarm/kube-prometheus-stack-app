@@ -1,6 +1,6 @@
 # kube-prometheus-stack
 
-![Version: 22.0.0](https://img.shields.io/badge/Version-22.0.0-informational?style=flat-square) ![AppVersion: v0.92.0](https://img.shields.io/badge/AppVersion-v0.92.0-informational?style=flat-square)
+![Version: 23.0.0](https://img.shields.io/badge/Version-23.0.0-informational?style=flat-square) ![AppVersion: v0.92.0](https://img.shields.io/badge/AppVersion-v0.92.0-informational?style=flat-square)
 
 Giant Swarm's Prometheus Operator Deployment
 
