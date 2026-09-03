@@ -1,6 +1,6 @@
 # kube-prometheus-stack
 
-![Version: 16.0.0](https://img.shields.io/badge/Version-16.0.0-informational?style=flat-square) ![AppVersion: v0.82.0](https://img.shields.io/badge/AppVersion-v0.82.0-informational?style=flat-square)
+![Version: 22.0.0](https://img.shields.io/badge/Version-22.0.0-informational?style=flat-square) ![AppVersion: v0.92.0](https://img.shields.io/badge/AppVersion-v0.92.0-informational?style=flat-square)
 
 Giant Swarm's Prometheus Operator Deployment
 
@@ -22,7 +22,7 @@ Kubernetes: `>=1.25.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 72.3.0 |
+| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 88.6.3 |
 
 ## Values
 
@@ -55,14 +55,42 @@ Kubernetes: `>=1.25.0-0`
 | kube-prometheus-stack.grafana.ingress.ingressClassName | string | `"nginx"` |  |
 | kube-prometheus-stack.grafana.rbac.pspEnabled | bool | `false` |  |
 | kube-prometheus-stack.grafana.sidecar.image.repository | string | `"giantswarm/k8s-sidecar"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[0] | string | `"certificatesigningrequests"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[10] | string | `"limitranges"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[11] | string | `"mutatingwebhookconfigurations"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[12] | string | `"namespaces"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[13] | string | `"networkpolicies"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[14] | string | `"nodes"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[15] | string | `"persistentvolumeclaims"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[16] | string | `"persistentvolumes"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[17] | string | `"poddisruptionbudgets"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[18] | string | `"pods"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[19] | string | `"replicasets"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[1] | string | `"configmaps"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[20] | string | `"replicationcontrollers"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[21] | string | `"resourcequotas"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[22] | string | `"secrets"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[23] | string | `"services"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[24] | string | `"statefulsets"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[25] | string | `"storageclasses"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[26] | string | `"validatingwebhookconfigurations"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[27] | string | `"volumeattachments"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[2] | string | `"cronjobs"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[3] | string | `"daemonsets"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[4] | string | `"deployments"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[5] | string | `"endpoints"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[6] | string | `"horizontalpodautoscalers"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[7] | string | `"ingresses"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[8] | string | `"jobs"` |  |
+| kube-prometheus-stack.kube-state-metrics.collectors[9] | string | `"leases"` |  |
 | kube-prometheus-stack.kube-state-metrics.image.repository | string | `"giantswarm/kube-state-metrics"` |  |
 | kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[0] | string | `"cronjobs=[application.giantswarm.io/team, app.kubernetes.io/name]"` |  |
 | kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[1] | string | `"jobs=[application.giantswarm.io/team, app.kubernetes.io/name]"` |  |
-| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[2] | string | `"daemonsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]"` |  |
-| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[3] | string | `"deployments=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]"` |  |
+| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[2] | string | `"daemonsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, app.kubernetes.io/version, giantswarm.io/service-type, helm.toolkit.fluxcd.io/name, helm.toolkit.fluxcd.io/namespace]"` |  |
+| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[3] | string | `"deployments=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, app.kubernetes.io/version, giantswarm.io/service-type, helm.toolkit.fluxcd.io/name, helm.toolkit.fluxcd.io/namespace]"` |  |
 | kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[4] | string | `"nodes=[giantswarm.io/machine-pool, giantswarm.io/machine-deployment, ip, node.kubernetes.io/instance-type, topology.kubernetes.io/region, topology.kubernetes.io/zone]"` |  |
-| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[5] | string | `"pods=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]"` |  |
-| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[6] | string | `"statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]"` |  |
+| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[5] | string | `"pods=[app.circleci.com/circle-project-reponame, application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]"` |  |
+| kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[6] | string | `"statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, app.kubernetes.io/version, giantswarm.io/service-type, helm.toolkit.fluxcd.io/name, helm.toolkit.fluxcd.io/namespace]"` |  |
 | kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].to[0].ipBlock.cidr | string | `"10.0.0.0/8"` |  |
 | kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].to[1].ipBlock.cidr | string | `"172.16.0.0/12"` |  |
 | kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].to[2].ipBlock.cidr | string | `"192.168.0.0/16"` |  |
@@ -76,29 +104,6 @@ Kubernetes: `>=1.25.0-0`
 | kube-prometheus-stack.kube-state-metrics.podAnnotations."cluster-autoscaler.kubernetes.io/safe-to-evict" | string | `"true"` |  |
 | kube-prometheus-stack.kube-state-metrics.podSecurityPolicy.enabled | bool | `false` |  |
 | kube-prometheus-stack.kube-state-metrics.prometheus.monitor.enabled | bool | `true` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[0].action | string | `"drop"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[0].regex | string | `"kube_(.+_annotations|secret_type|pod_status_qos_class|pod_tolerations|pod_status_scheduled|replicaset_metadata_generation|replicaset_status_observed_generation|replicaset_annotations|replicaset_status_fully_labeled_replicas|.+_metadata_resource_version)"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[0].sourceLabels[0] | string | `"__name__"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[1].action | string | `"labeldrop"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[1].regex | string | `"image_id"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[2].action | string | `"replace"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[2].replacement | string | `"${1}"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[2].sourceLabels[0] | string | `"label_topology_kubernetes_io_region"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[2].targetLabel | string | `"region"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[3].action | string | `"replace"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[3].replacement | string | `"${1}"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[3].sourceLabels[0] | string | `"label_topology_kubernetes_io_zone"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[3].targetLabel | string | `"zone"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[4].action | string | `"labeldrop"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[4].regex | string | `"label_topology_kubernetes_io_region|label_topology_kubernetes_io_zone"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[5].action | string | `"replace"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[5].replacement | string | `"${1}"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[5].sourceLabels[0] | string | `"label_giantswarm_io_machine_deployment"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[5].targetLabel | string | `"nodepool"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[6].action | string | `"replace"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[6].replacement | string | `"${1}"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[6].sourceLabels[0] | string | `"label_giantswarm_io_machine_pool"` |  |
-| kube-prometheus-stack.kube-state-metrics.prometheus.monitor.metricRelabelings[6].targetLabel | string | `"nodepool"` |  |
 | kube-prometheus-stack.kube-state-metrics.prometheus.monitor.relabelings[0].replacement | string | `"kube-state-metrics"` |  |
 | kube-prometheus-stack.kube-state-metrics.prometheus.monitor.relabelings[0].targetLabel | string | `"app"` |  |
 | kube-prometheus-stack.kube-state-metrics.prometheus.monitor.relabelings[1].sourceLabels[0] | string | `"__meta_kubernetes_pod_node_name"` |  |
@@ -249,4 +254,4 @@ Kubernetes: `>=1.25.0-0`
 | kyvernoPolicyExceptions.namespace | string | `"giantswarm"` |  |
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)
+Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)

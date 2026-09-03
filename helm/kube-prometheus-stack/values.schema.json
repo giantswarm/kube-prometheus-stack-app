@@ -169,6 +169,12 @@
                 "kube-state-metrics": {
                     "type": "object",
                     "properties": {
+                        "collectors": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
                         "image": {
                             "type": "object",
                             "properties": {
@@ -264,26 +270,6 @@
                                     "properties": {
                                         "enabled": {
                                             "type": "boolean"
-                                        },
-                                        "metricRelabelings": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "action": {
-                                                        "type": "string"
-                                                    },
-                                                    "regex": {
-                                                        "type": "string"
-                                                    },
-                                                    "sourceLabels": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "type": "string"
-                                                        }
-                                                    }
-                                                }
-                                            }
                                         },
                                         "relabelings": {
                                             "type": "array",
