@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Chart: Upgrade `kube-prometheus-stack` to v88.6.3, including:
+  - `prometheus-operator` to v0.93.1
+  - `kube-state-metrics` to v8.4.1
+  - `prometheus-node-exporter` to v4.56.3
+  - `grafana` to v12.11.2
+
 ## [22.0.0] - 2026-06-29
 
 ### Changed

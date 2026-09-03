@@ -285,23 +285,14 @@ kube-prometheus-stack:
       # - roles
     networkPolicy:
       enabled: true
-      flavor: kubernetes
       egress:
-      - to:
-        - ipBlock:
-            cidr: 10.0.0.0/8
-        - ipBlock:
-            cidr: 172.16.0.0/12
-        - ipBlock:
-            cidr: 192.168.0.0/16
-        - ipBlock:
-            cidr: 100.64.0.0/10
-      ingress:
       - ports:
-        - port: 8080
-          protocol: TCP
-        - port: 8081
-          protocol: TCP
+        # Kubernetes API server
+        - protocol: TCP
+          port: 443
+        # Kubernetes API server
+        - protocol: TCP
+          port: 6443
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
     podSecurityPolicy:

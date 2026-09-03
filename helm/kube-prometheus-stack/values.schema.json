@@ -169,6 +169,12 @@
                 "kube-state-metrics": {
                     "type": "object",
                     "properties": {
+                        "collectors": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
                         "image": {
                             "type": "object",
                             "properties": {
@@ -191,36 +197,6 @@
                                     "items": {
                                         "type": "object",
                                         "properties": {
-                                            "to": {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "ipBlock": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "cidr": {
-                                                                    "type": "string"
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "flavor": {
-                                    "type": "string"
-                                },
-                                "ingress": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "object",
-                                        "properties": {
                                             "ports": {
                                                 "type": "array",
                                                 "items": {
@@ -237,6 +213,9 @@
                                             }
                                         }
                                     }
+                                },
+                                "enabled": {
+                                    "type": "boolean"
                                 }
                             }
                         },
@@ -264,26 +243,6 @@
                                     "properties": {
                                         "enabled": {
                                             "type": "boolean"
-                                        },
-                                        "metricRelabelings": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "action": {
-                                                        "type": "string"
-                                                    },
-                                                    "regex": {
-                                                        "type": "string"
-                                                    },
-                                                    "sourceLabels": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "type": "string"
-                                                        }
-                                                    }
-                                                }
-                                            }
                                         },
                                         "relabelings": {
                                             "type": "array",
