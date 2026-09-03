@@ -91,16 +91,11 @@ Kubernetes: `>=1.25.0-0`
 | kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[4] | string | `"nodes=[giantswarm.io/machine-pool, giantswarm.io/machine-deployment, ip, node.kubernetes.io/instance-type, topology.kubernetes.io/region, topology.kubernetes.io/zone]"` |  |
 | kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[5] | string | `"pods=[app.circleci.com/circle-project-reponame, application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]"` |  |
 | kube-prometheus-stack.kube-state-metrics.metricLabelsAllowlist[6] | string | `"statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, app.kubernetes.io/version, giantswarm.io/service-type, helm.toolkit.fluxcd.io/name, helm.toolkit.fluxcd.io/namespace]"` |  |
-| kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].to[0].ipBlock.cidr | string | `"10.0.0.0/8"` |  |
-| kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].to[1].ipBlock.cidr | string | `"172.16.0.0/12"` |  |
-| kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].to[2].ipBlock.cidr | string | `"192.168.0.0/16"` |  |
-| kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].to[3].ipBlock.cidr | string | `"100.64.0.0/10"` |  |
+| kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].ports[0].port | int | `443` |  |
+| kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].ports[0].protocol | string | `"TCP"` |  |
+| kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].ports[1].port | int | `6443` |  |
+| kube-prometheus-stack.kube-state-metrics.networkPolicy.egress[0].ports[1].protocol | string | `"TCP"` |  |
 | kube-prometheus-stack.kube-state-metrics.networkPolicy.enabled | bool | `true` |  |
-| kube-prometheus-stack.kube-state-metrics.networkPolicy.flavor | string | `"kubernetes"` |  |
-| kube-prometheus-stack.kube-state-metrics.networkPolicy.ingress[0].ports[0].port | int | `8080` |  |
-| kube-prometheus-stack.kube-state-metrics.networkPolicy.ingress[0].ports[0].protocol | string | `"TCP"` |  |
-| kube-prometheus-stack.kube-state-metrics.networkPolicy.ingress[0].ports[1].port | int | `8081` |  |
-| kube-prometheus-stack.kube-state-metrics.networkPolicy.ingress[0].ports[1].protocol | string | `"TCP"` |  |
 | kube-prometheus-stack.kube-state-metrics.podAnnotations."cluster-autoscaler.kubernetes.io/safe-to-evict" | string | `"true"` |  |
 | kube-prometheus-stack.kube-state-metrics.podSecurityPolicy.enabled | bool | `false` |  |
 | kube-prometheus-stack.kube-state-metrics.prometheus.monitor.enabled | bool | `true` |  |

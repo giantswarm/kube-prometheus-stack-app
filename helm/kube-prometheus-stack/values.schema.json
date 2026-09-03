@@ -197,36 +197,6 @@
                                     "items": {
                                         "type": "object",
                                         "properties": {
-                                            "to": {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "ipBlock": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "cidr": {
-                                                                    "type": "string"
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "flavor": {
-                                    "type": "string"
-                                },
-                                "ingress": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "object",
-                                        "properties": {
                                             "ports": {
                                                 "type": "array",
                                                 "items": {
@@ -243,6 +213,9 @@
                                             }
                                         }
                                     }
+                                },
+                                "enabled": {
+                                    "type": "boolean"
                                 }
                             }
                         },
