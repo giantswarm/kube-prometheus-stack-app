@@ -7,6 +7,22 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Upgraded chart dependency to [kube-prometheus-stack-91.2.3](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-91.2.3) (from `88.6.3`, via `90.0.0`)
+  - `prometheus-operator` (and `prometheus-config-reloader`) from `v0.93.1` to [v0.94.0](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.94.0)
+  - `grafana` subchart from `12.11.2` to `13.2.4`, which switches the Grafana image from `13.2.0` to `13.2.1-distroless`, enables `readOnlyRootFilesystem` on the Grafana container (with a new `/tmp` emptyDir) and sets `plugins.preinstall_auto_update = false`
+  - `k8s-sidecar` (Grafana dashboard/datasource sidecar) from `2.10.1` to `2.11.2`
+  - `kube-state-metrics` subchart from `8.4.1` to `8.4.2` (KSM image unchanged at `v2.20.0`)
+  - `prometheus-node-exporter` subchart from `4.56.3` to `4.57.0` (we keep `nodeExporter.enabled: false`, no impact)
+  - Alertmanager, Prometheus, Thanos and `kube-webhook-certgen` images are unchanged.
+- **Breaking (chart 90.0.0):** the control-plane ServiceMonitors (kubelet, kube-apiserver, kube-controller-manager, kube-scheduler, kube-etcd, kube-proxy, coredns) no longer use `bearerTokenFile`/`tlsConfig.caFile`. They now authenticate through a `kubernetes.io/service-account-token` Secret (`<release>-prometheus-token`, newly created by the chart) and read the CA from the `kube-root-ca.crt` ConfigMap. This makes the ServiceMonitors work with `arbitraryFSAccessThroughSMs.deny` and with Grafana Alloy's `prometheus.operator.servicemonitors` component (>= v1.19.0), which silently dropped every control-plane target before.
+- **Breaking (chart 91.0.0 / operator v0.94.0):** the Prometheus Operator ClusterRole no longer grants wildcard (`*`) verbs. Verbs are now explicit per resource group, and the operator only gets `get/list/watch` on the `monitoring.coreos.com` CRs plus writes on their `/status` and `/finalizers` subresources.
+- `prometheusOperator.admissionWebhooks.matchConditions` changed type from a map (`{}`) to a list (`[]`). We do not set it, so no impact.
+- Fixed the chart `appVersion`, which was still `v0.92.0`, to match the bundled Prometheus Operator (`v0.94.0`).
+
+> **Note:** release the matching `prometheus-operator-crd` app (CRDs chart `32.0.0`, Prometheus Operator `v0.94.0`) **before** this one. The CRDs shipped by this chart live in `charts/crds/crds/` and are therefore only applied by Helm on install, never on upgrade.
+
 ## [23.0.0] - 2026-09-03
 
 ### Changed
