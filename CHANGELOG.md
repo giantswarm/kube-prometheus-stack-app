@@ -20,6 +20,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - **Breaking (chart 91.0.0 / operator v0.94.0):** the Prometheus Operator ClusterRole no longer grants wildcard (`*`) verbs. Verbs are now explicit per resource group, and the operator only gets `get/list/watch` on the `monitoring.coreos.com` CRs plus writes on their `/status` and `/finalizers` subresources.
 - `prometheusOperator.admissionWebhooks.matchConditions` changed type from a map (`{}`) to a list (`[]`). We do not set it, so no impact.
 - Fixed the chart `appVersion`, which was still `v0.92.0`, to match the bundled Prometheus Operator (`v0.94.0`).
+- Added `global.controlPlaneScrapeAuth` to configure the Secret the control-plane ServiceMonitors authenticate with.
+- Dropped the scrape credential for `coreDns`, `kubeEtcd` and `kubeProxy`.
+- Removed `insecureSkipVerify` from the `kubeControllerManager` and `kubeScheduler` ServiceMonitors.
 
 > **Note:** release the matching `prometheus-operator-crd` app (CRDs chart `32.0.0`, Prometheus Operator `v0.94.0`) **before** this one. The CRDs shipped by this chart live in `charts/crds/crds/` and are therefore only applied by Helm on install, never on upgrade.
 

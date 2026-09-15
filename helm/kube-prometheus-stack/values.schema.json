@@ -18,6 +18,17 @@
                             "type": "boolean"
                         }
                     }
+                },
+                "controlPlaneScrapeAuth": {
+                    "type": "object",
+                    "properties": {
+                        "secretName": {
+                            "type": "string"
+                        },
+                        "serviceAccountName": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },
@@ -116,6 +127,28 @@
                                             },
                                             "targetLabel": {
                                                 "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "authorization": {
+                                    "type": [
+                                        "object",
+                                        "null"
+                                    ],
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "credentials": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "key": {
+                                                    "type": "string"
+                                                }
                                             }
                                         }
                                     }
@@ -394,6 +427,28 @@
                                             }
                                         }
                                     }
+                                },
+                                "authorization": {
+                                    "type": [
+                                        "object",
+                                        "null"
+                                    ],
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "credentials": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "key": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -430,9 +485,6 @@
                                 "https": {
                                     "type": "boolean"
                                 },
-                                "insecureSkipVerify": {
-                                    "type": "boolean"
-                                },
                                 "metricRelabelings": {
                                     "type": "array",
                                     "items": {
@@ -466,6 +518,28 @@
                                             }
                                         }
                                     }
+                                },
+                                "authorization": {
+                                    "type": [
+                                        "object",
+                                        "null"
+                                    ],
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "credentials": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "key": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -493,6 +567,28 @@
                                             }
                                         }
                                     }
+                                },
+                                "authorization": {
+                                    "type": [
+                                        "object",
+                                        "null"
+                                    ],
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "credentials": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "key": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -517,6 +613,28 @@
                                             },
                                             "targetLabel": {
                                                 "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "authorization": {
+                                    "type": [
+                                        "object",
+                                        "null"
+                                    ],
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "credentials": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "key": {
+                                                    "type": "string"
+                                                }
                                             }
                                         }
                                     }
@@ -556,9 +674,6 @@
                                 "https": {
                                     "type": "boolean"
                                 },
-                                "insecureSkipVerify": {
-                                    "type": "boolean"
-                                },
                                 "metricRelabelings": {
                                     "type": "array",
                                     "items": {
@@ -589,6 +704,28 @@
                                             },
                                             "targetLabel": {
                                                 "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "authorization": {
+                                    "type": [
+                                        "object",
+                                        "null"
+                                    ],
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "credentials": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "key": {
+                                                    "type": "string"
+                                                }
                                             }
                                         }
                                     }
@@ -690,6 +827,28 @@
                                             },
                                             "targetLabel": {
                                                 "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "authorization": {
+                                    "type": [
+                                        "object",
+                                        "null"
+                                    ],
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "credentials": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "key": {
+                                                    "type": "string"
+                                                }
                                             }
                                         }
                                     }

@@ -70,3 +70,25 @@ heritage: {{ $.Release.Service | quote }}
 {{- end }}
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | default "atlas" | quote }}
 {{- end }}
+
+{{/*
+Name of the Secret holding the bearer token the control-plane ServiceMonitors present.
+
+Defaults to upstream behaviour: the token Secret this chart creates for its own Prometheus
+ServiceAccount, and therefore to upstream's `fail` message when that Secret is not rendered.
+Installations where this chart does not deploy Prometheus - i.e. an external agent does the
+scraping - point this at a Secret they manage.
+
+Reads from `.Values.global` on purpose: this is invoked through the sub-chart's `tpl`, where
+`.Values` is the sub-chart's value tree and `global` is the only shared branch.
+*/}}
+{{- define "giantswarm.controlPlaneScrapeAuth.secretName" -}}
+{{- $cfg := (.Values.global).controlPlaneScrapeAuth | default dict -}}
+{{- if $cfg.secretName -}}
+{{- $cfg.secretName -}}
+{{- else if $cfg.serviceAccountName -}}
+{{- printf "%s-token" $cfg.serviceAccountName -}}
+{{- else -}}
+{{- include "kube-prometheus-stack.prometheus.tokenSecretName" . -}}
+{{- end -}}
+{{- end -}}
