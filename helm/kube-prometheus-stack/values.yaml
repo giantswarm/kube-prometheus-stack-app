@@ -3,6 +3,13 @@ global:
   rbac:
     create: true
     pspEnabled: false
+  # Secret the control-plane ServiceMonitors authenticate with. Empty means the one this
+  # chart creates for its own Prometheus. Set serviceAccountName (Secret is then
+  # <serviceAccountName>-token) or secretName when another agent scrapes; either must
+  # already exist in the release namespace.
+  controlPlaneScrapeAuth:
+    secretName: ""
+    serviceAccountName: ""
 
 kyvernoPolicyExceptions:
   enabled: true
@@ -29,6 +36,8 @@ kube-prometheus-stack:
       selector:
         k8s-app: coredns
     serviceMonitor:
+      # Plain HTTP: upstream sends the token regardless of scheme, so drop it.
+      authorization: null
       relabelings:
       # Add app label.
       - targetLabel: app
@@ -80,6 +89,11 @@ kube-prometheus-stack:
   kubeApiServer:
     enabled: true
     serviceMonitor:
+      authorization:
+        type: Bearer
+        credentials:
+          name: '{{ include "giantswarm.controlPlaneScrapeAuth.secretName" . }}'
+          key: token
       relabelings:
       # Add app label.
       - targetLabel: app
@@ -111,6 +125,11 @@ kube-prometheus-stack:
   kubelet:
     enabled: true
     serviceMonitor:
+      authorization:
+        type: Bearer
+        credentials:
+          name: '{{ include "giantswarm.controlPlaneScrapeAuth.secretName" . }}'
+          key: token
       cAdvisorRelabelings:
       # Keep the default value
       - action: replace
@@ -177,7 +196,11 @@ kube-prometheus-stack:
         component: kube-controller-manager
     serviceMonitor:
       https: true
-      insecureSkipVerify: true
+      authorization:
+        type: Bearer
+        credentials:
+          name: '{{ include "giantswarm.controlPlaneScrapeAuth.secretName" . }}'
+          key: token
       relabelings:
       # Add app label.
       - targetLabel: app
@@ -195,6 +218,8 @@ kube-prometheus-stack:
   kubeEtcd:
     enabled: true
     serviceMonitor:
+      # Plain HTTP, see coreDns above.
+      authorization: null
       relabelings:
       # Add app label.
       - targetLabel: app
@@ -206,6 +231,8 @@ kube-prometheus-stack:
   kubeProxy:
     enabled: true
     serviceMonitor:
+      # Plain HTTP, see coreDns above.
+      authorization: null
       relabelings:
       # Add app label.
       - targetLabel: app
@@ -219,7 +246,11 @@ kube-prometheus-stack:
         component: kube-scheduler
     serviceMonitor:
       https: true
-      insecureSkipVerify: true
+      authorization:
+        type: Bearer
+        credentials:
+          name: '{{ include "giantswarm.controlPlaneScrapeAuth.secretName" . }}'
+          key: token
       relabelings:
       # Add app label.
       - targetLabel: app
