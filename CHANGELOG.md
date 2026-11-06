@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Update architect to v10.17.2 (giantswarm/kube-prometheus-stack-app#631)
+
 ## [24.0.0] - 2026-09-15
 
 ### Changed
