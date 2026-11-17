@@ -246,6 +246,7 @@ Kubernetes: `>=1.25.0-0`
 | kube-prometheus-stack.thanosRuler.ingress.pathType | string | `"ImplementationSpecific"` |  |
 | kube-prometheus-stack.thanosRuler.thanosRulerSpec.image.repository | string | `"giantswarm/thanos"` |  |
 | kyvernoPolicyExceptions.enabled | bool | `true` |  |
+| kyvernoPolicyExceptions.legacy.enabled | bool | `true` | Renders the kyverno.io/v2 PolicyException, which applies to ClusterPolicies only. Will be used as a global switch in a future release. |
 | kyvernoPolicyExceptions.namespace | string | `"giantswarm"` |  |
 
 ----------------------------------------------
