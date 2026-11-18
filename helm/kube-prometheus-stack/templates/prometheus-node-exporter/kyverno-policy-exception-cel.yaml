@@ -38,5 +38,5 @@ spec:
       request.kind.kind in ['DaemonSet', 'Pod'] &&
       request.namespace == '{{ include "prometheus-node-exporter.namespace" . }}' &&
       has(object.metadata.name) &&
-      object.metadata.name.startsWith('{{ include "prometheus-node-exporter.fullname" . }}')
+      (object.metadata.name == '{{ include "prometheus-node-exporter.fullname" . }}' || object.metadata.name.startsWith('{{ include "prometheus-node-exporter.fullname" . }}-'))
 {{- end -}}
