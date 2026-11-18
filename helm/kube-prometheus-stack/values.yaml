@@ -275,6 +275,8 @@ kube-prometheus-stack:
     - jobs=[application.giantswarm.io/team, app.kubernetes.io/name]
     - daemonsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, app.kubernetes.io/version, giantswarm.io/service-type, helm.toolkit.fluxcd.io/name, helm.toolkit.fluxcd.io/namespace]
     - deployments=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, app.kubernetes.io/version, giantswarm.io/service-type, helm.toolkit.fluxcd.io/name, helm.toolkit.fluxcd.io/namespace]
+    # Lets alerts catch the clusterwide network policy deny opt-out on Giant Swarm namespaces.
+    - namespaces=[policy.giantswarm.io/default-deny]
     - nodes=[giantswarm.io/machine-pool, giantswarm.io/machine-deployment, ip, node.kubernetes.io/instance-type, topology.kubernetes.io/region, topology.kubernetes.io/zone]
     - pods=[app.circleci.com/circle-project-reponame, application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, giantswarm.io/service-type]
     - statefulsets=[application.giantswarm.io/team, app.kubernetes.io/name, app.kubernetes.io/component, app.kubernetes.io/instance, app.kubernetes.io/version, giantswarm.io/service-type, helm.toolkit.fluxcd.io/name, helm.toolkit.fluxcd.io/namespace]

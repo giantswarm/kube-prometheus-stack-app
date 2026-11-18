@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add `policy.giantswarm.io/default-deny` to the kube-state-metrics namespace label allowlist. `kube_namespace_labels` is now emitted, one series per namespace, with `label_policy_giantswarm_io_default_deny` where the label is set.
+
 ### Changed
 
 - Update architect to v10.17.2 (giantswarm/kube-prometheus-stack-app#631)
