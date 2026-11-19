@@ -17,6 +17,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- Move the PolicyExceptions from the `giantswarm` namespace to `kube-system` (`kyvernoPolicyExceptions.namespace`), as the `giantswarm` namespace is going away.
 - Update architect to v10.17.2 (giantswarm/kube-prometheus-stack-app#631)
 - Update architect to v10.18.0 (giantswarm/kube-prometheus-stack-app#645)
 - Upgrade `kube-prometheus-stack` from 92.21.1 to [93.5.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-93.5.0) (giantswarm/kube-prometheus-stack-app#635):
