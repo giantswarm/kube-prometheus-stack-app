@@ -1,4 +1,4 @@
-{{- if and .Values.kyvernoPolicyExceptions.enabled (index .Values "kube-prometheus-stack" "nodeExporter" "enabled") }}
+{{- if and .Values.kyvernoPolicyExceptions.enabled .Values.kyvernoPolicyExceptions.legacy.enabled (index .Values "kube-prometheus-stack" "nodeExporter" "enabled") }}
 {{- if .Capabilities.APIVersions.Has "kyverno.io/v2/PolicyException" -}}
 apiVersion: kyverno.io/v2
 {{- else if .Capabilities.APIVersions.Has "kyverno.io/v2beta1/PolicyException" -}}
@@ -12,6 +12,7 @@ metadata:
     "helm.sh/hook": "pre-install,pre-upgrade"
   labels:
     {{- include "prometheus-node-exporter.labels" . | nindent 4 }}
+    policy.giantswarm.io/migrated-to-cel: "true"
   name: {{ include "prometheus-node-exporter.fullname" . }}-exceptions
   namespace: {{ .Values.kyvernoPolicyExceptions.namespace | default (include "prometheus-node-exporter.namespace" .) }}
 spec:
