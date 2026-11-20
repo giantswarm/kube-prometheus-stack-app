@@ -24,7 +24,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - The chart fails to render when `prometheusOperator.tls.enabled` is set and nothing creates the TLS secret.
 - Set the chart `appVersion` to `v0.95.2`.
 
-> **Note:** release the matching `prometheus-operator-crd` app (Prometheus Operator `v0.95.2` CRDs) before this one.
+> **Note:** release the matching `prometheus-operator-crd` app (Prometheus Operator `v0.95.2` CRDs, giantswarm/prometheus-operator-crd#309) before this one.
 
 ## [24.0.0] - 2026-09-15
 
