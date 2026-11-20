@@ -15,6 +15,16 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Update architect to v10.17.2 (giantswarm/kube-prometheus-stack-app#631)
 - Update architect to v10.18.0 (giantswarm/kube-prometheus-stack-app#645)
+- Upgrade `kube-prometheus-stack` from 92.21.1 to [93.5.0](https://github.com/prometheus-community/helm-charts/releases/tag/kube-prometheus-stack-93.5.0) (giantswarm/kube-prometheus-stack-app#635):
+  - `prometheus-operator` and `prometheus-config-reloader` from `v0.94.2` to [v0.95.2](https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.95.2).
+  - Alertmanager from `v0.34.2` to `v0.35.0`.
+  - Grafana image from `13.3.0` to `13.3.1`.
+  - `kube-webhook-certgen` from `1.11.0` to `1.11.1`.
+  - Operator ClusterRole gains `alertmanagerconfigs/status` and loses `delete` on `pods`.
+  - The chart fails to render when `prometheusOperator.tls.enabled` is set and nothing creates the TLS secret.
+- Set the chart `appVersion` to `v0.95.2`.
+
+> **Note:** release the matching `prometheus-operator-crd` app (Prometheus Operator `v0.95.2` CRDs, giantswarm/prometheus-operator-crd#309) before this one.
 
 ## [24.0.0] - 2026-09-15
 
