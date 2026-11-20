@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [25.0.0] - 2026-11-20
+
 ### Added
 
 - Add `policy.giantswarm.io/default-deny` to the kube-state-metrics namespace label allowlist. `kube_namespace_labels` is now emitted, one series per namespace, with `label_policy_giantswarm_io_default_deny` where the label is set.
@@ -892,7 +894,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v24.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v25.0.0...HEAD
+[25.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v24.0.0...v25.0.0
 [24.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v23.0.0...v24.0.0
 [23.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v22.0.0...v23.0.0
 [22.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v21.0.1...v22.0.0
