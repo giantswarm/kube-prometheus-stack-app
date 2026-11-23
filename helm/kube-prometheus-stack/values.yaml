@@ -129,8 +129,10 @@ kube-prometheus-stack:
         regex: apiserver_request_sli_duration_seconds_(bucket|sum|count)|apiserver_request_body_size_bytes_bucket|apiserver_response_sizes_(bucket|sum|count)|apiserver_watch_list_duration_seconds_bucket|apiserver_watch_cache_read_wait_seconds_bucket|apiserver_watch_events_sizes_bucket
         sourceLabels:
         - __name__
+      # etcd_requests_total and the apiserver_cache_list_* / storage_list_evaluated counters stay:
+      # they are how per-resource apiserver/etcd load gets investigated.
       - action: drop
-        regex: apiserver_storage_consistency_checks_total|apiserver_cache_list_(total|fetched_objects_total)|apiserver_storage_list_evaluated_objects_total|etcd_requests_total|etcd_request_duration_seconds_sum
+        regex: apiserver_storage_consistency_checks_total|etcd_request_duration_seconds_sum
         sourceLabels:
         - __name__
   kubelet:
@@ -204,10 +206,11 @@ kube-prometheus-stack:
         regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
         action: drop
       # Unused kubelet histograms and gauges (giantswarm/giantswarm#38930). Kept on purpose:
-      # kubelet_container_log_filesystem_used_bytes (MC log-volume runbook) and
-      # go_goroutines (Kubernetes / Kubelet dashboard).
+      # kubelet_container_log_filesystem_used_bytes (MC log-volume runbook), go_goroutines
+      # (Kubernetes / Kubelet dashboard), kubernetes_feature_enabled (kubelet feature-gate checks)
+      # and kubelet_image_pull_duration_seconds_bucket (image pull debugging).
       - sourceLabels: [__name__]
-        regex: kubernetes_feature_enabled|csi_operations_seconds_bucket|volume_operation_total_seconds_bucket|dra_operations_duration_seconds_bucket|kubelet_http_requests_duration_seconds_bucket|kubelet_image_pull_duration_seconds_bucket|kubelet_pod_start_(sli|total)_duration_seconds_bucket|kubelet_topology_manager_.+|authentication_token_cache_request_duration_seconds_bucket
+        regex: csi_operations_seconds_bucket|volume_operation_total_seconds_bucket|dra_operations_duration_seconds_bucket|kubelet_http_requests_duration_seconds_bucket|kubelet_pod_start_(sli|total)_duration_seconds_bucket|kubelet_topology_manager_.+|authentication_token_cache_request_duration_seconds_bucket
         action: drop
       - sourceLabels: [__name__]
         regex: go_(cgo|cpu_classes|gc|godebug|memory_classes|memstats|sched|sync)_.+|go_(info|threads)
