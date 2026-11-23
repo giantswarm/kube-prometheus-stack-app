@@ -771,6 +771,9 @@
                                         }
                                     }
                                 },
+                                "probes": {
+                                    "type": "boolean"
+                                },
                                 "cAdvisorRelabelings": {
                                     "type": "array",
                                     "items": {

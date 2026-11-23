@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Stop shipping apiserver, kubelet and cAdvisor metrics that no Giant Swarm alert, SLO, dashboard or runbook reads, and stop scraping the kubelet `/metrics/probes` endpoint (giantswarm/giantswarm#38930).
+
 ## [25.0.0] - 2026-11-20
 
 ### Added

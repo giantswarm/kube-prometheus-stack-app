@@ -122,6 +122,17 @@ kube-prometheus-stack:
         regex: apiextensions_openapi_v2_regeneration_count|apiextensions_openapi_v3_regeneration_count
         sourceLabels:
         - __name__
+      # Histograms and counters nothing reads: no alert, recording rule, SLO, dashboard,
+      # runbook or Grafana Cloud rule uses them (giantswarm/giantswarm#38930).
+      # apiserver_request_duration_seconds is kept: it backs the latency SLOs.
+      - action: drop
+        regex: apiserver_request_sli_duration_seconds_(bucket|sum|count)|apiserver_request_body_size_bytes_bucket|apiserver_response_sizes_(bucket|sum|count)|apiserver_watch_list_duration_seconds_bucket|apiserver_watch_cache_read_wait_seconds_bucket|apiserver_watch_events_sizes_bucket
+        sourceLabels:
+        - __name__
+      - action: drop
+        regex: apiserver_storage_consistency_checks_total|apiserver_cache_list_(total|fetched_objects_total)|apiserver_storage_list_evaluated_objects_total|etcd_requests_total|etcd_request_duration_seconds_sum
+        sourceLabels:
+        - __name__
   kubelet:
     enabled: true
     serviceMonitor:
@@ -130,6 +141,9 @@ kube-prometheus-stack:
         credentials:
           name: '{{ include "giantswarm.controlPlaneScrapeAuth.secretName" . }}'
           key: token
+      # /metrics/probes only exposes prober_probe_* (one histogram per container probe),
+      # which nothing reads (giantswarm/giantswarm#38930).
+      probes: false
       cAdvisorRelabelings:
       # Keep the default value
       - action: replace
@@ -170,6 +184,11 @@ kube-prometheus-stack:
       - sourceLabels: [__name__]
         regex: container_(blkio_device_usage_total|network_transmit_errors_total|network_receive_errors_total|memory_failures_total|memory_max_usage_bytes|memory_failcnt)
         action: drop
+      # One series per container each, read by nothing (giantswarm/giantswarm#38930).
+      # container_oom_events_total is kept on purpose.
+      - sourceLabels: [__name__]
+        regex: container_pressure_.+|container_cpu_load_d_average_10s|container_cpu_cfs_burst_.+|container_memory_(kernel_usage|total_active_file_bytes|total_inactive_file_bytes)|container_(last_seen|health_state|start_time_seconds|processes|sockets|threads|ulimits_soft)
+        action: drop
       relabelings:
       # Keep the default value
       - action: replace
@@ -183,6 +202,15 @@ kube-prometheus-stack:
       # drop unused rest client metrics
       - sourceLabels: [__name__]
         regex: rest_client_(rate_limiter_duration_seconds_bucket|request_size_bytes_bucket|response_size_bytes_bucket)
+        action: drop
+      # Unused kubelet histograms and gauges (giantswarm/giantswarm#38930). Kept on purpose:
+      # kubelet_container_log_filesystem_used_bytes (MC log-volume runbook) and
+      # go_goroutines (Kubernetes / Kubelet dashboard).
+      - sourceLabels: [__name__]
+        regex: kubernetes_feature_enabled|csi_operations_seconds_bucket|volume_operation_total_seconds_bucket|dra_operations_duration_seconds_bucket|kubelet_http_requests_duration_seconds_bucket|kubelet_image_pull_duration_seconds_bucket|kubelet_pod_start_(sli|total)_duration_seconds_bucket|kubelet_topology_manager_.+|authentication_token_cache_request_duration_seconds_bucket
+        action: drop
+      - sourceLabels: [__name__]
+        regex: go_(cgo|cpu_classes|gc|godebug|memory_classes|memstats|sched|sync)_.+|go_(info|threads)
         action: drop
       # drop uid label from kubelet
       - action: labeldrop
