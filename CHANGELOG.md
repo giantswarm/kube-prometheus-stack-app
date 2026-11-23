@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [24.0.1] - 2026-11-23
+
 ### Fixed
 
 - Grant the Prometheus Operator `update` on `alertmanagers/finalizers`, `prometheusagents/finalizers`, `prometheuses/finalizers` and `thanosrulers/finalizers` (backport of [prometheus-community/helm-charts#7295](https://github.com/prometheus-community/helm-charts/pull/7295)).
@@ -877,7 +879,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v24.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v24.0.1...HEAD
+[24.0.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v24.0.0...v24.0.1
 [24.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v23.0.0...v24.0.0
 [23.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v22.0.0...v23.0.0
 [22.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v21.0.1...v22.0.0
