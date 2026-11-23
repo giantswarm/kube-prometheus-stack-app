@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Render the operator finalizers ClusterRole and ClusterRoleBinding labels with the upstream chart version.
+
 ## [24.0.1] - 2026-11-23
 
 ### Fixed
