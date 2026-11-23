@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Grant the Prometheus Operator `update` on `alertmanagers/finalizers`, `prometheusagents/finalizers`, `prometheuses/finalizers` and `thanosrulers/finalizers` (backport of [prometheus-community/helm-charts#7295](https://github.com/prometheus-community/helm-charts/pull/7295)).
+
 ## [24.0.0] - 2026-09-15
 
 ### Changed
