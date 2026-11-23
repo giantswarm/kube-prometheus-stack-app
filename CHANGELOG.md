@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [24.0.2] - 2026-11-23
+
 ### Fixed
 
 - Render the operator finalizers ClusterRole and ClusterRoleBinding labels with the upstream chart version.
@@ -883,7 +885,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v24.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v24.0.2...HEAD
+[24.0.2]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v24.0.1...v24.0.2
 [24.0.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v24.0.0...v24.0.1
 [24.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v23.0.0...v24.0.0
 [23.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v22.0.0...v23.0.0
