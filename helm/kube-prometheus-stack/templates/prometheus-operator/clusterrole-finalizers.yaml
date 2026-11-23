@@ -1,0 +1,37 @@
+{{- $kps := index .Values "kube-prometheus-stack" }}
+{{- if and $kps.prometheusOperator.enabled $kps.global.rbac.create }}
+{{- $ctx := dict "Values" $kps "Release" .Release "Chart" (dict "Name" "kube-prometheus-stack") }}
+{{- $name := printf "%s-finalizers" (include "kube-prometheus-stack.operator.fullname" $ctx) }}
+# Backport of upstream prometheus-community/helm-charts#7295, included from chart 91.5.2.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "kube-prometheus-stack.labels" . | indent 4 }}
+rules:
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - alertmanagers/finalizers
+  - prometheusagents/finalizers
+  - prometheuses/finalizers
+  - thanosrulers/finalizers
+  verbs:
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "kube-prometheus-stack.labels" . | indent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ $name }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "kube-prometheus-stack.operator.serviceAccountName" $ctx }}
+  namespace: {{ include "kube-prometheus-stack.namespace" $ctx }}
+{{- end }}
