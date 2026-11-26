@@ -1,0 +1,42 @@
+{{- if and .Values.kyvernoPolicyExceptions.enabled (index .Values "kube-prometheus-stack" "nodeExporter" "enabled") }}
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+  labels:
+    {{- include "prometheus-node-exporter.labels" . | nindent 4 }}
+  name: {{ include "prometheus-node-exporter.fullname" . }}-exceptions
+  namespace: {{ .Values.kyvernoPolicyExceptions.namespace | default (include "prometheus-node-exporter.namespace" .) }}
+spec:
+  policyRefs:
+  - name: disallow-host-path
+    kind: ValidatingPolicy
+  - name: disallow-privilege-escalation
+    kind: ValidatingPolicy
+  - name: disallow-capabilities-strict
+    kind: ValidatingPolicy
+  - name: disallow-host-namespaces
+    kind: ValidatingPolicy
+  - name: disallow-host-ports
+    kind: ValidatingPolicy
+  - name: restrict-seccomp-strict
+    kind: ValidatingPolicy
+  - name: restrict-volume-types
+    kind: ValidatingPolicy
+  # require-container-requests-and-limits is a supplemental policy and usually
+  # not enabled. It is excepted because the node-exporter DaemonSet fails it
+  # when the policy is enforced.
+  - name: require-container-requests-and-limits
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: node-exporter-workloads
+    # The prefix is this chart's fullname, not node-exporter's (the helpers run
+    # in this chart's context), so it also matches the chart's other workloads.
+    # It is kept 1:1 with the kyverno.io/v2 PolicyException.
+    expression: >-
+      request.kind.kind in ['DaemonSet', 'Pod'] &&
+      request.namespace == '{{ include "prometheus-node-exporter.namespace" . }}' &&
+      has(object.metadata.name) &&
+      (object.metadata.name == '{{ include "prometheus-node-exporter.fullname" . }}' || object.metadata.name.startsWith('{{ include "prometheus-node-exporter.fullname" . }}-'))
+{{- end -}}
