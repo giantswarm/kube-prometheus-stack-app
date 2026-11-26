@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [25.0.1] - 2026-11-26
+
 ### Added
 
 - Add a PolicyException for the Kyverno CEL policies.
@@ -903,7 +905,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - First version of the prometheus operator chart.
 
-[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v25.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v25.0.1...HEAD
+[25.0.1]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v25.0.0...v25.0.1
 [25.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v24.0.0...v25.0.0
 [24.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v23.0.0...v24.0.0
 [23.0.0]: https://github.com/giantswarm/kube-prometheus-stack-app/compare/v22.0.0...v23.0.0
